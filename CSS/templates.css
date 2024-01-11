@@ -76,9 +76,9 @@ main{
     position: absolute;
     display: flex;
     justify-content: space-between;
-    width: 1405px;
+    width: 1287px;
     align-items: center;
-    padding: 0 200px;
+    padding: 0 196px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
     height: 96px;
 }
