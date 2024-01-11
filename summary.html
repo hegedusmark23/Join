@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Summary</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div w3-include-html="./assets/templates/header.html"></div>
-
+<body onload="includeHTML()">
+    <div w3-include-html="./assets/templates/sidenavbar.html"></div>
     <main>
-        <div w3-include-html="./assets/templates/sidenavbar.html"></div>
+        <div w3-include-html="./assets/templates/header.html"></div>
         <div id="summary-content"></div> 
     </main>
 
+    <script src="./JS/script.js"></script>
     <script src="./JS/w3include.js"></script>
 </body>
 </html>
