@@ -1,8 +1,4 @@
 
-body{
-    margin: 0px;
-}
-
 .navbar{
     width: 232px;
     height: 100vh;
@@ -59,4 +55,47 @@ body{
     flex-direction: column;
     padding-top: 300px;
     gap: 20px;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+}
+
+.user-icon{
+    height: 54px;
+    width: 54px;
+    border-radius: 50%;
+    border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 1405px;
+    align-items: center;
+    padding: 0 200px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
+    height: 96px;
+}
+
+.user-help-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-headline{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.nav-text{
+    font-size: 16px;
+    font-weight: 400;
 }
