@@ -1,0 +1,42 @@
+
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.notUser-text{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.sign-up-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 35px;
+}
+
+.join-logo{
+    padding: 40px 0;
+}
+
+.login-container{
+    background-color: white;
+    border-radius: 30px;
+}
+
+main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blue-line{
+    width: 150px;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #29ABE2;
+}

@@ -1,63 +1,79 @@
 @font-face {
     font-family: "Inter";
     font-weight: 100;
-    src: url(./assets/fonts/Inter-Thin.ttf);
+    src: url(/assets/fonts/Inter-Thin.ttf);
 }
 
 @font-face {
     font-family: "Inter";
     font-weight: 600;
-    src: url(./assets/fonts/Inter-SemiBold.ttf);
+    src: url(/assets/fonts/Inter-SemiBold.ttf);
 }
 
 @font-face {
     font-family: "Inter";
     font-weight: 400;
-    src: url(./assets/fonts/Inter-Regular.ttf);
+    src: url(/assets/fonts/Inter-Regular.ttf);
 }
 
 @font-face {
     font-family: "Inter";
     font-weight: 500;
-    src: url(./assets/fonts/Inter-Medium.ttf);
+    src: url(/assets/fonts/Inter-Medium.ttf);
 }
 
 @font-face {
     font-family: "Inter";
     font-weight: 300;
-    src: url(./assets/fonts/Inter-Light.ttf);
+    src: url(/assets/fonts/Inter-Light.ttf);
 }
 
 @font-face {
     font-family: "Inter";
     font-weight: 200;
-    src: url(./assets/fonts/Inter-ExtraLight.ttf);
+    src: url(/assets/fonts/Inter-ExtraLight.ttf);
 }
 
 @font-face {
     font-family: "Inter";
     font-weight: 800;
-    src: url(./assets/fonts/Inter-ExtraBold.ttf);
+    src: url(/assets/fonts/Inter-ExtraBold.ttf);
 }
 
 @font-face {
     font-family: "Inter";
     font-weight: 700;
-    src: url(./assets/fonts/Inter-Bold.ttf);
+    src: url(/assets/fonts/Inter-Bold.ttf);
 }
 
 @font-face {
     font-family: "Inter";
     font-weight: 900;
-    src: url(./assets/fonts/Inter-Black.ttf);
+    src: url(/assets/fonts/Inter-Black.ttf);
 }
 
 body {
     margin: 0px;
     font-family: 'Inter', sans-serif;
+    background-color: #F6F7F8;
 }
 
 h1{
     margin-block-start: 0px;
     margin-block-end: 0px;   
+}
+
+.blue-btn{
+    background-color: #2A3647;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    border-width: 0px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.blue-btn:hover{
+    background-color: #29ABE2;
 }
