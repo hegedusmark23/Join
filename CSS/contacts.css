@@ -1,0 +1,236 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Inter", sans-serif;
+    src: url('fonts/static/Inter-Regular.ttf');
+    src: url('fonts/static/Inter-Bold.ttf');
+}
+
+body {
+    margin: 0;
+    user-select: none;
+    font-family: "Inter", sans-serif;
+}
+
+.contact-section {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.contacts-list {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-new-contact-btn {
+    background: #2A3647;
+    border-radius: 5px;
+    padding: 8px 32px;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.add-person-icon {
+    filter: invert(1)
+}
+
+.contact-infos-container {
+    height: 100%;
+    width: 70%;
+    padding: 32px;
+}
+
+.contact-info-title-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.contact-info-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.separator {
+    display: block;
+    background: #29ABE2;
+    width: 2px;
+    height: 40px;
+}
+
+.contact-info-title {
+    font-weight: bold;
+}
+
+.image-and-name-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.capital-letters-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 104px;
+    width: 104px;
+    color: #000;
+    border-radius: 100px;
+    border: 1px solid #000;
+}
+
+/* Edit and Delete Icons <div> */
+.name-icons-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-name {
+    font-size: 48px;
+    font-weight: bold;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-bottom: 8px;
+}
+
+/* add contacts form dialog */
+.contact-bg-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contacts-left-container {
+    width: 40%;
+    background: #2A3647;
+    border-radius: 20px 0 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-dialog {
+    display: flex;
+    border: 1px solid #fff;
+    height: 90%;
+    width: 90%;
+    border-radius: 20px;
+}
+
+.logo-and-title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-dialog-logo {
+    height: 66px;
+    width: 55px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.add-contact-title {
+    color: #fff;
+    font-size: 56px;
+    font-weight: 700;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.add-contact-subtitle {
+    color: #fff;
+    font-size: 27px;
+    font-weight: 400;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.contact-right-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    width: 60%;
+    background: #fff;
+    border-radius: 0 20px 20px 0
+}
+
+
+.input-and-btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.cross-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.person-icon-container {
+    background: #D1D1D1;
+    border-radius: 100px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input {
+    height: 50px;
+    width: 422px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+    padding: 16px;
+}
+
+.contact-btn-container {
+    display: flex;
+    gap: 16px;
+}
+
+
+
+
+
+
+/* Helpers */
+.text-white {
+    color: #fff;
+}
+
+.d-none {
+    display: none;
+}
