@@ -1,16 +1,15 @@
-
-header{
+header {
     display: flex;
     justify-content: space-between;
     padding: 0 30px;
 }
 
-.notUser-text{
+.notUser-text {
     font-size: 20px;
     font-weight: 400;
 }
 
-.sign-up-btn{
+.sign-up-btn {
     display: flex;
     flex-direction: row;
     align-items: baseline;
@@ -18,11 +17,11 @@ header{
     padding-top: 10px;
 }
 
-.join-logo{
+.join-logo {
     padding: 50px;
 }
 
-.login-container{
+.login-container {
     background-color: white;
     border-radius: 30px;
     gap: 32px;
@@ -33,7 +32,18 @@ header{
     width: 652px;
 }
 
-main{
+.signup-container {
+    background-color: white;
+    border-radius: 30px;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 630px;
+    width: 598px;
+}
+
+main {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -41,20 +51,20 @@ main{
     align-items: center;
 }
 
-.blue-line{
+.blue-line {
     width: 150px;
     height: 3px;
     border-radius: 2px;
     background-color: #29ABE2;
 }
 
-.login-headline{
+.login-headline {
     font-size: 61px;
     font-weight: 700;
     padding-top: 35px;
 }
 
-.login-input{
+.login-input {
     width: 410px;
     height: 48px;
     font-size: 20px;
@@ -63,54 +73,68 @@ main{
     border-width: 1px;
     border-style: solid;
     border-color: #D1D1D1;
+    color: ;
+    cursor: pointer;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 32px;
 }
 
-.checkbox-div{
- width: 100%;
- display: flex;
- flex-direction: row;
- justify-content: left;
- padding-left: 40px;
+.checkbox-div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding-left: 40px;
+    gap: 10px;
 }
 
-.remember-text{
+.remember-text {
     font-size: 16px;
     font-weight: 400;
 }
 
-.email-input{
+.email-input {
     background: url(/assets/img/mail-icon.png) no-repeat scroll 7px 7px;
-    background-position: center;     
+    background-position: center;
     background-position-x: calc(100% - 12px);
 }
 
-.password-input{
+.password-input {
     background: url(/assets/img/lock-icon.png) no-repeat scroll 7px 7px;
-    background-position: center;     
+    background-position: center;
     background-position-x: calc(100% - 12px);
 }
 
-.buttons-div{
+.name-input {
+    background: url(/assets/img/person-icon.png) no-repeat scroll 7px 7px;
+    background-position: center;
+    background-position-x: calc(100% - 12px);
+}
+
+.buttons-div {
     display: flex;
     gap: 30px;
 }
 
-.legal-links-container{
-display: flex;
-gap: 30px;
-padding-top: 150px;
+.legal-links-container {
+    display: flex;
+    gap: 30px;
+    position: absolute;
+    bottom: 15px;
 }
 
-.legal-links{
+.legal-links {
     text-decoration: none;
     color: #A8A8A8;
     font-size: 16px;
     font-weight: 400;
+}
+
+.login-input:focus {
+    outline: none;
 }
