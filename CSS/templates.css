@@ -56,7 +56,7 @@
 .legal-section{
     display: flex;
     flex-direction: column;
-    padding-top: 300px;
+    padding-top: 260px;
     gap: 20px;
 }
 
@@ -73,6 +73,11 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+.user-icon:hover{
+    background-color: rgb(199, 199, 199);
 }
 
 .header{
@@ -105,4 +110,12 @@ main{
 
 .board-text{
     padding-right: 20px;
+}
+
+.help-icon{
+    transition: transform .2s;
+}
+
+.help-icon:hover{
+    transform: scale(1.1);
 }
