@@ -25,10 +25,11 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 15px;
+    padding: 8px 0;
 }
 
 .nav-link-div:hover{
-    background-color: #091931;
+    background-color: #09193150;
 }
 
 .navbar-icon{
@@ -39,6 +40,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 20px;
 }
 
 .legal-links{
@@ -47,7 +49,8 @@
 }
 
 .legal-links:hover{
-    color: white;
+    color: #29ABE2;
+    font-weight: bold;
 }
 
 .legal-section{

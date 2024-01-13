@@ -19,7 +19,7 @@ header{
 }
 
 .join-logo{
-    padding: 40px 0;
+    padding: 50px;
 }
 
 .login-container{
@@ -51,13 +51,18 @@ main{
 .login-headline{
     font-size: 61px;
     font-weight: 700;
+    padding-top: 35px;
 }
 
 .login-input{
-    width: 422px;
+    width: 410px;
     height: 48px;
     font-size: 20px;
     border-radius: 10px;
+    padding: 0 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #D1D1D1;
 }
 
 form{
@@ -76,6 +81,36 @@ form{
 }
 
 .remember-text{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.email-input{
+    background: url(/assets/img/mail-icon.png) no-repeat scroll 7px 7px;
+    background-position: center;     
+    background-position-x: calc(100% - 12px);
+}
+
+.password-input{
+    background: url(/assets/img/lock-icon.png) no-repeat scroll 7px 7px;
+    background-position: center;     
+    background-position-x: calc(100% - 12px);
+}
+
+.buttons-div{
+    display: flex;
+    gap: 30px;
+}
+
+.legal-links-container{
+display: flex;
+gap: 30px;
+padding-top: 150px;
+}
+
+.legal-links{
+    text-decoration: none;
+    color: #A8A8A8;
     font-size: 16px;
     font-weight: 400;
 }
