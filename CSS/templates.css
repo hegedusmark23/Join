@@ -80,7 +80,7 @@ main {
 }
 
 .header {
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: space-between;
     width: 1560px;

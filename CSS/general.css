@@ -104,8 +104,19 @@ p{
 }
 
 .arrow:hover{
-    transform: scale(1.01);
-    background-color: rgb(243, 243, 243);
+    transform: scale(1.1);
+    background-color: rgb(228, 227, 227);
     border-radius: 50%;
-    padding: 1px;
+}
+
+.legal-text-container{
+    padding: 100px 50px;
+    max-width: 1,016px;
+    position: relative;
+}
+
+.legal-site-arrow{
+    position: sticky;
+    top: 225px;
+    left: 1827px;
 }
