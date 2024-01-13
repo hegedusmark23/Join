@@ -1,25 +1,24 @@
-
-.navbar{
+.navbar {
     width: 232px;
     height: 100vh;
     background-color: #2A3647;
     display: flex;
     align-items: center;
     flex-direction: column;
-    
+
 }
 
-.navbar-links{
+.navbar-links {
     color: white;
     text-decoration: none;
     width: 100%;
 }
 
-.join-logo-small{
+.join-logo-small {
     padding: 100px 0;
 }
 
-.nav-link-div{
+.nav-link-div {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -28,44 +27,44 @@
     padding: 8px 0;
 }
 
-.nav-link-div:hover{
+.nav-link-div:hover {
     background-color: #09193150;
 }
 
-.navbar-icon{
+.navbar-icon {
     object-fit: contain;
 }
 
-.nav-links-container{
+.nav-links-container {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 20px;
 }
 
-.legal-links{
+.legal-links {
     color: #A8A8A8;
     text-decoration: none;
 }
 
-.legal-links:hover{
+.legal-links:hover {
     color: #29ABE2;
     font-weight: bold;
 }
 
-.legal-section{
+.legal-section {
     display: flex;
     flex-direction: column;
     padding-top: 260px;
     gap: 20px;
 }
 
-main{
+main {
     display: flex;
     flex-direction: row;
 }
 
-.user-icon{
+.user-icon {
     height: 54px;
     width: 54px;
     border-radius: 50%;
@@ -76,11 +75,11 @@ main{
     cursor: pointer;
 }
 
-.user-icon:hover{
+.user-icon:hover {
     background-color: rgb(199, 199, 199);
 }
 
-.header{
+.header {
     position: absolute;
     display: flex;
     justify-content: space-between;
@@ -91,31 +90,38 @@ main{
     height: 96px;
 }
 
-.user-help-div{
+.user-help-div {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
 }
 
-.header-headline{
+.header-headline {
     font-size: 20px;
     font-weight: 400;
 }
 
-.nav-text{
+.nav-text {
     font-size: 16px;
     font-weight: 400;
 }
 
-.board-text{
+.board-text {
     padding-right: 20px;
 }
 
-.help-icon{
+.help-icon {
     transition: transform .2s;
 }
 
-.help-icon:hover{
+.help-icon:hover {
     transform: scale(1.1);
+}
+
+.legal-section-nouser {
+    display: flex;
+    flex-direction: column;
+    padding-top: 490px;
+    gap: 20px;
 }

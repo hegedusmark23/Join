@@ -1,76 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
-    <link rel="stylesheet" href="./CSS/contacts.css">
+    <link rel="stylesheet" href="./CSS/templates.css">
+    <link rel="stylesheet" href="./CSS/general.css">
+    <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
 </head>
-
-<!-- firts page of Add Contact -->
-<body>
-    <section id="contact-section" class="contact-section">
-        <div id="contacts-list" class="contacts-list" style="border: 1px solid red;">
-            <div id="add-new-contact-btn" class="add-new-contact-btn">
-                <span>Add new contact</span> <img class="add-person-icon" src="./icons/add-person.svg" alt="add-person">
-            </div>
+<body onload="init()">
+    <main>
+        <aside w3-include-html="./assets/templates/sidenavbar.html"></aside>
+        <div>
+            <header w3-include-html="./assets/templates/header.html"></header>
+            <div id="summary-content"></div>
         </div>
-        <div id="contact-infos-container" class="contact-infos-container" style="border: 1px solid red;">
-            <div class="contact-info-title-container">
-                <h2 class="contact-info-title">Contacts</h2>
-                <div class="separator"></div> <span class="contact-info-subtitle">Better with a team</span>
-            </div>
+    </main>
 
-            <div class="image-and-name-container">
-                <div class="capital-letters-container">
-                    <span>AM</span>
-                </div>
-                <div class="name-container">
-                    <h2 class="contact-name">Anton Mayer</h2>
-                    <div class="name-icons-container">
-                        <img src="./icons/pen.svg" alt=""> <span>Edit</span> <img src="./icons/trashbin.svg"
-                            alt=""><span>Delete</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- add Contatct Overlay -->
-        <div class="contact-bg-dialog">
-            <div class="contact-dialog">
-                <div class="contacts-left-container">
-                    <div class="logo-and-title-container">
-                        <span><img class="contact-dialog-logo" src="./img/join-logo.svg" alt=""></span>
-                        <h2 class="add-contact-title">Add Contact</h2>
-                        <h3 class="add-contact-subtitle">Tasks are better width a Team</h3>
-                        <span class="border-bar"></span>
-                    </div>
-                </div>
-                <div class="contact-right-container">
-                    <div class="person-icon-container">
-                        <img src="./icons/person.svg" alt="person">
-                    </div>
-                    <div class="input-and-btn-container">
-                        <span class="cross-icon-container"><img class="cross-icon" src="./icons/cross.svg"
-                                alt=""></span>
-                        <div class="inputs-container">
-                            <input class="input" type="text" id="name" placeholder="Name and Lastname">
-                            <input class="input" type="email" id="email" placeholder="E-Mail Address">
-                            <input class="input" type="text" id="phone" placeholder="Phone">
-                        </div>
-                        <div class="contact-btn-container">
-                            <button onclick="emptyInputs()">Cancel <img class="cross-icon-btn" src="./icons/cross.svg" alt=""></button>
-                            <button onclick="getContact()">Create <img src="./icons/check.svg" alt=""></button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <script src="./models/contact.class.js"></script>
-    <script src="./JS/contacts.js"></script>
+    <script src="./JS/script.js"></script>
+    <script src="./JS/w3include.js"></script>
 </body>
-
 </html>

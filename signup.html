@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
     <link rel="stylesheet" href="./CSS/login-signup.css">
+    <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
 </head>
 
 <body>
     <header>
-      <img  class="join-logo" src="./assets/img/logo-small-blue.png" alt="">
-      
+        <img class="join-logo" src="./assets/img/logo-small-blue.png" alt="">
+
     </header>
-   
+
     <main>
         <div class="signup-container">
+            <a class="back-nav arrow" href="landingpage.html"><img src="/assets/img/arrow-left-blue.png" alt="blue-left-arrow"></a>
             <h1 class="login-headline">Sign up</h1>
             <div class="blue-line"></div>
             <form onsubmit="; return false;">
@@ -26,8 +28,8 @@
                 <input required minlength="2" class="login-input password-input" placeholder="Password" type="password">
                 <input required minlength="2" class="login-input password-input" placeholder="Password" type="password">
                 <div class="checkbox-div">
-                    <input type="checkbox" name="accept privacypolicy" id="">
-                    <p class="remember-text">I accept the <a href="">Privacy Policy</a></p>
+                    <input type="checkbox" name="accept privacypolicy" id="policy-check">
+                    <p class="signup-privacy-text">I accept the <a class="privacy-unlogged" href="privacypolicy-nouser.html">Privacy Policy</a></p>
                 </div>
                 <div class="buttons-div">
                     <button class="blue-btn">Sign up</button>
@@ -35,8 +37,8 @@
             </form>
         </div>
         <div class="legal-links-container">
-            <a class="legal-links" href="/privacypolicy.html">Privacy Policy</a>
-            <a class="legal-links" href="/legalnotice.html">Legal Notice</a>
+            <a class="legal-links" href="/privacypolicy-nouser.html">Privacy Policy</a>
+            <a class="legal-links" href="/legalnotice-nouser.html">Legal Notice</a>
         </div>
     </main>
 </body>
