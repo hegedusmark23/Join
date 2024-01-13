@@ -55,10 +55,15 @@
 body {
     margin: 0px;
     font-family: 'Inter', sans-serif;
-    background-color: #F6F7F8;
+    background-color: #ebe9e9;
 }
 
 h1{
+    margin-block-start: 0px;
+    margin-block-end: 0px;   
+}
+
+p{
     margin-block-start: 0px;
     margin-block-end: 0px;   
 }
@@ -68,12 +73,28 @@ h1{
     color: white;
     padding: 15px;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 21px;
     border-width: 0px;
     cursor: pointer;
     font-weight: 600;
+    
 }
 
 .blue-btn:hover{
     background-color: #29ABE2;
+}
+
+.white-btn{
+    background-color: white;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 21px;
+    font-weight: 600;
+    color:#2A3647;
+    border: 1px solid #2A3647;
+}
+
+.white-btn:hover{
+    color:#29ABE2;
+    border: 2px solid #29ABE2;
 }

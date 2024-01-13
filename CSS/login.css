@@ -15,6 +15,7 @@ header{
     flex-direction: row;
     align-items: baseline;
     gap: 35px;
+    padding-top: 10px;
 }
 
 .join-logo{
@@ -24,6 +25,12 @@ header{
 .login-container{
     background-color: white;
     border-radius: 30px;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 493px;
+    width: 652px;
 }
 
 main{
@@ -39,4 +46,36 @@ main{
     height: 3px;
     border-radius: 2px;
     background-color: #29ABE2;
+}
+
+.login-headline{
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.login-input{
+    width: 422px;
+    height: 48px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.checkbox-div{
+ width: 100%;
+ display: flex;
+ flex-direction: row;
+ justify-content: left;
+ padding-left: 40px;
+}
+
+.remember-text{
+    font-size: 16px;
+    font-weight: 400;
 }
