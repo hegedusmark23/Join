@@ -63,6 +63,17 @@ h1{
     margin-block-end: 0px;   
 }
 
+h3{
+    margin-block-start: 0px;
+    margin-block-end: 0px;   
+}
+
+ol{
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
 p{
     margin-block-start: 0px;
     margin-block-end: 0px;   
@@ -111,12 +122,19 @@ p{
 
 .legal-text-container{
     padding: 100px 50px;
-    max-width: 1,016px;
-    position: relative;
+    max-width: 1300px;
 }
 
 .legal-site-arrow{
     position: sticky;
     top: 225px;
     left: 1827px;
+}
+
+.blue-text{
+    color: #29ABE2;
+}
+
+.legal-headline{
+    font-size: 61px;
 }
