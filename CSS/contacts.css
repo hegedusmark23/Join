@@ -22,18 +22,23 @@ body {
     height: 100vh;
 }
 
-.contacts-list {
+.contact-book {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 32px 24px;
+    overflow-y: auto;
 }
 
 .add-new-contact-btn {
     background: #2A3647;
-    border-radius: 5px;
-    padding: 8px 32px;
+    border-radius: 10px;
+    width: 352px;
+    height: 56px;
+    padding: 12px 0;
     color: #fff;
     font-weight: bold;
     display: flex;
@@ -41,10 +46,36 @@ body {
     gap: 16px;
     margin-top: 16px;
     cursor: pointer;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.letter-container {
+    width: 352px;
+    height: 58px;
+    padding: 17px 36px;
+}
+
+.contact-list-separator-bar {
+    display: block;
+    background: #D1D1D1;
+    width: 352px;
+    height: 1.6px;
 }
 
 .add-person-icon {
-    filter: invert(1)
+    height: 32px;
+    width: 32px;
+    object-fit: contain;
 }
 
 .contact-infos-container {
@@ -109,7 +140,7 @@ body {
     margin-bottom: 8px;
 }
 
-/* add contacts form dialog */
+/*---------------------------------- add contacts form dialog --------------------------------------------*/
 .contact-bg-dialog {
     position: fixed;
     top: 0;
@@ -120,6 +151,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    z-index: 2
+}
+
+.contact-dialog {
+    height: 592px;
+    width: 1212px;
+    display: flex;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 .contacts-left-container {
@@ -131,13 +173,6 @@ body {
     align-items: center;
 }
 
-.contact-dialog {
-    display: flex;
-    border: 1px solid #fff;
-    height: 90%;
-    width: 90%;
-    border-radius: 20px;
-}
 
 .logo-and-title-container {
     display: flex;
@@ -146,15 +181,15 @@ body {
 }
 
 .contact-dialog-logo {
-    height: 66px;
-    width: 55px;
+    height: 66.48px;
+    width: 55.6px;
     object-fit: cover;
     cursor: pointer;
 }
 
 .add-contact-title {
     color: #fff;
-    font-size: 56px;
+    font-size: 61px;
     font-weight: 700;
     margin-block-start: 0;
     margin-block-end: 0;
@@ -191,9 +226,16 @@ body {
     justify-content: flex-end;
 }
 
+.cross-icon {
+    height: 33px;
+    width: 33px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
 .person-icon-container {
     background: #D1D1D1;
-    border-radius: 100px;
+    border-radius: 70px;
     width: 120px;
     height: 120px;
     display: flex;
@@ -202,12 +244,45 @@ body {
 }
 
 .inputs-container {
+    height: 215px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 32px;
 }
 
-.input {
+.input-name {
+    background-image: url(/assets/icons/person.svg);
+    background-repeat: no-repeat 7px 7pxf;
+    background-position: right center;
+    background-position-x: calc(100% - 12px);
+    background-size: contain;
+    height: 50px;
+    width: 422px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+    padding: 16px;
+}
+
+.input-email {
+    background-image: url();
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 422px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+    padding: 16px;
+}
+
+.input-phone {
+    background-image: url();
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: contain;
     height: 50px;
     width: 422px;
     border-radius: 10px;
@@ -217,8 +292,105 @@ body {
 }
 
 .contact-btn-container {
+    width: 364px;
     display: flex;
-    gap: 16px;
+    gap: 24px;
+}
+
+.add-contact-btn1 {
+    height: 56px;
+    width: 126px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    background: #fff;
+    border-radius: 10px;
+    color: #2A3647;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 16px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 400;
+    transition: all 0.3s cubic-bezier(.215, .61, .355, 1);
+}
+
+.add-contact-btn1:hover {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+
+}
+
+.cross-icon-btn1 {
+    height: 24px;
+    width: 24px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.cross-icon-btn1:hover path {
+    stroke: #29ABE2;
+}
+
+.add-contact-btn2 {
+    height: 57px;
+    width: 214px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    background: #2A3647;
+    border-radius: 10px;
+    color: #fff;
+    padding: 16px;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(.215, .61, .355, 1);
+}
+
+.add-contact-btn2:hover {
+    background-color: #29ABE2;
+    border: none;
+}
+
+.check-icon-btn2 {
+    height: 24px;
+    width: 24px;
+    object-fit: contain;
+}
+
+/*-----------------contact list---------------*/
+.contact {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    width: 352px;
+    height: 78px;
+    border-radius: 10px;
+    padding: 15px 24px;
+    border: 1px solid red;
+}
+
+.profil-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 45px;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.first-name-letters {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.contact-name-email-container {
+    display: flex;
+    flex-direction: column;
 }
 
 
