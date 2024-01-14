@@ -1,10 +1,12 @@
 .navbar {
-  width: 232px;
-  height: 100vh;
-  background-color: #2a3647;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+    width: 232px;
+    height: 100vh;
+    background-color: #2A3647;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: sticky;
+    top: 0px;
 }
 
 .navbar-links {
