@@ -94,10 +94,6 @@ main {
   flex-direction: column;
 }
 
-section {
-  padding: 10px;
-}
-
 .user-help-div {
   display: flex;
   flex-direction: row;
@@ -132,55 +128,4 @@ section {
   flex-direction: column;
   padding-top: 490px;
   gap: 20px;
-}
-
-.required:after {
-  content: "*";
-  color: #ff8190;
-}
-
-/* Add Task Template */
-/* !!! Label --> Könnte man auslagern!!!*/
-#addtask-content label {
-  display: flex;
-  flex-direction: column;
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 400;
-}
-
-.label-text {
-  padding-bottom: 4px;
-}
-
-/* !!! Input --> Könnte man auslagern!!!*/
-#addtask-content input {
-  border: #d1d1d1 1px solid;
-  border-radius: 10px;
-  padding: 12px 21px 12px 21px;
-  gap: 10px;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 24px;
-}
-
-#addtask-content h1 {
-  font-weight: 700;
-  font-size: 61px;
-  line-height: 73.2px;
-}
-
-.addtask-form {
-  display: flex;
-  justify-content: space-between;
-}
-
-.form-section {
-  flex: 1; /* Jede Sektion nimmt gleich viel Platz ein */
-}
-
-.divider {
-  width: 1px;
-  background-color: #d1d1d1;
-  margin: 0 20px;
 }

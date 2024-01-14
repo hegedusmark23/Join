@@ -10,54 +10,82 @@
 </head>
 
 <body class="tasks">
-    <main>
-        <section id="addtask-content">
+    <section id="addtask-content">
 
-            <h1>Add Task</h1>
+        <h1>Add Task</h1>
 
-            <form class="addtask-form">
-
-                <div class="form-section left-section">
+        <form class="addtask-form">
+            <div class="form-section left-section">
+                <div class="addtask-selection">
                     <label>
                         <span class="label-text required">Title</span>
                         </span>
                         <input id="addtask-title" type="text" placeholder="Enter a title">
                     </label>
+                </div>
+                <div class="addtask-selection">
                     <label>
                         <span>Description</span>
-                        <textarea placeholder="Enter a description" name="decription" id="description" cols="30"
-                            rows="10"></textarea>
+                        <textarea placeholder="Enter a description" name="decription" id="description"></textarea>
                     </label>
+                </div>
+                <div class="addtask-selection">
                     <label>
                         <span class="required">Assigned to</span>
-                        <input type="text" id="assignedTo" name="assigned-to">
+                        <select class="custom-select" type="text" id="assignedTo" name="assigned-to">
+                            <option value="" disabled selected>Select contacts to assign</option>
+                        </select>
                     </label>
-
                 </div>
-                <div class="divider"></div>
-                <div class="form-section right-section">
+
+            </div>
+            <div class="divider"></div>
+            <div class="form-section right-section">
+                <div class="addtask-selection">
                     <label>
                         <span class="required">Due date</span>
                         <input type="date" id="dueDate" name="due-date">
                     </label>
+                </div>
+                <div class="addtask-selection">
                     <label>
                         <span class="required">Priority</span>
-                        <input type="text" id="priority" name="priority">
-                    </label>
-                    <label>
-                        <span class="required">Category</span>
-                        <input type="text" id="category" name="category">
-                    </label>
-                    <label>
-                        <span>Subtask</span>
-                        <input type="text" id="subtask" name="subtask">
+                        <div class="addtask-prio-btn">
+                            <button class="addtask-buttons" id="addtask-prio-urgent">Urgent
+                                <img src="/Join/assets/img/addtask_prio-urgent-icon.svg" alt="Prio Urgent">
+                            </button>
+                            <button class="addtask-buttons" id="addtask-prio-medium">Medium
+                                <img src="/Join/assets/img/addtask_prio-medium-icon.svg" alt="Prio Medium">
+                            </button>
+                            <button class="addtask-buttons" id="addtask-prio-low">Low
+                                <img src="/Join/assets/img/addtask_prio-low-icon.svg" alt="Prio Low">
+                            </button>
+                        </div>
                     </label>
                 </div>
-            </form>
+                <div class="addtask-selection">
+                    <label>
+                        <span class="required">Category</span>
+                        <select class="custom-select" type="text" id="category" name="category">
+                            <option value="" disabled selected>Select task category</option>
+                            <option value="option1">Technical Task</option>
+                            <option value="option2">User Story</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="addtask-selection">
+                    <label>
+                        <span>Subtask</span>
+                        <input class="custom-input" type="text" id="subtask" name="subtask">
 
-        </section>
-        </div>
-    </main>
+                    </label>
+                </div>
+            </div>
+        </form>
+
+    </section>
+    </div>
+
 
 
     <script src="./JS/script.js"></script>
