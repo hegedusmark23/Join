@@ -2,6 +2,7 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 0 30px;
+    height: 15%;
 }
 
 .notUser-text {
@@ -166,8 +167,8 @@ form {
 @keyframes floathingLogo {
     0% {
         height: 270px;
-        top: 400%;
         left: 45%;
+        margin-top: 300px;
     }
 
     50% {
@@ -265,7 +266,11 @@ form {
 .animated-logo{
     padding: 50px;
     position: relative;
-    animation: floathingLogo 1s linear;
+    animation: floathingLogo 1s ease-in-out;
     z-index: 999;
     height: 122px;
+}
+
+.d-none{
+    display: none;
 }
