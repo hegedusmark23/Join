@@ -1,4 +1,5 @@
 
 function init(){
     includeHTML();
+    generateSummaryContent();
 }

@@ -1,0 +1,37 @@
+.summary-container{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.summary-headline{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.vert-blue-line{
+    background-color: #29ABE2;
+    height: 59px;
+    width: 3px;
+    border-radius: 1px;
+}
+
+.summary-headline-bold{
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.summary-headline-normal{
+    font-size: 21px;
+    font-weight: 400;
+}
+
+.tasks-summary-section{
+    width: 50%;
+}
+
+.welcome-section{
+    width: 50%;
+}
