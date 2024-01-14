@@ -1,23 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Task</title>
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
-    <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
+    <title>Add Task</title>
 </head>
-<body onload="init()">
+
+<body class="tasks">
     <main>
-        <aside w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <div>
-            <header w3-include-html="./assets/templates/header.html"></header>
-            <div id="addtask-content"></div>
+        <section id="addtask-content">
+
+            <h1>Add Task</h1>
+
+            <form class="addtask-form">
+
+                <div class="form-section left-section">
+                    <label>
+                        <span class="label-text required">Title</span>
+                        </span>
+                        <input id="addtask-title" type="text" placeholder="Enter a title">
+                    </label>
+                    <label>
+                        <span>Description</span>
+                        <textarea placeholder="Enter a description" name="decription" id="description" cols="30"
+                            rows="10"></textarea>
+                    </label>
+                    <label>
+                        <span class="required">Assigned to</span>
+                        <input type="text" id="assignedTo" name="assigned-to">
+                    </label>
+
+                </div>
+                <div class="divider"></div>
+                <div class="form-section right-section">
+                    <label>
+                        <span class="required">Due date</span>
+                        <input type="date" id="dueDate" name="due-date">
+                    </label>
+                    <label>
+                        <span class="required">Priority</span>
+                        <input type="text" id="priority" name="priority">
+                    </label>
+                    <label>
+                        <span class="required">Category</span>
+                        <input type="text" id="category" name="category">
+                    </label>
+                    <label>
+                        <span>Subtask</span>
+                        <input type="text" id="subtask" name="subtask">
+                    </label>
+                </div>
+            </form>
+
+        </section>
         </div>
     </main>
 
+
     <script src="./JS/script.js"></script>
-    <script src="./JS/w3include.js"></script>
+    <script src="./JS/addtask.js"></script>
+
 </body>
+
 </html>

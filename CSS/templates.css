@@ -1,127 +1,186 @@
 .navbar {
-    width: 232px;
-    height: 100vh;
-    background-color: #2A3647;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
+  width: 232px;
+  height: 100vh;
+  background-color: #2a3647;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .navbar-links {
-    color: white;
-    text-decoration: none;
-    width: 100%;
+  color: white;
+  text-decoration: none;
+  width: 100%;
 }
 
 .join-logo-small {
-    padding: 100px 0;
+  padding: 100px 0;
 }
 
 .nav-link-div {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 8px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 8px 0;
 }
 
 .nav-link-div:hover {
-    background-color: #09193150;
+  background-color: #09193150;
 }
 
 .navbar-icon {
-    object-fit: contain;
+  object-fit: contain;
 }
 
 .nav-links-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
 }
 
 .legal-links {
-    color: #A8A8A8;
-    text-decoration: none;
+  color: #a8a8a8;
+  text-decoration: none;
 }
 
 .legal-links:hover {
-    color: #29ABE2;
-    font-weight: bold;
+  color: #29abe2;
+  font-weight: bold;
 }
 
 .legal-section {
-    display: flex;
-    flex-direction: column;
-    padding-top: 260px;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 260px;
+  gap: 20px;
 }
 
 main {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .user-icon {
-    height: 54px;
-    width: 54px;
-    border-radius: 50%;
-    border: 3px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  height: 54px;
+  width: 54px;
+  border-radius: 50%;
+  border: 3px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .user-icon:hover {
-    background-color: rgb(199, 199, 199);
+  background-color: rgb(199, 199, 199);
 }
 
 .header {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    width: 1560px;
-    align-items: center;
-    padding: 0 64px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
-    height: 96px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 1560px;
+  align-items: center;
+  padding: 0 64px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  height: 96px;
+}
+
+.wrapper-container {
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  padding: 10px;
 }
 
 .user-help-div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }
 
 .header-headline {
-    font-size: 20px;
-    font-weight: 400;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .nav-text {
-    font-size: 16px;
-    font-weight: 400;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .board-text {
-    padding-right: 20px;
+  padding-right: 20px;
 }
 
 .help-icon {
-    transition: transform .2s;
+  transition: transform 0.2s;
 }
 
 .help-icon:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .legal-section-nouser {
-    display: flex;
-    flex-direction: column;
-    padding-top: 490px;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 490px;
+  gap: 20px;
+}
+
+.required:after {
+  content: "*";
+  color: #ff8190;
+}
+
+/* Add Task Template */
+/* !!! Label --> Könnte man auslagern!!!*/
+#addtask-content label {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.label-text {
+  padding-bottom: 4px;
+}
+
+/* !!! Input --> Könnte man auslagern!!!*/
+#addtask-content input {
+  border: #d1d1d1 1px solid;
+  border-radius: 10px;
+  padding: 12px 21px 12px 21px;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+#addtask-content h1 {
+  font-weight: 700;
+  font-size: 61px;
+  line-height: 73.2px;
+}
+
+.addtask-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-section {
+  flex: 1; /* Jede Sektion nimmt gleich viel Platz ein */
+}
+
+.divider {
+  width: 1px;
+  background-color: #d1d1d1;
+  margin: 0 20px;
 }
