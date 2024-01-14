@@ -7,38 +7,39 @@
     <title>Join</title>
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
-    <link rel="stylesheet" href="./CSS/login.css">
+    <link rel="stylesheet" href="./CSS/login-signup.css">
+    <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
 </head>
 
 <body>
     <header>
-      <img  class="join-logo" src="./assets/img/logo-small-blue.png" alt="">
-      <div class="sign-up-btn">
+      <img  class="animated-logo" src="./assets/img/logo-big.png" alt="">
+      <div class="sign-up-btn o0 invis-visible-animation">
         <p class="notUser-text">Not a Join user?</p>
-        <button class="blue-btn">Sign up</button>
+        <a href="/signup.html"><button class="blue-btn">Sign up</button></a>
       </div>   
     </header>
    
     <main>
-        <div class="login-container">
+        <div class="login-container o0 invis-visible-animation">
             <h1 class="login-headline">Log in</h1>
             <div class="blue-line"></div>
             <form onsubmit="; return false;">
-                <input class="login-input" placeholder="Email" type="email">
-                <input class="login-input" placeholder="Password" type="password">
+                <input required class="login-input email-input" placeholder="Email" type="email">
+                <input required minlength="2" class="login-input password-input" placeholder="Password" type="password">
                 <div class="checkbox-div">
                     <input type="checkbox" name="Remember me" id="">
                     <p class="remember-text">Remember me</p>
                 </div>
-                <div>
+                <div class="buttons-div">
                     <button class="blue-btn">Log in</button>
                     <button class="white-btn">Guest Log in</button>
                 </div>
             </form>
         </div>
-        <div>
-            <a href="">Privacy Policy</a>
-            <a href="">Legal Notice</a>
+        <div class="legal-links-container">
+            <a class="legal-links" href="/privacypolicy-nouser.html">Privacy Policy</a>
+            <a class="legal-links" href="/legalnotice-nouser.html">Legal Notice</a>
         </div>
     </main>
 </body>

@@ -1,0 +1,276 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    height: 15%;
+}
+
+.notUser-text {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.sign-up-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 35px;
+    padding-top: 10px;
+}
+
+
+
+.login-container {
+    background-color: white;
+    border-radius: 30px;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 493px;
+    width: 652px;
+}
+
+.signup-container {
+    background-color: white;
+    border-radius: 30px;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 630px;
+    width: 598px;
+    position: relative;
+}
+
+.back-nav {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blue-line {
+    width: 150px;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #29ABE2;
+}
+
+.login-headline {
+    font-size: 61px;
+    font-weight: 700;
+    padding-top: 35px;
+}
+
+.login-input {
+    width: 410px;
+    height: 48px;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 0 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #D1D1D1;
+    cursor: pointer;
+
+}
+
+::placeholder {
+    color: #D1D1D1;
+    opacity: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.checkbox-div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding-left: 40px;
+    gap: 10px;
+}
+
+.remember-text {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.email-input {
+    background: url(/assets/img/mail-icon.png) no-repeat scroll 7px 7px;
+    background-position: center;
+    background-position-x: calc(100% - 12px);
+}
+
+.password-input {
+    background: url(/assets/img/lock-icon.png) no-repeat scroll 7px 7px;
+    background-position: center;
+    background-position-x: calc(100% - 12px);
+}
+
+.name-input {
+    background: url(/assets/img/person-icon.png) no-repeat scroll 7px 7px;
+    background-position: center;
+    background-position-x: calc(100% - 12px);
+}
+
+.buttons-div {
+    display: flex;
+    gap: 30px;
+}
+
+.legal-links-container {
+    display: flex;
+    gap: 30px;
+    position: absolute;
+    bottom: 15px;
+}
+
+.legal-links {
+    text-decoration: none;
+    color: #A8A8A8;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.login-input:focus {
+    outline: none;
+}
+
+.privacy-unlogged {
+    text-decoration: none;
+    color: #29ABE2;
+}
+
+.privacy-unlogged:hover {
+    text-decoration: underline;
+}
+
+.signup-privacy-text {
+    color: #A8A8A8;
+}
+
+@keyframes floathingLogo {
+    0% {
+        height: 270px;
+        left: 45%;
+        margin-top: 300px;
+    }
+
+    50% {
+        height: 270px;
+        top: 250%;
+        left: 45%;
+    }
+
+    100% {
+        height: 122px;
+        top: 0%;
+        left: 0%;
+    }
+}
+
+.invis-visible-animation {
+
+    animation: invisVis 1s 500ms forwards;
+}
+
+.o0 {
+    opacity: 0;
+}
+
+@keyframes invisVis {
+    0% {
+        opacity: 0;
+    }
+
+    ;
+
+    10% {
+        opacity: 0;
+    }
+
+    ;
+
+    20% {
+        opacity: 0;
+    }
+
+    ;
+
+    30% {
+        opacity: 0;
+    }
+
+    ;
+
+    50% {
+        opacity: 0;
+    }
+
+    ;
+
+    60% {
+        opacity: 0;
+    }
+
+    ;
+
+    70% {
+        opacity: 0;
+    }
+
+    ;
+
+    80% {
+        opacity: 0;
+    }
+
+    ;
+
+    90% {
+        opacity: 0;
+    }
+
+    ;
+
+    95% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+    ;
+}
+
+
+.join-logo {
+    padding: 50px;
+}
+
+.animated-logo{
+    padding: 50px;
+    position: relative;
+    animation: floathingLogo 1s ease-in-out;
+    z-index: 999;
+    height: 122px;
+}
+
+.d-none{
+    display: none;
+}
