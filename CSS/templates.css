@@ -1,12 +1,10 @@
 .navbar {
-    width: 232px;
-    height: 100vh;
-    background-color: #2A3647;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    position: sticky;
-    top: 0px;
+  width: 232px;
+  height: 100vh;
+  background-color: #2a3647;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .navbar-links {
@@ -131,4 +129,164 @@ main {
   flex-direction: column;
   padding-top: 490px;
   gap: 20px;
+}
+
+.required:after {
+  content: "*";
+  color: #ff8190;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  border: 2px solid #29abe2;
+  outline: none;
+}
+
+section {
+  padding: 0px 80px 10px 80px;
+}
+
+/* Add Task Template */
+
+/* !!! Label --> Könnte man auslagern!!!*/
+#addtask-content label {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 400;
+  gap: 4px;
+}
+
+.label-text {
+  padding-bottom: 4px;
+}
+
+.custom-select {
+  -webkit-appearance: none; /* Entfernt den Standard-Stil in WebKit-Browsern */
+  -moz-appearance: none; /* Entfernt den Standard-Stil in Firefox */
+  appearance: none; /* Entfernt den Standard-Stil in modernen Browsern */
+  background-image: url("../assets/img/arrow_drop_down.png"); /* Ihr benutzerdefiniertes Pfeil-Icon */
+  background-position: right 20px center; /* Position des Hintergrundbildes */
+  background-repeat: no-repeat;
+
+  /* Weitere Stilisierungen (Padding, Border usw.) */
+}
+
+.custom-input {
+  background-image: url("../assets/img/add.png");
+  background-position: right 20px center;
+  background-repeat: no-repeat;
+}
+
+/* !!! Input --> Könnte man auslagern!!!*/
+#addtask-content input,
+textarea,
+button,
+select {
+  border: #d1d1d1 1px solid;
+  border-radius: 10px;
+  padding: 12px 21px 12px 21px;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+textarea {
+  height: 141px; /* Starthöhe */
+  resize: both;
+  overflow: auto;
+}
+
+#addtask-content h1 {
+  font-weight: 700;
+  font-size: 61px;
+  line-height: 73.2px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+}
+
+.addtask-prio-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.addtask-prio-btn button {
+  padding: 16px;
+  border-radius: 8px;
+  border: solid 1px #eaebec;
+  background-color: white;
+  box-sizing: border-box;
+  flex-grow: 1;
+}
+
+.addtask-buttons:hover .icon {
+  filter: brightness(0) invert(1);
+}
+
+.addtask-custom-label {
+  margin-bottom: -28px;
+}
+
+#addtask-prio-urgent:hover {
+  background-color: #ff3d00;
+  color: #fff;
+  border-color: #ff3d00;
+  font-weight: bold;
+  box-shadow: 0px 5px 4px 0px #bcbdbe;
+  cursor: pointer;
+}
+
+#addtask-prio-medium:hover {
+  background-color: #ffa800;
+  color: #fff;
+  border-color: #ffa800;
+  font-weight: bold;
+  box-shadow: 0px 5px 4px 0px #bcbdbe;
+  cursor: pointer;
+}
+
+#addtask-prio-low:hover {
+  background-color: #7ae229;
+  color: #fff;
+  border-color: #7ae229;
+  font-weight: bold;
+  box-shadow: 0px 5px 4px 0px #bcbdbe;
+  cursor: pointer;
+}
+
+.addtask-buttons.is-active {
+  background-color: #ff3d00; /* Rote Hintergrundfarbe */
+  color: #ffffff; /* Weiße Textfarbe */
+  box-shadow: none;
+}
+
+.addtask-prio-btn img {
+  width: 20px;
+  height: 14.51px;
+  margin-left: 8px;
+}
+
+.addtask-form {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Jede Sektion nimmt gleich viel Platz ein */
+  gap: 32px;
+}
+
+.divider {
+  width: 1px;
+  background-color: #d1d1d1;
+  margin: 0 20px;
 }
