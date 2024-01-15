@@ -1,8 +1,9 @@
 
 function generateSummaryContent(){              
     let container = document.getElementById('main-content');
-
+    let background = document.getElementById('summary-nav');
     container.innerHTML = summaryHTML();
+    background.classList.add('selected-nav-link-background');
 }
 
 function changePencilImgColor(){                //Changes the color of an icon on hover

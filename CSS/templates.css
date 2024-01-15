@@ -5,6 +5,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: sticky;
+  top: 0px;
 }
 
 .navbar-links {
@@ -144,9 +146,6 @@ select:focus {
   outline: none;
 }
 
-section {
-  padding: 0px 80px 10px 80px;
-}
 
 /* Add Task Template */
 
@@ -289,4 +288,8 @@ textarea {
   width: 1px;
   background-color: #d1d1d1;
   margin: 0 20px;
+}
+
+.selected-nav-link-background{
+  background-color: #091931;
 }
