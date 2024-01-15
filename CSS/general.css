@@ -138,3 +138,13 @@ p{
 .legal-headline{
     font-size: 61px;
 }
+
+.red-urgent-icon{
+    background-color: #FF3D00;
+    width: 69px;
+    height: 69px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

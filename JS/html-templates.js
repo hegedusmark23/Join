@@ -10,38 +10,51 @@ function summaryHTML() {
             <div class="summary-main-content">
                 <div class="tasks-summary-section">
 
-                    <div class="summary-task-display-mid">
-                        <div class="summary-icon-circle"><img src="/assets/img/pencil-white.png" alt=""></div>
-                        <div>
+                    <div id="pencil-button" onmouseover="changePencilImgColor()" class="summary-task-display-mid">
+                        <div class="summary-icon-circle"><img id="pencil-icon" src="/assets/img/pencil-white.png" alt=""></div>
+                        <div class="text-center">
                             <h1 class="tasks-number">0</h1>
                             <span class="summary-text">To-do</span>
                         </div>
                     </div>
 
-                    <div class="summary-task-display-mid">
-                        <div class="summary-icon-circle"><img src="/assets/img/check-white.png" alt=""></div>
-                        <div>
+                    <div id="check-button" onmouseover="changeCheckImgColor()" class="summary-task-display-mid">
+                        <div class="summary-icon-circle"><img id="check-icon" src="/assets/img/check-white.png" alt=""></div>
+                        <div class="text-center">
                             <h1 class="tasks-number">0</h1>
                             <span class="summary-text">Done</span>
                         </div>
                     </div>
 
                     <div class="summary-task-display-long">
-                        <div>
-                            <div><img src="/assets/img/double-arrows-up.png" alt=""></div>
-                            <div>
+                        <div class="urgency-div">
+                            <div class="red-urgent-icon"><img src="/assets/img/doube-arrows-up.png" alt=""></div>
+                            <div class="text-center">
                             <h1 class="tasks-number">0</h1>
                             <span class="summary-text">Urgent</span>
                             </div>
                         </div>
                         <div class="gray-vert-line"></div>
-                        <div>
+                        <div class="deadline-div">
                             <h3>Sample date</h3>
                             <span>Upcoming Deadline</span>
                         </div>
                     </div>
-                    <div></div>
-                    <div></div>
+
+                    <div class="summary-task-display-small">
+                        <h1 class="tasks-number">0</h1>
+                        <span class="summary-text-bigger">Tasks in Board</span>
+                    </div>
+
+                    <div class="summary-task-display-small">
+                        <h1 class="tasks-number">0</h1>
+                        <span class="summary-text-bigger">Tasks In Progress</span>
+                    </div>
+
+                    <div class="summary-task-display-small">
+                        <h1 class="tasks-number">0</h1>
+                        <span class="summary-text-bigger">Awaiting Feedback</span>
+                    </div>
                 </div>
                 <div class="welcome-section">
                     <h1 class="daytime-text">Sample Daytime,</h1><br>
@@ -51,3 +64,5 @@ function summaryHTML() {
         </div>
     `;
 }
+
+

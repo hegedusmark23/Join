@@ -1,7 +1,7 @@
 .summary-container{
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 40px;
 }
 
 .summary-headline{
@@ -9,6 +9,7 @@
     flex-direction: row;
     align-items: center;
     gap: 30px;
+    padding: 0 50px;
 }
 
 .vert-blue-line{
@@ -32,7 +33,11 @@
     width: 50%;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
+    max-width: 580px;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
 }
 
 .welcome-section{
@@ -68,6 +73,8 @@
     height: 168px;
     border-radius: 30px;
     gap: 18px;
+    cursor: pointer;
+    transition: transform .2s;
 }
 
 .summary-task-display-long{
@@ -79,6 +86,8 @@
     height: 168px;
     border-radius: 30px;
     gap: 61px;
+    cursor: pointer;
+    transition: transform .2s;
 }
 
 .gray-vert-line{
@@ -107,4 +116,90 @@
     font-size: 64px;
     font-weight: 700;
     color: #29ABE2;
+}
+
+.urgency-div{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.summary-task-display-small{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 168px;
+    height: 168px;
+    border-radius: 30px;
+    gap: 13px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.summary-text-bigger{
+    font-size: 21px;
+    font-weight: 400;
+}
+
+.summary-task-display-small:hover{
+    background-color: #2A3647;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,1);
+    transform: scale(1.05);
+
+    .tasks-number{
+        color: white;
+    }
+
+    .summary-text-bigger{
+        color: white;
+    }
+
+    
+}
+
+.summary-task-display-mid:hover{
+    background-color: #2A3647;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,1);
+    transform: scale(1.05);
+
+    .tasks-number{
+        color: white;
+    }
+
+    .summary-text{
+        color: white;
+    }
+
+    .summary-icon-circle{
+        background-color: white;
+    }
+}
+
+.summary-task-display-long:hover{
+    background-color: #2A3647;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,1);
+    transform: scale(1.05);
+
+    .tasks-number{
+        color: white;
+    }
+
+    .summary-text{
+        color: white;
+    }
+
+    .summary-icon-circle{
+        background-color: white;
+    }
+
+    .deadline-div{
+        color: white;
+    }
+}
+
+.text-center{
+    text-align: center;
 }
