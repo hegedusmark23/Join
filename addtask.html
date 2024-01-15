@@ -47,21 +47,20 @@
                         <input type="date" id="dueDate" name="due-date">
                     </label>
                 </div>
+
+                <label class="addtask-custom-label">Prio</label>
                 <div class="addtask-selection">
-                    <label>
-                        <span class="required">Priority</span>
-                        <div class="addtask-prio-btn">
-                            <button class="addtask-buttons" id="addtask-prio-urgent">Urgent
-                                <img src="/Join/assets/img/addtask_prio-urgent-icon.svg" alt="Prio Urgent">
-                            </button>
-                            <button class="addtask-buttons" id="addtask-prio-medium">Medium
-                                <img src="/Join/assets/img/addtask_prio-medium-icon.svg" alt="Prio Medium">
-                            </button>
-                            <button class="addtask-buttons" id="addtask-prio-low">Low
-                                <img src="/Join/assets/img/addtask_prio-low-icon.svg" alt="Prio Low">
-                            </button>
-                        </div>
-                    </label>
+                    <div class="addtask-prio-btn">
+                        <button class="addtask-buttons" id="addtask-prio-urgent">Urgent
+                            <img class="icon" src="/Join/assets/img/addtask_prio-urgent-icon.svg" alt="Prio Urgent">
+                        </button>
+                        <button class="addtask-buttons" id="addtask-prio-medium">Medium
+                            <img class="icon" src="/Join/assets/img/addtask_prio-medium-icon.svg" alt="Prio Medium">
+                        </button>
+                        <button class="addtask-buttons" id="addtask-prio-low">Low
+                            <img class="icon" src="/Join/assets/img/addtask_prio-low-icon.svg" alt="Prio Low">
+                        </button>
+                    </div>
                 </div>
                 <div class="addtask-selection">
                     <label>
@@ -90,6 +89,7 @@
 
     <script src="./JS/script.js"></script>
     <script src="./JS/addtask.js"></script>
+    <script src="./models/tasks.class.js"></script>
 
 </body>
 
