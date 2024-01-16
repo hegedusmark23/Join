@@ -148,3 +148,11 @@ p{
     justify-content: center;
     align-items: center;
 }
+
+.d-none{
+    display: none;
+}
+
+a{
+    cursor: pointer;
+}
