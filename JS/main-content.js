@@ -11,12 +11,12 @@ function generateLegalNoticeContent() {
   container.innerHTML = legalNoticeHTML();
 }
 
-function generatePrivacyPolicyContent(){
+function generatePrivacyPolicyContent() {
   let container = document.getElementById('main-content');
   container.innerHTML = privacyPolicyHTML();
 }
 
-function generateHelpContent(){
+function generateHelpContent() {
   let container = document.getElementById('main-content');
   container.innerHTML = helpHTML();
 }
@@ -41,4 +41,26 @@ function changeCheckImgColor() {         //Changes the color of an icon on hover
   button.addEventListener('mouseout', function () {
     image.src = "/assets/img/check-white.png"
   })
+}
+
+function showMenu() {
+  let menu = document.getElementById('popup-menu');
+  let button = document.getElementById('user-button');
+
+  button.addEventListener('click', function () {
+    menu.classList.remove('d-none');
+    menu.classList.add('d-flex');
+  });
+  
+  button.addEventListener('click', function (event) {
+    if (event.target !== button)
+      menu.classList.remove('d-flex');
+    menu.classList.add('d-none');
+  });
+}
+
+function closeMenu() {
+  let menu = document.getElementById('popup-menu');
+  menu.classList.remove('d-flex');
+  menu.classList.add('d-none');
 }
