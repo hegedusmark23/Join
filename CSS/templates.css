@@ -171,15 +171,6 @@ section {
   padding-bottom: 4px;
 }
 
-.custom-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: url("../assets/img/arrow_drop_down.png");
-  background-position: right 20px center;
-  background-repeat: no-repeat;
-}
-
 .custom-input {
   background-image: url("../assets/img/add.png");
   background-position: right 20px center;
@@ -320,6 +311,10 @@ textarea {
   display: flex;
   align-items: center;
   margin-left: 8px;
+}
+
+.addtask-action-btns button:hover {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .transparent-btn:hover .cross-icon-btn1 path {

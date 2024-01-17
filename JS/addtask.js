@@ -34,5 +34,37 @@ function handleClick(event) {
 }
 
 
+document.querySelectorAll('.dropdown-content a').forEach(item => {
+    item.addEventListener('click', (event) => {
+      // Verhindern, dass der Link die Seite neu lädt
+      event.preventDefault();
+  
+      // Erhalten des Wertes des angeklickten Links
+      const value = item.getAttribute('data-value');
+      console.log("Ausgewählter Wert: ", value);
+  
+      // Aktualisieren des Textes des Dropdown-Buttons
+      document.getElementById('dropdown-categories').textContent = item.textContent;
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const dropdownButton = document.getElementById('dropdown-categories');
+    const dropdownContent = document.getElementById('category');
+  
+    dropdownButton.addEventListener('click', () => {
+      dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    });
+  
+    // Klicken außerhalb des Dropdowns schließt es
+    window.addEventListener('click', (event) => {
+      if (!event.target.matches('.dropbtn')) {
+        if (dropdownContent.style.display === 'block') {
+          dropdownContent.style.display = 'none';
+        }
+      }
+    });
+  });
+
   
 

@@ -29,12 +29,22 @@
                         <textarea placeholder="Enter a description" name="decription" id="description"></textarea>
                     </label>
                 </div>
+
                 <div class="addtask-selection">
                     <label>
                         <span class="required">Assigned to</span>
-                        <select class="custom-select" type="text" id="assignedTo" name="assigned-to">
-                            <option value="" disabled selected>Select contacts to assign</option>
-                        </select>
+                        <div class="dropdown">
+                            <button class="dropbtn">Select contacts to assign</button>
+                            <div class="dropdown-ctrl">
+                                <div class="icon-background"></div>
+                                <div class="arrow-dropdown"></div>
+                            </div>
+
+                            <div class="dropdown-content" id="assignedTo">
+                                <a href="#" data-value="option1">User A</a>
+                                <a href="#" data-value="option2">User B</a>
+                            </div>
+                        </div>
                     </label>
                 </div>
 
@@ -65,13 +75,21 @@
                 <div class="addtask-selection">
                     <label>
                         <span class="required">Category</span>
-                        <select class="custom-select" type="text" id="category" name="category">
-                            <option value="" disabled selected>Select task category</option>
-                            <option value="option1">Technical Task</option>
-                            <option value="option2">User Story</option>
-                        </select>
+                        <div class="dropdown">
+                            <button id="dropdown-categories" class="dropbtn">Select task category</button>
+                            <div class="dropdown-ctrl">
+                                <div class="icon-background"></div>
+                                <div class="arrow-dropdown"></div>
+                            </div>
+
+                            <div class="dropdown-content" id="category">
+                                <a href="#" data-value="option1">Technical Task</a>
+                                <a href="#" data-value="option2">User Story</a>
+                            </div>
+                        </div>
                     </label>
                 </div>
+
                 <div class="addtask-selection">
                     <label>
                         <span>Subtask</span>
