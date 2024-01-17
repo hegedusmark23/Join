@@ -229,6 +229,10 @@ textarea {
   filter: brightness(0) invert(1);
 }
 
+.addtask-buttons.is-active .icon {
+  filter: brightness(0) invert(1);
+}
+
 .addtask-custom-label {
   margin-bottom: -28px;
 }
@@ -261,9 +265,9 @@ textarea {
 }
 
 .addtask-buttons.is-active {
-  background-color: #ff3d00; /* Rote Hintergrundfarbe */
-  color: #ffffff; /* Weiße Textfarbe */
+  color: #ffffff;
   box-shadow: none;
+  font-weight: bold;
 }
 
 .addtask-prio-btn img {
