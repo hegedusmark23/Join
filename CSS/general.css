@@ -167,6 +167,10 @@ p {
   display: none;
 }
 
+.d-flex {
+  display: flex;
+}
+
 .menu-popup{
     flex-direction: column;
     justify-content: center;
