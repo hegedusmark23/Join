@@ -43,20 +43,14 @@ function changeCheckImgColor() {         //Changes the color of an icon on hover
   })
 }
 
-function showMenu() {
-  let menu = document.getElementById('popup-menu');
-  let button = document.getElementById('user-button');
 
-  button.addEventListener('click', function () {
-    menu.classList.remove('d-none');
-    menu.classList.add('d-flex');
-  });
-  
-  button.addEventListener('click', function (event) {
-    if (event.target !== button)
-      menu.classList.remove('d-flex');
-    menu.classList.add('d-none');
-  });
+function showMenu(){     //Toggles the menu on click
+  var x = document.getElementById("popup-menu");
+  if (x.style.display === "none") {
+    x.style.display = "flex";
+  } else {
+    x.style.display = "none";
+  }
 }
 
 function closeMenu() {

@@ -1,9 +1,6 @@
 let users = [];
 
 
-async function init(){
-    loadUsers();
-}
 
 async function loadUsers(){
     try {
@@ -15,8 +12,14 @@ async function loadUsers(){
 
 
 async function register() {
-    registerBtn.disabled = true;
+    let Name = document.getElementById('name');
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let register_button = document.getElementById('register_button');
+
+    register_button.disabled = true;
     users.push({
+        name: Name.value,
         email: email.value,
         password: password.value,
     });
@@ -25,7 +28,26 @@ async function register() {
 }
 
 function resetForm() {
+    let Name = document.getElementById('name');
+    Name.value = '';
     email.value = '';
     password.value = '';
-    registerBtn.disabled = false;
+    confirm_password.value = '';
+    register_button.disabled = false;
+}
+
+function match(){
+var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
 }

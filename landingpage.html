@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
     <link rel="stylesheet" href="./CSS/login-signup.css">
-    <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
 <body>
@@ -25,8 +25,8 @@
             <h1 class="login-headline">Log in</h1>
             <div class="blue-line"></div>
             <form onsubmit="; return false;">
-                <input required class="login-input email-input" placeholder="Email" type="email">
-                <input required minlength="2" class="login-input password-input" placeholder="Password" type="password">
+                <input autocomplete="email" required class="login-input email-input" placeholder="Email" type="email">
+                <input autocomplete="current-password" required minlength="2" class="login-input password-input" placeholder="Password" type="password">
                 <div class="checkbox-div">
                     <input type="checkbox" name="Remember me" id="">
                     <p class="remember-text">Remember me</p>
@@ -42,6 +42,10 @@
             <a class="legal-links" href="/legalnotice-nouser.html">Legal Notice</a>
         </div>
     </main>
+
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/script.js"></script>
+    <script src="./JS/register.js"></script>
 </body>
 
 </html>

@@ -8,23 +8,23 @@
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
     <link rel="stylesheet" href="./CSS/summary.css">
-    <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
 <body onload="init()">
     <main>
         <aside w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div>
-            <menu id="popup-menu" class="menu-popup d-none">
+            <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links" onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links" onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
                 <div class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
             </menu>
             <header w3-include-html="./assets/templates/header.html"></header>
-            <section id="main-content"></section>
+            <section onclick="closeMenu()" id="main-content"></section>
         </div>
     </main>
-    
+    <script src="./JS/register.js"></script>
     <script src="./JS/script.js"></script>
     <script src="./JS/w3include.js"></script>
     <script src="./JS/html-templates.js"></script>

@@ -172,6 +172,7 @@ p {
 }
 
 .menu-popup{
+  display: none;
     flex-direction: column;
     justify-content: center;
     background-color: #2A3647;
