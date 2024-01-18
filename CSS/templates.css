@@ -138,6 +138,11 @@ main {
   color: #ff8190;
 }
 
+.info:before {
+  content: "* ";
+  color: #ff8190;
+}
+
 input[type="text"]:focus,
 input[type="date"]:focus,
 textarea:focus,
@@ -146,8 +151,11 @@ select:focus {
   outline: none;
 }
 
-
 /* Add Task Template */
+
+section {
+  padding: 20px;
+}
 
 /* !!! Label --> Könnte man auslagern!!!*/
 #addtask-content label {
@@ -161,17 +169,6 @@ select:focus {
 
 .label-text {
   padding-bottom: 4px;
-}
-
-.custom-select {
-  -webkit-appearance: none; /* Entfernt den Standard-Stil in WebKit-Browsern */
-  -moz-appearance: none; /* Entfernt den Standard-Stil in Firefox */
-  appearance: none; /* Entfernt den Standard-Stil in modernen Browsern */
-  background-image: url("../assets/img/arrow_drop_down.png"); /* Ihr benutzerdefiniertes Pfeil-Icon */
-  background-position: right 20px center; /* Position des Hintergrundbildes */
-  background-repeat: no-repeat;
-
-  /* Weitere Stilisierungen (Padding, Border usw.) */
 }
 
 .custom-input {
@@ -229,6 +226,10 @@ textarea {
   filter: brightness(0) invert(1);
 }
 
+.addtask-buttons.is-active .icon {
+  filter: brightness(0) invert(1);
+}
+
 .addtask-custom-label {
   margin-bottom: -28px;
 }
@@ -261,9 +262,9 @@ textarea {
 }
 
 .addtask-buttons.is-active {
-  background-color: #ff3d00; /* Rote Hintergrundfarbe */
-  color: #ffffff; /* Weiße Textfarbe */
+  color: #ffffff;
   box-shadow: none;
+  font-weight: bold;
 }
 
 .addtask-prio-btn img {
@@ -290,6 +291,32 @@ textarea {
   margin: 0 20px;
 }
 
-.selected-nav-link-background{
+.selected-nav-link-background {
   background-color: #091931;
+}
+
+.addtask-actions {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-top: 140px;
+}
+
+.addtask-action-btns {
+  display: flex;
+}
+
+.addtask-action-btns button {
+  width: auto;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.addtask-action-btns button:hover {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.transparent-btn:hover .cross-icon-btn1 path {
+  stroke: #29abe2 !important;
 }
