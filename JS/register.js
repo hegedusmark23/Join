@@ -25,6 +25,7 @@ async function register() {
     });
     await setItem('users', JSON.stringify(users));
     resetForm();
+    window.location.href = '/landingpage.html'
 }
 
 function resetForm() {
@@ -47,7 +48,6 @@ function validatePassword(){
     confirm_password.setCustomValidity('');
   }
 }
-
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 }
