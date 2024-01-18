@@ -65,7 +65,7 @@ function summaryHTML() {
     `;
 }
 
-function legalNoticeHTML(){
+function legalNoticeHTML() {
     return /*html*/`
         <a class="legal-site-arrow" onclick="generateSummaryContent()"><img class="arrow" src="/assets/img/arrow-left-blue.png" alt=""></a>
             <div id="summary-content">
@@ -96,7 +96,7 @@ function legalNoticeHTML(){
 `;
 }
 
-function privacyPolicyHTML(){
+function privacyPolicyHTML() {
     return /*html*/`
         <a class="legal-site-arrow" onclick="generateSummaryContent()"><img class="arrow"
                     src="/assets/img/arrow-left-blue.png" alt=""></a>
@@ -184,7 +184,7 @@ function privacyPolicyHTML(){
     `;
 }
 
-function helpHTML(){
+function helpHTML() {
     return /*html*/`
     <a class="legal-site-arrow" onclick="generateSummaryContent()"><img class="arrow"
     src="/assets/img/arrow-left-blue.png" alt=""></a>
