@@ -13,20 +13,23 @@
 
 <body onload="initRegister()">
     <header>
-      <img  class="animated-logo" src="./assets/img/logo-big.png" alt="">
-      <div class="sign-up-btn o0 invis-visible-animation">
-        <p class="notUser-text">Not a Join user?</p>
-        <a href="/signup.html"><button class="blue-btn">Sign up</button></a>
-      </div>   
+        <img class="animated-logo" src="./assets/img/logo-big.png" alt="">
+        <div class="sign-up-btn o0 invis-visible-animation">
+            <p class="notUser-text">Not a Join user?</p>
+            <a href="/signup.html"><button class="blue-btn">Sign up</button></a>
+        </div>
     </header>
-   
+
     <main>
         <div class="login-container o0 invis-visible-animation">
             <h1 class="login-headline">Log in</h1>
             <div class="blue-line"></div>
-            <form onsubmit="; return false;">
-                <input autocomplete="email" required class="login-input email-input" placeholder="Email" type="email">
-                <input autocomplete="current-password" required minlength="2" class="login-input password-input" placeholder="Password" type="password">
+            <form onsubmit="login(); return false;">
+                <input id="email" autocomplete="email" required class="login-input email-input" placeholder="Email"
+                    type="email">
+                <input id="password" autocomplete="current-password" required minlength="2"
+                    class="login-input password-input" placeholder="Password" type="password">
+                <p id="login-error-message" class="login-error-message d-none">You have entered an invalid username or password.</p>
                 <div class="checkbox-div">
                     <input type="checkbox" name="Remember me" id="">
                     <p class="remember-text">Remember me</p>

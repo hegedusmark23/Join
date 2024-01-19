@@ -58,3 +58,17 @@ function closeMenu() {
   menu.classList.remove('d-flex');
   menu.classList.add('d-none');
 }
+
+function signUpMessage(){    // A messeage does appear after a succesfull registration.
+  let message = document.getElementById('signup-message');
+  setTimeout(function(){
+    message.classList.remove('d-none');
+    message.classList.add('d-flex');
+    },500)
+  }
+
+function redirectToLogin(){   // Redirects to the Login page after registration.
+  setTimeout(function(){
+    window.location.href = '/landingpage.html'
+  },1500)
+}

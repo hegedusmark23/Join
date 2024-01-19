@@ -1,7 +1,5 @@
 let users = [];
 
-
-
 async function loadUsers(){
     try {
         users = JSON.parse(await getItem('users'));
@@ -25,10 +23,12 @@ async function register() {
     });
     await setItem('users', JSON.stringify(users));
     resetForm();
-    window.location.href = '/landingpage.html'
+    signUpMessage();
+    redirectToLogin();
 }
 
-function resetForm() {
+
+function resetForm() {     // Resets the form after registration.
     let Name = document.getElementById('name');
     Name.value = '';
     email.value = '';
@@ -37,7 +37,8 @@ function resetForm() {
     register_button.disabled = false;
 }
 
-function match(){
+
+function match(){      // Checks if the passwords are matching at the registration.
 var password = document.getElementById("password")
   , confirm_password = document.getElementById("confirm_password");
 
@@ -50,4 +51,24 @@ function validatePassword(){
 }
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
+}
+
+
+function login(){
+  let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let user = users.find( u => u.email == email.value && u.password == password.value);
+    console.log(user)
+    if(user) {
+      window.location.href = '/index.html'
+    } else {
+      loginError();
+    }
+}
+
+function loginError(){
+  let message = document.getElementById('login-error-message');
+  message.classList.remove('d-none');
+  message.classList.add('d-flex');
+
 }
