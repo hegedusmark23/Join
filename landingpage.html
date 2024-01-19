@@ -24,14 +24,14 @@
         <div class="login-container o0 invis-visible-animation">
             <h1 class="login-headline">Log in</h1>
             <div class="blue-line"></div>
-            <form onsubmit="login(); return false;">
+            <form onsubmit="login(); rememberMe(); return false;">
                 <input id="email" autocomplete="email" required class="login-input email-input" placeholder="Email"
                     type="email">
                 <input id="password" autocomplete="current-password" required minlength="2"
                     class="login-input password-input" placeholder="Password" type="password">
                 <p id="login-error-message" class="login-error-message d-none">You have entered an invalid username or password.</p>
                 <div class="checkbox-div">
-                    <input type="checkbox" name="Remember me" id="">
+                    <input type="checkbox" name="Remember me" id="remember">
                     <p class="remember-text">Remember me</p>
                 </div>
                 <div class="buttons-div">
@@ -49,6 +49,7 @@
     <script src="./JS/storage.js"></script>
     <script src="./JS/script.js"></script>
     <script src="./JS/register.js"></script>
+    <script src="./JS/main-content.js"></script>
 </body>
 
 </html>

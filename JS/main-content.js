@@ -44,7 +44,7 @@ function changeCheckImgColor() {         //Changes the color of an icon on hover
 }
 
 
-function showMenu(){     //Toggles the menu on click
+function showMenu() {     //Toggles the menu on click
   var x = document.getElementById("popup-menu");
   if (x.style.display === "none") {
     x.style.display = "flex";
@@ -59,16 +59,60 @@ function closeMenu() {
   menu.classList.add('d-none');
 }
 
-function signUpMessage(){    // A messeage does appear after a succesfull registration.
+function signUpMessage() {    // A messeage does appear after a succesfull registration.
   let message = document.getElementById('signup-message');
-  setTimeout(function(){
+  setTimeout(function () {
     message.classList.remove('d-none');
     message.classList.add('d-flex');
-    },500)
-  }
+  }, 500)
+}
 
-function redirectToLogin(){   // Redirects to the Login page after registration.
-  setTimeout(function(){
+function redirectToLogin() {   // Redirects to the Login page after registration.
+  setTimeout(function () {
     window.location.href = '/landingpage.html'
-  },1500)
+  }, 1500)
+}
+
+function rememberMe() {
+    const rmCheck = document.getElementById("remember"),
+      passwordInput = document.getElementById("password"),
+      emailInput = document.getElementById("email");
+    if (localStorage.checkbox && localStorage.checkbox !== "") {
+      rmCheck.setAttribute("checked", "checked");
+      passwordInput.value = localStorage.userpassword;
+      emailInput.value = localStorage.useremail;
+    } else {
+      rmCheck.removeAttribute("checked");
+      passwordInput.value = "";
+      emailInput.value = "";
+    }
+
+    /*submitButton.onclick =function() {
+      if (rmCheck.checked && emailInput.value !== "") {
+        localStorage.userpassword = passwordInput.value;
+        localStorage.useremail = emailInput.value;
+        localStorage.checkbox = rmCheck.value;
+      } else {
+        localStorage.userpassword = "";
+        localStorage.useremail = "";
+        localStorage.checkbox = "";
+      }
+    }*/
+}
+
+
+function timeDynamicWelcome(){
+    let welcome =  document.getElementById('daytime')
+    let date = new Date();  
+    let hour = date.getHours();
+    if (hour > 12) {  
+      welcome.innerHTML = 'good morning';
+       
+    } else if (hour < 17) {  
+      welcome.innerHTML = 'good afternoon';  
+    } else if ( hour < 17) {  
+      console.log('good evening');   
+      welcome.innerHTML = 'good evening';
+      
+    }  
 }

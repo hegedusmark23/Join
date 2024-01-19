@@ -2,7 +2,6 @@
 function init(){
     includeHTML();
     generateSummaryContent();
-    
 }
 
 async function initRegister(){

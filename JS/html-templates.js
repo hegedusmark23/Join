@@ -57,7 +57,7 @@ function summaryHTML() {
                     </div>
                 </div>
                 <div class="welcome-section">
-                    <h1 class="daytime-text">Sample Daytime,</h1><br>
+                    <h1 id="daytime" class="daytime-text">Sample Daytime,</h1><br>
                     <h1 class="user-name-text">Sample User</h1>
                 </div>
             </div>
