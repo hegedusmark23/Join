@@ -23,14 +23,14 @@ body {
 }
 
 .contact-book {
-    display: flex;
-    flex-direction: column;
+    width: 456px;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 32px 24px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .add-new-contact-btn {
@@ -54,22 +54,67 @@ body {
     font-weight: 700;
 }
 
-.contact-list {
+.contacts-list {
     display: flex;
     flex-direction: column;
+    width: 400px;
 }
 
 .letter-container {
     width: 352px;
-    height: 58px;
+    min-height: 58px;
     padding: 17px 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-letter {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.contact-list-separator-bar-container {
+    width: 352px;
+    padding: 8px 0;
 }
 
 .contact-list-separator-bar {
-    display: block;
+    display: inline-block;
     background: #D1D1D1;
     width: 352px;
     height: 1.6px;
+}
+
+
+
+.cont {
+    display: flex;
+    flex-direction: column;
+}
+
+.under-container {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    width: 352px;
+    padding: 15px 24px;
+}
+
+.contact-badge {
+    height: 42px;
+    width: 42px;
+    border-radius: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-and-email-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .add-person-icon {
