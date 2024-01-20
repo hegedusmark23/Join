@@ -3,7 +3,8 @@ function generateSummaryContent() {
   let container = document.getElementById('main-content');
   let background = document.getElementById('summary-nav');
   container.innerHTML = summaryHTML();
-  background.classList.add('selected-nav-link-background');
+  //background.classList.add('selected-nav-link-background');
+  timeDynamicWelcome();
 }
 
 function generateLegalNoticeContent() {
@@ -105,14 +106,27 @@ function timeDynamicWelcome(){
     let welcome =  document.getElementById('daytime')
     let date = new Date();  
     let hour = date.getHours();
-    if (hour > 12) {  
-      welcome.innerHTML = 'good morning';
-       
-    } else if (hour < 17) {  
-      welcome.innerHTML = 'good afternoon';  
-    } else if ( hour < 17) {  
-      console.log('good evening');   
-      welcome.innerHTML = 'good evening';
+    if (hour < 12) {  
+      welcome.innerHTML = 'Good Morning,';
+      } else if (hour < 17) {  
+      welcome.innerHTML = 'Good Afternoon,';  
+    } else if (hour > 17) {  
+      welcome.innerHTML = 'Good Evening,';
       
     }  
+}
+
+function revealPassword(){
+  var x = document.getElementById("password");
+  if (x.style.background === "url(/assets/img/lock-icon.png)") {
+    x.style.background = "url(/assets/img/visibility.png )";
+    x.style.backgroundRepeat = "no-repeat";
+    x.style.backgroundPosition = "center";
+    x.style.backgroundPositionX = "calc(100% - 12px)";
+  } else {
+    x.style.background = "url(/assets/img/lock-icon.png)";
+    x.style.backgroundRepeat = "no-repeat";
+    x.style.backgroundPosition = "center";
+    x.style.backgroundPositionX = "calc(100% - 12px)";
+  }
 }

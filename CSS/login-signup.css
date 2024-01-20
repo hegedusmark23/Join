@@ -111,19 +111,23 @@ form {
 }
 
 .email-input {
-    background: url(/assets/img/mail-icon.png) no-repeat scroll 7px 7px;
+    background: url(/assets/img/mail-icon.png);
+    background-repeat: no-repeat;
     background-position: center;
     background-position-x: calc(100% - 12px);
 }
 
 .password-input {
-    background: url(/assets/img/lock-icon.png) no-repeat scroll 7px 7px;
+    background: url(/assets/img/lock-icon.png); 
+    background-repeat: no-repeat;
     background-position: center;
     background-position-x: calc(100% - 12px);
 }
 
+
 .name-input {
-    background: url(/assets/img/person-icon.png) no-repeat scroll 7px 7px;
+    background: url(/assets/img/person-icon.png);
+    background-repeat: no-repeat;
     background-position: center;
     background-position-x: calc(100% - 12px);
 }
