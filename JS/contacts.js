@@ -78,15 +78,6 @@ function capitalizeLetters(completeName) {
 
 capitalizeLetters('Mario Rossi');
 
-
-
-
-
-
-
-
-
-
 function showAddContactOverlay() {
     document.getElementById('add-contact-overlay').classList.remove('d-none');
 }

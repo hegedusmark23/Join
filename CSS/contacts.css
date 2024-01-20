@@ -1,8 +1,8 @@
-*,
+/**,
 *::before,
 *::after {
     box-sizing: border-box;
-}
+}*/
 
 @font-face {
     font-family: "Inter", sans-serif;

@@ -22,6 +22,16 @@ function generateHelpContent() {
   container.innerHTML = helpHTML();
 }
 
+function generateAddTaskContent() {
+  let container = document.getElementById('main-content');
+  container.innerHTML = addTaskHTML();
+}
+
+function generateContactsContent() {
+  let container = document.getElementById('main-content');
+  container.innerHTML = contactsHTML();
+}
+
 function changePencilImgColor() {                //Changes the color of an icon on hover
   var image = document.getElementById("pencil-icon");
   var button = document.getElementById("pencil-button");
@@ -88,8 +98,7 @@ function rememberMe() {
       passwordInput.value = "";
       emailInput.value = "";
     }
-
-    /*submitButton.onclick =function() {
+      submitButton.onclick =function() {
       if (rmCheck.checked && emailInput.value !== "") {
         localStorage.userpassword = passwordInput.value;
         localStorage.useremail = emailInput.value;
@@ -99,7 +108,7 @@ function rememberMe() {
         localStorage.useremail = "";
         localStorage.checkbox = "";
       }
-    }*/
+    }
 }
 
 
