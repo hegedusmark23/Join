@@ -45,9 +45,10 @@ function changeCheckImgColor() {         //Changes the color of an icon on hover
 }
 
 
-function showMenu() {     //Toggles the menu on click
+function showMenu() {
   var x = document.getElementById("popup-menu");
-  if (x.style.display === "none") {
+  var computedStyle = window.getComputedStyle(x);
+  if (computedStyle.display === "none" || x.style.display === "none") {
     x.style.display = "flex";
   } else {
     x.style.display = "none";
@@ -102,7 +103,7 @@ function rememberMe() {
 }
 
 
-function timeDynamicWelcome(){
+function timeDynamicWelcome(){      //Daytime dependant Welcom message.
     let welcome =  document.getElementById('daytime')
     let date = new Date();  
     let hour = date.getHours();
@@ -116,17 +117,18 @@ function timeDynamicWelcome(){
     }  
 }
 
-function revealPassword(){
+
+
+function revealPassword() {         //Reveals the password on the login page.
   var x = document.getElementById("password");
-  if (x.style.background === "url(/assets/img/lock-icon.png)") {
-    x.style.background = "url(/assets/img/visibility.png )";
-    x.style.backgroundRepeat = "no-repeat";
-    x.style.backgroundPosition = "center";
-    x.style.backgroundPositionX = "calc(100% - 12px)";
+  if (x.type === "password" && x.value.length > 2) {
+    x.style.background = "url(/assets/img/visibility.png)";
+    x.type = "text";
   } else {
     x.style.background = "url(/assets/img/lock-icon.png)";
-    x.style.backgroundRepeat = "no-repeat";
-    x.style.backgroundPosition = "center";
-    x.style.backgroundPositionX = "calc(100% - 12px)";
+    x.type = "password";
   }
+  x.style.backgroundRepeat = "no-repeat";
+  x.style.backgroundPosition = "center";
+  x.style.backgroundPositionX = "calc(100% - 12px)";
 }

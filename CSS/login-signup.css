@@ -118,7 +118,7 @@ form {
 }
 
 .password-input {
-    background: url(/assets/img/lock-icon.png); 
+    background: url(/assets/img/lock-icon.png);
     background-repeat: no-repeat;
     background-position: center;
     background-position-x: calc(100% - 12px);
