@@ -1,6 +1,6 @@
 const prioButtons = document.querySelectorAll('.addtask-buttons');
 
-const colors = {
+const Colors = {
   urgent: '#ff3d00',
   medium: '#ffa800',
   low: '#7ae229'
@@ -29,7 +29,7 @@ function handleClick(event) {
         // Füge 'is-active' zum geklickten Button hinzu und setze die Hintergrundfarbe
         button.classList.add('is-active');
         const priority = button.id.replace('addtask-prio-', '');
-        button.style.backgroundColor = colors[priority];
+        button.style.backgroundColor = Colors[priority];
     }
 }
 

@@ -30,6 +30,7 @@ function generateAddTaskContent() {
 function generateContactsContent() {
   let container = document.getElementById('main-content');
   container.innerHTML = contactsHTML();
+  renderContact();
 }
 
 function changePencilImgColor() {                //Changes the color of an icon on hover
@@ -140,4 +141,13 @@ function revealPassword() {         //Reveals the password on the login page.
   x.style.backgroundRepeat = "no-repeat";
   x.style.backgroundPosition = "center";
   x.style.backgroundPositionX = "calc(100% - 12px)";
+}
+
+
+function guestLogin(){
+  let user = document.getElementById('user-name-capitalized')
+  let message = document.getElementById('welcome-message');
+  window.location.href = '/index.html'
+  user.innerHTML = 'GU';
+  message.innerHTML = 'Guest User'
 }
