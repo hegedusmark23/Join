@@ -17,26 +17,30 @@
         <aside w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div>
             <menu id="popup-menu" class="menu-popup">
-                <div class="popup-links-div"><a class="popup-links" onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
-                <div class="popup-links-div"><a class="popup-links" onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
+                <div class="popup-links-div"><a class="popup-links"
+                        onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
+                <div class="popup-links-div"><a class="popup-links"
+                        onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
                 <div class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
             </menu>
             <header w3-include-html="./assets/templates/header.html"></header>
             <section onclick="closeMenu()" id="main-content"></section>
         </div>
     </main>
-    
+    <script src="./JS/w3include.js"></script>
+    <script src="./JS/html-templates.js"></script>
     <script src="./JS/storage.js"></script>
     <script src="./JS/register.js"></script>
-    <script src="./JS/w3include.js"></script>
     <script src="./JS/contacts.js"></script>
-    <script src="./JS/html-templates.js"></script>
-    <script src="./models/contact.class.js"></script>
+    
     <script src="./models/tasks.class.js"></script>
-    <script src="./JS/addtask.js"></script>
+    <script src="./models/contact.class.js"></script>
     <script src="./JS/contacts-template-func.js"></script>
+    <script src="./JS/addtask.js"></script>
     <script src="./JS/main-content.js"></script>
     <script src="./JS/script.js"></script>
+    
+
 </body>
 
 </html>

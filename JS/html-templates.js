@@ -58,7 +58,7 @@ function summaryHTML() {
                 </div>
                 <div class="welcome-section">
                     <h1 id="daytime" class="daytime-text">Sample Daytime,</h1><br>
-                    <h1 id="welcome-message" class="user-name-text">Sample User</h1>
+                    <h1 id="welcome-message" class="user-name-text">Guest User</h1>
                 </div>
             </div>
         </div>
@@ -396,7 +396,6 @@ function addTaskHTML(){
             <div class="addtask-selection">
                 <label>
                     <span class="label-text required">Title</span>
-                    </span>
                     <input id="addtask-title" type="text" placeholder="Enter a title">
                 </label>
             </div>
