@@ -15,6 +15,7 @@
 
 <body onload="renderContact()">
     <section id="contact-section" class="contact-section">
+
         <div class="contact-book">
             <div id="add-new-contact-btn" class="add-new-contact-btn" onclick="showAddContactOverlay()">
                 <span>Add new contact</span> <img class="add-person-icon" src="./assets/icons/person_add.svg"
@@ -22,18 +23,13 @@
             </div>
             <div id="contacts-list" class="contacts-list"></div>
         </div>
+        <div class="contact-view-section">
+            <div id="contact-view-title-container" class="contact-view-title-container">
+                <h2 class="contact-view-title">Contacts</h2><span class="contact-view-separator-bar"></span>
+                <h3 class="contact-view-subtitle">Better with a team</h3>
+            </div>
 
-        <div class="image-and-name-container">
-            <div class="capital-letters-container">
-                <span>AM</span>
-            </div>
-            <div class="name-container">
-                <h2 class="contact-name">Anton Mayer</h2>
-                <div class="name-icons-container">
-                    <img src="./assets/icons/pen.svg" alt=""> <span>Edit</span> <img src="./assets/icons/trashbin.svg"
-                        alt=""><span>Delete</span>
-                </div>
-            </div>
+            <div id="contact-view-container" class="contact-view-container translateX" style="border: 1px solid red;"></div>
         </div>
     </section>
 
@@ -104,7 +100,13 @@
                     </div>
                     <div class="contact-btn-container">
                         <button class="add-contact-btn1" onclick="emptyInputs()">Cancel
-                            <img class="cross-icon-btn1" src="./assets/icons/cross.svg" alt="">
+                            <svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill=""
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z"
+                                    stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
                         </button>
                         <button class="add-contact-btn2" onclick="getContact()">Create contact<img
                                 class="check-icon-btn2" src="./assets/icons/check.svg" alt=""></button>
@@ -115,8 +117,9 @@
             </div>
         </div>
     </div>
-    <script src="./JS/contacts-template-func.js"></script>
+    <script src="./JS/storage.js"></script>
     <script src="./models/contact.class.js"></script>
+    <script src="./JS/contacts-template-func.js"></script>
     <script src="./JS/contacts.js"></script>
 </body>
 

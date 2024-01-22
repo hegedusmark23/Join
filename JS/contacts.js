@@ -9,8 +9,17 @@ alphabet.forEach((letter) => {
     letterContainer[letter] = [];
 })
 
-function renderContact() {
+async function renderContact() {
+    await loadItems();
     setLettersContainers();
+}
+
+async function loadItems() {
+    try {
+        letterContainer = JSON.parse(await getItem('contacts'));
+    } catch (e) {
+        console.warn(e);
+    }
 }
 
 
@@ -34,13 +43,13 @@ function showContacts(key) {
         capitalizeLetters(contact.completeName)
         let color = Math.floor(Math.random() * colors.length);
         let casualColor = colors[color];
-        getShowContactHTML(i, cont, contact, casualColor);
+        getShowContactHTML(i, key, cont, contact, casualColor);
     }
 }
 
 
 
-function getContact() {
+async function getContact() {
     let completeName = document.getElementById('name').value;
     let emailAdress = document.getElementById('email').value;
     let phone = document.getElementById('phone').value;
@@ -48,14 +57,15 @@ function getContact() {
     addContacts(completeName, emailAdress, phone)
 }
 
-function addContacts(completeName, emailAdress, phone) {
+async function addContacts(completeName, emailAdress, phone) {
     let contact = new Contact(completeName, emailAdress, phone);
     if (alphabet.includes(firstLetter)) {
         letterContainer[firstLetter].push(contact);
-        renderContact();
+        await setItem('contacts', JSON.stringify(letterContainer));
     }
-    emptyInputs()
-    hideAddContactOverlay()
+    await renderContact();
+    emptyInputs();
+    hideAddContactOverlay();
 }
 
 function emptyInputs() {
@@ -76,12 +86,56 @@ function capitalizeLetters(completeName) {
 
 }
 
-capitalizeLetters('Mario Rossi');
+function showContactOnclick(key, i) {
+    let contactViewContainer = document.getElementById('contact-view-container');
+    let name = letterContainer[key][i]['completeName'];
+    let email = letterContainer[key][i]['email'];
+    let phone = letterContainer[key][i]['phone'];
+    capitalizeLetters(name);
+    contactViewContainer.innerHTML = /*html*/ `
+    <div class="contact-view-name-container">
+        <div class="contact-view-badge-container">
+          <span class="contact-view-badge">${capitalizedLetters}</span>
+        </div>
+        <div class="contact-view-edit-delete-container">
+            <h2 class="contact-view-name">${name}</h2>
+            <div class="contact-view-icons-container">
+              <span class="contact-view-edit-container">
+                <img src="./assets/icons/pen.svg" alt="">Edit
+              </span> 
+              <span class="contact-view-delete-container">
+                <img src="./assets/icons/trashbin.svg" alt="">Delete
+              </span>
+            </div>
+        </div>
+    </div>
+    <h3>Contact Information</h3>
+    <div class="contact-view-information-container">
+        <div class="contact-view-email-container">
+            <h3>Email</h3>
+           <a class="contact-view-email">${email}</a>
+        </div>
+        <div class="contact-view-phone-container">
+            <h3>Phone</h3>
+            <span class="contact-view-phone">${phone}</span>
+        </div>
+    </div>
+    `
+    
+    contactViewContainer.classList.remove('translateX')
+}
 
+function backgroundBlackAndWhiteText(key, i) {
+    document.getElementById(`under-container${key}${i}`).classList.add('black-container');
+    document.getElementById(`contact-list-name${key}${i}`).style.color = '#fff';
+    document.getElementById(`contact-list-email${key}${i}`).style.color = '#fff';
+}
 
-
-
-
+function backgroundAndTextOriginal(key, i) {
+    document.getElementById(`under-container${key}${i}`).classList.remove('black-container');
+    document.getElementById(`contact-list-name${key}${i}`).style.color = '#000';
+    document.getElementById(`contact-list-email${key}${i}`).style.color = '#'
+}
 
 
 
