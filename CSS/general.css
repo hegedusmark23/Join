@@ -88,6 +88,7 @@ p {
   border-width: 0px;
   cursor: pointer;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .transparent-btn {
@@ -117,6 +118,7 @@ p {
   font-weight: 600;
   color: #2a3647;
   border: 1px solid #2a3647;
+  cursor: pointer;
 }
 
 .white-btn:hover {

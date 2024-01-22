@@ -3,7 +3,8 @@ function generateSummaryContent() {
   let container = document.getElementById('main-content');
   let background = document.getElementById('summary-nav');
   container.innerHTML = summaryHTML();
-  background.classList.add('selected-nav-link-background');
+  //background.classList.add('selected-nav-link-background');
+  timeDynamicWelcome();
 }
 
 function generateLegalNoticeContent() {
@@ -19,6 +20,17 @@ function generatePrivacyPolicyContent() {
 function generateHelpContent() {
   let container = document.getElementById('main-content');
   container.innerHTML = helpHTML();
+}
+
+function generateAddTaskContent() {
+  let container = document.getElementById('main-content');
+  container.innerHTML = addTaskHTML();
+}
+
+function generateContactsContent() {
+  let container = document.getElementById('main-content');
+  container.innerHTML = contactsHTML();
+  renderContact();
 }
 
 function changePencilImgColor() {                //Changes the color of an icon on hover
@@ -44,9 +56,10 @@ function changeCheckImgColor() {         //Changes the color of an icon on hover
 }
 
 
-function showMenu() {     //Toggles the menu on click
+function showMenu() {
   var x = document.getElementById("popup-menu");
-  if (x.style.display === "none") {
+  var computedStyle = window.getComputedStyle(x);
+  if (computedStyle.display === "none" || x.style.display === "none") {
     x.style.display = "flex";
   } else {
     x.style.display = "none";
@@ -86,8 +99,7 @@ function rememberMe() {
       passwordInput.value = "";
       emailInput.value = "";
     }
-
-    /*submitButton.onclick =function() {
+      submitButton.onclick =function() {
       if (rmCheck.checked && emailInput.value !== "") {
         localStorage.userpassword = passwordInput.value;
         localStorage.useremail = emailInput.value;
@@ -97,22 +109,47 @@ function rememberMe() {
         localStorage.useremail = "";
         localStorage.checkbox = "";
       }
-    }*/
+    }
 }
 
 
-function timeDynamicWelcome(){
+function timeDynamicWelcome(){      //Daytime dependant Welcom message.
     let welcome =  document.getElementById('daytime')
     let date = new Date();  
     let hour = date.getHours();
-    if (hour > 12) {  
-      welcome.innerHTML = 'good morning';
-       
-    } else if (hour < 17) {  
-      welcome.innerHTML = 'good afternoon';  
-    } else if ( hour < 17) {  
-      console.log('good evening');   
-      welcome.innerHTML = 'good evening';
+    if (hour < 12) {  
+      welcome.innerHTML = 'Good Morning,';
+      } else if (hour < 17) {  
+      welcome.innerHTML = 'Good Afternoon,';  
+    } else if (hour > 17) {  
+      welcome.innerHTML = 'Good Evening,';
       
     }  
 }
+
+
+
+function revealPassword() {         //Reveals the password on the login page.
+  var x = document.getElementById("password");
+  if (x.type === "password" && x.value.length > 2) {
+    x.style.background = "url(/assets/img/visibility.png)";
+    x.type = "text";
+  } else {
+    x.style.background = "url(/assets/img/lock-icon.png)";
+    x.type = "password";
+  }
+  x.style.backgroundRepeat = "no-repeat";
+  x.style.backgroundPosition = "center";
+  x.style.backgroundPositionX = "calc(100% - 12px)";
+}
+
+
+function guestLogin(){
+  let user = document.getElementById('user-name-capitalized')
+  let message = document.getElementById('welcome-message');
+  window.location.href = '/index.html'
+  user.innerHTML = 'GU';
+  message.innerHTML = 'Guest User'
+}
+
+

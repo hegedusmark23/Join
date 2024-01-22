@@ -58,7 +58,7 @@ function summaryHTML() {
                 </div>
                 <div class="welcome-section">
                     <h1 id="daytime" class="daytime-text">Sample Daytime,</h1><br>
-                    <h1 class="user-name-text">Sample User</h1>
+                    <h1 id="welcome-message" class="user-name-text">Guest User</h1>
                 </div>
             </div>
         </div>
@@ -279,3 +279,223 @@ function helpHTML() {
 </div>
     `;
 }
+
+function contactsHTML(){
+    return /*html*/`
+    <section id="contact-section" class="contact-section">
+    <div class="contact-book">
+        <div id="add-new-contact-btn" class="add-new-contact-btn" onclick="showAddContactOverlay()">
+            <span>Add new contact</span> <img class="add-person-icon" src="./assets/icons/person_add.svg"
+                alt="add-person">
+        </div>
+        <div id="contacts-list" class="contacts-list"></div>
+    </div>
+
+    <div class="image-and-name-container">
+        <div class="capital-letters-container">
+            <span>AM</span>
+        </div>
+        <div class="name-container">
+            <h2 class="contact-name">Anton Mayer</h2>
+            <div class="name-icons-container">
+                <img src="./assets/icons/pen.svg" alt=""> <span>Edit</span> <img src="./assets/icons/trashbin.svg"
+                    alt=""><span>Delete</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- add Contact Overlay -->
+<div onclick="hideAddContactOverlay()" id="add-contact-overlay" class="contact-bg-dialog d-none">
+    <div onclick="doNotClose(event)" class="contact-dialog">
+        <div class="contacts-left-container">
+            <div class="logo-and-title-container">
+                <span><img class="contact-dialog-logo" src="./assets/img/logo-small-white.png" alt=""></span>
+                <h2 class="add-contact-title">Add Contact</h2>
+                <h3 class="add-contact-subtitle">Tasks are better with a Team</h3>
+                <span class="border-bar"></span>
+            </div>
+        </div>
+        <div class="contact-right-container">
+            <div class="person-icon-container">
+                <img src="./assets/icons/person.svg" alt="person">
+            </div>
+            <div class="input-and-btn-container">
+                <span class="cross-icon-container"><img onclick="hideAddContactOverlay()" class="cross-icon"
+                        src="./assets/icons/cross.svg" alt=""></span>
+                <div class="inputs-container">
+                    <input class="input-name" type="text" id="name" placeholder="Name and Lastname">
+                    <input class="input-email" type="email" id="email" placeholder="E-Mail Address">
+                    <input class="input-phone" type="text" id="phone" placeholder="Phone">
+                </div>
+                <div class="contact-btn-container">
+                    <button class="add-contact-btn1" onclick="emptyInputs()">Cancel
+                        <img class="cross-icon-btn1" src="./assets/icons/cross.svg" alt="">
+                    </button>
+                    <button class="add-contact-btn2" onclick="getContact()">Create contact<img
+                            class="check-icon-btn2" src="./assets/icons/check.svg" alt=""></button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- edit Contact Overlay -->
+
+<div id="edit-contact-overlay" class="contact-bg-dialog d-none">
+    <div class="contact-dialog">
+        <div class="contacts-left-container">
+            <div class="logo-and-title-container">
+                <span><img class="contact-dialog-logo" src="./assets/img/logo-small-white.png" alt=""></span>
+                <h2 class="add-contact-title">Edit Contact</h2>
+                <span class="border-bar"></span>
+            </div>
+        </div>
+        <div class="contact-right-container">
+            <div class="person-icon-container">
+                <img src="./assets/icons/person.svg" alt="person">
+            </div>
+            <div class="input-and-btn-container">
+                <span class="cross-icon-container"><img class="cross-icon" src="./assets/icons/cross.svg"
+                        alt=""></span>
+                <div class="inputs-container">
+                    <input class="input-name" type="text" id="name" placeholder="Name and Lastname">
+                    <input class="input-email" type="email" id="email" placeholder="E-Mail Address">
+                    <input class="input-phone" type="text" id="phone" placeholder="Phone">
+                </div>
+                <div class="contact-btn-container">
+                    <button class="add-contact-btn1" onclick="emptyInputs()">Cancel
+                        <img class="cross-icon-btn1" src="./assets/icons/cross.svg" alt="">
+                    </button>
+                    <button class="add-contact-btn2" onclick="getContact()">Create contact<img
+                            class="check-icon-btn2" src="./assets/icons/check.svg" alt=""></button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+function addTaskHTML(){
+    return /*html*/`
+    <section id="addtask-content">
+
+    <h1>Add Task</h1>
+
+    <form onsubmit="return false;" class="addtask-form">
+        <div class="form-section left-section">
+            <div class="addtask-selection">
+                <label>
+                    <span class="label-text required">Title</span>
+                    <input id="addtask-title" type="text" placeholder="Enter a title">
+                </label>
+            </div>
+            <div class="addtask-selection">
+                <label>
+                    <span>Description</span>
+                    <textarea placeholder="Enter a description" name="decription" id="description"></textarea>
+                </label>
+            </div>
+
+            <div class="addtask-selection">
+                <label>
+                    <span class="required">Assigned to</span>
+                    <div class="dropdown">
+                        <button class="dropbtn">Select contacts to assign</button>
+                        <div class="dropdown-ctrl">
+                            <div class="icon-background"></div>
+                            <div class="arrow-dropdown"></div>
+                        </div>
+
+                        <div class="dropdown-content" id="assignedTo">
+                            <a href="#" data-value="option1">User A</a>
+                            <a href="#" data-value="option2">User B</a>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+        </div>
+        <div class="divider"></div>
+        <div class="form-section right-section">
+            <div class="addtask-selection">
+                <label>
+                    <span class="required">Due date</span>
+                    <input type="date" id="dueDate" name="due-date">
+                </label>
+            </div>
+
+            <label class="addtask-custom-label">Prio</label>
+            <div class="addtask-selection">
+                <div class="addtask-prio-btn">
+                    <button class="addtask-buttons" id="addtask-prio-urgent">Urgent
+                        <img class="icon" src="/assets/img/addtask_prio-urgent-icon.svg" alt="Prio Urgent">
+                    </button>
+                    <button class="addtask-buttons" id="addtask-prio-medium">Medium
+                        <img class="icon" src="/assets/img/addtask_prio-medium-icon.svg" alt="Prio Medium">
+                    </button>
+                    <button class="addtask-buttons" id="addtask-prio-low">Low
+                        <img class="icon" src="/assets/img/addtask_prio-low-icon.svg" alt="Prio Low">
+                    </button>
+                </div>
+            </div>
+            <div class="addtask-selection">
+                <label>
+                    <span class="required">Category</span>
+                    <div class="dropdown">
+                        <button id="dropdown-categories" class="dropbtn">Select task category</button>
+                        <div class="dropdown-ctrl">
+                            <div class="icon-background"></div>
+                            <div class="arrow-dropdown"></div>
+                        </div>
+
+                        <div class="dropdown-content" id="category">
+                            <a href="#" data-value="option1">Technical Task</a>
+                            <a href="#" data-value="option2">User Story</a>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="addtask-selection">
+                <label>
+                    <span>Subtask</span>
+                    <input class="custom-input" type="text" id="subtask" name="subtask">
+
+                </label>
+            </div>
+        </div>
+    </form>
+
+    <div class="addtask-actions">
+
+        <div class="addtask-info info">This field is required</div>
+
+        <div class="addtask-action-btns">
+            <button class="transparent-btn">Clear
+                <svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z"
+                        stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+            </button>
+            <button class="blue-btn">Create Task <img src="/assets/icons/check.svg" alt="Create Task"></button>
+        </div>
+
+    </div>
+
+</section>
+    `;
+}
+

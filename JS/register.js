@@ -1,4 +1,5 @@
 let users = [];
+let currentUser = []
 
 async function loadUsers() {
   try {
