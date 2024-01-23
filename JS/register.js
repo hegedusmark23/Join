@@ -1,5 +1,6 @@
 let users = [];
 let currentUser = []
+let name = []
 
 async function loadUsers() {
   try {
@@ -66,10 +67,25 @@ async function login() {
   }
 }
 
-async function setCurrentUser(){
+/*async function setCurrentUser(){
   currentUser.push(await getItem('user'));
-  JSON.stringify(currentUser)
   console.log(currentUser)
+}*/
+
+async function setCurrentUser() {
+  const userData = await getItem('user');
+  let message = document.getElementById('welcome-message');
+  let capitalisedName = document.getElementById('user-name-capitalized');
+  //let name = currentUser[0]['name']
+  try {
+      const jsonUserData = JSON.parse(userData);
+      currentUser.push(jsonUserData);
+      message.innerHTML = currentUser[0]['name']
+      capitalisedName.innerHTML = currentUser[0]['name'].substring(0, 1)
+      console.log(currentUser);
+  } catch (error) {
+      console.error("Ein fehler aufgetreten.", error);
+  }
 }
 
 
