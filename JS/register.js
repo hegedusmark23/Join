@@ -54,17 +54,24 @@ function match() {      // Checks if the passwords are matching at the registrat
 }
 
 
-function login() {
+async function login() {
   let email = document.getElementById('email');
   let password = document.getElementById('password');
   let user = users.find(u => u.email == email.value && u.password == password.value);
-  console.log(user)
   if (user) {
-    window.location.href = '/index.html'
+    await setItem('user', JSON.stringify(user));
+    window.location.href = '/index.html';
   } else {
     loginError();
   }
 }
+
+async function setCurrentUser(){
+  currentUser.push(await getItem('user'));
+  JSON.stringify(currentUser)
+  console.log(currentUser)
+}
+
 
 function loginError() {
   let message = document.getElementById('login-error-message');
