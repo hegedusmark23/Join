@@ -1,6 +1,6 @@
 let users = [];
 let currentUser = []
-let name = []
+let Name = []
 
 async function loadUsers() {
   try {
@@ -67,31 +67,72 @@ async function login() {
   }
 }
 
-/*async function setCurrentUser(){
-  currentUser.push(await getItem('user'));
-  console.log(currentUser)
-}*/
-
-async function setCurrentUser() {
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  //let name = currentUser[0]['name']
-  try {
-      const jsonUserData = JSON.parse(userData);
-      currentUser.push(jsonUserData);
-      message.innerHTML = currentUser[0]['name']
-      capitalisedName.innerHTML = currentUser[0]['name'].substring(0, 1)
-      console.log(currentUser);
-  } catch (error) {
-      console.error("Ein fehler aufgetreten.", error);
-  }
+function logOut() {  // Empties the arrays related to the current user, and redirects to the login page.
+  currentUser = [];
+  Name = [];
+  setItem('user', null);
+  window.location.href = '/landingpage.html';
 }
 
 
-function loginError() {
+async function setCurrentUser() {   // Sets the current user after log in.
+  const userData = await getItem('user');
+  let message = document.getElementById('welcome-message');
+  try {
+    const jsonUserData = JSON.parse(userData);
+    currentUser.push(jsonUserData);
+    message.innerHTML = currentUser[0]['name'];
+    capitalisedName();
+  } catch (error) {
+    console.error("Ein fehler aufgetreten.", error);
+  }
+}
+
+function getNamefromArray() {  
+  let message = document.getElementById('welcome-message');
+  message.innerHTML = currentUser[0]['name'];
+}
+
+
+function capitalisedName() {    // Capitalises the first letters of the signed in user, and shows them on the user-button.
+  let capitalisedName = document.getElementById('user-name-capitalized');
+  Name.push(currentUser[0]['name']);
+  parts = Name[0].split(" ");
+  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
+  capitalisedName.innerHTML = neededStr
+}
+
+
+function loginError() {       // Shows an error-message in case of wrong username or password.
   let message = document.getElementById('login-error-message');
   message.classList.remove('d-none');
   message.classList.add('d-flex');
 
 }
+
+document.addEventListener('DOMContentLoaded', function () {   // The function behind the "Remember me" checkbox.
+  var rememberMeCheckbox = document.getElementById('remember');
+  var usernameInput = document.getElementById('email');
+  var passwordInput = document.getElementById('password');
+
+  if (localStorage.chkbx && localStorage.chkbx !== '') {
+    rememberMeCheckbox.checked = true;
+    usernameInput.value = localStorage.usrname;
+    passwordInput.value = localStorage.pass;
+  } else {
+    rememberMeCheckbox.checked = false;
+    usernameInput.value = '';
+    passwordInput.value = '';
+  }
+  rememberMeCheckbox.addEventListener('click', function () {
+    if (rememberMeCheckbox.checked) {
+      localStorage.usrname = usernameInput.value;
+      localStorage.pass = passwordInput.value;
+      localStorage.chkbx = rememberMeCheckbox.checked;
+    } else {
+      localStorage.usrname = '';
+      localStorage.pass = '';
+      localStorage.chkbx = '';
+    }
+  });
+});

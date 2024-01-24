@@ -5,6 +5,7 @@ function generateSummaryContent() {
   container.innerHTML = summaryHTML();
   //background.classList.add('selected-nav-link-background');
   timeDynamicWelcome();
+  getNamefromArray();
 }
 
 function generateLegalNoticeContent() {
@@ -86,32 +87,6 @@ function redirectToLogin() {   // Redirects to the Login page after registration
   }, 1500)
 }
 
-function rememberMe() {
-    const rmCheck = document.getElementById("remember"),
-      passwordInput = document.getElementById("password"),
-      emailInput = document.getElementById("email");
-    if (localStorage.checkbox && localStorage.checkbox !== "") {
-      rmCheck.setAttribute("checked", "checked");
-      passwordInput.value = localStorage.userpassword;
-      emailInput.value = localStorage.useremail;
-    } else {
-      rmCheck.removeAttribute("checked");
-      passwordInput.value = "";
-      emailInput.value = "";
-    }
-      submitButton.onclick =function() {
-      if (rmCheck.checked && emailInput.value !== "") {
-        localStorage.userpassword = passwordInput.value;
-        localStorage.useremail = emailInput.value;
-        localStorage.checkbox = rmCheck.value;
-      } else {
-        localStorage.userpassword = "";
-        localStorage.useremail = "";
-        localStorage.checkbox = "";
-      }
-    }
-}
-
 
 function timeDynamicWelcome(){      //Daytime dependant Welcom message.
     let welcome =  document.getElementById('daytime')
@@ -121,7 +96,7 @@ function timeDynamicWelcome(){      //Daytime dependant Welcom message.
       welcome.innerHTML = 'Good Morning,';
       } else if (hour < 17) {  
       welcome.innerHTML = 'Good Afternoon,';  
-    } else if (hour > 17) {  
+    } else {  
       welcome.innerHTML = 'Good Evening,';
       
     }  
@@ -145,11 +120,7 @@ function revealPassword() {         //Reveals the password on the login page.
 
 
 function guestLogin(){
-  let user = document.getElementById('user-name-capitalized')
-  let message = document.getElementById('welcome-message');
-  window.location.href = '/index.html'
-  user.innerHTML = 'GU';
-  message.innerHTML = 'Guest User'
+  window.location.href = '/guest.index.html'
 }
 
 
