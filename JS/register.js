@@ -88,7 +88,7 @@ async function setCurrentUser() {   // Sets the current user after log in.
   }
 }
 
-function getNamefromArray() {  
+function getNamefromArray() {
   let message = document.getElementById('welcome-message');
   message.innerHTML = currentUser[0]['name'];
 }
@@ -110,7 +110,7 @@ function loginError() {       // Shows an error-message in case of wrong usernam
 
 }
 
-document.addEventListener('DOMContentLoaded', function () {   // The function behind the "Remember me" checkbox.
+function rememberMe() {   // The function behind the "Remember me" checkbox.
   var rememberMeCheckbox = document.getElementById('remember');
   var usernameInput = document.getElementById('email');
   var passwordInput = document.getElementById('password');
@@ -135,4 +135,4 @@ document.addEventListener('DOMContentLoaded', function () {   // The function be
       localStorage.chkbx = '';
     }
   });
-});
+};
