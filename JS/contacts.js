@@ -1,17 +1,23 @@
 
-let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Ü',];
 let letterContainer = {};
-let colors = ['9327FF', '6E52FF', 'FC71FF', 'FFBB2B', '1FD7C1']
+let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Ü',];
+let colors = ['9327FF', '6E52FF', 'FC71FF', 'FFBB2B', '1FD7C1', '462F8A'];
+let casualColor;
 let firstLetter;
 let capitalizedLetters;
+let inputName;
+let inputEmail;
+let inputPhone;
 
 alphabet.forEach((letter) => {
     letterContainer[letter] = [];
 })
 
 async function renderContact() {
+    includeHTML();
     await loadItems();
-    setLettersContainers();
+    await setLettersContainers();
+    await showAlreadyCreatedContactInTheView();
 }
 
 async function loadItems() {
@@ -22,39 +28,12 @@ async function loadItems() {
     }
 }
 
-
-function setLettersContainers() {
-    let contactList = document.getElementById('contacts-list');
-    contactList.innerHTML = '';
-    for (let key in letterContainer) {
-        if (letterContainer.hasOwnProperty(key)) {
-            setLetterContainersHTML(contactList, key)
-        }
-        showContacts(key);
-    }
-}
-
-function showContacts(key) {
-    let cont = document.getElementById(`cont${key}`);
-    cont.innerHTML = '';
-    let contacts = letterContainer[key];
-    for (let i = 0; i < contacts.length; i++) {
-        let contact = contacts[i]
-        capitalizeLetters(contact.completeName)
-        let color = Math.floor(Math.random() * colors.length);
-        let casualColor = colors[color];
-        getShowContactHTML(i, key, cont, contact, casualColor);
-    }
-}
-
-
-
 async function getContact() {
     let completeName = document.getElementById('name').value;
     let emailAdress = document.getElementById('email').value;
     let phone = document.getElementById('phone').value;
     firstLetter = completeName.charAt(0).toUpperCase();
-    addContacts(completeName, emailAdress, phone)
+    addContacts(completeName, emailAdress, phone);
 }
 
 async function addContacts(completeName, emailAdress, phone) {
@@ -71,8 +50,32 @@ async function addContacts(completeName, emailAdress, phone) {
 function emptyInputs() {
     let inputs = document.getElementsByTagName("input");
     for (let i = 0; i < inputs.length; i++) {
-        let inp = inputs[i]
-        inp.value = '';
+        let input = inputs[i]
+        input.value = '';
+    }
+}
+
+async function setLettersContainers() {
+    let contactList = document.getElementById('contacts-list');
+    contactList.innerHTML = '';
+    for (let key in letterContainer) {
+        if (letterContainer.hasOwnProperty(key)) {
+            contactList.innerHTML += setLetterContainersHTML(key);
+        }
+        showContactsInTheList(key);
+    }
+}
+
+function showContactsInTheList(key) {
+    let cont = document.getElementById(`cont${key}`);
+    cont.innerHTML = '';
+    let contacts = letterContainer[key];
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i]
+        capitalizeLetters(contact.completeName)
+        let color = Math.floor(Math.random() * colors.length);
+        casualColor = colors[color];
+        cont.innerHTML += getShowContactHTML(i, key, contact, casualColor);
     }
 }
 
@@ -82,48 +85,84 @@ function capitalizeLetters(completeName) {
         return word.charAt(0);
     });
     capitalizedLetters = words.join("");
-    console.log(capitalizedLetters);
 
 }
 
 function showContactOnclick(key, i) {
+    let name = letterContainer[key][i]['completeName'];
+    let email = letterContainer[key][i]['email'];
+    let phone = letterContainer[key][i]['phone'];
+    contactViewContainer = document.getElementById('contact-view-container');
+    capitalizeLetters(name);
+    contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone);
+    contactViewContainer.classList.remove('translateX')
+}
+
+
+async function showAlreadyCreatedContactInTheView() {
+    let key = firstLetter;
+    let i = letterContainer[key].length - 1;
     let contactViewContainer = document.getElementById('contact-view-container');
+    contactViewContainer.classList.remove('translateX');
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
     let phone = letterContainer[key][i]['phone'];
     capitalizeLetters(name);
-    contactViewContainer.innerHTML = /*html*/ `
-    <div class="contact-view-name-container">
-        <div class="contact-view-badge-container">
-          <span class="contact-view-badge">${capitalizedLetters}</span>
-        </div>
-        <div class="contact-view-edit-delete-container">
-            <h2 class="contact-view-name">${name}</h2>
-            <div class="contact-view-icons-container">
-              <span class="contact-view-edit-container">
-                <img src="./assets/icons/pen.svg" alt="">Edit
-              </span> 
-              <span class="contact-view-delete-container">
-                <img src="./assets/icons/trashbin.svg" alt="">Delete
-              </span>
-            </div>
-        </div>
-    </div>
-    <h3>Contact Information</h3>
-    <div class="contact-view-information-container">
-        <div class="contact-view-email-container">
-            <h3>Email</h3>
-           <a class="contact-view-email">${email}</a>
-        </div>
-        <div class="contact-view-phone-container">
-            <h3>Phone</h3>
-            <span class="contact-view-phone">${phone}</span>
-        </div>
-    </div>
-    `
-    
-    contactViewContainer.classList.remove('translateX')
+    contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone)
+    setTimeout(successfulContactAddedButton, 1000);
 }
+
+function successfulContactAddedButton() {
+    let successButton = document.getElementById('succesfulButtonContainer');
+    successButton.classList.remove('translateSuccButton');
+    setTimeout(hideSuccessfulContactAddedButton, 2000)
+}
+
+function hideSuccessfulContactAddedButton() {
+    let successButton = document.getElementById('succesfulButtonContainer');
+    successButton.classList.add('translateSuccButton');
+}
+
+function showEditContactOverlay(key, i) {
+    let name = letterContainer[key][i]['completeName'];
+    let email = letterContainer[key][i]['email'];
+    let phone = letterContainer[key][i]['phone'];
+    capitalizeLetters(name);
+    let editContactOverlay = document.getElementById('edit-contact-overlay');
+    editContactOverlay.classList.remove('d-none')
+    editContactOverlay.innerHTML = editContactOverlayHTML(key, i, name, email, phone);
+    inputName = document.getElementById(`input-name${key}${i}`);
+    inputEmail = document.getElementById(`input-email${key}${i}`);
+    inputPhone = document.getElementById(`input-phone${key}${i}`);
+    inputName.value = name;
+    inputEmail.value = email;
+    inputPhone.value = phone;
+}
+
+async function saveNewContact(key, i) {
+    let contactViewContainer = document.getElementById('contact-view-container');
+    contactViewContainer.classList.remove('translateX');
+    letterContainer[key][i]['completeName'] = inputName.value;
+    letterContainer[key][i]['email'] = inputEmail.value;
+    letterContainer[key][i]['phone'] = inputPhone.value;
+    capitalizeLetters(inputName.value);
+    await setItem('contacts', JSON.stringify(letterContainer)); // salviamo all'interno del remote storage il nuovo contatto modificato, in modo che sia visibile nella lista quando andremo ad iterare sul JSON, e quando chiameremo getItem;
+    contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, inputName.value, inputEmail.value, inputPhone.value)
+    document.getElementById('edit-contact-overlay').classList.add('d-none');
+    await renderContact();
+}
+
+async function deleteContact(key, i) {
+    letterContainer[key].splice(i, 1);
+    document.getElementById('contact-view-container').innerHTML = '';
+    await setItem('contacts', JSON.stringify(letterContainer));
+    await renderContact();
+}
+
+
+
+
+
 
 function backgroundBlackAndWhiteText(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.add('black-container');
@@ -140,7 +179,10 @@ function backgroundAndTextOriginal(key, i) {
 
 
 
-
+function hideEditContactOverlay(event) {
+    document.getElementById('edit-contact-overlay').classList.add('d-none');
+    doNotClose(event)
+}
 function showAddContactOverlay() {
     document.getElementById('add-contact-overlay').classList.remove('d-none');
 }
