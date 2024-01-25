@@ -203,3 +203,8 @@
 .text-center{
     text-align: center;
 }
+
+.user-name-capitalized{
+    font-size: 25px;
+    color: #29ABE2;
+}

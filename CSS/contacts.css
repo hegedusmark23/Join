@@ -14,8 +14,12 @@ body {
     margin: 0;
     user-select: none;
     font-family: "Inter", sans-serif;
+<<<<<<< HEAD
     background: #fff;
     overflow: hidden;
+=======
+    /*background: #fff;*/
+>>>>>>> 1a253471e37f01043c6ecc643403e31f31189861
 }
 
 .contact-section {
