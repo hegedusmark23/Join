@@ -153,9 +153,6 @@ select:focus {
 
 /* Add Task Template */
 
-section {
-  padding: 20px;
-}
 
 /* !!! Label --> Könnte man auslagern!!!*/
 #addtask-content label {

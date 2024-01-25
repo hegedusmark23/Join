@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
     <link rel="stylesheet" href="./CSS/login-signup.css">
-    <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
-<body>
+<body onload="initRegister(); match();">
+    <div id="signup-message" class="signup-message-background d-none">
+        <div id="signup-message" class="signup-message">
+            <p>You Signed Up successfully</p>
+        </div>
+    </div>
+
     <header>
         <img class="join-logo" src="./assets/img/logo-small-blue.png" alt="">
-
     </header>
 
     <main>
@@ -22,17 +27,17 @@
             <a class="back-nav arrow" href="landingpage.html"><img src="/assets/img/arrow-left-blue.png" alt="blue-left-arrow"></a>
             <h1 class="login-headline">Sign up</h1>
             <div class="blue-line"></div>
-            <form onsubmit="; return false;">
-                <input required minlength="2" class="login-input name-input" placeholder="Name" type="text">
-                <input required minlength="2" class="login-input email-input" placeholder="Email" type="email">
-                <input required minlength="2" class="login-input password-input" placeholder="Password" type="password">
-                <input required minlength="2" class="login-input password-input" placeholder="Password" type="password">
+            <form id="register" onsubmit="register(); return false;">
+                <input id="name" autocomplete="additional-name" required minlength="2" class="login-input name-input" placeholder="Name" type="text">
+                <input id="email" required minlength="2" class="login-input email-input" placeholder="Email" type="email">
+                <input id="password" required minlength="2" class="login-input password-input" placeholder="Password" type="password">
+                <input id="confirm_password" required minlength="2" class="login-input password-input" placeholder="Confirm password" type="password">
                 <div class="checkbox-div">
-                    <input type="checkbox" name="accept privacypolicy" id="policy-check">
+                    <input required type="checkbox" name="accept privacypolicy" id="policy-check">
                     <p class="signup-privacy-text">I accept the <a class="privacy-unlogged" href="privacypolicy-nouser.html">Privacy Policy</a></p>
                 </div>
                 <div class="buttons-div">
-                    <button class="blue-btn">Sign up</button>
+                    <button type="submit" id="register_button" class="blue-btn">Sign up</button>
                 </div>
             </form>
         </div>
@@ -41,6 +46,10 @@
             <a class="legal-links" href="/legalnotice-nouser.html">Legal Notice</a>
         </div>
     </main>
-</body>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/script.js"></script>
+    <script src="./JS/main-content.js"></script>
+    <script src="./JS/register.js"></script>
+    </body>
 
 </html>
