@@ -63,13 +63,12 @@ main {
     height: 3px;
     border-radius: 2px;
     background-color: #29ABE2;
-    margin-top: -20px;
+    margin-top: -60px;
 }
 
 .login-headline {
     font-size: 61px;
-    font-weight: 700;
-    padding-top: 35px;
+    font-weight: 800;
 }
 
 .login-input {
