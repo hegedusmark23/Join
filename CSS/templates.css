@@ -169,9 +169,13 @@ select:focus {
 }
 
 .custom-input {
-  background-image: url("../assets/img/add.png");
-  background-position: right 20px center;
-  background-repeat: no-repeat;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: -1;
+  text-align: left;
+  background-color: #fff;
+  color: #000;
 }
 
 /* !!! Input --> Könnte man auslagern!!!*/
@@ -179,6 +183,7 @@ select:focus {
 textarea,
 button,
 select {
+  font-family: "Inter";
   border: #d1d1d1 1px solid;
   border-radius: 10px;
   padding: 12px 21px 12px 21px;
@@ -188,8 +193,15 @@ select {
   line-height: 24px;
 }
 
+#addtask-content input:focus,
+#addtask-content textarea:focus,
+#addtask-content button:focus,
+#addtask-content select:focus {
+  border: 1px solid #29abe2;
+}
+
 textarea {
-  height: 141px; /* Starthöhe */
+  height: 141px;
   resize: both;
   overflow: auto;
 }
@@ -284,6 +296,7 @@ textarea {
 
 .divider {
   width: 1px;
+  max-height: 424px;
   background-color: #d1d1d1;
   margin: 0 20px;
 }
@@ -293,10 +306,9 @@ textarea {
 }
 
 .addtask-actions {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  margin-top: 140px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .addtask-action-btns {
@@ -316,4 +328,198 @@ textarea {
 
 .transparent-btn:hover .cross-icon-btn1 path {
   stroke: #29abe2 !important;
+}
+
+.subtask-icons-after {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 56px;
+  position: absolute;
+  left: 15%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.first-img-container,
+.second-img-container,
+.divider-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.first-img-container:hover::before,
+.second-img-container:hover::before {
+  content: "";
+  background-color: #d1d1d1;
+  opacity: 0.5;
+  border-radius: 50%;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.first-img-container svg,
+.second-img-container svg {
+  z-index: 1;
+  position: relative;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#subtasks-list-container {
+  max-height: 200px;
+  overflow: auto;
+}
+
+.wrapper-flex-container {
+  min-height: 240px; /* 200px für subtasks-container + 40px für addtask-actions */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.subtasks-container {
+  max-height: 200px;
+  overflow: auto;
+}
+
+.subtasks-container,
+.addtask-actions {
+  flex-shrink: 0;
+}
+
+.left-section {
+  position: relative;
+}
+
+.addtask-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+#subtasks-list-container ul {
+  list-style: none; /* Entfernt standardmäßige Bullet Points */
+  padding-left: 0; /* Entfernt das Standard-Padding */
+}
+
+#subtasks-list-container .input-subtask {
+  list-style: none;
+}
+
+#subtasks-list-container li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  position: relative; /* Für Pseudo-Elemente */
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+  min-height: 25px;
+  border-radius: 12px;
+}
+
+#subtasks-list-container li::before {
+  content: "•"; /* Eigener Bullet Point */
+  color: black; /* Farbe des Bullet Points */
+  margin-right: 10px; /* Abstand zwischen Bullet Point und Text */
+  font-size: larger;
+  padding-left: 24px; /* Abstand Bullet Points zum Container */
+  min-height: 25px;
+}
+
+.edit-mode::before {
+  content: none !important; /* Verbirgt den Bullet Point im Bearbeitungsmodus */
+}
+
+#subtasks-list-container li:hover {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  position: relative; /* Für Pseudo-Elemente */
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+  min-height: 25px;
+  border-radius: 12px;
+  background-color: #e9eaeb;
+}
+
+.subtask-icons {
+  display: none;
+  margin-right: 10px;
+}
+
+.subtask-item-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subtask-icons {
+  display: none;
+  margin-right: 10px;
+}
+
+#subtasks-list-container li:hover .subtask-icons {
+  display: flex;
+}
+
+#subtasks-list-container input:hover .subtask-icons {
+  display: flex;
+}
+
+.divider-subtask {
+  margin: 0px 2px 0px 2px;
+}
+
+.input-subtask {
+  flex-grow: 1 !important; /* Nimmt den verfügbaren Platz ein */
+  min-height: 25px !important;
+  font-size: 16px !important;
+  line-height: 19.2px !important;
+  border-radius: 0px !important;
+  padding: 4px 16px 4px 20px !important;
+  border-bottom: 1px solid #29abe2 !important;
+  width: 100% !important;
+  z-index: 2 !important; /* Höher als Icons, um im Normalzustand sichtbar zu sein */
+}
+
+.input-subtask:focus {
+  border: none !important;
+  border-bottom: 1px solid #29abe2 !important;
+}
+
+.subtask-item-wrapper .input-subtask {
+  list-style-type: none;
+}
+
+.subtask-icons-edit {
+  position: absolute;
+  display: none; /* Standardmäßig versteckt */
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%); /* Zentriert den Container vertikal */
+  background-color: transparent;
+  z-index: 3; /* Höher als das Inputfeld, um es beim Hovern zu überlagern */
+}
+
+.subtask-item-wrapper-edit:hover .subtask-icons-edit {
+  display: flex; /* Zeigt Icons beim Hovern an */
+}
+
+.subtask-item-wrapper-edit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
 }
