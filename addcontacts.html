@@ -11,112 +11,11 @@
     <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
 </head>
 
-<!-- first page of Add Contact -->
+<!----Add Contact Default---->
 
 <body onload="renderContact()">
-    <section id="contact-section" class="contact-section">
+    
 
-        <div class="contact-book">
-            <div id="add-new-contact-btn" class="add-new-contact-btn" onclick="showAddContactOverlay()">
-                <span>Add new contact</span> <img class="add-person-icon" src="./assets/icons/person_add.svg"
-                    alt="add-person">
-            </div>
-            <div id="contacts-list" class="contacts-list"></div>
-        </div>
-        <div class="contact-view-section">
-            <div id="contact-view-title-container" class="contact-view-title-container">
-                <h2 class="contact-view-title">Contacts</h2><span class="contact-view-separator-bar"></span>
-                <h3 class="contact-view-subtitle">Better with a team</h3>
-            </div>
-
-            <div id="contact-view-container" class="contact-view-container translateX" style="border: 1px solid red;"></div>
-        </div>
-    </section>
-
-    <!-- add Contact Overlay -->
-    <div onclick="hideAddContactOverlay()" id="add-contact-overlay" class="contact-bg-dialog d-none">
-        <div onclick="doNotClose(event)" class="contact-dialog">
-            <div class="contacts-left-container">
-                <div class="logo-and-title-container">
-                    <span><img class="contact-dialog-logo" src="./assets/img/logo-small-white.png" alt=""></span>
-                    <h2 class="add-contact-title">Add Contact</h2>
-                    <h3 class="add-contact-subtitle">Tasks are better with a Team</h3>
-                    <span class="border-bar"></span>
-                </div>
-            </div>
-            <div class="contact-right-container">
-                <div class="person-icon-container">
-                    <img src="./assets/icons/person.svg" alt="person">
-                </div>
-                <div class="input-and-btn-container">
-                    <span class="cross-icon-container"><img onclick="hideAddContactOverlay()" class="cross-icon"
-                            src="./assets/icons/cross.svg" alt=""></span>
-                    <div class="inputs-container">
-                        <input class="input-name" type="text" id="name" placeholder="Name and Lastname">
-                        <input class="input-email" type="email" id="email" placeholder="E-Mail Address">
-                        <input class="input-phone" type="text" id="phone" placeholder="Phone">
-                    </div>
-                    <div class="contact-btn-container">
-                        <button class="add-contact-btn1" onclick="emptyInputs()">Cancel
-                            <img class="cross-icon-btn1" src="./assets/icons/cross.svg" alt="">
-                        </button>
-                        <button class="add-contact-btn2" onclick="getContact()">Create contact<img
-                                class="check-icon-btn2" src="./assets/icons/check.svg" alt=""></button>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-    <!-- edit Contact Overlay -->
-
-    <div id="edit-contact-overlay" class="contact-bg-dialog d-none">
-        <div class="contact-dialog">
-            <div class="contacts-left-container">
-                <div class="logo-and-title-container">
-                    <span><img class="contact-dialog-logo" src="./assets/img/logo-small-white.png" alt=""></span>
-                    <h2 class="add-contact-title">Edit Contact</h2>
-                    <span class="border-bar"></span>
-                </div>
-            </div>
-            <div class="contact-right-container">
-                <div class="person-icon-container">
-                    <img src="./assets/icons/person.svg" alt="person">
-                </div>
-                <div class="input-and-btn-container">
-                    <span class="cross-icon-container"><img class="cross-icon" src="./assets/icons/cross.svg"
-                            alt=""></span>
-                    <div class="inputs-container">
-                        <input class="input-name" type="text" id="name" placeholder="Name and Lastname">
-                        <input class="input-email" type="email" id="email" placeholder="E-Mail Address">
-                        <input class="input-phone" type="text" id="phone" placeholder="Phone">
-                    </div>
-                    <div class="contact-btn-container">
-                        <button class="add-contact-btn1" onclick="emptyInputs()">Cancel
-                            <svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill=""
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z"
-                                    stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-
-                        </button>
-                        <button class="add-contact-btn2" onclick="getContact()">Create contact<img
-                                class="check-icon-btn2" src="./assets/icons/check.svg" alt=""></button>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="./JS/storage.js"></script>
     <script src="./models/contact.class.js"></script>
     <script src="./JS/contacts-template-func.js"></script>
