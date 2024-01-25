@@ -63,6 +63,7 @@ main {
     height: 3px;
     border-radius: 2px;
     background-color: #29ABE2;
+    margin-top: -20px;
 }
 
 .login-headline {
@@ -171,14 +172,14 @@ form {
 @keyframes floathingLogo {
     0% {
         height: 270px;
-        left: 45%;
+        left: 50%;
+        top: 50%;
         margin-top: 300px;
     }
 
     50% {
         height: 270px;
-        top: 250%;
-        left: 45%;
+        left: 50%;
     }
 
     100% {
@@ -259,6 +260,7 @@ form {
     100% {
         opacity: 1;
     }
+
     ;
 }
 
@@ -267,7 +269,7 @@ form {
     padding: 50px;
 }
 
-.animated-logo{
+.animated-logo {
     padding: 50px;
     position: relative;
     animation: floathingLogo 1s ease-in-out;
@@ -275,7 +277,7 @@ form {
     height: 122px;
 }
 
-.signup-message{
+.signup-message {
     position: absolute;
     color: white;
     padding: 0px 25px 0px 25px;
@@ -286,11 +288,11 @@ form {
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
     animation: floathingSignupMessage 0.5s linear;
-  }
-  
-  .signup-message-background{
+}
+
+.signup-message-background {
     position: absolute;
     background-color: #00000067;
     height: 100%;
@@ -298,8 +300,8 @@ form {
     z-index: 1;
     justify-content: center;
     align-items: center;
-  
-  }
+
+}
 
 @keyframes floathingSignupMessage {
     0% {
@@ -318,7 +320,131 @@ form {
     }
 }
 
-.login-error-message{
+.login-error-message {
     margin: -20px;
     color: red;
+}
+
+@media (max-width: 1000px) {
+    .blue-btn {
+        padding: 10px;
+        font-size: 17px;
+    }
+
+    .white-btn {
+        padding: 10px;
+        font-size: 17px;
+    }
+
+    .notUser-text {
+        font-size: 17px;
+    }
+
+    .animated-logo {
+        height: 90px;
+    }
+
+    .login-headline {
+        font-size: 50px;
+    }
+
+    .login-input {
+        width: 360px;
+        height: 35px;
+        font-size: 20px;
+    }
+
+    .login-container {
+        height: 436px;
+        width: 540px;
+        margin: 40px 0;
+    }
+
+    .legal-links {
+        font-size: 12px;
+    }
+
+    @keyframes floathingLogo {
+        0% {
+            height: 200px;
+            left: 10%;
+            top: 50%;
+            margin-top: 300px;
+        }
+
+        50% {
+            height: 200px;
+            left: 50%;
+        }
+
+        100% {
+            height: 90px;
+            top: 0%;
+            left: 0%;
+        }
+    }
+
+}
+
+
+@media (max-width: 650px) {
+    .blue-btn {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .white-btn {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .notUser-text {
+        font-size: 14px;
+    }
+
+    .animated-logo {
+        height: 70px;
+    }
+
+    .login-headline {
+        font-size: 40px;
+    }
+
+    .login-input {
+        width: 320px;
+        height: 30px;
+        font-size: 18px;
+    }
+
+    .login-container {
+        height: 388px;
+        width: 390px;
+        margin: 80px 0;
+    }
+
+    .legal-links {
+        font-size: 12px;
+    }
+
+    @keyframes floathingLogo {
+        0% {
+            height: 180px;
+            top: 50%;
+            left: 50%;
+            margin-top: 300px;
+        }
+
+        50% {
+            height: 180px;
+            top: 250%;
+            left: 50%;
+        }
+
+        100% {
+            height: 70px;
+            top: 0%;
+            left: 0%;
+        }
+    }
+
 }

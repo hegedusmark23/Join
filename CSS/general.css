@@ -95,11 +95,13 @@ p {
 
 .blue-btn:hover {
   background-color: #29abe2;
+  box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.20);
 }
 
 .transparent-btn:hover {
   color: #29abe2;
   border: 1px #29abe2 solid;
+  box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.20);
 }
 
 .white-btn {
@@ -111,11 +113,13 @@ p {
   color: #2a3647;
   border: 1px solid #2a3647;
   cursor: pointer;
+  
 }
 
 .white-btn:hover {
   color: #29abe2;
-  border: 2px solid #29abe2;
+  border: 1px solid #29abe2;
+  box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.20);
 }
 
 .arrow {
