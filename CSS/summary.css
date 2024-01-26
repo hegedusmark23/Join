@@ -1,7 +1,6 @@
 .summary-container{
     display: flex;
     flex-direction: column;
-    padding: 40px;
 }
 
 .summary-headline{
@@ -37,7 +36,7 @@
     max-width: 580px;
     align-items: center;
     justify-content: center;
-    padding: 50px;
+    padding: 0 40px;
 }
 
 .welcome-section{
@@ -114,7 +113,7 @@
 
 .user-name-text{
     font-size: 64px;
-    font-weight: 700;
+    font-weight: 800;
     color: #29ABE2;
 }
 
@@ -205,6 +204,7 @@
 }
 
 .user-name-capitalized{
-    font-size: 25px;
+    font-size: 22px;
     color: #29ABE2;
+    font-weight: 800;
 }

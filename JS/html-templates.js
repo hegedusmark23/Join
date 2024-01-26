@@ -13,7 +13,7 @@ function summaryHTML() {
                     <div id="pencil-button" onmouseover="changePencilImgColor()" class="summary-task-display-mid">
                         <div class="summary-icon-circle"><img id="pencil-icon" src="/assets/img/pencil-white.png" alt=""></div>
                         <div class="text-center">
-                            <h1 class="tasks-number">0</h1>
+                            <h1 class="tasks-number no-margin">0</h1>
                             <span class="summary-text">To-do</span>
                         </div>
                     </div>
@@ -21,7 +21,7 @@ function summaryHTML() {
                     <div id="check-button" onmouseover="changeCheckImgColor()" class="summary-task-display-mid">
                         <div class="summary-icon-circle"><img id="check-icon" src="/assets/img/check-white.png" alt=""></div>
                         <div class="text-center">
-                            <h1 class="tasks-number">0</h1>
+                            <h1 class="tasks-number no-margin">0</h1>
                             <span class="summary-text">Done</span>
                         </div>
                     </div>
@@ -30,7 +30,7 @@ function summaryHTML() {
                         <div class="urgency-div">
                             <div class="red-urgent-icon"><img src="/assets/img/doube-arrows-up.png" alt=""></div>
                             <div class="text-center">
-                            <h1 class="tasks-number">0</h1>
+                            <h1 class="tasks-number no-margin">0</h1>
                             <span class="summary-text">Urgent</span>
                             </div>
                         </div>
@@ -42,23 +42,23 @@ function summaryHTML() {
                     </div>
 
                     <div class="summary-task-display-small">
-                        <h1 class="tasks-number">0</h1>
+                        <h1 class="tasks-number no-margin">0</h1>
                         <span class="summary-text-bigger">Tasks in Board</span>
                     </div>
 
                     <div class="summary-task-display-small">
-                        <h1 class="tasks-number">0</h1>
+                        <h1 class="tasks-number no-margin">0</h1>
                         <span class="summary-text-bigger">Tasks In Progress</span>
                     </div>
 
                     <div class="summary-task-display-small">
-                        <h1 class="tasks-number">0</h1>
+                        <h1 class="tasks-number no-margin">0</h1>
                         <span class="summary-text-bigger">Awaiting Feedback</span>
                     </div>
                 </div>
                 <div class="welcome-section">
-                    <h1 id="daytime" class="daytime-text">Sample Daytime,</h1><br>
-                    <h1 id="welcome-message" class="user-name-text">Guest User</h1>
+                    <h1 id="daytime" class="daytime-text no-margin">Sample Daytime,</h1><br>
+                    <h1 id="welcome-message" class="user-name-text no-margin">Guest User</h1>
                 </div>
             </div>
         </div>
