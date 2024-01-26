@@ -1,4 +1,5 @@
 
+
 @font-face {
     font-family: "Inter", sans-serif;
     src: url('fonts/static/Inter-Regular.ttf');
@@ -175,7 +176,7 @@ body {
     cursor: pointer;
 }
 
-.contact-information-title{
+.contact-information-title {
     font-size: 20px;
     font-weight: 400;
 }
@@ -226,7 +227,7 @@ body {
     font-weight: 400;
 }
 
-.succesfulButtonContainer{
+.succesfulButtonContainer {
     background: #2A3647;
     color: #fff;
     width: 326px;
@@ -237,13 +238,13 @@ body {
     justify-content: center;
     align-items: center;
     transition: all 1s cubic-bezier(.215, .61, .355, 1);
-    cursor:pointer;
+    cursor: pointer;
     margin-top: 72px;
     font-size: 20px;
     font-weight: 400;
 }
 
-.translateSuccButton{
+.translateSuccButton {
     transform: translateX(1200px);
 }
 
@@ -317,7 +318,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color:#fff;
+    color: #fff;
 }
 
 .name-and-email-container {
@@ -507,8 +508,11 @@ body {
     width: 422px;
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    outline: none;
     padding: 16px;
+}
+
+input:focus{
+    outline:none;
 }
 
 .input-email {
@@ -638,7 +642,7 @@ body {
 }
 
 /* Edit Contacts Pop-up Style */
-.edit-contact-badge-container{
+.edit-contact-badge-container {
     width: 120px;
     height: 120px;
     border-radius: 70px;

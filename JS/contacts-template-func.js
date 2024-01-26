@@ -1,6 +1,6 @@
 // creates a list of containers, where the title of each container is a letter
 function setLetterContainersHTML(key) {
-    return /*html*/ `
+  return /*html*/ `
       <div id="letter-container${key}" class="letter-container">
           <h2 class="contact-letter">${key}</h2>
           <div class="contact-list-separator-bar-container">
@@ -9,12 +9,12 @@ function setLetterContainersHTML(key) {
           <div id="cont${key}" class="cont"></div>
       </div>
       `
-  
-  }
-  
-  // Display the values (contacts) that are inside each Keys. Fill the list of containers with contacts
-  function getShowContactHTML(i, key, contact, casualColor) {
-    return /*html*/ `
+
+}
+
+// Display the values (contacts) that are inside each Keys. Fill the list of containers with contacts
+function getShowContactHTML(i, key, contact, casualColor) {
+  return /*html*/ `
       <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContactOnclick('${key}', ${i})" id="under-container${key}${i}" class="under-container">
           <div class="contact-badge-bg-container"><div id="contact-badge${i}" class="contact-badge" style="background:#${casualColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
            <div id="name-and-email-container${i}" class="name-and-email-container">
@@ -23,12 +23,12 @@ function setLetterContainersHTML(key) {
            </div>
       </div>
   `
-  }
-  
-  // Show the already created contact in the view when the user clicks on "Create Contact" button
-  // row 127 in contacts.js
-  function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone) {
-    return /*html*/ `
+}
+
+// Show the already created contact in the view when the user clicks on "Create Contact" button
+// row 127 in contacts.js
+function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone) {
+  return /*html*/ `
       <div id="contact-view-name-container${key}${i}" class="contact-view-name-container">
           <div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container">
             <span class="contact-view-badge">${capitalizedLetters}</span>
@@ -57,10 +57,10 @@ function setLetterContainersHTML(key) {
           </div>
       </div>
       `
-  }
-  
-  function contactViewContainerHTML(key, i, name, email, phone) {
-    return /*html*/ `
+}
+
+function contactViewContainerHTML(key, i, name, email, phone) {
+  return /*html*/ `
     <div id="contact-view-name-container${key}${i}" class="contact-view-name-container">
         <div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container">
           <span class="contact-view-badge">${capitalizedLetters}</span>
@@ -89,11 +89,11 @@ function setLetterContainersHTML(key) {
         </div>
     </div>
     `
-  }
-  
-  // Show the "Edit Contact" pop-up to change the settings of a contact;
-  function editContactOverlayHTML(key, i) {
-    return /*html*/ `
+}
+
+// Show the "Edit Contact" pop-up to change the settings of a contact or delete it;
+function editContactOverlayHTML(key, i) {
+  return /*html*/ `
     <div onclick="doNotClose(event)" id="contact-dialog${key}${i}" class="contact-dialog">
             <div class="contacts-left-container">
                 <div class="logo-and-title-container">
@@ -106,13 +106,14 @@ function setLetterContainersHTML(key) {
                 <div id="edit-contact-badge-container${key}${i}" class="edit-contact-badge-container" style="background:#${casualColor}">
                     <span>${capitalizedLetters}</span>
                 </div>
-                <div class="input-and-btn-container">
+                <form onsubmit="saveNewContact('${key}', ${i}); return false" class="input-and-btn-container">
                     <span class="cross-icon-container"><img onclick="hideEditContactOverlay(event)" class="cross-icon" src="./assets/icons/cross.svg"
-                            alt=""></span>
+                            alt="">
+                    </span>
                     <div class="inputs-container">
-                        <input id="input-name${key}${i}" class="input-name" type="text" id="name" placeholder="Name and Lastname">
-                        <input id="input-email${key}${i}" class="input-email" type="email" id="email" placeholder="E-Mail Address">
-                        <input id="input-phone${key}${i}" class="input-phone" type="text" id="phone" placeholder="Phone">
+                        <input required id="input-name${key}${i}" class="input-name" type="text" id="name" placeholder="Name and Lastname">
+                        <input required id="input-email${key}${i}" class="input-email" type="email" id="email" placeholder="E-Mail Address">
+                        <input required id="input-phone${key}${i}" class="input-phone" type="text" id="phone" placeholder="Phone">
                     </div>
                     <div class="contact-btn-container">
                         <button class="add-contact-btn1" onclick="emptyInputs()">Delete
@@ -124,12 +125,12 @@ function setLetterContainersHTML(key) {
                             </svg>
   
                         </button>
-                        <button class="add-contact-btn2" onclick="saveNewContact('${key}', ${i})">Save<img
-                                class="check-icon-btn2" src="./assets/icons/check.svg" alt=""></button>
+                        <button class="add-contact-btn2">Save<img
+                                class="check-icon-btn2" src="./assets/icons/check.svg" alt="">
+                        </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     `;
-  }
-  
+}

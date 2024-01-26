@@ -318,24 +318,22 @@ function contactsHTML(){
                 <div class="person-icon-container">
                     <img src="./assets/icons/person.svg" alt="person">
                 </div>
-                <div class="input-and-btn-container">
+                <form onsubmit="getContact(); return false" class="input-and-btn-container">
                     <span class="cross-icon-container"><img onclick="hideAddContactOverlay()" class="cross-icon"
                             src="./assets/icons/cross.svg" alt=""></span>
                     <div class="inputs-container">
-                        <input class="input-name" type="text" id="name" placeholder="Name and Lastname">
-                        <input class="input-email" type="email" id="email" placeholder="E-Mail Address">
-                        <input class="input-phone" type="text" id="phone" placeholder="Phone">
+                        <input required class="input-name" type="text" id="name" placeholder="Name and Lastname">
+                        <input required class="input-email" type="email" id="email" placeholder="E-Mail Address">
+                        <input required class="input-phone" type="text" id="phone" placeholder="Phone">
                     </div>
                     <div class="contact-btn-container">
                         <button class="add-contact-btn1" onclick="emptyInputs()">Cancel
                             <img class="cross-icon-btn1" src="./assets/icons/cross.svg" alt="">
                         </button>
-                        <button class="add-contact-btn2" onclick="getContact()">Create contact<img
+                        <button class="add-contact-btn2">Create contact<img
                                 class="check-icon-btn2" src="./assets/icons/check.svg" alt=""></button>
                     </div>
-
-
-                </div>
+                </form>
             </div>
         </div>
     </div>
