@@ -35,32 +35,33 @@ function selectCategory(categoryName) {
     validateDropdownSelection(); // Validiert die Auswahl
 }
 
-
-function toggleDropdown() {
+// Toggle-Funktion für Dropdowns
+function toggleDropdownDirectly() {
     let dropdownContent = document.getElementById('category');
     let isOpen = dropdownContent.style.display === 'block';
+
     dropdownContent.style.display = isOpen ? 'none' : 'block';
 
-    toggleDropdownArrows(isOpen);
-
+    // Umkehren des aktuellen Zustands der Pfeile basierend auf dem neuen Zustand des Dropdowns
+    // Dies muss möglicherweise deinem aktuellen Setup entsprechend angepasst werden.
+    const arrowsDown = document.querySelectorAll('.arrowDown');
+    const arrowsUp = document.querySelectorAll('.arrowUp');
+    arrowsDown.forEach(arrow => arrow.style.display = isOpen ? 'block' : 'none');
+    arrowsUp.forEach(arrow => arrow.style.display = isOpen ? 'none' : 'block');
+    
     if (!isOpen) {
-        validateDropdownSelection(); // Validiert die Auswahl beim Schließen des Dropdowns
+        validateDropdownSelection();
     }
 }
 
-function setupDropdownEvents() {
-    let dropdownButton = document.getElementById('dropdown-categories');
+// Funktion zum Setup der Event-Listener für Dropdown
+function setupDropdownEventListeners() {
+    // Hinzufügen des Event-Listeners zum Dropdown-Button
+    document.getElementById('dropdown-categories').addEventListener('click', toggleDropdownDirectly);
 
-    dropdownButton.addEventListener('click', function(event) {
-        event.stopPropagation();
-        toggleDropdown();
-    });
-
-    window.addEventListener('click', function() {
-        let dropdownContent = document.getElementById('category');
-        if (dropdownContent.style.display === 'block') {
-            toggleDropdown();
-        }
+    // Hinzufügen von Event-Listenern zu den Pfeilen (optional)
+    document.querySelectorAll('.arrowDown, .arrowUp').forEach(arrow => {
+        arrow.addEventListener('click', toggleDropdownDirectly);
     });
 }
 
@@ -75,24 +76,16 @@ function validateDropdownSelection() {
 
 // Schaltet die Pfeil- und Hintergrundicons beim Öffnen/Schließen des Dropdowns
 function toggleDropdownArrows(isOpen) {
-    const arrowDown = document.getElementById('arrowDown');
-    const arrowUp = document.getElementById('arrowUp');
-    const iconBgDown = document.getElementById('iconBgDown');
-    const iconBgUp = document.getElementById('iconBgUp');
+    const arrowsDown = document.querySelectorAll('.arrowDown');
+    const arrowsUp = document.querySelectorAll('.arrowUp');
 
-    if (isOpen) {
-        // Dropdown ist offen, also zeigen wir die "Schließen"-Pfeile und Icons
-        arrowDown.style.display = 'block';
-        arrowUp.style.display = 'none';
-        iconBgDown.style.display = 'block';
-        iconBgUp.style.display = 'none';
-    } else {
-        // Dropdown ist geschlossen, also zeigen wir die "Öffnen"-Pfeile und Icons
-        arrowDown.style.display = 'none';
-        arrowUp.style.display = 'block';
-        iconBgDown.style.display = 'none';
-        iconBgUp.style.display = 'block';
-    }
+    arrowsDown.forEach(arrow => {
+        arrow.style.display = isOpen ? 'block' : 'none';
+    });
+
+    arrowsUp.forEach(arrow => {
+        arrow.style.display = isOpen ? 'none' : 'block';
+    });
 }
 
 function clearAllInputs() {
@@ -400,10 +393,10 @@ function setupEventListenersSubtasks() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initCategoryDropdown();
-    setupDropdownEvents();
     checkInputFields();
     handlePrioButtons();
     inputSubtask();
     addSubTask();
     setupEventListenersSubtasks();
+    setupDropdownEventListeners();
 });

@@ -247,6 +247,13 @@ a {
   transform: translateY(-50%);
   width: 24px;
   height: 24px;
+  z-index: 4; /* Stellt sicher, dass dies über den Pfeilen liegt */
+  pointer-events: auto; /* Stellt sicher, dass dieses Element auf Events reagieren kann */
+}
+
+.arrowDown,
+.arrowUp {
+  pointer-events: none; /* Lässt Click-Events durch die Pfeile hindurch */
 }
 
 .arrow-dropdown-down {

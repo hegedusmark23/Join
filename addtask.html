@@ -36,10 +36,7 @@
                         <div class="dropdown">
                             <button id="dropdown-assignees" class="dropbtn">Select contacts to assign</button>
                             <div class="dropdown-ctrl">
-                                <div class="icon-background-down"></div>
-                                <div class="arrow-dropdown-down"></div>
-                                <div class="icon-background-up" style="display:none;"></div>
-                                <div class="arrow-dropdown-up" style="display:none;"></div>
+
                             </div>
                             <div class="dropdown-content" id="assign-to" style="display: none;">
                                 <a href="#" data-value="option1">User A</a>
@@ -82,11 +79,11 @@
                         <span class="required">Category</span>
                         <div class="dropdown">
                             <button id="dropdown-categories" class="dropbtn">Select task category</button>
-                            <div class="dropdown-ctrl">
-                                <div class="icon-background-down" id="iconBgDown" style="display: block;"></div>
-                                <div class="arrow-dropdown-down" id="arrowDown" style="display: block;"></div>
-                                <div class="icon-background-up" id="iconBgUp" style="display:none;"></div>
-                                <div class="arrow-dropdown-up" id="arrowUp" style="display:none;"></div>
+                            <div id="dropdown-container" class="dropdown-ctrl">
+                                <div class="icon-background-down arrowDown" style="display: block;"></div>
+                                <div class="arrow-dropdown-down arrowDown" style="display: block;"></div>
+                                <div class="icon-background-up arrowUp" style="display:none;"></div>
+                                <div class="arrow-dropdown-up arrowUp" style="display:none;"></div>
                             </div>
 
                             <div class="dropdown-content" id="category" style="display:none;">
