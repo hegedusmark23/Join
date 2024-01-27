@@ -173,7 +173,7 @@ function backgroundBlackAndWhiteText(key, i) {
 function backgroundAndTextOriginal(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.remove('black-container');
     document.getElementById(`contact-list-name${key}${i}`).style.color = '#000';
-    document.getElementById(`contact-list-email${key}${i}`).style.color = '#'
+    document.getElementById(`contact-list-email${key}${i}`).style.color = '#000'
 }
 
 
