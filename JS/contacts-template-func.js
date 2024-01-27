@@ -17,7 +17,7 @@ function getShowContactHTML(i, key, contact, casualColor) {
   return /*html*/ `
       <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContactOnclick('${key}', ${i})" id="under-container${key}${i}" class="under-container">
           <div class="contact-badge-bg-container"><div id="contact-badge${i}" class="contact-badge" style="background:#${casualColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
-           <div id="name-and-email-container${i}" class="name-and-email-container">
+           <div id="name-and-email-container${i}" class="contact-list-name-and-email-container">
              <span id="contact-list-name${key}${i}" class="contact-list-name">${contact.completeName}</span>
              <span id="contact-list-email${key}${i}" class="contact-list-email">${contact.email}</span>
            </div>
@@ -77,14 +77,14 @@ function contactViewContainerHTML(key, i, name, email, phone) {
             </div>
         </div>
     </div>
-    <h3>Contact Information</h3>
+    <h3 class="contact-information-title">Contact Information</h3>
     <div id="contact-view-information-container${key}${i}" class="contact-view-information-container">
         <div class="contact-view-email-container">
-            <h3>Email</h3>
+            <h3 class="conatct-view-email-title">Email</h3>
            <a id="contact-view-email${key}${i}" class="contact-view-email">${email}</a>
         </div>
         <div class="contact-view-phone-container">
-            <h3>Phone</h3>
+            <h3 class="contact-view-phone-title">Phone</h3>
             <span id="contact-view-phone${key}${i}" class="contact-view-phone">${phone}</span>
         </div>
     </div>
@@ -98,7 +98,7 @@ function editContactOverlayHTML(key, i) {
             <div class="contacts-left-container">
                 <div class="logo-and-title-container">
                     <span><img class="contact-dialog-logo" src="./assets/img/logo-small-white.png" alt=""></span>
-                    <h2 class="add-contact-title">Edit Contact</h2>
+                    <h2 class="edit-contact-title">Edit Contact</h2>
                     <span class="border-bar"></span>
                 </div>
             </div>

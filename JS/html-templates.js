@@ -280,7 +280,7 @@ function helpHTML() {
     `;
 }
 
-function contactsHTML(){
+function contactsHTML() {
     return /*html*/`
     <section id="contact-section" class="contact-section">
         <div class="contact-book">
@@ -292,13 +292,14 @@ function contactsHTML(){
         </div>
         <div class="contact-view-section">
             <div id="contact-view-title-container" class="contact-view-title-container">
-                <h2 class="contact-view-title">Contacts</h2><span class="contact-view-separator-bar"></span>
+                <h2 class="contact-view-title">Contacts</h2>
+                <span class="contact-view-separator-bar"></span>
                 <h3 class="contact-view-subtitle">Better with a team</h3>
             </div>
-
             <div id="contact-view-container" class="contact-view-container translateX"></div>
             <div id="succesfulButtonContainer" class="succesfulButtonContainer translateSuccButton">Contact successfully
-                created</div>
+                created
+            </div>
         </div>
     </section>
 </main>
@@ -343,7 +344,7 @@ function contactsHTML(){
     `;
 }
 
-function addTaskHTML(){
+function addTaskHTML() {
     return /*html*/`
     <section id="addtask-content">
 
