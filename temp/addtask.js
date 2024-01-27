@@ -1,142 +1,117 @@
 // Globale Variable
-let title = null;
-let description = null;
-let assignedTo = [];
-let dueDate = null;
-let prio = null;
-let category = null;
+
+let category = []
 let subtasks = [];
 
-// Zustandsvariablen
-let dropdownClicked = false;
+// Category DropDown
 
-function initCategoryDropdown() {
+function categoryDropdown() {
     let categories = ['Technical Task', 'User Story'];
     let dropdownContent = document.getElementById('category');
+    let dropdownButton = document.getElementById('dropdown-categories');
+    let arrowDown = dropdownButton.nextElementSibling.querySelector('.arrow-dropdown-down');
+    let arrowUp = dropdownButton.nextElementSibling.querySelector('.arrow-dropdown-up');
+    let iconBgDown = dropdownButton.nextElementSibling.querySelector('.icon-background-down');
+    let iconBgUp = dropdownButton.nextElementSibling.querySelector('.icon-background-up');
 
-    categories.forEach((category) => {
+    categories.forEach((category, index) => {
         let link = document.createElement('a');
         link.href = '#';
+        link.dataset.value = 'option' + (index + 1);
         link.textContent = category;
+
         link.addEventListener('click', function(event) {
             event.preventDefault();
-            selectCategory(this.textContent);
+            dropdownButton.textContent = this.textContent;
+            dropdownContent.style.display = 'none';
+            arrowDown.style.display = 'block';
+            arrowUp.style.display = 'none';
+            iconBgDown.style.display = 'block';
+            iconBgUp.style.display = 'none';
+            
         });
+
         dropdownContent.appendChild(link);
     });
 }
 
-function selectCategory(categoryName) {
-    let dropdownButton = document.getElementById('dropdown-categories');
-    dropdownButton.textContent = categoryName;
-    toggleDropdown();
-    
-    category = categoryName; // Speichert die ausgewählte Kategorie
-    validateDropdownSelection(); // Validiert die Auswahl
-}
 
+function setupDropdown(dropdownButtonId, dropdownContentId, errorId, isRequired = false) {
+    let isDropdownSelected = false;
+    let hasDropdownBeenOpened = false;
+    const dropdownButton = document.getElementById(dropdownButtonId);
 
-function toggleDropdown() {
-    let dropdownContent = document.getElementById('category');
-    let isOpen = dropdownContent.style.display === 'block';
-    dropdownContent.style.display = isOpen ? 'none' : 'block';
+    dropdownButton.isDropdownSelected = false;
+    dropdownButton.hasDropdownBeenOpened = false;
 
-    toggleDropdownArrows(isOpen);
+    const dropdownContent = document.getElementById(dropdownContentId);
+    const errorElement = errorId ? document.getElementById(errorId) : null;
+    const arrowDown = dropdownButton.nextElementSibling.querySelector('.arrow-dropdown-down');
+    const arrowUp = dropdownButton.nextElementSibling.querySelector('.arrow-dropdown-up');
+    const iconBgDown = dropdownButton.nextElementSibling.querySelector('.icon-background-down');
+    const iconBgUp = dropdownButton.nextElementSibling.querySelector('.icon-background-up');
 
-    if (!isOpen) {
-        validateDropdownSelection(); // Validiert die Auswahl beim Schließen des Dropdowns
-    }
-}
-
-function setupDropdownEvents() {
-    let dropdownButton = document.getElementById('dropdown-categories');
-
-    dropdownButton.addEventListener('click', function(event) {
-        event.stopPropagation();
-        toggleDropdown();
-    });
-
-    window.addEventListener('click', function() {
-        let dropdownContent = document.getElementById('category');
-        if (dropdownContent.style.display === 'block') {
-            toggleDropdown();
-        }
-    });
-}
-
-function validateDropdownSelection() {
-    let errorMsg = document.getElementById('dropdown-categories-error-msg');
-    if (category) {
-        errorMsg.style.visibility = 'hidden';
-    } else {
-        errorMsg.style.visibility = 'visible';
-    }
-}
-
-// Schaltet die Pfeil- und Hintergrundicons beim Öffnen/Schließen des Dropdowns
-function toggleDropdownArrows(isOpen) {
-    const arrowDown = document.getElementById('arrowDown');
-    const arrowUp = document.getElementById('arrowUp');
-    const iconBgDown = document.getElementById('iconBgDown');
-    const iconBgUp = document.getElementById('iconBgUp');
-
-    if (isOpen) {
-        // Dropdown ist offen, also zeigen wir die "Schließen"-Pfeile und Icons
+    function closeDropdown() {
+        dropdownContent.style.display = 'none';
         arrowDown.style.display = 'block';
         arrowUp.style.display = 'none';
         iconBgDown.style.display = 'block';
         iconBgUp.style.display = 'none';
-    } else {
-        // Dropdown ist geschlossen, also zeigen wir die "Öffnen"-Pfeile und Icons
-        arrowDown.style.display = 'none';
-        arrowUp.style.display = 'block';
-        iconBgDown.style.display = 'none';
-        iconBgUp.style.display = 'block';
-    }
-}
-
-function clearAllInputs() {
-    // Eingabefelder zurücksetzen
-    document.getElementById('addtask-title').value = '';
-    document.getElementById('description').value = '';
-    document.getElementById('due-date').value = '';
-
-    // Dropdown zurücksetzen
-    category = null; // Löscht die Auswahl in der Kategorie
-    document.getElementById('dropdown-categories').textContent = 'Select task category';
-    document.getElementById('dropdown-categories-error-msg').style.visibility = 'hidden'; // Fehlermeldung verbergen
-
-    // Den visuellen Zustand des Dropdowns zurücksetzen
-    const dropdownContent = document.getElementById('category');
-    dropdownContent.style.display = 'none'; // Schließt das Dropdown
-    toggleDropdownArrows(true); // Setzt die Pfeile zurück auf den "geschlossenen" Zustand
-
-    // Subtasks aus dem Array und dem DOM löschen
-    subtasks = []; // Löscht alle Subtasks, falls vorhanden
-    const subtasksList = document.querySelector('#subtasks-list-container ul');
-    if (subtasksList) {
-        subtasksList.innerHTML = ''; // Entfernt alle Subtask-Listenelemente aus dem DOM
-    }
     
-    // Prioritäts-Buttons zurücksetzen
-    const prioButtons = document.querySelectorAll('.addtask-buttons');
-    prioButtons.forEach(button => {
-        button.classList.remove('is-active');
-        button.style.backgroundColor = '';
+        if (errorElement) {
+            if (isRequired && !isDropdownSelected && hasDropdownBeenOpened && !dropdownButton.isReset) {
+                errorElement.style.visibility = 'visible';
+            } else {
+                errorElement.style.visibility = 'hidden';
+            }
+        }
+    }
+
+    dropdownButton.addEventListener('click', function(event) {
+        event.stopPropagation();
+        hasDropdownBeenOpened = true;
+        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        arrowDown.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        arrowUp.style.display = (dropdownContent.style.display === 'block') ? 'block' : 'none';
+        iconBgDown.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        iconBgUp.style.display = (dropdownContent.style.display === 'block') ? 'block' : 'none';
     });
 
-    // Subtask Feld zurücksetzen
-    const inputField = document.getElementById('subtask');
-    inputField.value = '';
-    document.querySelector('.subtask-icons-before').style.display = 'block';
-    document.querySelector('.subtask-icons-after').style.display = 'none';
+    dropdownContent.addEventListener('click', function(event) {
+        if (event.target.tagName === 'A') {
+            event.preventDefault();
+            dropdownButton.textContent = event.target.textContent;
+            isDropdownSelected = true;
+            closeDropdown();
+        }
+    });
 
-    // Fehlermeldungen für andere Felder zurücksetzen
-    document.getElementById('title-error-msg').style.visibility = 'hidden';
-    document.getElementById('duedate-error-msg').style.visibility = 'hidden';
+    window.addEventListener('click', function(event) {
+        if (!event.target.closest(`#${dropdownButtonId}`) && !event.target.closest(`#${dropdownContentId}`)) {
+            closeDropdown();
+        }
+    });
 }
 
-// Die anderen Inputfelder prüfen
+function resetDropdown(dropdownButtonId, defaultText, errorElementId) {
+    const dropdownButton = document.getElementById(dropdownButtonId);
+    const errorElement = document.getElementById(errorElementId);
+
+    dropdownButton.textContent = defaultText;
+    errorElement.style.visibility = 'hidden';
+
+    // Verzögere das Entfernen des Fokus, um sicherzustellen, dass es richtig verarbeitet wird
+    setTimeout(() => {
+        dropdownButton.blur();
+    }, 0);
+
+    // Setze die Zustände des Dropdown-Buttons zurück
+    dropdownButton.isDropdownSelected = false;
+    dropdownButton.hasDropdownBeenOpened = false;
+    dropdownButton.isReset = true; // Füge eine neue Eigenschaft hinzu, um anzuzeigen, dass das Dropdown zurückgesetzt wurde
+}
+
+
 function checkInputFields() {
     const title = document.getElementById('addtask-title');
     const dueDate = document.getElementById('due-date');
@@ -170,41 +145,60 @@ function checkInputFields() {
     });
 }
 
-// Prio Buttons steuern
-function handlePrioButtons(){
-    // Prio Buttons einfärben und is-active setzen bzw. entfernen
-    const prioButtons = document.querySelectorAll('.addtask-buttons');
-    const colors = {
-        urgent: '#ff3d00',
-        medium: '#ffa800',
-        low: '#7ae229'
-    };
+function clearAllInputs(){
+    
+    // Eingabefelder zurücksetzten
+    let title = document.getElementById('addtask-title');
+    let description = document.getElementById('description');
+    let dropdownAssigned = document.getElementById('dropdown-assignees');
+    let dueDate = document.getElementById('due-date');
+    let dropdownCategory = document.getElementById('dropdown-categories')
+    
+    title.value = '';
+    description.value = '';
+    dropdownAssigned.textContent = 'Select contacts to assign';
+    dueDate.value = '';
+    dropdownCategory.textContent = 'Select task category';
 
-    // Iteriere durch jeden Button und füge den Event-Listener hinzu
+    // Prio Buttons zurücksetzen
+    const prioButtons = document.querySelectorAll('.addtask-buttons');
     prioButtons.forEach(button => {
-        button.addEventListener('click', handleClick);
+        button.classList.remove('is-active');
+        button.style.backgroundColor = '';
     });
 
-    function handleClick(event) {
-        const button = event.target;
+    // Fehlermeldungen zurücksetzen
+    
+    let titleErr = document.getElementById('title-error-msg');
+    let dueDateErr = document.getElementById('duedate-error-msg');
+    let catErr = document.getElementById('dropdown-categories-error-msg');
 
-        // Überprüfen, ob der geklickte Button bereits 'is-active' hat
-        if (button.classList.contains('is-active')) {
-            button.classList.remove('is-active');
-            button.style.backgroundColor = '';
-        } else {
-            prioButtons.forEach(btn => {
-                btn.classList.remove('is-active');
-                btn.style.backgroundColor = '';
-            });
-            button.classList.add('is-active');
-            const priority = button.id.replace('addtask-prio-', '');
-            button.style.backgroundColor = colors[priority];
-        }
-    }
+    titleErr.style.visibility = 'hidden';
+    dueDateErr.style.visibility = 'hidden';
+    setTimeout(() => {
+        catErr.style.visibility = 'hidden';
+    }, 0);
+
+    // Dropdowns zurücksetzen
+    resetDropdown('dropdown-assignees', 'Select contacts to assign', 'dropdown-assignees-error-msg');
+    resetDropdown('dropdown-categories', 'Select task category', 'dropdown-categories-error-msg');
+    // Setze die isReset-Eigenschaft zurück, nachdem das Zurücksetzen abgeschlossen ist
+    setTimeout(() => {
+        document.getElementById('dropdown-assignees').isReset = false;
+        document.getElementById('dropdown-categories').isReset = false;
+    }, 0);
+
+    // Subtaskfeld zurücksetzen
+
+    let iconsBefore = document.querySelector('.subtask-icons-before');
+    let iconsAfter = document.querySelector('.subtask-icons-after');
+    let inputField = document.getElementById('subtask');
+    iconsBefore.style.display = 'block';
+    iconsAfter.style.display = 'none';
+    inputField.value = '';
+
 }
 
-// Subtasks
 function inputSubtask() {
     let inputField = document.getElementById('subtask');
     let clearButton = document.querySelector('.first-img-container');
@@ -328,7 +322,7 @@ function saveSubtask(liElement) {
     `;
 }
 
-function setupEventListenersSubtasks() {
+function setupEventListeners() {
     // Event-Listener für das Löschen von Subtasks und Doppelklicken auf Subtasks hinzufügen
     let listContainer = document.getElementById('subtasks-list-container').querySelector('ul');
 
@@ -399,11 +393,50 @@ function setupEventListenersSubtasks() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initCategoryDropdown();
-    setupDropdownEvents();
     checkInputFields();
-    handlePrioButtons();
+    // Funktion für Pflichtfeld-Dropdown
+    setupDropdown('dropdown-categories', 'category', 'dropdown-categories-error-msg', true);
+    // Funktion für optionales Dropdown
+    setupDropdown('dropdown-assignees', 'assign-to', null);
     inputSubtask();
     addSubTask();
-    setupEventListenersSubtasks();
+    setupEventListeners();
+    categoryDropdown();
+
+    // Prio Buttons einfärben und is-active setzten bzw. entfernen
+    const prioButtons = document.querySelectorAll('.addtask-buttons');
+
+    const colors = {
+    urgent: '#ff3d00',
+    medium: '#ffa800',
+    low: '#7ae229'
+    };
+    
+    // Iteriere durch jeden Button und füge den Event-Listener hinzu
+    prioButtons.forEach(button => {
+    button.addEventListener('click', handleClick);
+    });
+    
+    function handleClick(event) {
+        const button = event.target;
+    
+        // Überprüfen, ob der geklickte Button bereits 'is-active' hat
+        if (button.classList.contains('is-active')) {
+            // Wenn ja, entferne 'is-active' und den Hintergrundstil
+            button.classList.remove('is-active');
+            button.style.backgroundColor = '';
+        } else {
+            // Entferne 'is-active' und den Hintergrundstil von allen Buttons
+            prioButtons.forEach(btn => {
+                btn.classList.remove('is-active');
+                btn.style.backgroundColor = '';
+            });
+    
+            // Füge 'is-active' zum geklickten Button hinzu und setze die Hintergrundfarbe
+            button.classList.add('is-active');
+            const priority = button.id.replace('addtask-prio-', '');
+            button.style.backgroundColor = colors[priority];
+        }
+    }
+    
 });
