@@ -11,6 +11,15 @@
     padding: 0 50px;
 }
 
+.small-task-container{
+    display: flex;
+    gap: 25px;
+}
+
+.main-content{
+    margin-top: 100px;
+}
+
 .vert-blue-line{
     background-color: #29ABE2;
     height: 59px;
@@ -29,7 +38,6 @@
 }
 
 .tasks-summary-section{
-    width: 50%;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -40,11 +48,11 @@
 }
 
 .welcome-section{
-    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 0 200px;
 }
 
 .summary-main-content{

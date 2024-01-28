@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="./CSS/contacts.css">
     <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
-
-<body onload="init(); initRegister();">
+<body onload="init();">
     <main>
         <aside w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div>
@@ -21,10 +20,10 @@
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
-                <div onclick="logOut()" class="popup-links-div"><a class="popup-links">Log out</a></div>
+                <div class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
             </menu>
             <header w3-include-html="./assets/templates/header.html"></header>
-            <section onclick="closeMenu()" id="main-content"></section>
+            <section class="main-content" onclick="closeMenu()" id="main-content"></section>
         </div>
     </main>
     <script src="./JS/w3include.js"></script>
@@ -38,6 +37,8 @@
     <script src="./JS/addtask.js"></script>
     <script src="./JS/main-content.js"></script>
     <script src="./JS/script.js"></script>
+    
+
 </body>
 
 </html>

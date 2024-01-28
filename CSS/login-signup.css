@@ -272,7 +272,7 @@ form {
     padding: 50px;
     position: relative;
     animation: floathingLogo 1s ease-in-out;
-    z-index: 999;
+    z-index: 1;
     height: 122px;
 }
 
@@ -366,9 +366,10 @@ form {
     @keyframes floathingLogo {
         0% {
             height: 200px;
-            left: 10%;
             top: 50%;
-            margin-top: 300px;
+            left: 50%;
+            padding-top: 400px;
+            padding-right: 100px;
         }
 
         50% {
