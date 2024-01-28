@@ -1,3 +1,9 @@
+/* *,
+*::before,
+*::after {
+    box-sizing: border-box;
+} */
+
 @font-face {
     font-family: "Inter", sans-serif;
     src: url('fonts/static/Inter-Regular.ttf');
@@ -334,6 +340,7 @@ body {
 
 /*---------------------------------- add contacts from dialog --------------------------------------------*/
 .contact-bg-dialog {
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -609,6 +616,22 @@ body {
     margin-block-start: 0;
     margin-block-end: 0;
 }
+
+/* @media (max-width: 428px) {
+    .contact-section {
+        width: 428px;
+        height: 766px;
+        display: block;
+    }
+
+    .contact-book {
+        width: 100%;
+    }
+
+    .contact-view-section {
+        display: none;
+    }
+} */
 
 
 

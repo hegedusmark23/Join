@@ -13,10 +13,10 @@ function setLetterContainersHTML(key) {
 }
 
 // Display the values (contacts) that are inside each Keys. Fill the list of containers with contacts
-function getShowContactHTML(i, key, contact, casualColor) {
+function getShowContactInTheListHTML(i, key, contact) {
   return /*html*/ `
       <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContactOnclick('${key}', ${i})" id="under-container${key}${i}" class="under-container">
-          <div class="contact-badge-bg-container"><div id="contact-badge${i}" class="contact-badge" style="background:#${casualColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
+          <div class="contact-badge-bg-container"><div id="contact-badge${key}${i}" class="contact-badge" style="background:${contact.badgeColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
            <div id="name-and-email-container${i}" class="contact-list-name-and-email-container">
              <span id="contact-list-name${key}${i}" class="contact-list-name">${contact.completeName}</span>
              <span id="contact-list-email${key}${i}" class="contact-list-email">${contact.email}</span>
@@ -27,10 +27,10 @@ function getShowContactHTML(i, key, contact, casualColor) {
 
 // Show the already created contact in the view when the user clicks on "Create Contact" button
 // row 127 in contacts.js
-function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone) {
+function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor) {
   return /*html*/ `
       <div id="contact-view-name-container${key}${i}" class="contact-view-name-container">
-          <div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container">
+          <div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container" style="background:${badgeColor}">
             <span class="contact-view-badge">${capitalizedLetters}</span>
           </div>
           <div class="contact-view-edit-delete-container">
@@ -59,10 +59,10 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
       `
 }
 
-function contactViewContainerHTML(key, i, name, email, phone) {
+function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
   return /*html*/ `
     <div id="contact-view-name-container${key}${i}" class="contact-view-name-container">
-        <div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container">
+        <div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container" style="background:${badgeColor}">
           <span class="contact-view-badge">${capitalizedLetters}</span>
         </div>
         <div class="contact-view-edit-delete-container">
@@ -80,7 +80,7 @@ function contactViewContainerHTML(key, i, name, email, phone) {
     <h3 class="contact-information-title">Contact Information</h3>
     <div id="contact-view-information-container${key}${i}" class="contact-view-information-container">
         <div class="contact-view-email-container">
-            <h3 class="conatct-view-email-title">Email</h3>
+            <h3 class="contact-view-email-title">Email</h3>
            <a id="contact-view-email${key}${i}" class="contact-view-email">${email}</a>
         </div>
         <div class="contact-view-phone-container">
@@ -92,7 +92,7 @@ function contactViewContainerHTML(key, i, name, email, phone) {
 }
 
 // Show the "Edit Contact" pop-up to change the settings of a contact or delete it;
-function editContactOverlayHTML(key, i) {
+function editContactOverlayHTML(key, i, badgeColor) {
   return /*html*/ `
     <div onclick="doNotClose(event)" id="contact-dialog${key}${i}" class="contact-dialog">
             <div class="contacts-left-container">
@@ -103,7 +103,7 @@ function editContactOverlayHTML(key, i) {
                 </div>
             </div>
             <div class="contact-right-container">
-                <div id="edit-contact-badge-container${key}${i}" class="edit-contact-badge-container" style="background:#${casualColor}">
+                <div id="edit-contact-badge-container${key}${i}" class="edit-contact-badge-container" style="background:${badgeColor}">
                     <span>${capitalizedLetters}</span>
                 </div>
                 <form onsubmit="saveNewContact('${key}', ${i}); return false" class="input-and-btn-container">
@@ -116,7 +116,7 @@ function editContactOverlayHTML(key, i) {
                         <input required id="input-phone${key}${i}" class="input-phone" type="text" id="phone" placeholder="Phone">
                     </div>
                     <div class="contact-btn-container">
-                        <button class="add-contact-btn1" onclick="emptyInputs()">Delete
+                        <button class="add-contact-btn1" onclick="deleteContact('${key}', ${i})">Delete
                             <svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill=""
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

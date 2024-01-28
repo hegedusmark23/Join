@@ -98,7 +98,13 @@ p {
   cursor: pointer;
 }
 
+
 .blue-btn:hover {
+  background-color: #29abe2;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.blue-btn-normal:hover {
   background-color: #29abe2;
   box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
 }

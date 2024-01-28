@@ -1,13 +1,15 @@
 
 let letterContainer = {};
 let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Ü',];
-let colors = ['9327FF', '6E52FF', 'FC71FF', 'FFBB2B', '1FD7C1', '462F8A'];
-let casualColor;
+let colors = ['#9327FF', '#6E52FF', '#FC71FF', '#FFBB2B', '#1FD7C1', '#462F8A'];
 let firstLetter;
 let capitalizedLetters;
 let inputName;
 let inputEmail;
 let inputPhone;
+let badge;
+let badgeColor;
+
 
 alphabet.forEach((letter) => {
     letterContainer[letter] = [];
@@ -29,15 +31,17 @@ async function loadItems() {
 }
 
 async function getContact() {
+    let color = Math.floor(Math.random() * colors.length);
     let completeName = document.getElementById('name').value;
     let emailAdress = document.getElementById('email').value;
     let phone = document.getElementById('phone').value;
+    badgeColor = colors[color]
     firstLetter = completeName.charAt(0).toUpperCase();
-    addContacts(completeName, emailAdress, phone);
+    addContacts(completeName, emailAdress, phone, badgeColor);
 }
 
-async function addContacts(completeName, emailAdress, phone) {
-    let contact = new Contact(completeName, emailAdress, phone);
+async function addContacts(completeName, emailAdress, phone, badgeColor) {
+    let contact = new Contact(completeName, emailAdress, phone, badgeColor);
     if (alphabet.includes(firstLetter)) {
         letterContainer[firstLetter].push(contact);
         await setItem('contacts', JSON.stringify(letterContainer));
@@ -71,13 +75,13 @@ function showContactsInTheList(key) {
     cont.innerHTML = '';
     let contacts = letterContainer[key];
     for (let i = 0; i < contacts.length; i++) {
-        let contact = contacts[i]
-        capitalizeLetters(contact.completeName)
-        let color = Math.floor(Math.random() * colors.length);
-        casualColor = colors[color];
-        cont.innerHTML += getShowContactHTML(i, key, contact, casualColor);
+        let contact = contacts[i];
+        capitalizeLetters(contact.completeName);
+        cont.innerHTML += getShowContactInTheListHTML(i, key, contact);
     }
 }
+
+
 
 function capitalizeLetters(completeName) {
     let name = completeName.split(" "); // mettere sempre uno spazio in mezzo quando si vuol creare due parole intere separate
@@ -89,12 +93,13 @@ function capitalizeLetters(completeName) {
 }
 
 function showContactOnclick(key, i) {
+    let contactViewContainer = document.getElementById('contact-view-container')
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
     let phone = letterContainer[key][i]['phone'];
-    contactViewContainer = document.getElementById('contact-view-container');
+    badgeColor = letterContainer[key][i]['badgeColor'];
     capitalizeLetters(name);
-    contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone);
+    contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone, badgeColor);
     contactViewContainer.classList.remove('translateX')
 }
 
@@ -127,16 +132,27 @@ function showEditContactOverlay(key, i) {
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
     let phone = letterContainer[key][i]['phone'];
+    badgeColor = letterContainer[key][i]['badgeColor'];
     capitalizeLetters(name);
     let editContactOverlay = document.getElementById('edit-contact-overlay');
-    editContactOverlay.classList.remove('d-none')
-    editContactOverlay.innerHTML = editContactOverlayHTML(key, i, name, email, phone);
+    editContactOverlay.classList.remove('d-none');
+    editContactOverlay.innerHTML = editContactOverlayHTML(key, i,);
+    getTheInputs(key, i);
+    displayTheContactDataInTheInputs(name, email, phone, badgeColor);
+}
+
+function getTheInputs(key, i) {
     inputName = document.getElementById(`input-name${key}${i}`);
     inputEmail = document.getElementById(`input-email${key}${i}`);
     inputPhone = document.getElementById(`input-phone${key}${i}`);
+    badge = document.getElementById(`edit-contact-badge-container${key}${i}`)
+}
+
+function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
     inputName.value = name;
     inputEmail.value = email;
     inputPhone.value = phone;
+    badge.style.backgroundColor = badgeColor
 }
 
 async function saveNewContact(key, i) {
@@ -145,9 +161,10 @@ async function saveNewContact(key, i) {
     letterContainer[key][i]['completeName'] = inputName.value;
     letterContainer[key][i]['email'] = inputEmail.value;
     letterContainer[key][i]['phone'] = inputPhone.value;
+    letterContainer[key][i]['badgeColor'] = badgeColor;
     capitalizeLetters(inputName.value);
     await setItem('contacts', JSON.stringify(letterContainer)); // salviamo all'interno del remote storage il nuovo contatto modificato, in modo che sia visibile nella lista quando andremo ad iterare sul JSON, e quando chiameremo getItem;
-    contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, inputName.value, inputEmail.value, inputPhone.value)
+    contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, inputName.value, inputEmail.value, inputPhone.value, badgeColor);
     document.getElementById('edit-contact-overlay').classList.add('d-none');
     await renderContact();
 }
@@ -156,7 +173,8 @@ async function deleteContact(key, i) {
     letterContainer[key].splice(i, 1);
     document.getElementById('contact-view-container').innerHTML = '';
     await setItem('contacts', JSON.stringify(letterContainer));
-    await renderContact();
+    renderContact();
+    hideEditContactOverlay();
 }
 
 
