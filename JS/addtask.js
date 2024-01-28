@@ -1,14 +1,3 @@
-// Test Array
-let users = [
-    { initials: "AM", name: "Anton Mayer", added: null, loginState: "loggedIn" },
-    { initials: "SH", name: "Sahrah Huber", added: null, loginState: null },
-    { initials: "PS", name: "Peter Schmitt", added: null, loginState: null },
-    { initials: "TM", name: "Thomas Müller", added: null, loginState: null },
-    { initials: "FS", name: "Frank Schulz", added: null, loginState: null },
-    { initials: "BV", name: "Bert Vogel", added: null, loginState: null },
-    { initials: "DZ", name: "Dominik Ziegler", added: null, loginState: null }
-];
-
 // Globale Variable
 let title = null;
 let description = null;
