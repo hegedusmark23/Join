@@ -4,6 +4,8 @@ let description = null;
 let dueDate = null;
 let prio = null;
 let subtasks = [];
+let assignedTo = [];
+let category = null;
 
 
 function clearAllInputs() {
@@ -16,6 +18,13 @@ function clearAllInputs() {
     category = null; // Löscht die Auswahl in der Kategorie
     document.getElementById('dropdown-categories').textContent = 'Select task category';
     document.getElementById('dropdown-categories-error-msg').style.visibility = 'hidden'; // Fehlermeldung verbergen
+
+    // Assignee-Dropdown zurücksetzen
+    assignedTo = []; // Leert das Array der zugewiesenen Benutzer
+    users.forEach(user => user.added = false); // Setzt den 'added'-Status jedes Benutzers zurück
+    document.getElementById('dropdown-assignees').textContent = 'Select contacts to assign';
+    updateSelectedAssigneesDisplay(); // Aktualisiert die Anzeige der ausgewählten Benutzer
+    renderAssignees(); // Rendert die Benutzerliste im Dropdown neu
 
     // Den visuellen Zustand des Dropdowns zurücksetzen
     const dropdownContent = document.getElementById('category');

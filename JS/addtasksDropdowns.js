@@ -1,6 +1,3 @@
-let assignedTo = [];
-let category = null;
-
 // Zustandsvariablen
 let dropdownClicked = false;
 
