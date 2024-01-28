@@ -1,7 +1,7 @@
 header {
     display: flex;
     justify-content: space-between;
-    padding: 0 30px;
+    padding: 30px 30px;
     height: 15%;
 }
 
@@ -140,8 +140,7 @@ form {
 .legal-links-container {
     display: flex;
     gap: 30px;
-    position: absolute;
-    bottom: 15px;
+    padding-top: 200px;
 }
 
 .legal-links {
@@ -168,23 +167,35 @@ form {
     color: #A8A8A8;
 }
 
+.sign-up-btn-mobile {
+    display: none;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 35px;
+    padding-top: 10px;
+}
+
 @keyframes floathingLogo {
     0% {
         height: 270px;
         left: 50%;
-        top: 50%;
+        bottom: 50%;
         margin-top: 300px;
+        -webkit-transform: translate3d(-50%, 0, 0);
     }
 
     50% {
         height: 270px;
         left: 50%;
+        bottom: 50%;
+        -webkit-transform: translate3d(-50%, 0, 0);
     }
 
     100% {
         height: 122px;
-        top: 0%;
-        left: 0%;
+        left: 0;
+        top: 0;
+        transform: none;
     }
 }
 
@@ -265,14 +276,12 @@ form {
 
 
 .join-logo {
-    padding: 50px;
+    margin: 50px;
 }
 
 .animated-logo {
-    padding: 50px;
     position: relative;
     animation: floathingLogo 1s ease-in-out;
-    z-index: 1;
     height: 122px;
 }
 
@@ -324,6 +333,18 @@ form {
     color: red;
 }
 
+.blue-btn-normal {
+    background-color: #2a3647;
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 14px;
+    border-width: 0px;
+    cursor: pointer;
+    font-weight: 600;
+    cursor: pointer;
+}
+
 @media (max-width: 1000px) {
     .blue-btn {
         padding: 10px;
@@ -368,13 +389,14 @@ form {
             height: 200px;
             top: 50%;
             left: 50%;
-            padding-top: 400px;
-            padding-right: 100px;
+            padding-top: 300px;
+            -webkit-transform: translate3d(-50%, 0, 0);
         }
 
         50% {
             height: 200px;
             left: 50%;
+            -webkit-transform: translate3d(-50%, 0, 0);
         }
 
         100% {
@@ -432,12 +454,14 @@ form {
             top: 50%;
             left: 50%;
             margin-top: 300px;
+            -webkit-transform: translate3d(-50%, 0, 0);
         }
 
         50% {
             height: 180px;
             top: 250%;
             left: 50%;
+            -webkit-transform: translate3d(-50%, 0, 0);
         }
 
         100% {
@@ -447,4 +471,117 @@ form {
         }
     }
 
+}
+
+
+@media (max-width: 430px) {
+    .blue-btn {
+        padding: 8px;
+        font-size: 14px;
+        width: 180px;
+    }
+
+    .white-btn {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .notUser-text {
+        font-size: 14px;
+    }
+
+    .animated-logo {
+        height: 70px;
+    }
+
+    .login-headline {
+        font-size: 40px;
+        margin-block-start: 3px;
+        margin-block-end: 13px;
+    }
+
+    .blue-line{
+        margin-top: -45px;
+    }
+
+    .login-input {
+        width: 290px;
+        height: 30px;
+        font-size: 15px;
+    }
+
+    .login-container {
+        height: 360px;
+        width: 320px;
+        margin: 20px 0;
+    }
+
+    .legal-links {
+        font-size: 12px;
+    }
+
+    .legal-links-container {
+        bottom: 15px;
+    }
+
+    .buttons-div {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .sign-up-btn {
+        display: none;
+    }
+
+    .sign-up-btn-mobile {
+        display: flex;
+        gap: 10px;
+    }
+/*
+    body{
+        animation: backgroundColor 2s ease-in-out;
+    }
+
+    @keyframes backgroundColor{
+        0% {
+            background-color: #2A3647;
+        }
+
+        50% {
+            background-color: #ffffff;
+        }
+
+        100% {
+            background-color: #ffffff;
+        }
+    }*/
+
+    @keyframes floathingLogo {
+        0% {
+            height: 180px;
+            top: 50%;
+            left: 50%;
+            margin-top: 200px;
+            -webkit-transform: translate3d(-50%, 0, 0);
+        }
+
+        50% {
+            height: 180px;
+            top: 250%;
+            left: 50%;
+            -webkit-transform: translate3d(-50%, 0, 0);
+        }
+
+        100% {
+            height: 70px;
+            top: 0%;
+            left: 0%;
+        }
+    }
+
+    .legal-links-container {
+        display: flex;
+        gap: 30px;
+        padding-top: 40px;
+    }
 }
