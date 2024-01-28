@@ -1,92 +1,10 @@
 // Globale Variable
 let title = null;
 let description = null;
-let assignedTo = [];
 let dueDate = null;
 let prio = null;
-let category = null;
 let subtasks = [];
 
-// Zustandsvariablen
-let dropdownClicked = false;
-
-function initCategoryDropdown() {
-    let categories = ['Technical Task', 'User Story'];
-    let dropdownContent = document.getElementById('category');
-
-    categories.forEach((category) => {
-        let link = document.createElement('a');
-        link.href = '#';
-        link.textContent = category;
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            selectCategory(this.textContent);
-        });
-        dropdownContent.appendChild(link);
-    });
-}
-
-function selectCategory(categoryName) {
-    let dropdownButton = document.getElementById('dropdown-categories');
-    dropdownButton.textContent = categoryName;
-    toggleDropdown();
-    
-    category = categoryName; // Speichert die ausgewählte Kategorie
-    validateDropdownSelection(); // Validiert die Auswahl
-}
-
-// Toggle-Funktion für Dropdowns
-function toggleDropdownDirectly() {
-    let dropdownContent = document.getElementById('category');
-    let isOpen = dropdownContent.style.display === 'block';
-
-    dropdownContent.style.display = isOpen ? 'none' : 'block';
-
-    // Umkehren des aktuellen Zustands der Pfeile basierend auf dem neuen Zustand des Dropdowns
-    // Dies muss möglicherweise deinem aktuellen Setup entsprechend angepasst werden.
-    const arrowsDown = document.querySelectorAll('.arrowDown');
-    const arrowsUp = document.querySelectorAll('.arrowUp');
-    arrowsDown.forEach(arrow => arrow.style.display = isOpen ? 'block' : 'none');
-    arrowsUp.forEach(arrow => arrow.style.display = isOpen ? 'none' : 'block');
-    
-    if (!isOpen) {
-        validateDropdownSelection();
-    }
-}
-
-// Funktion zum Setup der Event-Listener für Dropdown
-function setupDropdownEventListeners() {
-    // Hinzufügen des Event-Listeners zum Dropdown-Button
-    document.getElementById('dropdown-categories').addEventListener('click', toggleDropdownDirectly);
-
-    // Hinzufügen von Event-Listenern zu den Pfeilen (optional)
-    document.querySelectorAll('.arrowDown, .arrowUp').forEach(arrow => {
-        arrow.addEventListener('click', toggleDropdownDirectly);
-    });
-}
-
-function validateDropdownSelection() {
-    let errorMsg = document.getElementById('dropdown-categories-error-msg');
-    if (category) {
-        errorMsg.style.visibility = 'hidden';
-    } else {
-        errorMsg.style.visibility = 'visible';
-    }
-}
-
-// Schaltet die Pfeil- und Hintergrundicons beim Öffnen/Schließen des Dropdowns
-function toggleDropdownArrows(isOpen) {
-    const arrowsDown = document.querySelectorAll('.arrowDown');
-    const arrowsUp = document.querySelectorAll('.arrowUp');
-
-    arrowsDown.forEach(arrow => {
-        arrow.style.display = isOpen ? 'block' : 'none';
-    });
-
-    arrowsUp.forEach(arrow => {
-        arrow.style.display = isOpen ? 'none' : 'block';
-    });
-}
 
 function clearAllInputs() {
     // Eingabefelder zurücksetzen
@@ -102,7 +20,7 @@ function clearAllInputs() {
     // Den visuellen Zustand des Dropdowns zurücksetzen
     const dropdownContent = document.getElementById('category');
     dropdownContent.style.display = 'none'; // Schließt das Dropdown
-    toggleDropdownArrows(true); // Setzt die Pfeile zurück auf den "geschlossenen" Zustand
+    toggleCategoryDropdownArrows(true); // Setzt die Pfeile zurück auf den "geschlossenen" Zustand
 
     // Subtasks aus dem Array und dem DOM löschen
     subtasks = []; // Löscht alle Subtasks, falls vorhanden
@@ -392,11 +310,9 @@ function setupEventListenersSubtasks() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initCategoryDropdown();
     checkInputFields();
     handlePrioButtons();
     inputSubtask();
     addSubTask();
     setupEventListenersSubtasks();
-    setupDropdownEventListeners();
 });
