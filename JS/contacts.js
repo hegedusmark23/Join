@@ -8,6 +8,7 @@ let inputName;
 let inputEmail;
 let inputPhone;
 let badge;
+let badgeColor;
 
 
 alphabet.forEach((letter) => {
