@@ -30,8 +30,8 @@
             <form id="register" onsubmit="register(); return false;">
                 <input id="name" autocomplete="additional-name" required minlength="2" class="login-input name-input" placeholder="Name" type="text">
                 <input id="email" required minlength="2" class="login-input email-input" placeholder="Email" type="email">
-                <input id="password" required minlength="2" class="login-input password-input" placeholder="Password" type="password">
-                <input id="confirm_password" required minlength="2" class="login-input password-input" placeholder="Confirm password" type="password">
+                <input onclick="revealPassword()" id="password" required minlength="2" class="login-input password-input" placeholder="Password" type="password">
+                <input onclick="revealPassword()" id="confirm_password" required minlength="2" class="login-input password-input" placeholder="Confirm password" type="password">
                 <div class="checkbox-div">
                     <input required type="checkbox" name="accept privacypolicy" id="policy-check">
                     <p class="signup-privacy-text">I accept the <a class="privacy-unlogged" href="privacypolicy-nouser.html">Privacy Policy</a></p>
@@ -41,7 +41,7 @@
                 </div>
             </form>
         </div>
-        <div class="legal-links-container">
+        <div class="legal-links-container-signup">
             <a class="legal-links" href="/privacypolicy-nouser.html">Privacy Policy</a>
             <a class="legal-links" href="/legalnotice-nouser.html">Legal Notice</a>
         </div>

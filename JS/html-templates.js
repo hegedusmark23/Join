@@ -40,7 +40,7 @@ function summaryHTML() {
                             <span>Upcoming Deadline</span>
                         </div>
                     </div>
-
+                <div class="small-task-container">
                     <div class="summary-task-display-small">
                         <h1 class="tasks-number no-margin">0</h1>
                         <span class="summary-text-bigger">Tasks in Board</span>
@@ -55,6 +55,7 @@ function summaryHTML() {
                         <h1 class="tasks-number no-margin">0</h1>
                         <span class="summary-text-bigger">Awaiting Feedback</span>
                     </div>
+                </div>
                 </div>
                 <div class="welcome-section">
                     <h1 id="daytime" class="daytime-text no-margin">Sample Daytime,</h1><br>
