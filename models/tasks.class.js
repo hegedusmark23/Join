@@ -14,15 +14,4 @@ class Task {
         this.subtask = []
     }
 
-    // Methode zur Aktualisierung der Beschreibung der Aufgabe
-    editTitle(newTitle) {
-        this.title = newTitle;
-    }
-
-    // Methode zur Aktualisierung der Deadline
-    updateDueDate(newDueDate) {
-        this.dueDate = newDueDate;
-    }
-
-
 }

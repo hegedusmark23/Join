@@ -7,12 +7,28 @@ let subtasks = [];
 let assignedTo = [];
 let category = null;
 
+// Test Array
+let users = [
+    { initials: "AM", name: "Anton Mayer", added: false, loginState: "loggedIn", color: "#FF5733" },
+    { initials: "SH", name: "Sahrah Huber", added: false, loginState: null, color: "#9df400 " },
+    { initials: "PS", name: "Peter Schmitt", added: false, loginState: null, color: "#FFC300" },
+    { initials: "TM", name: "Thomas Müller", added: false, loginState: null, color: "#581845" },
+    { initials: "FS", name: "Frank Schulz", added: false, loginState: null, color: "#C70039" },
+    { initials: "BV", name: "Bert Vogel", added: false, loginState: null, color: "#900C3F" },
+    { initials: "DZ", name: "Dominik Ziegler", added: false, loginState: null, color: "#34495E" }
+];
 
 function clearAllInputs() {
     // Eingabefelder zurücksetzen
     document.getElementById('addtask-title').value = '';
     document.getElementById('description').value = '';
     document.getElementById('due-date').value = '';
+
+    // Globale Variablen zurücksetzen
+    title = null;
+    description = null;
+    dueDate = null;
+    prio = null;
 
     // Dropdown zurücksetzen
     category = null; // Löscht die Auswahl in der Kategorie
@@ -90,238 +106,78 @@ function checkInputFields() {
     });
 }
 
-// Prio Buttons steuern
-function handlePrioButtons(){
-    // Prio Buttons einfärben und is-active setzen bzw. entfernen
-    const prioButtons = document.querySelectorAll('.addtask-buttons');
-    const colors = {
-        urgent: '#ff3d00',
-        medium: '#ffa800',
-        low: '#7ae229'
-    };
-
-    // Iteriere durch jeden Button und füge den Event-Listener hinzu
-    prioButtons.forEach(button => {
-        button.addEventListener('click', handleClick);
+function saveInputFields() {
+    // Event-Listener für Titel
+    const titleInput = document.getElementById('addtask-title');
+    titleInput.addEventListener('input', () => {
+        title = titleInput.value;
     });
 
-    function handleClick(event) {
-        const button = event.target;
+    // Event-Listener für Beschreibung
+    const descriptionInput = document.getElementById('description');
+    descriptionInput.addEventListener('input', () => {
+        description = descriptionInput.value;
+    });
 
-        // Überprüfen, ob der geklickte Button bereits 'is-active' hat
-        if (button.classList.contains('is-active')) {
-            button.classList.remove('is-active');
-            button.style.backgroundColor = '';
-        } else {
-            prioButtons.forEach(btn => {
-                btn.classList.remove('is-active');
-                btn.style.backgroundColor = '';
-            });
-            button.classList.add('is-active');
-            const priority = button.id.replace('addtask-prio-', '');
-            button.style.backgroundColor = colors[priority];
+    // Event-Listener für das Fälligkeitsdatum
+    const dueDateInput = document.getElementById('due-date');
+    dueDateInput.addEventListener('input', () => {
+        dueDate = dueDateInput.value;
+    });
+}
+
+function createTask() {
+    document.querySelector('.blue-btn').addEventListener('click', async () => {
+        // Erstellen einer neuen Task-Instanz
+        let newTask = new Task(
+            Date.now(), // Eindeutige ID
+            title,
+            description,
+            assignedTo,
+            dueDate,
+            prio,
+            new Date().toISOString(), // Erstellungsdatum
+            STORAGE_TOKEN // Storage-Token
+        );
+
+        // Hinzufügen von Kategorie und Subtasks
+        newTask.category = category;
+        newTask.subtask = subtasks;
+
+        // Speichern der neuen Task-Instanz
+        try {
+            await setItem('tasks', newTask);
+            console.log('Task erfolgreich gespeichert');
+        } catch (error) {
+            console.error('Fehler beim Speichern des Tasks:', error);
         }
+    });
+}
+
+async function showStoredTasks() {
+    try {
+        const storedTasks = await getItem('tasks'); 
+        console.log('Gespeicherte Tasks:', storedTasks);
+    } catch (error) {
+        console.error('Fehler beim Abrufen der gespeicherten Tasks:', error);
     }
-}
-
-// Subtasks
-function inputSubtask() {
-    let inputField = document.getElementById('subtask');
-    let clearButton = document.querySelector('.first-img-container');
-    let iconsBefore = document.querySelector('.subtask-icons-before');
-    let iconsAfter = document.querySelector('.subtask-icons-after');
-
-    // Event-Listener für den Fokus auf das Inputfeld
-    inputField.addEventListener('focus', () => {
-        iconsBefore.style.display = 'none';
-        iconsAfter.style.display = 'flex';
-    });
-
-    // Event-Listener für das Clear-Button
-    clearButton.addEventListener('click', () => {
-        inputField.value = '';
-        setTimeout(() => {
-            iconsBefore.style.display = 'block';
-            iconsAfter.style.display = 'none';
-            inputField.blur();
-        }, 10); // Kleine Verzögerung von 10 Millisekunden
-    });
-    
-}
-
-function addSubTask(){
-    // Event-Listener für den Button hinzufügen
-    let addButton = document.querySelector('.second-img-container');
-    addButton.addEventListener('click', renderSubtask);
-
-    // Event-Listener für das Enter-Ereignis im Inputfeld hinzufügen
-    let inputField = document.getElementById('subtask');
-    inputField.addEventListener('keypress', (event) => {
-        if (event.keyCode === 13 || event.which === 13) { // Unterstützung für unterschiedliche Browser
-            renderSubtask();
-        }
-    });
-}
-
-function renderSubtask() {
-    let inputField = document.getElementById('subtask');
-    let newSubtaskText = inputField.value.trim();
-
-    // Fügt nur ein neues Listenelement hinzu, wenn Text vorhanden ist
-    if (newSubtaskText) {
-        let newSubtask = {
-            id: Date.now(), // Erzeugt eine einfache eindeutige ID
-            text: newSubtaskText
-        };
-        subtasks.push(newSubtask);
-
-        // Erstellen des neuen Listenelements
-        let newLi = document.createElement('li');
-        newLi.dataset.subtaskId = newSubtask.id; // Speichert die ID im Dataset des li-Elements
-        newLi.innerHTML = `
-            <div class="subtask-item-wrapper">
-                <p>${newSubtaskText}</p>
-                <div class="subtask-icons">
-                    <img class="edit-subtask" src="./assets/img/edit_task.png">
-                    <img class="divider-subtask" src="./assets/img/divider_small.png">
-                    <img class="delete-subtask" src="./assets/img/delete-subtask.svg">
-                </div>
-            </div>
-        `;
-
-        // Hinzufügen des neuen Listenelements zum UL-Container
-        let listContainer = document.getElementById('subtasks-list-container').querySelector('ul');
-        listContainer.appendChild(newLi);
-    }
-
-    // Leeren des Inputfeldes
-    inputField.value = '';
-    // Verzögertes Zurücksetzen des Inputfeldes und der Icons
-    setTimeout(resetSubtaskField, 0);
-}
-
-
-function resetSubtaskField() {
-    let inputField = document.getElementById('subtask');
-    let iconsBefore = document.querySelector('.subtask-icons-before');
-    let iconsAfter = document.querySelector('.subtask-icons-after');
-
-    inputField.value = '';
-    iconsBefore.style.display = 'block';
-    iconsAfter.style.display = 'none';
-
-    inputField.blur()
-}
-
-// Funktion zum Bearbeiten des Subtasks
-function editSubtask(liElement) {
-    let subtaskText = liElement.querySelector('p').textContent;
-    liElement.classList.add('edit-mode'); // Fügt die Klasse hinzu, um den Bullet Point auszublenden
-
-    liElement.innerHTML = `
-        <div class="subtask-item-wrapper-edit">
-            <input id="subtask-edit-input" class="input-subtask" type="text" value="${subtaskText}">
-            <div class="subtask-icons-edit">
-                <img class="delete-subtask" src="./assets/img/delete-subtask.svg">
-                <img class="divider-subtask" src="./assets/img/divider_small.png">
-                <img class="save-subtask" src="./assets/img/check-small.png">
-            </div>
-        </div>
-    `;
-}
-
-// Funktion zum Speichern des Subtasks
-function saveSubtask(liElement) {
-    let inputElement = liElement.querySelector('input.input-subtask');
-    let newSubtaskText = inputElement.value;
-    liElement.classList.remove('edit-mode'); // Entfernt die Klasse
-
-    liElement.innerHTML = `
-        <div class="subtask-item-wrapper">
-            <p>${newSubtaskText}</p>
-            <div class="subtask-icons">
-                <img class="edit-subtask" src="./assets/img/edit_task.png">
-                <img class="divider-subtask" src="./assets/img/divider_small.png">
-                <img class="delete-subtask" src="./assets/img/delete-subtask.svg">
-            </div>
-        </div>
-    `;
-}
-
-function setupEventListenersSubtasks() {
-    // Event-Listener für das Löschen von Subtasks und Doppelklicken auf Subtasks hinzufügen
-    let listContainer = document.getElementById('subtasks-list-container').querySelector('ul');
-
-    listContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('delete-subtask')) {
-            let liToDelete = event.target.closest('li');
-            if (liToDelete) {
-                // Überprüft, ob eine ID für den Subtask vorhanden ist
-                let subtaskId = liToDelete.dataset.subtaskId;
-                if (subtaskId) {
-                    // Aktualisiert das subtasks-Array, indem der gelöschte Subtask entfernt wird
-                    subtasks = subtasks.filter(subtask => subtask.id.toString() !== subtaskId);
-                }
-
-                // Entfernt das <li>-Element aus dem DOM
-                listContainer.removeChild(liToDelete);
-            }
-        }
-    });
-
-    // Event-Listener für das Doppelklicken auf Subtasks hinzufügen
-    listContainer.addEventListener('dblclick', (event) => {
-        let liToEdit = event.target.closest('li');
-        if (liToEdit && !liToEdit.classList.contains('edit-mode')) {
-            editSubtask(liToEdit);
-        }
-    });
-
-    listContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('delete-subtask')) {
-            let liToDelete = event.target.closest('li');
-            if (liToDelete && listContainer.contains(liToDelete)) {
-                // Überprüfen, ob wir uns im Bearbeitungsmodus befinden
-                let inputElement = liToDelete.querySelector('.input-subtask');
-                let subtaskText;
-                if (inputElement) {
-                    // Im Bearbeitungsmodus, verwenden Sie den Wert des Input-Elements
-                    subtaskText = inputElement.value;
-                } else {
-                    // Nicht im Bearbeitungsmodus, verwenden Sie den Text aus dem <p>-Element
-                    let pElement = liToDelete.querySelector('p');
-                    subtaskText = pElement ? pElement.textContent : '';
-                }
-    
-                // Entfernen Sie den Subtask aus dem Array, wenn nötig
-                subtasks = subtasks.filter(subtask => subtask !== subtaskText);
-    
-                listContainer.removeChild(liToDelete);
-            }
-        }
-
-        // Überprüfen, ob der geklickte Button der Bearbeiten-Button ist
-        if (event.target.classList.contains('edit-subtask')) {
-            let liToEdit = event.target.closest('li');
-            if (liToEdit) {
-                editSubtask(liToEdit);
-            }
-        }
-
-        // Überprüfen, ob der geklickte Button der Speichern-Button ist
-        if (event.target.classList.contains('save-subtask')) {
-            let liToSave = event.target.closest('li');
-            if (liToSave) {
-                saveSubtask(liToSave);
-            }
-        }
-    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     checkInputFields();
+    saveInputFields();
+    createTask();
+    showStoredTasks();
+
+    // addtaskFormHandling.js
+
     handlePrioButtons();
     inputSubtask();
     addSubTask();
     setupEventListenersSubtasks();
+    renderAssignees();
+    setupAssigneeDropdownToggleListener();
+    setupAssigneeGlobalClickListener();
+    initCategoryDropdown();
+    setupCategoryDropdownEventListeners();
 });
