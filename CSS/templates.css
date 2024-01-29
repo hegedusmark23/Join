@@ -167,7 +167,7 @@ select:focus {
   font-weight: 400;
   gap: 6px;
 }
-
+section#board-content,
 section#addtask-content {
   padding: 10px 30px 10px 80px;
   background-color: #f0f0f0;
@@ -213,7 +213,7 @@ textarea {
   resize: both;
   overflow: auto;
 }
-
+#board-content h1,
 #addtask-content h1 {
   font-weight: 700;
   font-size: 61px;

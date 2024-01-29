@@ -181,3 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initCategoryDropdown();
     setupCategoryDropdownEventListeners();
 });
+
+//! Reset Form after Create Task
+//! Form Validation
+//! Submit Animation
+//! Check storaging multiple tasks
+//! Delete Tasks from storage
