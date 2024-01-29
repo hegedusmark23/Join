@@ -14,4 +14,13 @@ class Task {
         this.subtask = []
     }
 
+    addSubtask(subtaskText) {
+        let newSubtask = { id: Date.now(), text: subtaskText };
+        this.subtasks.push(newSubtask);
+    }
+
+    deleteSubtask(subtaskId) {
+        this.subtasks = this.subtasks.filter(subtask => subtask.id !== subtaskId);
+    }
+
 }

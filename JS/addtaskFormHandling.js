@@ -1,3 +1,4 @@
+let currentTask = new Task
 // Zustandsvariablen
 let dropdownClicked = false;
 
