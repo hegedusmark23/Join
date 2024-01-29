@@ -112,15 +112,16 @@ async function showAlreadyCreatedContactInTheView() {
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
     let phone = letterContainer[key][i]['phone'];
+    badgeColor = letterContainer[key][i]['badgeColor']
     capitalizeLetters(name);
-    contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone)
+    contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor);
     setTimeout(successfulContactAddedButton, 1000);
 }
 
-function successfulContactAddedButton() {
+async function successfulContactAddedButton() {
     let successButton = document.getElementById('succesfulButtonContainer');
     successButton.classList.remove('translateSuccButton');
-    setTimeout(hideSuccessfulContactAddedButton, 2000)
+    setTimeout(hideSuccessfulContactAddedButton, 2000);
 }
 
 function hideSuccessfulContactAddedButton() {
