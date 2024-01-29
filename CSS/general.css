@@ -79,29 +79,33 @@ p {
 .blue-btn {
   background-color: #2a3647;
   color: white;
-  padding: 16px;
+  padding: 12px 16px 12px 16px;
   border-radius: 10px;
   font-size: 21px;
   border-width: 0px;
-  cursor: pointer;
   font-weight: 600;
   cursor: pointer;
 }
 
+.blue-btn:hover {
+  background-color: #29abe2;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* .blue-btn:active {
+  background-color: #091931;
+} */
+
 .transparent-btn {
   background-color: transparent;
   color: #2a3647;
+  font-weight: 700;
   border: 1px #2a3647 solid;
   padding: 16px;
   border-radius: 10px;
   font-size: 21px;
+  line-height: 25.2px;
   cursor: pointer;
-}
-
-
-.blue-btn:hover {
-  background-color: #29abe2;
-  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .blue-btn-normal:hover {

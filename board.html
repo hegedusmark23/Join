@@ -11,9 +11,106 @@
 
 <body class="tasks">
     <section id="board-content">
-        <h1 style="font-weight: 800;">Board</h1>
+        <div class="board-header">
+            <div class="board-header-left">
+                <h1 style="font-weight: 800;">Board</h1>
+            </div>
+            <div class="board-header-right">
+                <div class="board-search-input">
+                    <div class="board-search-field">
+                        <input type="text" placeholder="Find Task">
+                    </div>
+                    <div class="board-search-icons">
+                        <div class="divider-img"><img src="/Join/assets/icons/divider.svg" alt="Divider Icon"></div>
+                        <div class="search-icon"><img src="/Join/assets/icons/search.svg" alt="Search Icon"></div>
+                    </div>
+                </div>
+                <div class="board-add-task">
+                    <button class="blue-btn">Add Task
+                        <img src="/Join/assets/icons/add.svg" alt="Plus Icon">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="board-sections">
+            <div class="board-section-1">
+                <div class="board-section-column">
+                    <div class="board-section-title">To do</div>
+                    <div class="board-section-add-task">
+                        <img src="/Join/assets/icons/plus_button.svg" alt="add task">
+                    </div>
+                </div>
+
+                <div class="board-section-cards">
+                    <div class="board-card-bg">No tasks To do</div>
+                    <div class="board-card-content">
+                        <div class="board-card">
+                            <div><label>User Story</label></div>
+                            <div>
+                                <p>Title</p>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit illo cupiditate
+                                tempore...</div>
+                            <div>Status bar</div>
+
+                            <div>
+                                <div>User</div>
+                                <div>Prio</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="board-section-2">
+
+                <div class="board-section-column">
+                    <div class="board-section-title">In progress</div>
+                    <div class="board-section-add-task">
+                        <img src="/Join/assets/icons/plus_button.svg" alt="add task">
+                    </div>
+                </div>
+
+                <div class="board-section-cards">
+                    <div class="board-card-bg">No tasks In progress
+                    </div>
+
+                </div>
+            </div>
 
 
+            <div class="board-section-3">
+
+                <div class="board-section-column">
+                    <div class="board-section-title">Await feedback</div>
+                    <div class="board-section-add-task">
+                        <img src="/Join/assets/icons/plus_button.svg" alt="add task">
+                    </div>
+                </div>
+
+                <div class="board-section-cards">
+                    <div class="board-card-bg">No tasks Await feedback</div>
+                </div>
+
+            </div>
+
+            <div class="board-section-4">
+
+                <div class="board-section-column">
+                    <div class="board-section-title">Done</div>
+
+                </div>
+
+                <div class="board-section-cards">
+                    <div class="board-card-bg">No tasks Done</div>
+                </div>
+
+            </div>
+        </div>
     </section>
 
     <script src="./JS/script.js"></script>
