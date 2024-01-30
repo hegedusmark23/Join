@@ -220,6 +220,14 @@
     font-weight: 800;
 }
 
+.blue-line-mobile{
+    display: none;
+    background-color: #29ABE2;
+    width: 90px;
+    height: 3px;
+    border-radius: 2px;
+}
+
 
 @media (max-width: 1650px) {
 
@@ -227,7 +235,7 @@
         padding: 20px;
     }
 
-    .daytime-text{
+    .daytime-text {
         font-size: 30px;
     }
 
@@ -268,11 +276,11 @@
         height: 60px;
     }
 
-    .summary-headline-bold{
+    .summary-headline-bold {
         font-size: 50px;
     }
 
-    .daytime-text{
+    .daytime-text {
         font-size: 15px;
     }
 
@@ -282,5 +290,44 @@
 
     .tasks-summary-section {
         padding: 0 0px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .welcome-section {
+        display: none !important;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 0;
+    }
+
+
+    .summary-main-content {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .summary-headline {
+        align-items: baseline;
+        padding: 50px 0;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .vert-blue-line{
+        display: none;
+    }
+
+
+    .summary-headline-bold{
+        font-size: 45px;
+        margin-block-start: 10px;
+        margin-block-end: 2px;
+    }
+
+    .blue-line-mobile{
+        display: flex;
     }
 }

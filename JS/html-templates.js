@@ -6,6 +6,7 @@ function summaryHTML() {
                 <h1 class="summary-headline-bold">Join 360</h1>
                 <div class="vert-blue-line"></div>
                 <p class="summary-headline-normal">Key Metrics at a Glance</p>
+                <div class="blue-line-mobile"></div>
             </div>
             <div class="summary-main-content">
                 <div class="tasks-summary-section">
