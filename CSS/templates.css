@@ -727,8 +727,29 @@ textarea {
     font-size: 15px !important;
   }
 
+  .nav-links-container{
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .nav-link-div{
+    width: 65px; 
+  }
+
+  .navbar-links{
+    width: 80px;
+  }
+
   .user-icon{
     height: 40px;
     width: 40px;
+  }
+
+  .navbar-icon{
+    height: 22px;
+  }
+
+  .nav-text{
+    font-size: 14px;
   }
 }

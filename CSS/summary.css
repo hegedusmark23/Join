@@ -52,7 +52,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 0 200px;
+    padding: 0 150px;
 }
 
 .summary-main-content {
@@ -220,7 +220,7 @@
     font-weight: 800;
 }
 
-.blue-line-mobile{
+.blue-line-mobile {
     display: none;
     background-color: #29ABE2;
     width: 90px;
@@ -228,6 +228,17 @@
     border-radius: 2px;
 }
 
+.tasks-headline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task-container-mid {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
 
 @media (max-width: 1650px) {
 
@@ -311,23 +322,155 @@
 
     .summary-headline {
         align-items: baseline;
-        padding: 50px 0;
+        padding: 50px 60px;
         flex-direction: column;
         gap: 5px;
     }
-    
-    .vert-blue-line{
+
+    .vert-blue-line {
         display: none;
     }
 
 
-    .summary-headline-bold{
+    .summary-headline-bold {
         font-size: 45px;
         margin-block-start: 10px;
         margin-block-end: 2px;
     }
 
-    .blue-line-mobile{
+    .blue-line-mobile {
         display: flex;
+    }
+
+    .tasks-headline-container {
+        align-items: baseline;
+    }
+}
+
+@media (max-width: 485px) {
+
+    .summary-task-display-mid {
+        width: 170px;
+        height: 110px;
+    }
+
+    .summary-task-display-long {
+        width: 369px;
+        height: 110px;
+    }
+
+    .summary-task-display-small {
+        width: 106px;
+        height: 116px;
+        gap: 0px
+    }
+
+    .user-help-div{
+        margin-right: 20px;
+    }
+
+    .tasks-number {
+        font-size: 45px;
+    }
+
+    .summary-text-bigger {
+        font-size: 17px;
+    }
+
+    .summary-icon-circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .red-urgent-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .summary-task-display-long {
+        gap: 30px;
+    }
+
+    .gray-vert-line {
+        height: 80px;
+    }
+}
+
+@media (max-width: 375px) {
+
+    .summary-headline {
+        padding: 18px 40px;
+    }
+
+    .summary-headline-bold {
+        font-size: 35px;
+    }
+
+    .summary-headline-normal {
+        font-size: 17px;
+    }
+
+    .task-container-mid{
+        gap: 10px;
+    }
+
+    .summary-task-display-mid {
+        width: 140px;
+        height: 100px;
+    }
+
+    .summary-task-display-long {
+        width: 289px;
+        height: 100px;
+        gap: 15px;
+    }
+
+    .urgency-div{
+        gap: 7px;
+        padding-left: 5px;
+    }
+
+    .small-task-container{
+        gap: 10px;
+    }
+
+    .summary-task-display-small {
+        width: 90px;
+        height: 110px;
+        gap: 0px
+    }
+
+    .tasks-summary-section {
+        gap: 16px;
+    }
+
+    .tasks-number {
+        font-size: 45px;
+    }
+
+    .summary-text-bigger {
+        font-size: 17px;
+    }
+
+    .summary-icon-circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .red-urgent-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .gray-vert-line {
+        height: 80px;
+    }
+
+    .deadline-div{
+        font-size: 12px;
+    }
+
+    .summary-text-bigger{
+        font-size: 14px;
     }
 }
