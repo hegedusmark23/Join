@@ -394,6 +394,10 @@
     .gray-vert-line {
         height: 80px;
     }
+
+    .welcome-section {
+        animation: ;
+    }
 }
 
 @media (max-width: 375px) {
@@ -417,6 +421,7 @@
     .summary-task-display-mid {
         width: 140px;
         height: 100px;
+        gap: 5px;
     }
 
     .summary-task-display-long {
