@@ -216,5 +216,8 @@ function doNotClose(event) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadItems();
+    loadItems().then(() => {
+        renderAssignees();
+    });
 });
+

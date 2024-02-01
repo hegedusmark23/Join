@@ -285,55 +285,53 @@ function setupAssigneeGlobalClickListener() {
 }
 
 // Ändert den 'added'-Status eines Benutzers und rendert die Benutzerliste neu
-function toggleAssigneeStatus(index) {
-    testusers[index].added = !testusers[index].added;
-    updateAssignee(testusers[index]);
+function toggleAssigneeStatus(letter, index) {
+    const contact = letterContainer[letter][index];
+    contact.added = !contact.added;
+    updateAssignee(contact);
     renderAssignees();
+}
+
+// Initialen generieren
+function generateInitials(completeName) {
+    const nameParts = completeName.split(' ');
+    const initials = nameParts.map(part => part[0]).join('');
+    return initials.toUpperCase();
 }
 
 // Rendert die Benutzerliste im Dropdown-Menü
 function renderAssignees() {
+    console.log("renderAssignees wird aufgerufen")
     let dropdownContent = document.getElementById('assign-to');
     dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
-
-    for (let i = 0; i < testusers.length; i++) {
-        let user = testusers[i];
-        let userContainer = document.createElement('div');
-        userContainer.className = 'dropdwon-content-container' + (user.added ? ' user-checked' : '');
-
-        userContainer.innerHTML = `
-            <div class="dropdown-content-binding">
-                <div class="dropdown-content-circle" style="background-color:${user.color};">
-                    <p id="user-initials">${user.initials}</p>
+    console.log('Aufrufen: ', letterContainer)
+    Object.keys(letterContainer).forEach(letter => {
+        letterContainer[letter].forEach((contact, index) => {
+            const initials = generateInitials(contact.completeName); // Initialen generieren
+            let userContainer = document.createElement('div');
+            userContainer.className = 'dropdown-content-container' + (contact.added ? ' user-checked' : '');
+            userContainer.innerHTML = `
+                <div class="dropdown-content-binding">
+                    <div class="dropdown-content-circle" style="background-color:${contact.badgeColor};">
+                        <p id="user-initials">${initials}</p> <!-- Initialen anzeigen -->
+                    </div>
+                    <div class="dropdown-content-name">
+                        <a id="user-name" href="#" data-value="option${index + 1}">${contact.completeName}</a>
+                    </div>
                 </div>
-                <div class="dropdown-content-name">
-                    <a id="user-name" href="#" data-value="option${i + 1}">${user.name}</a>
+                <div class="dropdown-content-checkbox">
+                    ${contact.added ? `...Checkbox checked SVG...` : `...Checkbox unchecked SVG...`}
                 </div>
-            </div>
-            <div class="dropdown-content-checkbox">
-                ${user.added ? `
-                <svg id="checkbox-checked-active" style="display:block" width="25" height="24"
-                    viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882"
-                        stroke="#fff" stroke-width="2" stroke-linecap="round" />
-                    <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>` : `
-                <svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24"
-                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647"
-                        stroke-width="2" />
-                </svg>`}
-            </div>
-        `;
+            `;
 
-        // Event-Listener für den Klick hinzufügen
-        userContainer.addEventListener('click', function() {
-            toggleAssigneeStatus(i);
+            // Event-Listener für den Klick hinzufügen
+            userContainer.addEventListener('click', function() {
+                toggleAssigneeStatus(letter, index);
+            });
+
+            dropdownContent.appendChild(userContainer);
         });
-
-        dropdownContent.appendChild(userContainer);
-    }
+    });
 }
 
 // Aktualisiert die Anzeige der ausgewählten Benutzer
@@ -341,15 +339,18 @@ function updateSelectedAssigneesDisplay() {
     let selectedAssigneesDiv = document.getElementById('selected-assignees');
     selectedAssigneesDiv.innerHTML = ''; // Löscht den aktuellen Inhalt
 
-    testusers.forEach(user => {
-        if (user.added) {
-            let assigneeCircle = document.createElement('div');
-            assigneeCircle.className = 'dropdown-content-circle';
-            assigneeCircle.style.backgroundColor = user.color;
-            assigneeCircle.textContent = user.initials;
+    Object.values(letterContainer).forEach(contacts => {
+        contacts.forEach(contact => {
+            if (contact.added) {
+                const initials = generateInitials(contact.completeName);
+                let assigneeCircle = document.createElement('div');
+                assigneeCircle.className = 'dropdown-content-circle';
+                assigneeCircle.style.backgroundColor = contact.badgeColor;
+                assigneeCircle.textContent = initials;
 
-            selectedAssigneesDiv.appendChild(assigneeCircle);
-        }
+                selectedAssigneesDiv.appendChild(assigneeCircle);
+            }
+        });
     });
 }
 
