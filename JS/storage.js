@@ -16,3 +16,31 @@ async function getItem(key) {
       }
     });
 };
+
+async function deleteTasks(taskId = null) {
+  try {
+      let tasks = await getItem('tasks'); // Abrufen aller gespeicherten Tasks
+
+      if (taskId) {
+          // Löschen eines spezifischen Tasks durch ID
+          tasks = tasks.filter(task => task.id !== taskId);
+      } else {
+          // Löschen aller Tasks, wenn keine ID bereitgestellt wird
+          tasks = [];
+      }
+
+      await setItem('tasks', tasks); // Aktualisieren des Speichers mit den verbleibenden/leeren Tasks
+      console.log('Task(s) erfolgreich gelöscht');
+  } catch (error) {
+      console.error('Fehler beim Löschen des/der Task(s):', error);
+  }
+}
+
+// Verwendung der Funktion zum Löschen von Tasks
+
+// deleteTasks(); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
+
+
+
+
+
