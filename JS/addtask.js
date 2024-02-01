@@ -10,7 +10,7 @@ let category = null;
 let tasks = [];
 
 // Test Array
-let users = [
+/*let users = [
     { initials: "AM", name: "Anton Mayer", added: false, loginState: "loggedIn", color: "#FF5733" },
     { initials: "SH", name: "Sahrah Huber", added: false, loginState: null, color: "#9df400 " },
     { initials: "PS", name: "Peter Schmitt", added: false, loginState: null, color: "#FFC300" },
@@ -18,7 +18,7 @@ let users = [
     { initials: "FS", name: "Frank Schulz", added: false, loginState: null, color: "#C70039" },
     { initials: "BV", name: "Bert Vogel", added: false, loginState: null, color: "#900C3F" },
     { initials: "DZ", name: "Dominik Ziegler", added: false, loginState: null, color: "#34495E" }
-];
+];*/
 
 function clearAllInputs() {
     // Eingabefelder zurücksetzen
