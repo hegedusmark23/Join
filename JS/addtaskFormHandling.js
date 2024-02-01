@@ -286,8 +286,8 @@ function setupAssigneeGlobalClickListener() {
 
 // Ändert den 'added'-Status eines Benutzers und rendert die Benutzerliste neu
 function toggleAssigneeStatus(index) {
-    users[index].added = !users[index].added;
-    updateAssignee(users[index]);
+    testusers[index].added = !testusers[index].added;
+    updateAssignee(testusers[index]);
     renderAssignees();
 }
 
@@ -296,8 +296,8 @@ function renderAssignees() {
     let dropdownContent = document.getElementById('assign-to');
     dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
 
-    for (let i = 0; i < users.length; i++) {
-        let user = users[i];
+    for (let i = 0; i < testusers.length; i++) {
+        let user = testusers[i];
         let userContainer = document.createElement('div');
         userContainer.className = 'dropdwon-content-container' + (user.added ? ' user-checked' : '');
 
@@ -341,7 +341,7 @@ function updateSelectedAssigneesDisplay() {
     let selectedAssigneesDiv = document.getElementById('selected-assignees');
     selectedAssigneesDiv.innerHTML = ''; // Löscht den aktuellen Inhalt
 
-    users.forEach(user => {
+    testusers.forEach(user => {
         if (user.added) {
             let assigneeCircle = document.createElement('div');
             assigneeCircle.className = 'dropdown-content-circle';

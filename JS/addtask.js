@@ -10,7 +10,7 @@ let category = null;
 let tasks = [];
 
 // Test Array
-/*let users = [
+let testusers = [
     { initials: "AM", name: "Anton Mayer", added: false, loginState: "loggedIn", color: "#FF5733" },
     { initials: "SH", name: "Sahrah Huber", added: false, loginState: null, color: "#9df400 " },
     { initials: "PS", name: "Peter Schmitt", added: false, loginState: null, color: "#FFC300" },
@@ -18,7 +18,7 @@ let tasks = [];
     { initials: "FS", name: "Frank Schulz", added: false, loginState: null, color: "#C70039" },
     { initials: "BV", name: "Bert Vogel", added: false, loginState: null, color: "#900C3F" },
     { initials: "DZ", name: "Dominik Ziegler", added: false, loginState: null, color: "#34495E" }
-];*/
+];
 
 function clearAllInputs() {
     // Eingabefelder zurücksetzen
@@ -39,7 +39,7 @@ function clearAllInputs() {
 
     // Assignee-Dropdown zurücksetzen
     assignedTo = []; // Leert das Array der zugewiesenen Benutzer
-    users.forEach(user => user.added = false); // Setzt den 'added'-Status jedes Benutzers zurück
+    testusers.forEach(user => user.added = false); // Setzt den 'added'-Status jedes Benutzers zurück
     document.getElementById('dropdown-assignees').textContent = 'Select contacts to assign';
     updateSelectedAssigneesDisplay(); // Aktualisiert die Anzeige der ausgewählten Benutzer
     renderAssignees(); // Rendert die Benutzerliste im Dropdown neu

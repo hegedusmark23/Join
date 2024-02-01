@@ -736,7 +736,7 @@ textarea {
   padding: 16px;
 }
 
-.board-card-title {
+.board-card-label {
   display: inline-block;
   border-radius: 8px;
   background-color: #0038ff;
@@ -751,6 +751,64 @@ textarea {
   color: #fff;
   width: auto;
   margin-bottom: 24px;
+}
+
+.board-card-title {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.board-card-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Anzahl der angezeigten Zeilen */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 251px; /*Breite ab dem in Zeile 2 abgeschnitten wird */
+  margin-bottom: 8px;
+  color: #a8a8a8;
+  font-size: 18px;
+}
+
+.board-card-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.board-card-progress-text {
+  font-size: 13px;
+}
+
+.board-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#board-assignees {
+  display: flex;
+  margin-left: 14px;
+}
+
+.board-content-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px #fff solid;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 500;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  color: #fff;
+  margin-left: -14px;
 }
 
 @media (max-width: 800px) {
