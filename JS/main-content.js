@@ -88,18 +88,18 @@ function redirectToLogin() {   // Redirects to the Login page after registration
 }
 
 
-function timeDynamicWelcome(){      //Daytime dependant Welcom message.
-    let welcome =  document.getElementById('daytime')
-    let date = new Date();  
-    let hour = date.getHours();
-    if (hour < 12) {  
-      welcome.innerHTML = 'Good Morning,';
-      } else if (hour < 17) {  
-      welcome.innerHTML = 'Good Afternoon,';  
-    } else {  
-      welcome.innerHTML = 'Good Evening,';
-      
-    }  
+function timeDynamicWelcome() {      //Daytime dependant Welcom message.
+  let welcome = document.getElementById('daytime')
+  let date = new Date();
+  let hour = date.getHours();
+  if (hour < 12) {
+    welcome.innerHTML = 'Good Morning,';
+  } else if (hour < 17) {
+    welcome.innerHTML = 'Good Afternoon,';
+  } else {
+    welcome.innerHTML = 'Good Evening,';
+
+  }
 }
 
 
@@ -119,7 +119,7 @@ function revealPassword() {         //Reveals the password on the login page.
 }
 
 
-function guestLogin(){
+function guestLogin() {
   window.location.href = '/guest.index.html'
 }
 

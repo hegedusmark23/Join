@@ -298,9 +298,6 @@ function contactsHTML() {
                 <h3 class="contact-view-subtitle">Better with a team</h3>
             </div>
             <div id="contact-view-container" class="contact-view-container translateX"></div>
-            <div id="succesfulButtonContainer" class="succesfulButtonContainer translateSuccButton">Contact successfully
-                created
-            </div>
         </div>
     </section>
 </main>

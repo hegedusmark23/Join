@@ -19,7 +19,6 @@ async function renderContact() {
     includeHTML();
     await loadItems();
     await setLettersContainers();
-    await showAlreadyCreatedContactInTheView();
 }
 
 async function loadItems() {
@@ -46,6 +45,7 @@ async function addContacts(completeName, emailAdress, phone, badgeColor) {
         letterContainer[firstLetter].push(contact);
         await setItem('contacts', JSON.stringify(letterContainer));
     }
+    await showAlreadyCreatedContactInTheView();
     await renderContact();
     emptyInputs();
     hideAddContactOverlay();
@@ -84,7 +84,7 @@ function showContactsInTheList(key) {
 
 
 function capitalizeLetters(completeName) {
-    let name = completeName.split(" "); // mettere sempre uno spazio in mezzo quando si vuol creare due parole intere separate
+    let name = completeName.split(" "); // mettere sempre uno spazio in mezzo quando si vuol creare due stringe intere separate
     let words = name.map((word) => {
         return word.charAt(0);
     });
