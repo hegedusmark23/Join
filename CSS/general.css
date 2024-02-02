@@ -60,6 +60,7 @@ body {
 }
 
 h3 {
+  font-weight: 600;
   margin-block-start: 0px;
   margin-block-end: 0px;
 }
@@ -418,4 +419,42 @@ a {
 .dropdown-content-assign {
   scrollbar-width: thin; /* 'thin', 'auto' oder ein spezifischer Wert */
   scrollbar-color: #888 #f1f1f1; /* Griff- und Hintergrundfarbe */
+}
+
+.message-animation {
+  position: absolute;
+  color: white;
+  padding: 0px 25px 0px 25px;
+  background-color: #2a3647;
+  border-radius: 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  animation: floathingMessage 0.7s linear;
+  animation-fill-mode: forwards; /* Sorgt dafür, dass die Animation bei 100% stehen bleibt */
+}
+
+.message-animation-background {
+  position: absolute;
+  display: flex;
+  background-color: #00000067;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+}
+
+@keyframes floathingMessage {
+  0% {
+    bottom: 0;
+    opacity: 0;
+  }
+  100% {
+    bottom: 66%;
+    opacity: 1;
+  }
 }

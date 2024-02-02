@@ -23,9 +23,15 @@ async function renderContact() {
 
 async function loadItems() {
     try {
-        letterContainer = JSON.parse(await getItem('contacts'));
+        const response = await getItem('contacts');
+        if (response) {
+            letterContainer = JSON.parse(response);
+            console.log('Kontakte geladen:', letterContainer);
+        } else {
+            console.log('Keine Kontakte gefunden.');
+        }
     } catch (e) {
-        console.warn(e);
+        console.error('Fehler beim Laden der Kontakte:', e);
     }
 }
 
@@ -80,8 +86,6 @@ function showContactsInTheList(key) {
         cont.innerHTML += getShowContactInTheListHTML(i, key, contact);
     }
 }
-
-
 
 function capitalizeLetters(completeName) {
     let name = completeName.split(" "); // mettere sempre uno spazio in mezzo quando si vuol creare due stringe intere separate
@@ -178,11 +182,6 @@ async function deleteContact(key, i) {
     hideEditContactOverlay();
 }
 
-
-
-
-
-
 function backgroundBlackAndWhiteText(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.add('black-container');
     document.getElementById(`contact-list-name${key}${i}`).style.color = '#fff';
@@ -214,3 +213,11 @@ function hideAddContactOverlay() {
 function doNotClose(event) {
     event.stopPropagation()
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadItems().then(() => {
+        renderAssignees();
+    });
+});
+

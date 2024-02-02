@@ -57,7 +57,7 @@
                 <div class="addtask-selection addtask-custom-label">
                     <label>
                         <span class="required">Due date</span>
-                        <input type="date" id="due-date" name="due-date">
+                        <input type="date" id="dueDate" name="due-date">
                         <p id="duedate-error-msg" style="visibility: hidden;">This field is required</p>
                     </label>
                 </div>
@@ -166,7 +166,7 @@
                                     </svg>
 
                                 </button>
-                                <button class="blue-btn">Create Task
+                                <button id="create-task" class="blue-btn">Create Task
                                     <img src="/Join/assets/icons/check.svg" alt="Create Task"></button>
                             </div>
                         </div>
@@ -175,12 +175,16 @@
 
             </div>
         </form>
-
     </section>
-
+    <div id="create-task-message" class="message-animation-background" style="display: none;">
+        <div class="message-animation">
+            <p>Task added to board</p>
+        </div>
+    </div>
     <script src="./JS/script.js"></script>
     <script src="./models/tasks.class.js"></script>
     <script src="./JS/storage.js"></script>
+    <script src="./JS/contacts.js"></script>
     <script src="./JS/addtaskFormHandling.js"></script>
     <script src="./JS/addtask.js"></script>
 </body>

@@ -7,17 +7,11 @@ class Board {
         this.tasks = []; // Array von Aufgabenobjekten. Dies sind die verschiedenen Aufgaben, die auf dem Board angezeigt und verwaltet werden.
     }
 
-add(){
-
-}
-
 edit(type, id, newDetails) {
     let item;
     if (type === 'task') {
         item = this.tasks.find(t => t.id === id);
         if (item) {
-            // Hier wird angenommen, dass `newDetails` ein Objekt ist,
-            // das die zu ändernden Eigenschaften und ihre neuen Werte enthält
             Object.keys(newDetails).forEach(key => {
                 if (item.hasOwnProperty(key)) {
                     item[key] = newDetails[key];
@@ -34,10 +28,6 @@ edit(type, id, newDetails) {
             });
         }
     }
-}
-
-delete(){
-
 }
 
 }
