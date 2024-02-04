@@ -96,15 +96,54 @@ function capitalizeLetters(completeName) {
 
 }
 
-function showContactOnclick(key, i) {
-    let contactViewContainer = document.getElementById('contact-view-container')
+let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+function showContact(key, i) {
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
     let phone = letterContainer[key][i]['phone'];
     badgeColor = letterContainer[key][i]['badgeColor'];
     capitalizeLetters(name);
+    if (windowWidth <= 1000) {
+        showContactMobileVersion(key, i, name, email, phone, badgeColor);
+    } else {
+        showContactDesktopVersion(key, i, name, email, phone, badgeColor);
+    }
+
+}
+
+function showContactMobileVersion(key, i, name, email, phone, badgeColor) {
+    let contactViewContainer = document.getElementById('contact-view-container');
+    document.getElementById('contact-book').classList.add('d-none')
+    document.getElementById('contact-view-section').classList.remove('mobile-d-none');
+    contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone, badgeColor);
+    contactViewContainer.classList.remove('translateX');
+}
+
+function showContactDesktopVersion(key, i, name, email, phone, badgeColor) {
+    let contactViewContainer = document.getElementById('contact-view-container')
     contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone, badgeColor);
     contactViewContainer.classList.remove('translateX')
+}
+
+function backToContactList(){
+    document.getElementById('contact-view-section').classList.add('mobile-d-none');
+    document.getElementById('contact-book').classList.remove('d-none')
+}
+
+function showPopUpEditDelete(event){
+    document.getElementById('contact-view-icons-container').classList.remove('translateXPopUpEditDelete');
+    document.getElementById('three-vertical-dots-container').style.backgroundColor = '#29ABE2';
+    event.stopPropagation();
+}
+
+function hidePopUpEditDelete(event){
+    document.getElementById('contact-view-icons-container').classList.add('translateXPopUpEditDelete');
+    setTimeout(removeBgColorOnPopUpClosed, 800);
+    event.stopPropagation();
+}
+
+function removeBgColorOnPopUpClosed(){
+    document.getElementById('three-vertical-dots-container').style.backgroundColor = '#2A3647';
 }
 
 
@@ -220,4 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAssignees();
     });
 });
+
+
 

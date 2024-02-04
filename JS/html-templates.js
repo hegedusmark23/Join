@@ -287,20 +287,24 @@ function helpHTML() {
 }
 
 function contactsHTML() {
-    return /*html*/`
+    return /*html*/ `
     <section id="contact-section" class="contact-section">
-        <div class="contact-book">
-            <div id="add-new-contact-btn" class="add-new-contact-btn" onclick="showAddContactOverlay()">
+        <div id="contact-book" class="contact-book">
+        <div id="add-new-contact-btn-mobile" class="add-new-contact-btn-mobile"><img class="add-person-icon" src="./assets/icons/person_add.svg" alt=""></div>
+            <div id="add-new-contact-btn" class="add-new-contact-btn mobile-d-none" onclick="showAddContactOverlay()">
                 <span>Add new contact</span> <img class="add-person-icon" src="./assets/icons/person_add.svg"
                     alt="add-person">
             </div>
             <div id="contacts-list" class="contacts-list"></div>
         </div>
-        <div class="contact-view-section">
+        <div onclick="hidePopUpEditDelete(event)" id="contact-view-section" class="contact-view-section mobile-d-none">
+        <div onclick="showPopUpEditDelete(event)" id="three-vertical-dots-container" class="three-vertical-dots-container"><img class="three-vertical-dots" src="./assets/icons/three-dots.svg" alt=""></div>
+        <img onclick="backToContactList()" class="arrow-left-line" src="./assets/icons/arrow-left-line.svg" alt="">
             <div id="contact-view-title-container" class="contact-view-title-container">
                 <h2 class="contact-view-title">Contacts</h2>
                 <span class="contact-view-separator-bar"></span>
                 <h3 class="contact-view-subtitle">Better with a team</h3>
+                <span class="contact-view-separator-bar-mobile"></span>
             </div>
             <div id="contact-view-container" class="contact-view-container translateX"></div>
         </div>

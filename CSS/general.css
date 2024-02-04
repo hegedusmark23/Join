@@ -188,6 +188,11 @@ p {
   display: flex;
 }
 
+.menu-header-and-main-content-container{
+  display: flex;
+  width: 100%;
+}
+
 .menu-popup {
   display: none;
   flex-direction: column;

@@ -15,7 +15,7 @@ function setLetterContainersHTML(key) {
 // Display the values (contacts) that are inside each Keys. Fill the list of containers with contacts
 function getShowContactInTheListHTML(i, key, contact) {
   return /*html*/ `
-      <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContactOnclick('${key}', ${i})" id="under-container${key}${i}" class="under-container">
+      <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContact('${key}', ${i})" id="under-container${key}${i}" class="under-container">
           <div class="contact-badge-bg-container"><div id="contact-badge${key}${i}" class="contact-badge" style="background:${contact.badgeColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
            <div id="name-and-email-container${i}" class="contact-list-name-and-email-container">
              <span id="contact-list-name${key}${i}" class="contact-list-name">${contact.completeName}</span>
@@ -67,7 +67,7 @@ function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
         </div>
         <div class="contact-view-edit-delete-container">
             <h2 id="contact-view-name${key}${i}" class="contact-view-name">${name}</h2>
-            <div class="contact-view-icons-container">
+            <div id="contact-view-icons-container" class="contact-view-icons-container translateXPopUpEditDelete">
               <span onclick="showEditContactOverlay('${key}', ${i})" id="contact-view-edit-container${key}${i}" class="contact-view-edit-container">
                 <img src="./assets/icons/pen.svg" alt="">Edit
               </span> 

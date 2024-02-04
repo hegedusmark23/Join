@@ -18,6 +18,10 @@
 
 .main-content {
     margin-top: 100px;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .vert-blue-line {
