@@ -29,8 +29,15 @@ function clearAllInputs() {
     // Assignee-Dropdown zurücksetzen
     assignedTo = []; // Leert das Array der zugewiesenen Benutzer
     document.getElementById('dropdown-assignees').textContent = 'Select contacts to assign';
-    updateSelectedAssigneesDisplay(); // Aktualisiert die Anzeige der ausgewählten Benutzer
-    renderAssignees(); // Rendert die Benutzerliste im Dropdown neu
+    
+    // Aktualisiert die Anzeige der ausgewählten Benutzer
+    updateSelectedAssigneesDisplay(); 
+
+    // Rendert die Benutzerliste im Dropdown neu
+    renderAssignees(); 
+
+    // Setzt den 'added'-Status aller Kontakte zurück und aktualisiert die Anzeige
+    resetAssigneeSelection();
 
     // Den visuellen Zustand des Dropdowns zurücksetzen
     const dropdownContent = document.getElementById('category');
@@ -60,6 +67,15 @@ function clearAllInputs() {
     // Fehlermeldungen für andere Felder zurücksetzen
     document.getElementById('title-error-msg').style.visibility = 'hidden';
     document.getElementById('duedate-error-msg').style.visibility = 'hidden';
+}
+
+// Funktion, die den 'added'-Status aller Kontakte zurücksetzt
+function resetAssigneeSelection() {
+    Object.values(letterContainer).forEach(contacts => {
+        contacts.forEach(contact => {
+            contact.added = false; // Setzt den 'added'-Status zurück
+        });
+    });
 }
 
 // Die anderen Inputfelder prüfen
