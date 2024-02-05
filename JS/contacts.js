@@ -9,6 +9,7 @@ let inputEmail;
 let inputPhone;
 let badge;
 let badgeColor;
+let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 
 alphabet.forEach((letter) => {
@@ -51,7 +52,13 @@ async function addContacts(completeName, emailAdress, phone, badgeColor) {
         letterContainer[firstLetter].push(contact);
         await setItem('contacts', JSON.stringify(letterContainer));
     }
-    await showAlreadyCreatedContactInTheView();
+    if(windowWidth <= 1000){
+        document.getElementById('contact-book').classList.add('d-none');
+        document.getElementById('contact-view-section').classList.remove('mobile-d-none')
+        await showAlreadyCreatedContactInTheView();
+    } else {
+        await showAlreadyCreatedContactInTheView();
+    }
     await renderContact();
     emptyInputs();
     hideAddContactOverlay();
@@ -96,7 +103,6 @@ function capitalizeLetters(completeName) {
 
 }
 
-let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 function showContact(key, i) {
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
@@ -242,11 +248,17 @@ function hideEditContactOverlay(event) {
 }
 function showAddContactOverlay() {
     document.getElementById('add-contact-overlay').classList.remove('d-none');
+    document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#29ABE2'
 }
 
 function hideAddContactOverlay() {
     document.getElementById('add-contact-overlay').classList.add('d-none');
+    setTimeout(originalBgColorOfAddContactBtnMobile, 800)
     doNotClose(event)
+}
+
+function originalBgColorOfAddContactBtnMobile(){
+    document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#2A3647'
 }
 
 function doNotClose(event) {

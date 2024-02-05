@@ -290,7 +290,7 @@ function contactsHTML() {
     return /*html*/ `
     <section id="contact-section" class="contact-section">
         <div id="contact-book" class="contact-book">
-        <div id="add-new-contact-btn-mobile" class="add-new-contact-btn-mobile"><img class="add-person-icon" src="./assets/icons/person_add.svg" alt=""></div>
+        <div onclick="showAddContactOverlay()" id="add-new-contact-btn-mobile" class="add-new-contact-btn-mobile"><img class="add-person-icon" src="./assets/icons/person_add.svg" alt=""></div>
             <div id="add-new-contact-btn" class="add-new-contact-btn mobile-d-none" onclick="showAddContactOverlay()">
                 <span>Add new contact</span> <img class="add-person-icon" src="./assets/icons/person_add.svg"
                     alt="add-person">
@@ -316,16 +316,18 @@ function contactsHTML() {
         <div onclick="doNotClose(event)" class="contact-dialog">
             <div class="contacts-left-container">
                 <div class="logo-and-title-container">
-                    <span><img class="contact-dialog-logo" src="./assets/img/logo-small-white.png" alt=""></span>
+                    <span class="contact-dialog-logo-container"><img class="contact-dialog-logo" src="./assets/img/logo-small-white.png" alt=""></span>
                     <h2 class="add-contact-title">Add Contact</h2>
                     <h3 class="add-contact-subtitle">Tasks are better with a Team</h3>
                     <span class="border-bar"></span>
                 </div>
             </div>
             <div class="contact-right-container">
+            <div class="mobile-badge-container">
                 <div class="person-icon-container">
                     <img src="./assets/icons/person.svg" alt="person">
                 </div>
+            </div>
                 <form onsubmit="getContact(); return false" class="input-and-btn-container">
                     <span class="cross-icon-container"><img onclick="hideAddContactOverlay()" class="cross-icon"
                             src="./assets/icons/cross.svg" alt=""></span>
