@@ -148,6 +148,11 @@
   color: #ff8190;
 }
 
+.info-mobile:before {
+  content: "* ";
+  color: #ff8190;
+}
+
 input[type="text"]:focus,
 input[type="date"]:focus,
 textarea:focus,
@@ -420,6 +425,10 @@ textarea {
   width: 100%;
 }
 
+.addtask-info-mobile {
+  display: none;
+}
+
 #subtasks-list-container ul {
   list-style: none;
   /* Entfernt standardmäßige Bullet Points */
@@ -570,14 +579,14 @@ textarea {
   border-radius: 8px;
 }
 
-.dropdwon-content-container {
+.dropdown-content-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 7px 16px 7px 16px;
 }
 
-.dropdwon-content-container:hover {
+.dropdown-content-container:hover {
   background-color: #eeeeee;
   border-radius: 10px;
 }
@@ -809,6 +818,92 @@ textarea {
   text-align: center;
   color: #fff;
   margin-left: -14px;
+}
+
+@media (max-width: 700px) {
+  #board-content h1,
+  #addtask-content h1 {
+    font-weight: 700;
+    font-size: 56px;
+  }
+
+  section#addtask-content {
+    padding: 10px 16px 10px 16px;
+  }
+
+  .addtask-form {
+    flex-direction: column;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .right-section {
+    margin-top: 24px;
+  }
+
+  #addtask-content label {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  #addtask-content input,
+  textarea,
+  button,
+  select,
+  input {
+    font-size: 18px;
+  }
+
+  .addtask-info.info {
+    display: none;
+  }
+
+  .addtask-info-mobile {
+    display: flex;
+    align-items: center;
+  }
+
+  #clear-button {
+    display: none;
+  }
+
+  .addtask-actions {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+  }
+
+  .addtask-action-btns {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px 10px 16px;
+    background-color: #f0f0f0;
+  }
+
+  .wrapper-flex-container {
+    min-height: 100px;
+  }
+
+  .subtasks-container {
+    min-height: 250px;
+  }
+
+  /* Versteckt den Scrollbalken in Webkit-Browsern, behält aber die Scrollfunktionalität bei */
+  .subtasks-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Für den Fall, dass Sie möchten, dass der gesamte Bereich scrollbar ist, ohne sichtbaren Scrollbalken */
+  .scrollable-area {
+    -ms-overflow-style: none; /* IE und Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollable-area::-webkit-scrollbar {
+    display: none; /* Chrome, Safari und Opera */
+  }
 }
 
 @media (max-width: 800px) {

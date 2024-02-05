@@ -241,6 +241,7 @@ function toggleAssigneeDropdown() {
     let isDropdownOpen = dropdownContent.style.display === 'block';
     dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
 
+    // Pfeil-Icons umschalten
     let arrowsDown = document.querySelectorAll('.arrowDown');
     let arrowsUp = document.querySelectorAll('.arrowUp');
     arrowsDown.forEach(arrow => arrow.style.display = isDropdownOpen ? 'block' : 'none');
@@ -263,26 +264,18 @@ function updateAssignee(user) {
 }
 
 // Fügt dem Dropdown-Button einen Event-Listener hinzu, um das Dropdown-Menü zu steuern
-function setupAssigneeDropdownToggleListener() {
-    let dropdownButton = document.getElementById('dropdown-assignees');
-    dropdownButton.addEventListener('click', toggleAssigneeDropdown);
-}
-
-// Richtet einen globalen Event-Listener ein, um das Dropdown-Menü zu schließen, wenn außerhalb geklickt wird
 function setupAssigneeGlobalClickListener() {
     document.addEventListener('click', function(event) {
         let dropdownContent = document.getElementById('assign-to');
-        let dropdownControl = document.getElementById('dropdown-assignees').parentNode;
+        let dropdownButton = document.getElementById('dropdown-assignees');
+        let isClickInsideDropdown = dropdownButton.contains(event.target) || dropdownContent.contains(event.target);
 
-        if (!dropdownControl.contains(event.target) && dropdownContent.style.display === 'block') {
-            dropdownContent.style.display = 'none';
-            let arrowsDown = document.querySelectorAll('.arrowDown');
-            let arrowsUp = document.querySelectorAll('.arrowUp');
-            arrowsDown.forEach(arrow => arrow.style.display = 'block');
-            arrowsUp.forEach(arrow => arrow.style.display = 'none');
+        if (!isClickInsideDropdown && dropdownContent.style.display === 'block') {
+            toggleAssigneeDropdown(); // Schließt das Dropdown, wenn außerhalb geklickt wird
         }
     });
 }
+
 
 // Ändert den 'added'-Status eines Benutzers und rendert die Benutzerliste neu
 function toggleAssigneeStatus(letter, index) {
@@ -301,36 +294,61 @@ function generateInitials(completeName) {
 
 // Rendert die Benutzerliste im Dropdown-Menü
 function renderAssignees() {
-    console.log("renderAssignees wird aufgerufen")
+    console.log("renderAssignees wird aufgerufen");
     let dropdownContent = document.getElementById('assign-to');
     dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
-    console.log('Aufrufen: ', letterContainer)
+    console.log('Aufrufen: ', letterContainer);
+
     Object.keys(letterContainer).forEach(letter => {
         letterContainer[letter].forEach((contact, index) => {
             const initials = generateInitials(contact.completeName); // Initialen generieren
             let userContainer = document.createElement('div');
             userContainer.className = 'dropdown-content-container' + (contact.added ? ' user-checked' : '');
+
+            // Erstellung des Checkbox SVG basierend auf dem 'added' Zustand
+            const checkboxSVG = contact.added ? 
+                `<svg id="checkbox-checked-active" style="display:block" width="25" height="24"
+                    viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882"
+                        stroke="#fff" stroke-width="2" stroke-linecap="round" />
+                    <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>` : 
+                `<svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647"
+                        stroke-width="2" />
+                </svg>`;
+
             userContainer.innerHTML = `
                 <div class="dropdown-content-binding">
                     <div class="dropdown-content-circle" style="background-color:${contact.badgeColor};">
-                        <p id="user-initials">${initials}</p> <!-- Initialen anzeigen -->
+                        <p id="user-initials">${initials}</p>
                     </div>
                     <div class="dropdown-content-name">
                         <a id="user-name" href="#" data-value="option${index + 1}">${contact.completeName}</a>
                     </div>
                 </div>
-                <div class="dropdown-content-checkbox">
-                    ${contact.added ? `...Checkbox checked SVG...` : `...Checkbox unchecked SVG...`}
-                </div>
+                <div class="dropdown-content-checkbox">${checkboxSVG}</div>
             `;
 
             // Event-Listener für den Klick hinzufügen
             userContainer.addEventListener('click', function() {
-                toggleAssigneeStatus(letter, index);
+                toggleAssigneeStatus(letter, index, contact);
             });
 
             dropdownContent.appendChild(userContainer);
         });
+    });
+}
+
+
+// Event-Listener für den Dropdown-Button einrichten
+function setupAssigneeDropdownToggleListener() {
+    let dropdownButton = document.getElementById('dropdown-assignees');
+    dropdownButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Verhindert das Schließen des Dropdowns beim Klicken auf den Button
+        toggleAssigneeDropdown();
     });
 }
 

@@ -28,7 +28,6 @@ function clearAllInputs() {
 
     // Assignee-Dropdown zurücksetzen
     assignedTo = []; // Leert das Array der zugewiesenen Benutzer
-    testusers.forEach(user => user.added = false); // Setzt den 'added'-Status jedes Benutzers zurück
     document.getElementById('dropdown-assignees').textContent = 'Select contacts to assign';
     updateSelectedAssigneesDisplay(); // Aktualisiert die Anzeige der ausgewählten Benutzer
     renderAssignees(); // Rendert die Benutzerliste im Dropdown neu
@@ -231,8 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addSubTask();
     setupEventListenersSubtasks();
     renderAssignees();
-    setupAssigneeDropdownToggleListener();
     setupAssigneeGlobalClickListener();
+    setupAssigneeDropdownToggleListener();
     initCategoryDropdown();
     setupCategoryDropdownEventListeners();
 });
