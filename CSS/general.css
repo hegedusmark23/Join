@@ -1,3 +1,7 @@
+/* *{
+  box-sizing: border-box;
+} */
+
 @font-face {
   font-family: "Inter";
   font-weight: 100;
@@ -182,6 +186,11 @@ p {
 
 .d-flex {
   display: flex;
+}
+
+.menu-header-and-main-content-container{
+  display: flex;
+  width: 100%;
 }
 
 .menu-popup {

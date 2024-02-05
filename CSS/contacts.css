@@ -1,5 +1,3 @@
-
-
 @font-face {
     font-family: "Inter", sans-serif;
     src: url('fonts/static/Inter-Regular.ttf');
@@ -16,13 +14,11 @@ body {
 
 .contact-section {
     display: flex;
-    align-items: center;
-    height: 100vh;
+    flex: 1;
 }
 
 .contact-book {
-    width: 456px;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,7 +48,7 @@ body {
 .add-new-contact-btn {
     background: #2A3647;
     border-radius: 10px;
-    width: 352px;
+    width: 100%;
     height: 56px;
     padding: 12px 0;
     color: #fff;
@@ -79,22 +75,23 @@ body {
 .contacts-list {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 100%;
 }
 
 .contact-view-section {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     padding: 32px;
+    overflow-x: hidden;
 }
+
+
 
 .contact-view-title-container {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
     gap: 30px;
-    min-width: 569px;
     height: 73px;
 }
 
@@ -122,7 +119,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
     gap: 24px;
-    min-width: 461px;
     height: 364px;
     gap: 21px;
     transition: all 0.3s cubic-bezier(.215, .61, .355, 1);
@@ -150,10 +146,10 @@ body {
 }
 
 .contact-view-edit-delete-container {
-    min-width: 287px;
     height: 88px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 8px;
 }
 
@@ -175,8 +171,9 @@ body {
 .contact-view-edit-container {
     display: flex;
     align-items: center;
-    gap: 13px;
-    width: 62px;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 24px;
     height: 24px;
     cursor: pointer;
 }
@@ -184,9 +181,10 @@ body {
 .contact-view-delete-container {
     display: flex;
     align-items: center;
-    width: 81px;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 24px;
     height: 24px;
-    gap: 8px;
     cursor: pointer;
 }
 
@@ -208,7 +206,6 @@ body {
     flex-direction: column;
     gap: 15px;
     height: 53px;
-    min-width: 140px;
 }
 
 .contact-view-email-title {
@@ -228,7 +225,6 @@ body {
     flex-direction: column;
     gap: 15px;
     height: 53px;
-    min-width: 140px;
 }
 
 .contact-view-phone-title {
@@ -263,7 +259,6 @@ body {
 }
 
 .letter-container {
-    width: 352px;
     min-height: 58px;
     padding: 17px 36px;
     display: flex;
@@ -278,14 +273,13 @@ body {
 }
 
 .contact-list-separator-bar-container {
-    width: 352px;
     padding: 8px 0;
 }
 
 .contact-list-separator-bar {
     display: inline-block;
     background: #D1D1D1;
-    width: 352px;
+    width: 100%;
     height: 1.6px;
 }
 
@@ -300,7 +294,6 @@ body {
     display: flex;
     align-items: center;
     gap: 35px;
-    width: 352px;
     padding: 15px 24px;
     cursor: pointer;
     border-radius: 10px;
@@ -613,21 +606,167 @@ body {
     margin-block-end: 0;
 }
 
-/* @media (max-width: 428px) {
-    .contact-section {
-        width: 428px;
-        height: 766px;
-        display: block;
+@media (max-width: 1200px) {
+    .contact-book {
+        padding: 32px 12px;
     }
+
+    .add-new-contact-btn {
+        width: 80%;
+    }
+
+    .letter-container {
+        padding: 8px 18px;
+    }
+
+    .under-container {
+        gap: 18px;
+        padding: 15px 12px;
+    }
+
+    .contact-view-section {
+        padding: 32px 12px;
+    }
+
+    .contact-view-title-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        height: auto;
+    }
+
+    .contact-view-title {
+        font-size: 40px;
+    }
+
+    .contact-view-subtitle {
+        font-size: 20px;
+    }
+
+    .contact-view-separator-bar {
+        display: none;
+    }
+
+    .contact-view-separator-bar-mobile {
+        display: block;
+        background: #29ABE2;
+        width: 90px;
+        height: 3px;
+    }
+
+    .contact-view-name-container {
+        min-width: auto;
+        gap: 27px;
+    }
+
+    .contact-view-email-container {
+        min-width: auto;
+    }
+
+    .contact-view-badge-container {
+        width: 80px;
+        height: 80px;
+        font-size: 28px;
+    }
+
+    .contact-view-name {
+        font-size: 28px;
+    }
+
+
+
+    .contact-view-information-container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1001px) {
+    .arrow-left-line {
+        display: none;
+    }
+
+    .add-new-contact-btn-mobile {
+        display: none;
+    }
+
+    .three-vertical-dots-container {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px) {
 
     .contact-book {
         width: 100%;
     }
 
+    .add-new-contact-btn {
+        width: 352px;
+    }
+
+    .add-new-contact-btn-mobile {
+        position: fixed;
+        top: 758px;
+        right: 28px;
+        height: 56px;
+        width: 56px;
+        border-radius: 46px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #2A3647;
+    }
+
     .contact-view-section {
+        width: 100%;
+    }
+
+    .contact-view-icons-container {
+        position: fixed;
+        bottom: 100px;
+        right: 9px;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        height: auto;
+        background: #fff;
+        padding: 16px;
+        border: 1px solid red;
+        border-radius: 20px 0 0 20px;
+        box-sizing: border-box;
+        transition: all 0.3s cubic-bezier(.215, .61, .355, 1);
+    }
+
+    .arrow-left-line {
+        position: absolute;
+        top: 128px;
+        right: 20px;
+        height: 32px;
+        width: 32px;
+        cursor: pointer;
+    }
+
+    .three-vertical-dots-container {
+        position: fixed;
+        top: 735px;
+        right: 28px;
+        height: 56px;
+        width: 56px;
+        border-radius: 46px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #2A3647;
+    }
+
+    .translateXPopUpEditDelete{
+        transform: translateX(160px);
+    }
+
+    .mobile-d-none {
         display: none;
     }
-} */
+}
 
 
 
