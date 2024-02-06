@@ -19,7 +19,20 @@ async function getItem(key) {
 
 async function deleteTasks(taskId = null) {
   try {
-      let tasks = await getItem('tasks'); // Abrufen aller gespeicherten Tasks
+      let tasks = await getItem('tasks'); // Abrufen aller gespeicherten Tasks als String
+
+      // Konvertieren des String zurück in ein Array
+      try {
+          tasks = JSON.parse(tasks);
+      } catch (error) {
+          console.error('Fehler beim Parsen der Tasks:', error);
+          return; // Beendet die Funktion vorzeitig, wenn das Parsen fehlschlägt
+      }
+
+      if (!Array.isArray(tasks)) {
+          console.error('Nach dem Parsen sind die Tasks kein Array:', tasks);
+          return; // Sicherstellen, dass die Tasks ein Array sind
+      }
 
       if (taskId) {
           // Löschen eines spezifischen Tasks durch ID
@@ -36,9 +49,36 @@ async function deleteTasks(taskId = null) {
   }
 }
 
-// Verwendung der Funktion zum Löschen von Tasks
+async function addStateToExistingTasks() {
+  try {
+      let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
+      tasks = JSON.parse(tasks); // Versuch, den String zu parsen
 
-// deleteTasks(); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
+      if (!Array.isArray(tasks)) {
+          console.error('Die abgerufenen Daten sind kein Array:', tasks);
+          return; // Beendet die Funktion, wenn keine Array-Daten vorliegen
+      }
+
+      tasks = tasks.map(task => {
+          if (!task.state) { // Hinzufügen von 'state', falls nicht vorhanden
+              task.state = 'toDo';
+          }
+          return task;
+      });
+
+      await setItem('tasks', JSON.stringify(tasks)); // Speichern der aktualisierten Tasks
+      console.log('Alle vorhandenen Tasks wurden erfolgreich aktualisiert.');
+  } catch (error) {
+      console.error('Fehler beim Aktualisieren der vorhandenen Tasks:', error);
+  }
+}
+
+
+// Aufrufen der Funktion
+// addStateToExistingTasks();
+
+// Verwendung der Funktion zum Löschen von Tasks
+// deleteTasks(1707128813749); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
 
 
 

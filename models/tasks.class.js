@@ -12,6 +12,7 @@ class Task {
         
         this.category = []
         this.subtask = []
+        this.state = 'toDo';
     }
 
     addSubtask(subtaskText) {

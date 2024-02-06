@@ -38,26 +38,32 @@
                 <div class="board-section-column">
                     <div class="board-section-title">To do</div>
                     <div class="board-section-add-task">
-                        <img src="/Join/assets/icons/plus_button.svg" alt="add task">
+                        <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                            <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        </svg>
                     </div>
                 </div>
 
-                <div class="board-section-cards">
-                    <div class="board-card-bg">No tasks To do</div>
+                <div id="board-card-section-1" class="board-section-cards">
+                    <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
                     <div class="board-card-content">
                         <div class="board-card">
-                            <div class="board-card-label">
+                            <div id="board-label" class="board-card-label">
                                 User Story
                             </div>
-                            <div class="board-card-title">
+                            <div id="board-title" class="board-card-title">
                                 Kochwelt Page & Receipe Recommender
                             </div>
-                            <div class="board-card-description">Built start page with receipe recommendation</div>
+                            <div id="board-description" class="board-card-description">Built start page with receipe
+                                recommendation</div>
                             <div class="board-card-progress">
                                 <div class="board-card-progress-bar">
                                     <img src="/Join/assets/img/progress-bar.png" alt="Status Subtask">
                                 </div>
-                                <div class="board-card-progress-text">
+                                <div id="board-progress-subtask" class="board-card-progress-text">
                                     1/2 Subtasks
                                 </div>
                             </div>
@@ -73,7 +79,7 @@
 
 
                                 </div>
-                                <div class="board-card-footer-prio">
+                                <div id="board-prio" class="board-card-footer-prio">
                                     <img src="/Join/assets/icons/prio_medium.svg" alt="Prio Symbol">
                                 </div>
                             </div>
@@ -90,7 +96,12 @@
                 <div class="board-section-column">
                     <div class="board-section-title">In progress</div>
                     <div class="board-section-add-task">
-                        <img src="/Join/assets/icons/plus_button.svg" alt="add task">
+                        <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                            <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        </svg>
                     </div>
                 </div>
 
@@ -107,7 +118,12 @@
                 <div class="board-section-column">
                     <div class="board-section-title">Await feedback</div>
                     <div class="board-section-add-task">
-                        <img src="/Join/assets/icons/plus_button.svg" alt="add task">
+                        <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                            <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        </svg>
                     </div>
                 </div>
 
@@ -136,6 +152,9 @@
     <script src="./models/board.class.js"></script>
     <script src="./JS/storage.js"></script>
     <script src="./JS/board.js"></script>
+    <script src="./JS/addtask.js"></script>
+    <script src="./JS/addtaskFormHandling.js"></script>
+    <script src="./JS/contacts.js"></script>
 </body>
 
 </html>

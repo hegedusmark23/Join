@@ -737,6 +737,7 @@ textarea {
 }
 
 .board-card {
+  position: relative;
   min-height: 200px;
   background-color: #fff;
   border-radius: 24px;
@@ -744,6 +745,7 @@ textarea {
   height: 263px;
   min-width: 252px;
   padding: 16px;
+  z-index: 2;
 }
 
 .board-card-label {
@@ -819,6 +821,15 @@ textarea {
   text-align: center;
   color: #fff;
   margin-left: -14px;
+}
+
+.boardAddTaskBtn {
+  cursor: pointer;
+}
+
+.boardAddTaskBtn:hover rect,
+.boardAddTaskBtn:hover path {
+  stroke: #29abe2;
 }
 
 @media (max-width: 700px) {
