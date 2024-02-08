@@ -71,12 +71,23 @@ function clearAllInputs() {
 
 // Funktion, die den 'added'-Status aller Kontakte zurücksetzt
 function resetAssigneeSelection() {
+    // Durchläuft den letterContainer und setzt den 'added'-Status jedes Kontakts zurück
     Object.values(letterContainer).forEach(contacts => {
         contacts.forEach(contact => {
-            contact.added = false; // Setzt den 'added'-Status zurück
+            contact.added = false; // Setzt den Zustand zurück
         });
     });
+
+    // Leert das Array der zugewiesenen Benutzer
+    assignedTo = [];
+
+    // Rendert die Benutzerliste im Dropdown neu, um den zurückgesetzten Zustand widerzuspiegeln
+    renderAssignees();
+
+    // Aktualisiert die Anzeige der ausgewählten Benutzer
+    updateSelectedAssigneesDisplay();
 }
+
 
 // Die anderen Inputfelder prüfen
 function checkInputFields() {

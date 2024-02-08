@@ -73,12 +73,72 @@ async function addStateToExistingTasks() {
   }
 }
 
+async function addCompletedToExistingSubtasks() {
+    try {
+        let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
+        if (tasks) {
+            tasks = JSON.parse(tasks); // Versuch, den String zu parsen
+
+            if (Array.isArray(tasks)) {
+                tasks.forEach(task => {
+                    if (task.subtask && Array.isArray(task.subtask)) {
+                        task.subtask.forEach(subtask => {
+                            if (subtask.completed === undefined) { // Prüfen, ob die Eigenschaft 'completed' fehlt
+                                subtask.completed = null; // Hinzufügen der 'completed' Eigenschaft mit dem Wert 'null'
+                            }
+                        });
+                    }
+                });
+
+                await setItem('tasks', JSON.stringify(tasks)); // Speichern der aktualisierten Tasks
+                console.log('Die Subtasks aller vorhandenen Tasks wurden erfolgreich aktualisiert.');
+            } else {
+                console.error('Die abgerufenen Daten sind kein Array:', tasks);
+            }
+        }
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren der Subtasks:', error);
+    }
+}
+
+async function updateSubtaskCompletion(taskId, subtaskId, completionStatus) {
+    try {
+        let tasks = await getItem('tasks');
+        if (tasks) {
+            tasks = JSON.parse(tasks);
+
+            // Finde den spezifischen Task und Subtask
+            let taskToUpdate = tasks.find(task => task.id === taskId);
+            if (taskToUpdate) {
+                let subtaskToUpdate = taskToUpdate.subtask.find(subtask => subtask.id === subtaskId);
+                if (subtaskToUpdate) {
+                    // Setze die completed-Eigenschaft auf den gewünschten Status
+                    subtaskToUpdate.completed = completionStatus; // 'done' oder null
+
+                    // Speichere die aktualisierten Tasks zurück auf dem Server
+                    await setItem('tasks', JSON.stringify(tasks));
+                    console.log('Subtask erfolgreich aktualisiert.');
+                } else {
+                    console.error('Subtask nicht gefunden.');
+                }
+            } else {
+                console.error('Task nicht gefunden.');
+            }
+        }
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren der Subtask:', error);
+    }
+}
+
+// Setze die completed-Eigenschaft eines Subtasks auf 'done'
+// updateSubtaskCompletion(1707393834234, 1707393814989, 'done');
 
 // Aufrufen der Funktion
 // addStateToExistingTasks();
+// addCompletedToExistingSubtasks();
 
 // Verwendung der Funktion zum Löschen von Tasks
-// deleteTasks(1707128813749); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
+// deleteTasks(); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
 
 
 

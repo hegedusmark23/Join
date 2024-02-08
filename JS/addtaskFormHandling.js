@@ -81,7 +81,8 @@ function renderSubtask() {
     if (newSubtaskText) {
         let newSubtask = {
             id: Date.now(), // Erzeugt eine einfache eindeutige ID
-            text: newSubtaskText
+            text: newSubtaskText,
+            completed: null // Hinzufügen der neuen Eigenschaft "completed"
         };
         subtasks.push(newSubtask);
 
@@ -281,8 +282,25 @@ function setupAssigneeGlobalClickListener() {
 function toggleAssigneeStatus(letter, index) {
     const contact = letterContainer[letter][index];
     contact.added = !contact.added;
-    updateAssignee(contact);
-    renderAssignees();
+    if (contact.added) {
+        // Fügt den Kontakt dem assignedTo Array hinzu, falls noch nicht vorhanden
+        const foundIndex = assignedTo.findIndex(c => c.name === contact.completeName);
+        if (foundIndex === -1) {
+            assignedTo.push({
+                name: contact.completeName,
+                initials: generateInitials(contact.completeName),
+                color: contact.badgeColor
+            });
+        }
+    } else {
+        // Entfernt den Kontakt aus dem assignedTo Array, falls vorhanden
+        const foundIndex = assignedTo.findIndex(c => c.name === contact.completeName);
+        if (foundIndex !== -1) {
+            assignedTo.splice(foundIndex, 1);
+        }
+    }
+    updateSelectedAssigneesDisplay(); // Aktualisiert die Anzeige der ausgewählten Benutzer
+    renderAssignees(); // Rendert die Benutzerliste im Dropdown neu
 }
 
 // Initialen generieren
