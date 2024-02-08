@@ -13,13 +13,13 @@ function setLetterContainersHTML(key) {
 }
 
 // Display the values (contacts) that are inside each Keys. Fill the list of containers with contacts
-function getShowContactInTheListHTML(i, key, contact) {
+function getShowContactInTheListHTML(i, key, name, email) {
   return /*html*/ `
       <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContact('${key}', ${i})" id="under-container${key}${i}" class="under-container">
-          <div class="contact-badge-bg-container"><div id="contact-badge${key}${i}" class="contact-badge" style="background:${contact.badgeColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
+          <div class="contact-badge-bg-container"><div id="contact-badge${key}${i}" class="contact-badge" style="background:${badgeColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
            <div id="name-and-email-container${i}" class="contact-list-name-and-email-container">
-             <span id="contact-list-name${key}${i}" class="contact-list-name">${contact.completeName}</span>
-             <span id="contact-list-email${key}${i}" class="contact-list-email">${contact.email}</span>
+             <span id="contact-list-name${key}${i}" class="contact-list-name">${name}</span>
+             <span id="contact-list-email${key}${i}" class="contact-list-email">${email}</span>
            </div>
       </div>
   `

@@ -10,6 +10,7 @@ let inputPhone;
 let badge;
 let badgeColor;
 let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+let truncedEmail;
 
 
 alphabet.forEach((letter) => {
@@ -89,8 +90,21 @@ function showContactsInTheList(key) {
     let contacts = letterContainer[key];
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
-        capitalizeLetters(contact.completeName);
-        cont.innerHTML += getShowContactInTheListHTML(i, key, contact);
+        let name = contact.completeName;
+        let email = contact.email;
+        badgeColor = contact.badgeColor;
+        capitalizeLetters(name);
+        cont.innerHTML += getShowContactInTheListHTML(i, key, name, email);
+        truncEmailMobile(key, i)
+    }
+}
+
+function truncEmailMobile(key, i){
+    let email = document.getElementById(`contact-list-email${key}${i}`)
+    let emailText = email.innerText;
+    if(emailText.length > 21 && windowWidth <= 400){
+       let truncedEmail = emailText.slice(0, 21);
+       email.innerText = truncedEmail + '...'
     }
 }
 
@@ -271,21 +285,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAssignees();
     });
 });
-
-// continua da qui------------------------------------------------------------>
-function getEmail() {
-    let emails = document.getElementsByClassName('contact-list-email');
-    let emailsArray = [...emails];
-    emailsArray.forEach((email) => {
-        let em = email.innerText;
-        if(em.length > 21){
-           let trunced = em.slice(0, 21);
-           console.log(trunced);
-        }
-    })
-}
-// ------------------------------------------------------------------------------>
-
 
 
 
