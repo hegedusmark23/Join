@@ -288,7 +288,7 @@ function helpHTML() {
 
 function contactsHTML() {
     return /*html*/ `
-    <section id="contact-section" class="contact-section">
+    <section onclick="getEmail()"  id="contact-section" class="contact-section">
         <div id="contact-book" class="contact-book">
         <div onclick="showAddContactOverlay()" id="add-new-contact-btn-mobile" class="add-new-contact-btn-mobile"><img class="add-person-icon" src="./assets/icons/person_add.svg" alt=""></div>
             <div id="add-new-contact-btn" class="add-new-contact-btn mobile-d-none" onclick="showAddContactOverlay()">
@@ -330,7 +330,8 @@ function contactsHTML() {
             </div>
                 <form onsubmit="getContact(); return false" class="input-and-btn-container">
                     <span class="cross-icon-container"><img onclick="hideAddContactOverlay()" class="cross-icon"
-                            src="./assets/icons/cross.svg" alt=""></span>
+                            src="./assets/icons/cross.svg" alt="">
+                    </span>
                     <div class="inputs-container">
                         <input required class="input-name" type="text" id="name" placeholder="Name and Lastname">
                         <input required class="input-email" type="email" id="email" placeholder="E-Mail Address">

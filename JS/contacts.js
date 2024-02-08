@@ -52,9 +52,9 @@ async function addContacts(completeName, emailAdress, phone, badgeColor) {
         letterContainer[firstLetter].push(contact);
         await setItem('contacts', JSON.stringify(letterContainer));
     }
-    if(windowWidth <= 1000){
+    if (windowWidth <= 1050) {
         document.getElementById('contact-book').classList.add('d-none');
-        document.getElementById('contact-view-section').classList.remove('mobile-d-none')
+        document.getElementById('contact-view-section').classList.remove('mobile-d-none');
         await showAlreadyCreatedContactInTheView();
     } else {
         await showAlreadyCreatedContactInTheView();
@@ -109,7 +109,7 @@ function showContact(key, i) {
     let phone = letterContainer[key][i]['phone'];
     badgeColor = letterContainer[key][i]['badgeColor'];
     capitalizeLetters(name);
-    if (windowWidth <= 1000) {
+    if (windowWidth <= 1050) {
         showContactMobileVersion(key, i, name, email, phone, badgeColor);
     } else {
         showContactDesktopVersion(key, i, name, email, phone, badgeColor);
@@ -131,24 +131,24 @@ function showContactDesktopVersion(key, i, name, email, phone, badgeColor) {
     contactViewContainer.classList.remove('translateX')
 }
 
-function backToContactList(){
+function backToContactList() {
     document.getElementById('contact-view-section').classList.add('mobile-d-none');
     document.getElementById('contact-book').classList.remove('d-none')
 }
 
-function showPopUpEditDelete(event){
+function showPopUpEditDelete(event) {
     document.getElementById('contact-view-icons-container').classList.remove('translateXPopUpEditDelete');
     document.getElementById('three-vertical-dots-container').style.backgroundColor = '#29ABE2';
     event.stopPropagation();
 }
 
-function hidePopUpEditDelete(event){
+function hidePopUpEditDelete(event) {
     document.getElementById('contact-view-icons-container').classList.add('translateXPopUpEditDelete');
     setTimeout(removeBgColorOnPopUpClosed, 800);
     event.stopPropagation();
 }
 
-function removeBgColorOnPopUpClosed(){
+function removeBgColorOnPopUpClosed() {
     document.getElementById('three-vertical-dots-container').style.backgroundColor = '#2A3647';
 }
 
@@ -236,7 +236,7 @@ function backgroundBlackAndWhiteText(key, i) {
 function backgroundAndTextOriginal(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.remove('black-container');
     document.getElementById(`contact-list-name${key}${i}`).style.color = '#000';
-    document.getElementById(`contact-list-email${key}${i}`).style.color = '#000'
+    document.getElementById(`contact-list-email${key}${i}`).style.color = '#29ABE2'
 }
 
 
@@ -257,7 +257,7 @@ function hideAddContactOverlay() {
     doNotClose(event)
 }
 
-function originalBgColorOfAddContactBtnMobile(){
+function originalBgColorOfAddContactBtnMobile() {
     document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#2A3647'
 }
 
@@ -271,6 +271,22 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAssignees();
     });
 });
+
+// continua da qui------------------------------------------------------------>
+function getEmail() {
+    let emails = document.getElementsByClassName('contact-list-email');
+    let emailsArray = [...emails];
+    emailsArray.forEach((email) => {
+        let em = email.innerText;
+        if(em.length > 21){
+           let trunced = em.slice(0, 21);
+           console.log(trunced);
+        }
+    })
+}
+// ------------------------------------------------------------------------------>
+
+
 
 
 
