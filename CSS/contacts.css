@@ -1,9 +1,3 @@
-@font-face {
-    font-family: "Inter", sans-serif;
-    src: url('fonts/static/Inter-Regular.ttf');
-    src: url('fonts/static/Inter-Bold.ttf');
-}
-
 body {
     margin: 0;
     user-select: none;
@@ -164,8 +158,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 159px;
+    gap: 16px;
     height: 24px;
+    width: 159px;
 }
 
 .contact-view-edit-container {
@@ -173,9 +168,13 @@ body {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    gap: 24px;
+    gap: 12px;
     height: 24px;
     cursor: pointer;
+}
+
+.edit{
+    font-size: 16px;
 }
 
 .contact-view-delete-container {
@@ -183,7 +182,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    gap: 24px;
+    gap: 12px;
     height: 24px;
     cursor: pointer;
 }
@@ -327,6 +326,11 @@ body {
     gap: 5px;
 }
 
+.contact-list-email{
+    color: #29ABE2;
+}
+
+
 /*---------------------------------- add contacts from dialog --------------------------------------------*/
 .contact-bg-dialog {
     height: 100vh;
@@ -335,7 +339,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.301);
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -350,6 +354,7 @@ body {
     border: 1px solid #fff;
     border-radius: 20px;
     cursor: pointer;
+    position: relative;
 }
 
 .contacts-left-container {
@@ -422,6 +427,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position: absolute;
+    top: 48px;
+    right: 32px;
+
 }
 
 .cross-icon {
@@ -487,6 +496,7 @@ body {
     width: 364px;
     display: flex;
     gap: 24px;
+    box-sizing: border-box;
 }
 
 .add-contact-btn1 {
@@ -504,13 +514,11 @@ body {
     cursor: pointer;
     font-size: 20px;
     font-weight: 400;
-    transition: all 0.3s cubic-bezier(.215, .61, .355, 1);
 }
 
 .add-contact-btn1:hover {
     border: 1px solid #29ABE2;
     color: #29ABE2;
-
 }
 
 .cross-icon-btn1 {
@@ -521,6 +529,33 @@ body {
 }
 
 .add-contact-btn1:hover .cross-icon-btn1 path {
+    stroke: #29ABE2 !important;
+}
+
+.edit-contact-btn1 {
+    height: 56px;
+    width: 126px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    background: #fff;
+    border-radius: 10px;
+    color: #2A3647;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 16px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.edit-contact-btn1:hover {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+
+}
+
+.edit-contact-btn1:hover .cross-icon-btn1 path {
     stroke: #29ABE2 !important;
 }
 
@@ -597,6 +632,10 @@ body {
     font-size: 47px;
     color: #fff;
     font-weight: 500;
+}
+
+.initialsLetters {
+    font-size: 47px;
 }
 
 .edit-contact-title {
@@ -682,6 +721,11 @@ body {
         width: 980px;
     }
 
+    .cross-icon-container {
+        top: 48px;
+        right: 12px;
+    }
+
     .add-contact-title {
         font-size: 48px;
     }
@@ -700,7 +744,14 @@ body {
         height: 90px;
     }
 
+    .edit-contact-badge-container {
+        width: 90px;
+        height: 90px;
+    }
 
+    .initialsLetters {
+        font-size: 32px;
+    }
 }
 
 @media (min-width: 1051px) {
@@ -729,7 +780,7 @@ body {
 
     .add-new-contact-btn-mobile {
         position: fixed;
-        top: 758px;
+        top: 725px;
         right: 28px;
         height: 56px;
         width: 56px;
@@ -746,7 +797,7 @@ body {
 
     .contact-view-icons-container {
         position: fixed;
-        bottom: 100px;
+        bottom: 107px;
         right: 0px;
         flex-direction: column;
         align-items: center;
@@ -755,7 +806,7 @@ body {
         height: auto;
         background: #fff;
         padding: 16px;
-        border-radius: 20px 0 0 20px;
+        border-radius: 20px 20px 0 20px;
         box-sizing: border-box;
         transition: all 0.3s cubic-bezier(.215, .61, .355, 1);
         box-shadow: 0 4px 2px rgba(0, 0, 0, 0.2);
@@ -772,7 +823,7 @@ body {
 
     .three-vertical-dots-container {
         position: fixed;
-        top: 735px;
+        top: 715px;
         right: 28px;
         height: 56px;
         width: 56px;
@@ -791,12 +842,11 @@ body {
         display: none;
     }
 
-    /*------------------------- add contact media query ----------------------*/
-
     .contact-dialog {
         width: 80%;
         height: 95%;
         flex-direction: column;
+        position: relative;
     }
 
     .contacts-left-container {
@@ -809,6 +859,7 @@ body {
 
     .contact-right-container {
         width: 100%;
+        min-height: auto;
         flex-direction: column;
         align-items: flex-start;
         align-items: none;
@@ -854,28 +905,61 @@ body {
     }
 
     .cross-icon-container {
-        display: none;
+        position: absolute;
+        top: 48px;
+        right: 24px;
+        z-index: 5;
     }
 
-    .contact-btn-container{
+    .cross-icon path {
+        stroke: #fff !important;
+    }
+
+    .contact-btn-container {
         width: 100%;
         justify-content: center;
     }
 
-    .add-contact-btn1{
+    .add-contact-btn1 {
         display: none;
     }
 
-    /*------------------------- add contact media query ----------------------*/
+    .add-contact-btn2 {
+        font-size: 18px;
+    }
+
+    .edit-contact-badge-container {
+        width: 120px;
+        height: 120px;
+    }
 }
 
+@media (max-width: 420px) {
+    .add-contact-title {
+        font-size: 32px;
+    }
 
+    .add-contact-subtitle {
+        font-size: 18px;
+    }
 
+    .edit-contact-title {
+        font-size: 48px;
+    }
 
+    .contact-btn-container {
+        gap: 12px;
+        padding: 8px;
 
-/* Helpers */
-.text-white {
-    color: #fff;
+    }
+
+    .edit-contact-btn1 {
+        width: auto;
+    }
+
+    .add-contact-btn2 {
+        width: auto;
+    }
 }
 
 .d-none {

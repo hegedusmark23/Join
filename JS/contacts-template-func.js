@@ -13,13 +13,13 @@ function setLetterContainersHTML(key) {
 }
 
 // Display the values (contacts) that are inside each Keys. Fill the list of containers with contacts
-function getShowContactInTheListHTML(i, key, contact) {
+function getShowContactInTheListHTML(i, key, name, email) {
   return /*html*/ `
       <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContact('${key}', ${i})" id="under-container${key}${i}" class="under-container">
-          <div class="contact-badge-bg-container"><div id="contact-badge${key}${i}" class="contact-badge" style="background:${contact.badgeColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
+          <div class="contact-badge-bg-container"><div id="contact-badge${key}${i}" class="contact-badge" style="background:${badgeColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
            <div id="name-and-email-container${i}" class="contact-list-name-and-email-container">
-             <span id="contact-list-name${key}${i}" class="contact-list-name">${contact.completeName}</span>
-             <span id="contact-list-email${key}${i}" class="contact-list-email">${contact.email}</span>
+             <span id="contact-list-name${key}${i}" class="contact-list-name">${name}</span>
+             <span id="contact-list-email${key}${i}" class="contact-list-email">${email}</span>
            </div>
       </div>
   `
@@ -69,10 +69,10 @@ function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
             <h2 id="contact-view-name${key}${i}" class="contact-view-name">${name}</h2>
             <div id="contact-view-icons-container" class="contact-view-icons-container translateXPopUpEditDelete">
               <span onclick="showEditContactOverlay('${key}', ${i})" id="contact-view-edit-container${key}${i}" class="contact-view-edit-container">
-                <img src="./assets/icons/pen.svg" alt="">Edit
+                <img src="./assets/icons/pen.svg" alt=""> <p class="edit">Edit</p>
               </span> 
               <span onclick="deleteContact('${key}', ${i})" id="contact-view-delete-container${key}${i}" class="contact-view-delete-container">
-                <img src="./assets/icons/trashbin.svg" alt="">Delete
+                <img src="./assets/icons/trashbin.svg" alt=""><p class="delete">Delete</p>
               </span>
             </div>
         </div>
@@ -97,18 +97,25 @@ function editContactOverlayHTML(key, i, badgeColor) {
     <div onclick="doNotClose(event)" id="contact-dialog${key}${i}" class="contact-dialog">
             <div class="contacts-left-container">
                 <div class="logo-and-title-container">
-                    <span><img class="contact-dialog-logo" src="./assets/img/logo-small-white.png" alt=""></span>
+                    <span><img class="contact-dialog-logo mobile-d-none" src="./assets/img/logo-small-white.png" alt=""></span>
                     <h2 class="edit-contact-title">Edit Contact</h2>
                     <span class="border-bar"></span>
                 </div>
             </div>
             <div class="contact-right-container">
-                <div id="edit-contact-badge-container${key}${i}" class="edit-contact-badge-container" style="background:${badgeColor}">
-                    <span>${capitalizedLetters}</span>
+            <div class="mobile-badge-container">
+            <div id="edit-contact-badge-container${key}${i}" class="edit-contact-badge-container" style="background:${badgeColor}">
+                    <span class="initialsLetters">${capitalizedLetters}</span>
                 </div>
-                <form onsubmit="saveNewContact('${key}', ${i}); return false" class="input-and-btn-container">
-                    <span class="cross-icon-container"><img onclick="hideEditContactOverlay(event)" class="cross-icon" src="./assets/icons/cross.svg"
-                            alt="">
+            </div>
+              <form onsubmit="saveNewContact('${key}', ${i}); return false" class="input-and-btn-container">
+                    <span onclick="hideEditContactOverlay(event)" class="cross-icon-container"> 
+                      <svg class="cross-icon" width="24" height="25" viewBox="0 0 24 25" fill=""
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z"
+                                    stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
                     </span>
                     <div class="inputs-container">
                         <input required id="input-name${key}${i}" class="input-name" type="text" id="name" placeholder="Name and Lastname">
@@ -116,7 +123,7 @@ function editContactOverlayHTML(key, i, badgeColor) {
                         <input required id="input-phone${key}${i}" class="input-phone" type="text" id="phone" placeholder="Phone">
                     </div>
                     <div class="contact-btn-container">
-                        <button class="add-contact-btn1" onclick="deleteContact('${key}', ${i})">Delete
+                        <button class="edit-contact-btn1" onclick="deleteContact('${key}', ${i})">Delete
                             <svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill=""
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -129,7 +136,7 @@ function editContactOverlayHTML(key, i, badgeColor) {
                                 class="check-icon-btn2" src="./assets/icons/check.svg" alt="">
                         </button>
                     </div>
-                </form>
+              </form>
             </div>
         </div>
     `;
