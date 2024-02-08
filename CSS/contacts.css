@@ -42,7 +42,7 @@ body {
 .add-new-contact-btn {
     background: #2A3647;
     border-radius: 10px;
-    width: 100%;
+    width: 352px;
     height: 56px;
     padding: 12px 0;
     color: #fff;
@@ -50,7 +50,7 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-top: 16px;
+    margin-bottom: 16px;
     cursor: pointer;
     z-index: 1;
     display: flex;
@@ -173,7 +173,7 @@ body {
     cursor: pointer;
 }
 
-.edit{
+.edit {
     font-size: 16px;
 }
 
@@ -236,7 +236,7 @@ body {
     font-weight: 400;
 }
 
-.succesfulButtonContainer {
+.successfulButton {
     background: #2A3647;
     color: #fff;
     width: 326px;
@@ -253,8 +253,10 @@ body {
     font-weight: 400;
 }
 
-.translateSuccButton {
-    transform: translateX(1200px);
+@media (min-width: 421px) {
+    .translateSuccButton {
+        transform: translateX(1200px);
+    }
 }
 
 .letter-container {
@@ -326,7 +328,7 @@ body {
     gap: 5px;
 }
 
-.contact-list-email{
+.contact-list-email {
     color: #29ABE2;
 }
 
@@ -465,7 +467,7 @@ body {
     width: 422px;
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    padding: 16px;
+    padding: 16px 38px 16px 16px;
 }
 
 .input-email {
@@ -477,7 +479,7 @@ body {
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     outline: none;
-    padding: 16px;
+    padding: 16px 38px 16px 16px;
 }
 
 .input-phone {
@@ -489,7 +491,7 @@ body {
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     outline: none;
-    padding: 16px;
+    padding: 16px 38px 16px 16px;
 }
 
 .contact-btn-container {
@@ -752,6 +754,10 @@ body {
     .initialsLetters {
         font-size: 32px;
     }
+
+    .input-name, .input-email, .input-phone{
+        width: auto;
+    }
 }
 
 @media (min-width: 1051px) {
@@ -780,7 +786,7 @@ body {
 
     .add-new-contact-btn-mobile {
         position: fixed;
-        top: 725px;
+        bottom: 100px;
         right: 28px;
         height: 56px;
         width: 56px;
@@ -823,7 +829,7 @@ body {
 
     .three-vertical-dots-container {
         position: fixed;
-        top: 715px;
+        bottom: 100px;
         right: 28px;
         height: 56px;
         width: 56px;
@@ -865,7 +871,7 @@ body {
         align-items: none;
         border-radius: 0 0 20px 20px;
         flex: 1;
-        padding: 66px 24px;
+        padding: 32px 24px;
         box-sizing: border-box;
     }
 
@@ -875,7 +881,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: -135px;
+        margin-top: -100px;
     }
 
     .person-icon-container {
@@ -934,7 +940,17 @@ body {
     }
 }
 
+@media (min-width: 421px) {
+    .translateSuccButtonMobile {
+        display: none;
+    }
+}
+
 @media (max-width: 420px) {
+    .contact-right-container {
+        padding: 32px 24px;
+    }
+
     .add-contact-title {
         font-size: 32px;
     }
@@ -960,6 +976,44 @@ body {
     .add-contact-btn2 {
         width: auto;
     }
+
+    .mobile-badge-container{
+        margin-top: -175px;
+    }
+
+    .inputs-container {
+        gap: 8px;
+    }
+
+    .input-name,
+    .input-email,
+    .input-phone {
+        height: 20px;
+    }
+
+    .input-name,
+    .input-email,
+    .input-phone::placeholder {
+        font-size: 15px;
+    }
+
+    .successfulButtonContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 85px;
+        overflow-y: hidden;
+    }
+
+    .successfulButton {
+        height: auto;
+        margin-top: 0
+    }
+
+    .translateSuccButtonMobile {
+        transform: translateY(75px);
+    }
+
 }
 
 .d-none {

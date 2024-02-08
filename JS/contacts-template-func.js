@@ -56,7 +56,13 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
               <span class="contact-view-phone">${phone}</span>
           </div>
       </div>
+      <div class="successfulButtonContainer">
+         <span id="successfulButton" class="successfulButton translateSuccButton transformSuccButtonMobile">
+           Contact successfully created
+         </span>
+      </div>
       `
+      
 }
 
 function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {

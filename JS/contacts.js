@@ -182,14 +182,22 @@ async function showAlreadyCreatedContactInTheView() {
 }
 
 async function successfulContactAddedButton() {
-    let successButton = document.getElementById('succesfulButtonContainer');
-    successButton.classList.remove('translateSuccButton');
+    let successButton = document.getElementById('successfulButton');
+    if(windowWidth <= 420){
+        successButton.classList.remove('translateSuccButtonMobile')
+    } else {
+        successButton.classList.remove('translateSuccButton');
+    }
     setTimeout(hideSuccessfulContactAddedButton, 2000);
 }
 
 function hideSuccessfulContactAddedButton() {
-    let successButton = document.getElementById('succesfulButtonContainer');
-    successButton.classList.add('translateSuccButton');
+    let successButton = document.getElementById('successfulButton');
+    if(windowWidth <= 420){
+        successButton.classList.add('translateSuccButtonMobile')
+    } else{
+        successButton.classList.add('translateSuccButton');
+    }
 }
 
 function showEditContactOverlay(key, i) {
