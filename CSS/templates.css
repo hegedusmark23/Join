@@ -154,9 +154,11 @@
   color: #ff8190;
 }
 
-input[type="text"]:focus,
-input[type="date"]:focus,
-textarea:focus,
+
+
+.addtask-title-input:focus,
+.input-date:focus,
+.textarea:focus,
 select:focus {
   border: 2px solid #29abe2;
   outline: none;
@@ -705,7 +707,7 @@ textarea {
   height: 100vh;
 }
 
-.board-sections > div {
+.board-sections>div {
   flex: 1;
 }
 
@@ -776,11 +778,13 @@ textarea {
 
 .board-card-description {
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Anzahl der angezeigten Zeilen */
+  -webkit-line-clamp: 2;
+  /* Anzahl der angezeigten Zeilen */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 251px; /*Breite ab dem in Zeile 2 abgeschnitten wird */
+  width: 251px;
+  /*Breite ab dem in Zeile 2 abgeschnitten wird */
   margin-bottom: 8px;
   color: #a8a8a8;
   font-size: 18px;
@@ -837,6 +841,7 @@ textarea {
 }
 
 @media (max-width: 700px) {
+
   #board-content h1,
   #addtask-content h1 {
     font-weight: 700;
@@ -913,12 +918,15 @@ textarea {
 
   /* Für den Fall, dass Sie möchten, dass der gesamte Bereich scrollbar ist, ohne sichtbaren Scrollbalken */
   .scrollable-area {
-    -ms-overflow-style: none; /* IE und Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE und Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 
   .scrollable-area::-webkit-scrollbar {
-    display: none; /* Chrome, Safari und Opera */
+    display: none;
+    /* Chrome, Safari und Opera */
   }
 }
 
@@ -956,6 +964,7 @@ textarea {
     width: 100%;
     gap: 20px;
   }
+
   .nav-link-div {
     width: 100%;
     display: flex;

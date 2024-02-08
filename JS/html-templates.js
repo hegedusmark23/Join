@@ -370,13 +370,13 @@ function addTaskHTML() {
             <div class="addtask-selection">
                 <label>
                     <span class="label-text required">Title</span>
-                    <input id="addtask-title" type="text" placeholder="Enter a title">
+                    <input id="addtask-title" class="addtask-title-input" type="text" placeholder="Enter a title">
                 </label>
             </div>
             <div class="addtask-selection">
                 <label>
                     <span>Description</span>
-                    <textarea placeholder="Enter a description" name="decription" id="description"></textarea>
+                    <textarea class="textarea" placeholder="Enter a description" name="decription" id="description"></textarea>
                 </label>
             </div>
 
@@ -404,7 +404,7 @@ function addTaskHTML() {
             <div class="addtask-selection">
                 <label>
                     <span class="required">Due date</span>
-                    <input type="date" id="dueDate" name="due-date">
+                    <input class="input-date" type="date" id="dueDate" name="due-date">
                 </label>
             </div>
 

@@ -468,6 +468,7 @@ body {
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     padding: 16px 38px 16px 16px;
+    outline:none !important;
 }
 
 .input-email {
@@ -478,7 +479,7 @@ body {
     width: 422px;
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    outline: none;
+    outline: none !important;
     padding: 16px 38px 16px 16px;
 }
 
@@ -490,7 +491,7 @@ body {
     width: 422px;
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    outline: none;
+    outline: none !important;
     padding: 16px 38px 16px 16px;
 }
 
