@@ -158,10 +158,22 @@ function renderCardContent(task, completionDetails) {
     </div>`;
 }
 
+  // Funktion zum Öffnen des Modals und Laden des Inhalts von addtask.html
+  function openModalAddTask() {
+    fetch('addtask.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('addtask-modal-body').innerHTML = data;
+        document.getElementById('addtask-modal').style.display = 'block';
+      })
+      .catch(error => console.error('Fehler beim Laden von addtask.html:', error));
+  }
+
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeBoard();
     initializeBoardCard();
+    //openModalAddTask();
 
 });
 
