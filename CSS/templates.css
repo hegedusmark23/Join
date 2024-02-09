@@ -743,7 +743,6 @@ textarea {
   background-color: #fff;
   border-radius: 24px;
   box-shadow: 0px 0px 10px 3px #00000014;
-  height: 263px;
   min-width: 252px;
   padding: 16px;
   z-index: 2;
@@ -788,6 +787,7 @@ textarea {
   margin-bottom: 8px;
   color: #a8a8a8;
   font-size: 18px;
+  min-height: 40px;
 }
 
 .board-card-progress {
@@ -795,6 +795,7 @@ textarea {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
+  margin-top: 32px;
 }
 
 .board-card-progress-bar {
@@ -811,7 +812,11 @@ textarea {
   align-items: center;
 }
 
-#board-assignees {
+.board-card-content {
+  margin-bottom: 20px;
+}
+
+.board-card-footer-assignees {
   display: flex;
   margin-left: 14px;
 }
@@ -841,7 +846,7 @@ textarea {
 }
 
 .modal {
-  display: block;
+  display: none;
   position: fixed;
   left: 0;
   top: 0;
@@ -850,6 +855,19 @@ textarea {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 3;
+  right: -100%;
+  transition: transform 0.15s ease;
+  transform: translateX(100%);
+}
+
+.modal-open {
+  display: block;
+  transform: translateX(0);
+}
+
+.modal-close {
+  transform: translateX(100%);
+  transition: transform 0.15s ease;
 }
 
 .modal-content {

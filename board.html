@@ -18,7 +18,7 @@
                     <div class="addtask-modal-headline">
                         Add Task
                     </div>
-                    <div class="add-tasks-modal-close">
+                    <div id="close-modal-button" class="add-tasks-modal-close">
                         <div class="first-img-container modal-x-tpl">
                             <svg class="first-img" xmlns="http://www.w3.org/2000/svg" width="25" height="24"
                                 viewBox="0 0 25 24" fill="none">
@@ -233,7 +233,7 @@
                     </div>
                 </div>
                 <div class="board-add-task">
-                    <button class="blue-btn">Add Task
+                    <button id="open-modal-button" class="blue-btn">Add Task
                         <img src="/Join/assets/icons/add.svg" alt="Plus Icon">
                     </button>
                 </div>
@@ -256,11 +256,7 @@
 
                 <div id="board-card-section-1" class="board-section-cards">
                     <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
-                    <div class="board-card-content">
-                        <div class="board-card">
-
-                        </div>
-                    </div>
+                    <div id="task-cards-container"></div>
                 </div>
 
             </div>
@@ -326,6 +322,7 @@
     <script src="./models/board.class.js"></script>
     <script src="./JS/storage.js"></script>
     <script src="./JS/board.js"></script>
+    <script src="./models/tasks.class.js"></script>
     <script src="./JS/addtask.js"></script>
     <script src="./JS/addtaskFormHandling.js"></script>
     <script src="./JS/contacts.js"></script>
