@@ -146,26 +146,43 @@ function setupModalEventListeners() {
 // Funktion zum Öffnen des Modals
 function openModal() {
     const modal = document.getElementById('addtask-modal');
-    modal.style.display = 'block'; // Stellt sicher, dass das Modal sichtbar ist
-    modal.classList.add('modal-open');
-    modal.classList.remove('modal-close'); // Entfernt die Schließklasse, falls vorhanden
+    modal.style.display = 'block'; // Zeigt den Hintergrund sofort an
+    setTimeout(() => {
+        modal.classList.add('modal-open'); // Startet die Animation für den Inhalt
+    }, 0); // Timeout sorgt dafür, dass die Klasse nach dem Rendering hinzugefügt wird
 }
 
 // Funktion zum Schließen des Modals
 function closeModal() {
     const modal = document.getElementById('addtask-modal');
-    modal.classList.add('modal-close'); // Startet die Schließanimation
+    modal.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
     setTimeout(() => {
-        modal.classList.remove('modal-open');
-        modal.style.display = 'none'; // Stellt sicher, dass das Modal nach der Animation nicht sichtbar ist
-    }, 150); // Die Zeit sollte der Dauer der CSS-Transition entsprechen
+        modal.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
+    }, 200); // Wartezeit entspricht der Dauer der Animation
 }
 
+function setupCreateTaskListener() {
+    const createTaskButton = document.getElementById('create-task');
+    if (createTaskButton) {
+        createTaskButton.addEventListener('click', async function() {
+            try {
+                // Schließe das Modal
+                closeModal();
+                // Aktualisiere den Board-Inhalt
+                await initializeBoard();
+                await initializeBoardCard();
+            } catch (error) {
+                console.error('Fehler beim Speichern des Tasks:', error);
+            }
+        });
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeBoard();
     initializeBoardCard();
     setupModalEventListeners();
+    setupCreateTaskListener();
 
 });
 

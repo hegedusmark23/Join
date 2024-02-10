@@ -846,23 +846,19 @@ textarea {
 }
 
 .modal {
-  display: none;
+  display: none; /* Initial versteckt */
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4); /* Hintergrundfarbe */
   z-index: 3;
-  right: -100%;
-  transition: transform 0.15s ease;
-  transform: translateX(100%);
 }
 
 .modal-open {
   display: block;
-  transform: translateX(0);
 }
 
 .modal-close {
@@ -877,6 +873,14 @@ textarea {
   border: 1px solid #888;
   width: 90%;
   border-radius: 30px;
+  opacity: 0; /* Startet versteckt */
+  transform: translateX(100%); /* Startet von rechts */
+  transition: transform 0.3s ease, opacity 0.15s ease;
+}
+
+.modal-open .modal-content {
+  opacity: 1; /* Wird sichtbar */
+  transform: translateX(0%); /* Bewegt sich zur Mitte */
 }
 
 .addtask-modal-tpl {

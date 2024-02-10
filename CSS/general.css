@@ -188,7 +188,7 @@ p {
   display: flex;
 }
 
-.menu-header-and-main-content-container{
+.menu-header-and-main-content-container {
   display: flex;
   width: 100%;
 }
@@ -447,10 +447,14 @@ a {
   background-color: #00000067;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: 1000;
   justify-content: center;
   align-items: center;
   top: 0;
+}
+
+.message-animation-background.no-background {
+  background-color: transparent;
 }
 
 @keyframes floathingMessage {

@@ -229,20 +229,30 @@ function validateTaskForm() {
 }
 
 
-function showTaskAddedMessage() {
+function showTaskAddedMessage(fromModal = false) {
     const messageElement = document.getElementById('create-task-message');
-    messageElement.style.display = 'flex'; // Zeigt die Nachricht an
+    if (messageElement) {
+        messageElement.style.display = 'flex'; // Zeigt die Nachricht an
 
-    // Nachricht nach einer gewissen Zeit ausblenden
-    setTimeout(() => {
-        messageElement.style.display = 'none';
-    }, 1500); // Warte 1,5 Sekunden, bevor die Nachricht ausgeblendet wird
+        // Wenn die Funktion aus dem Modal heraus aufgerufen wird, passe die Klasse entsprechend an
+        if (fromModal) {
+            messageElement.classList.add('no-background'); // Angenommen, 'no-background' entfernt den dunklen Hintergrund
+        } else {
+            messageElement.classList.remove('no-background');
+        }
+
+        // Nachricht nach einer gewissen Zeit ausblenden
+        setTimeout(() => {
+            messageElement.style.display = 'none';
+        }, 3000); // Warte 1,5 Sekunden, bevor die Nachricht ausgeblendet wird
+    } else {
+        console.error('Element für Task-Hinzugefügt-Nachricht wurde nicht gefunden.');
+    }
 }
 
 async function showTasks() {
     console.log('Das sind die Tasks in meinem Array: ', tasks);
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     checkInputFields();
