@@ -910,6 +910,114 @@ textarea {
   z-index: 1 !important;
 }
 
+.modal-content-tasks {
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 400px;
+  max-width: 525px;
+  max-height: 75%;
+  overflow-y: auto;
+  border-radius: 30px;
+  padding: 48px 40px 48px 40px;
+  display: flex;
+  gap: 24px;
+}
+#task-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+}
+.task-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#board-detail-title {
+  margin-bottom: 0px;
+}
+
+.task-details-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.task-detail-headline {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.task-detail-description {
+  color: #000 !important;
+}
+
+.task-detail-description,
+.detail-assignees,
+.detail-subtasks,
+.task-detail {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #2a3647;
+}
+
+.task-detail {
+  display: flex;
+  align-items: center;
+}
+
+.detail-label {
+  width: 90px; /* Stelle sicher, dass dies breit genug für den längsten Label-Text ist */
+  min-width: 90px; /* Verhindert, dass der Container schrumpft, wenn der Platz knapp ist */
+}
+
+.detail-value {
+  margin-left: 14px;
+}
+
+.subtask-icons-details {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 9px;
+}
+
+.details-footer-hover {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.details-footer-hover .divider-subtask {
+  cursor: default;
+}
+
+.details-footer-hover:hover .detail-footer-text,
+.details-footer-hover:hover .custom-svg path {
+  color: #29abe2; /* Textfarbe */
+  fill: #29abe2; /* SVG Füllfarbe */
+}
+
+.custom-svg path {
+  fill: #2a3647;
+  transition: fill 0.2s; /* Weiche Übergänge für die SVG-Füllfarbe */
+}
+
+.detail-footer-text {
+  transition: color 0.2s; /* Weiche Übergänge für die Textfarbe */
+}
+
 @media (max-width: 700px) {
   #board-content h1,
   #addtask-content h1 {

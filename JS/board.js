@@ -65,6 +65,8 @@ async function initializeBoard() {
     await categorizeTasks(); // Tasks sortieren und in Arrays einordnen
 }
 
+// Tasks anzeigen
+
 async function initializeBoardCard() {
     let tasks = await fetchTasks(); // Annahme: fetchTasks gibt ein Array von Tasks zurück
 
@@ -82,6 +84,7 @@ async function initializeBoardCard() {
         }).join('');
         taskCardsContainer.innerHTML = cardHTML;
     }
+    setupTaskClickListeners();
 }
 
 function updateSubtaskProgress(task) {
@@ -129,7 +132,7 @@ function renderCardContent(task, completionDetails) {
 
     return `
     <div class="board-card-content">
-        <div class="board-card">
+        <div class="board-card" data-task-id="${task.id}">
             <div class="board-card-label" style="background-color: ${task.category == 'Technical Task' ? labelCol1 : labelCol2}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
             <div class="board-card-description">${description}</div>
@@ -142,33 +145,7 @@ function renderCardContent(task, completionDetails) {
     </div>`;
 }
 
-
-// Initialisiert die Event-Listener
-function setupModalEventListeners() {
-    const openButton = document.getElementById('open-modal-button'); // Button, um Modal zu öffnen
-    const closeButton = document.getElementById('close-modal-button'); // Button, um Modal zu schließen
-
-    openButton.addEventListener('click', openModal);
-    closeButton.addEventListener('click', closeModal);
-}
-
-// Funktion zum Öffnen des Modals
-function openModal() {
-    const modal = document.getElementById('addtask-modal');
-    modal.style.display = 'block'; // Zeigt den Hintergrund sofort an
-    setTimeout(() => {
-        modal.classList.add('modal-open'); // Startet die Animation für den Inhalt
-    }, 0); // Timeout sorgt dafür, dass die Klasse nach dem Rendering hinzugefügt wird
-}
-
-// Funktion zum Schließen des Modals
-function closeModal() {
-    const modal = document.getElementById('addtask-modal');
-    modal.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
-    setTimeout(() => {
-        modal.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-    }, 200); // Wartezeit entspricht der Dauer der Animation
-}
+// Tasks erstellen
 
 function setupCreateTaskListener() {
     const createTaskButton = document.getElementById('create-task');
@@ -176,7 +153,7 @@ function setupCreateTaskListener() {
         createTaskButton.addEventListener('click', async function() {
             try {
                 // Schließe das Modal
-                closeModal();
+                closeModal('addtask-modal');
                 // Aktualisiere den Board-Inhalt
                 await initializeBoard();
                 await initializeBoardCard();
@@ -187,11 +164,89 @@ function setupCreateTaskListener() {
     }
 }
 
+// Show Tasks Details Bereich
+
+function openTaskDetailModal(task) {
+    const modal = document.getElementById('task-detail-modal');
+    const detailsContainer = document.getElementById('task-details');
+    modal.classList.add('modal-open'); // Fügt die Klasse hinzu, um das Modal anzuzeigen
+
+    detailsContainer.innerHTML = `
+        <p>Title: ${task.title}</p>
+        <p>Description: ${task.description || 'No description'}</p>
+        <p>Due Date: ${task.dueDate}</p>
+        <p>Priority: ${task.prio}</p>
+        <p>Subtasks: ${task.subtasks ? task.subtasks.length : 0}</p>
+    `;
+    modal.style.display = 'block'; // Modal anzeigen
+}
+
+// Eventlistner für Modals
+
+// Funktion zum öffnen der Board Card
+function setupTaskClickListeners() {
+    document.querySelectorAll('.board-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const taskId = this.getAttribute('data-task-id');
+            const task = tasks.find(task => task.id.toString() === taskId); // `tasks` sollte dein Array von Task-Objekten sein
+            if (task) {
+                openTaskDetailModal(task);
+            }
+        });
+    });
+}
+// Schließt die Board Card
+function setupCloseTaskDetailModalListener() {
+    const closeTaskDetailButton = document.getElementById('close-modal-button-detail');
+    if (closeTaskDetailButton) {
+        closeTaskDetailButton.addEventListener('click', () => closeModal('task-detail-modal'));
+    }
+}
+
+// Offnet das AddTask Modal
+function setupOpenAddTaskModalListener() {
+    const openAddTaskButton = document.getElementById('open-modal-button'); // Stelle sicher, dass dies die korrekte ID ist
+    if (openAddTaskButton) {
+        openAddTaskButton.addEventListener('click', () => openModal('addtask-modal'));
+    }
+}
+
+// Schließ das AddTask Modal
+// Schließt das AddTask Modal
+function setupCloseAddTaskModalListener() {
+    const closeAddTaskButton = document.getElementById('close-modal-button-addtask');
+    if (closeAddTaskButton) {
+        closeAddTaskButton.addEventListener('click', () => closeModal('addtask-modal'));
+    }
+}
+
+// Funktion zum Öffnen eines Modals
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block'; // Stellt sicher, dass das Modal sichtbar ist
+        modal.classList.add('modal-open'); // Fügt die Klasse hinzu, um das Modal sanft einzublenden
+    }
+}
+
+// Funktion zum Schließen eines Modals
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
+        setTimeout(() => {
+            modal.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
+        }, 200); // Wartezeit entspricht der Dauer der Animation
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeBoard();
     initializeBoardCard();
-    setupModalEventListeners();
     setupCreateTaskListener();
-
+    setupTaskClickListeners();
+    setupCloseTaskDetailModalListener();
+    setupOpenAddTaskModalListener();
+    setupCloseAddTaskModalListener();
 });
 

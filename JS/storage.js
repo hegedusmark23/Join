@@ -17,37 +17,38 @@ async function getItem(key) {
     });
 };
 
-async function deleteTasks(taskId = null) {
-  try {
-      let tasks = await getItem('tasks'); // Abrufen aller gespeicherten Tasks als String
-
-      // Konvertieren des String zurück in ein Array
-      try {
-          tasks = JSON.parse(tasks);
-      } catch (error) {
-          console.error('Fehler beim Parsen der Tasks:', error);
-          return; // Beendet die Funktion vorzeitig, wenn das Parsen fehlschlägt
-      }
-
-      if (!Array.isArray(tasks)) {
-          console.error('Nach dem Parsen sind die Tasks kein Array:', tasks);
-          return; // Sicherstellen, dass die Tasks ein Array sind
-      }
-
-      if (taskId) {
-          // Löschen eines spezifischen Tasks durch ID
-          tasks = tasks.filter(task => task.id !== taskId);
-      } else {
-          // Löschen aller Tasks, wenn keine ID bereitgestellt wird
-          tasks = [];
-      }
-
-      await setItem('tasks', tasks); // Aktualisieren des Speichers mit den verbleibenden/leeren Tasks
-      console.log('Task(s) erfolgreich gelöscht');
-  } catch (error) {
-      console.error('Fehler beim Löschen des/der Task(s):', error);
+async function deleteTasks(taskIds = []) {
+    try {
+        let tasks = await getItem('tasks'); // Abrufen aller gespeicherten Tasks als String
+  
+        // Konvertieren des String zurück in ein Array
+        try {
+            tasks = JSON.parse(tasks);
+        } catch (error) {
+            console.error('Fehler beim Parsen der Tasks:', error);
+            return; // Beendet die Funktion vorzeitig, wenn das Parsen fehlschlägt
+        }
+  
+        if (!Array.isArray(tasks)) {
+            console.error('Nach dem Parsen sind die Tasks kein Array:', tasks);
+            return; // Sicherstellen, dass die Tasks ein Array sind
+        }
+  
+        if (taskIds && taskIds.length > 0) {
+            // Löschen spezifischer Tasks durch ihre IDs
+            tasks = tasks.filter(task => !taskIds.includes(task.id));
+        } else {
+            // Löschen aller Tasks, wenn keine IDs bereitgestellt werden
+            tasks = [];
+        }
+  
+        await setItem('tasks', JSON.stringify(tasks)); // Aktualisieren des Speichers mit den verbleibenden/leeren Tasks
+        console.log('Task(s) erfolgreich gelöscht');
+    } catch (error) {
+        console.error('Fehler beim Löschen des/der Task(s):', error);
+    }
   }
-}
+  
 
 async function addStateToExistingTasks() {
   try {
@@ -138,7 +139,9 @@ async function updateSubtaskCompletion(taskId, subtaskId, completionStatus) {
 // addCompletedToExistingSubtasks();
 
 // Verwendung der Funktion zum Löschen von Tasks
-// deleteTasks(); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
+// deleteTasks([1707558734060, 1707558735780, 1707558737023, 1707558737365, 1707558737739, 1707558737980, 1707558738166, 1707558738383, 1707558738641, 1707558740503, 1707558741315, 1707558904648, 1707559138203, 1707559193353, 1707559260451, 1707559288220, 1707559338204, 1707559632292, 1707560882716, 1707560951921]); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
+
+
 
 
 
