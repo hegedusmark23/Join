@@ -106,26 +106,34 @@ function renderCardContent(task, completionDetails) {
     let tasksImg = taskImage(task);
     let assigneesFooter = '';
     let labelCol1 = '#0038ff'
-    let labelCol2 = '#1FD7C1'   
+    let labelCol2 = '#1FD7C1'
 
-    task.assignTo.forEach(assignee => {
-        assigneesFooter += `<div class="board-content-circle" style="background-color: ${assignee.color};">${assignee.initials}</div>`;
-    });
+    // Verarbeite assignTo nur, wenn es existiert
+    if (task.assignTo && task.assignTo.length > 0) {
+        task.assignTo.forEach(assignee => {
+            assigneesFooter += `<div class="board-content-circle" style="background-color: ${assignee.color};">${assignee.initials}</div>`;
+        });
+    }
+
+    // Setze die Beschreibung auf einen leeren String, falls nicht vorhanden
+    let description = task.description ? task.description : "";
+
+    // Bereite die Anzeige der Subtasks vor, nur wenn vorhanden
+    let subtaskContent = (task.subtask && task.subtask.length > 0) ? 
+        `<div class="board-card-progress">
+            <div id="progress-bar-container" style="background-color: #F4F4F4; width: 164px; height: 8px; border-radius: 4px;">
+                <div id="progress-bar" style="height: 8px; border-radius: 4px; background-color: #4589FF; width: ${completionDetails.completionPercentage}%;"></div>
+            </div>
+            <div class="board-card-progress-text">${completionDetails.subtaskText}</div>
+        </div>` : '';
 
     return `
     <div class="board-card-content">
         <div class="board-card">
-        <div class="board-card-label" style="background-color: ${
-            task.category == 'Technical Task' ? labelCol1 : labelCol2
-        };">${task.category}</div>
+            <div class="board-card-label" style="background-color: ${task.category == 'Technical Task' ? labelCol1 : labelCol2}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
-            <div class="board-card-description">${task.description}</div>
-            <div class="board-card-progress">
-                <div id="progress-bar-container" style="background-color: #F4F4F4; width: 164px; height: 8px; border-radius: 4px;">
-                    <div id="progress-bar" style="height: 8px; border-radius: 4px; background-color: #4589FF; width: ${completionDetails.completionPercentage}%;"></div>
-                </div>
-                <div class="board-card-progress-text">${completionDetails.subtaskText}</div>
-            </div>
+            <div class="board-card-description">${description}</div>
+            ${subtaskContent}
             <div class="board-card-footer">
                 <div class="board-card-footer-assignees">${assigneesFooter}</div>
                 <div class="board-card-footer-prio"><img src="/Join/assets/icons/${tasksImg}" alt="Prio Symbol"></div>
@@ -133,6 +141,7 @@ function renderCardContent(task, completionDetails) {
         </div>
     </div>`;
 }
+
 
 // Initialisiert die Event-Listener
 function setupModalEventListeners() {
