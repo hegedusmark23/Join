@@ -760,7 +760,7 @@ textarea {
   line-height: 19px;
   letter-spacing: 0em;
   text-align: left;
-  padding: 4px 18px 4px 18px;
+  padding: 7px 18px 7px 18px;
   color: #fff;
   width: auto;
   margin-bottom: 24px;
@@ -977,12 +977,13 @@ textarea {
 }
 
 .detail-label {
-  width: 90px; /* Stelle sicher, dass dies breit genug für den längsten Label-Text ist */
-  min-width: 90px; /* Verhindert, dass der Container schrumpft, wenn der Platz knapp ist */
+  width: 90px;
+  min-width: 90px;
 }
 
 .detail-value {
   margin-left: 14px;
+  color: #000;
 }
 
 .subtask-icons-details {
@@ -990,6 +991,40 @@ textarea {
   justify-content: flex-end;
   align-items: center;
   gap: 9px;
+}
+
+.detail-assignees,
+.detail-subtasks {
+  margin-bottom: -8px;
+}
+.detail-assignee .dropdown-content-binding {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  padding: 8px 16px 7px 18px;
+}
+
+.dropdown-content-binding.details-subtasks-content {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.details-subtasks.dropdown-content-container {
+  padding: 7px 16px 7px 22px;
+}
+
+.detail-subtask-name {
+  margin-left: 12px;
+  font-size: 16px;
+}
+
+.details-subtasks-binding {
+  margin-bottom: 20px;
 }
 
 .details-footer-hover {
