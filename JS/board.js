@@ -349,6 +349,17 @@ function closeModal(modalId) {
     }
 }
 
+// Event-Delegation für den Schließ-Button im Modal einrichten
+function setupModalCloseDelegation() {
+    const modal = document.getElementById('task-detail-modal');
+    modal.addEventListener('click', function(event) {
+        // Prüfe, ob das geklickte Element der Schließ-Button oder ein Element innerhalb des Schließ-Buttons ist
+        if (event.target.closest('#close-modal-button-detail')) {
+            closeModal('task-detail-modal');
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeBoard();
     initializeBoardCard();
@@ -357,5 +368,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCloseTaskDetailModalListener();
     setupOpenAddTaskModalListener();
     setupCloseAddTaskModalListener();
+    setupModalCloseDelegation();
 });
 

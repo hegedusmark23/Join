@@ -879,6 +879,31 @@ textarea {
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
+#task-details-container {
+  max-height: 75vh; /* oder ein anderer Wert, der zu Ihrem Design passt */
+  overflow-y: auto; /* Ermöglicht das Scrollen innerhalb dieses Containers */
+}
+
+/* Anpassen der Breite des Scrollbalkens */
+#task-details-container::-webkit-scrollbar {
+  width: 5px; /* oder jede andere gewünschte Breite */
+}
+
+/* Anpassen des Hintergrunds des Scrollbalken-Tracks (die Leiste, auf der der Scrollbalken sitzt) */
+#task-details-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Anpassen des Aussehens des Scrollbalken-Griffs (der bewegliche Teil des Scrollbalkens) */
+#task-details-container::-webkit-scrollbar-thumb {
+  background: #dfdede;
+}
+
+/* Ändern der Farbe des Scrollbalken-Griffs beim Hover */
+#task-details-container::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
 .modal-open .modal-content {
   opacity: 1; /* Wird sichtbar */
   transform: translateX(0%); /* Bewegt sich zur Mitte */
@@ -918,12 +943,11 @@ textarea {
   transform: translate(-50%, -50%);
   min-width: 400px;
   max-width: 525px;
-  max-height: 75%;
-  overflow-y: auto;
   border-radius: 30px;
   padding: 48px 40px 48px 40px;
   display: flex;
   gap: 24px;
+  overflow: hidden;
 }
 #task-details {
   display: flex;
