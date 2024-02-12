@@ -171,7 +171,6 @@ function setupCreateTaskListener() {
 }
 
 // Show Tasks Details Bereich
-
 function openTaskDetailModal(task) {
     const modal = document.getElementById('task-detail-modal');
     const detailsContainer = document.getElementById('task-details');
@@ -185,7 +184,7 @@ function detailModalContent(task){
     // Erzeugen des Assignee-HTML-Strings, falls Assignees vorhanden sind
     const assigneesHtml = task.assignTo && task.assignTo.length > 0 ? generateAssigneesHtml(task.assignTo) : '';
     // Erzeugen des Subtask-HTML-Strings, falls Subtasks vorhanden sind
-    const subtasksHtml = task.subtask && task.subtask.length > 0 ? generateSubtasksHtml(task.subtask) : '';
+    const subtasksHtml = task.subtask && task.subtask.length > 0 ? generateSubtasksHtml(task, task.subtask) : ''; // Hier wird `task` übergeben
     let tasksImg = taskImage(task);
     return `
         <div class="task-details-header">
@@ -266,17 +265,17 @@ function generateAssigneesHtml(assignees) {
 }
 
 // Funktion zur Erzeugung des HTML-Strings für Subtasks
-function generateSubtasksHtml(subtasks) {
+function generateSubtasksHtml(task, subtasks) {
     return subtasks.map(subtask => `
     <div class="dropdown-content-container details-subtasks">    
-        <div class="dropdown-content-binding details-subtasks-content">
-            <div class="dropdown-content-checkbox">
+        <div class="dropdown-content-binding details-subtasks-content" data-subtask-id="${subtask.id}">
+            <div class="dropdown-content-checkbox" data-task-id="${task.id}" data-subtask-id="${subtask.id}">
                 ${subtask.completed === 'done' ? `
-                    <svg id="checkbox-checked-active" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="checkbox-checked-active" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#2A3647" stroke-width="2" stroke-linecap="round"></path>
                         <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>` : `
-                    <svg id="checkbox-unchecked-normal" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="checkbox-unchecked-normal" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
                     </svg>
                 `}
@@ -287,7 +286,6 @@ function generateSubtasksHtml(subtasks) {
         </div>
     </div>
     `).join('');
-
 }
 
 // Eventlistner für Modals
@@ -320,7 +318,6 @@ function setupOpenAddTaskModalListener() {
     }
 }
 
-// Schließ das AddTask Modal
 // Schließt das AddTask Modal
 function setupCloseAddTaskModalListener() {
     const closeAddTaskButton = document.getElementById('close-modal-button-addtask');
@@ -360,6 +357,34 @@ function setupModalCloseDelegation() {
     });
 }
 
+async function toggleSubtaskCompleted(taskId, subtaskId) {
+    let task = tasks.find(task => task.id === taskId);
+    if (task) {
+        let subtask = task.subtask.find(subtask => subtask.id === subtaskId);
+        if (subtask) {
+            subtask.completed = subtask.completed === 'done' ? null : 'done';
+            await setItem('tasks', JSON.stringify(tasks)); // Speichere die geänderten Tasks
+            initializeBoardCard(); // Aktualisiere das Board
+            return task; // Rückgabe des aktualisierten Task-Objekts
+        }
+    }
+    return null; // Rückgabe null, falls keine Änderung erfolgt ist
+}
+
+function setupSubtaskCompletionListener() {
+    document.addEventListener('click', async function(event) {
+        if (event.target.closest('.dropdown-content-checkbox')) {
+            const taskId = event.target.closest('[data-task-id]').dataset.taskId;
+            const subtaskId = event.target.closest('[data-subtask-id]').dataset.subtaskId;
+            const updatedTask = await toggleSubtaskCompleted(parseInt(taskId), parseInt(subtaskId));
+            if (updatedTask) {
+                openTaskDetailModal(updatedTask); // Öffne das Modal mit dem aktualisierten Task
+            }
+        }
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeBoard();
     initializeBoardCard();
@@ -369,5 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupOpenAddTaskModalListener();
     setupCloseAddTaskModalListener();
     setupModalCloseDelegation();
+    setupSubtaskCompletionListener();
 });
 
