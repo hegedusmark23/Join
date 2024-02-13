@@ -2,7 +2,7 @@
 function generateSummaryContent() {
   let container = document.getElementById('main-content');
   let background = document.getElementById('summary-nav');
-  container.innerHTML = summaryHTML();
+  // container.innerHTML = summaryHTML();
   //background.classList.add('selected-nav-link-background');
   timeDynamicWelcome();
   getNamefromArray();
@@ -23,16 +23,16 @@ function generateHelpContent() {
   container.innerHTML = helpHTML();
 }
 
-function generateAddTaskContent() {
-  let container = document.getElementById('main-content');
-  container.innerHTML = addTaskHTML();
-}
+// function generateAddTaskContent() {
+//   let container = document.getElementById('main-content');
+//   container.innerHTML = addTaskHTML();
+// }
 
-function generateContactsContent() {
-  let container = document.getElementById('main-content');
-  container.innerHTML = contactsHTML();
-  renderContact();
-}
+// function generateContactsContent() {
+//   let container = document.getElementById('main-content');
+//   container.innerHTML = contactsHTML();
+//   renderContact();
+// }
 
 function changePencilImgColor() {                //Changes the color of an icon on hover
   var image = document.getElementById("pencil-icon");

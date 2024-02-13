@@ -68,6 +68,16 @@
   flex-direction: row;
 }
 
+.addTask-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-contacts-contents{
+  display: flex;
+  flex-direction: row;
+}
+
 .user-icon {
   height: 54px;
   width: 54px;
@@ -179,6 +189,8 @@ section#board-content,
 section#addtask-content {
   padding: 10px 30px 10px 80px;
   background-color: #f0f0f0;
+  margin-top: 100px;
+  flex: 1;
 }
 
 .label-text {
@@ -706,7 +718,7 @@ textarea {
   height: 100vh;
 }
 
-.board-sections > div {
+.board-sections>div {
   flex: 1;
 }
 
@@ -847,14 +859,16 @@ textarea {
 }
 
 .modal {
-  display: none; /* Initial versteckt */
+  display: none;
+  /* Initial versteckt */
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4); /* Hintergrundfarbe */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Hintergrundfarbe */
   z-index: 3;
 }
 
@@ -874,19 +888,24 @@ textarea {
   border: 1px solid #888;
   width: 90%;
   border-radius: 30px;
-  opacity: 0; /* Startet versteckt */
-  transform: translateX(100%); /* Startet von rechts */
+  opacity: 0;
+  /* Startet versteckt */
+  transform: translateX(100%);
+  /* Startet von rechts */
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 #task-details-container {
-  max-height: 75vh; /* oder ein anderer Wert, der zu Ihrem Design passt */
-  overflow-y: auto; /* Ermöglicht das Scrollen innerhalb dieses Containers */
+  max-height: 75vh;
+  /* oder ein anderer Wert, der zu Ihrem Design passt */
+  overflow-y: auto;
+  /* Ermöglicht das Scrollen innerhalb dieses Containers */
 }
 
 /* Anpassen der Breite des Scrollbalkens */
 #task-details-container::-webkit-scrollbar {
-  width: 5px; /* oder jede andere gewünschte Breite */
+  width: 5px;
+  /* oder jede andere gewünschte Breite */
 }
 
 /* Anpassen des Hintergrunds des Scrollbalken-Tracks (die Leiste, auf der der Scrollbalken sitzt) */
@@ -905,8 +924,10 @@ textarea {
 }
 
 .modal-open .modal-content {
-  opacity: 1; /* Wird sichtbar */
-  transform: translateX(0%); /* Bewegt sich zur Mitte */
+  opacity: 1;
+  /* Wird sichtbar */
+  transform: translateX(0%);
+  /* Bewegt sich zur Mitte */
 }
 
 .addtask-modal-tpl {
@@ -949,6 +970,7 @@ textarea {
   gap: 24px;
   overflow: hidden;
 }
+
 #task-details {
   display: flex;
   flex-direction: column;
@@ -956,6 +978,7 @@ textarea {
   gap: 24px;
   width: 100%;
 }
+
 .task-details-header {
   display: flex;
   justify-content: space-between;
@@ -1021,6 +1044,7 @@ textarea {
 .detail-subtasks {
   margin-bottom: -8px;
 }
+
 .detail-assignee .dropdown-content-binding {
   display: flex;
   align-items: center;
@@ -1064,20 +1088,25 @@ textarea {
 
 .details-footer-hover:hover .detail-footer-text,
 .details-footer-hover:hover .custom-svg path {
-  color: #29abe2; /* Textfarbe */
-  fill: #29abe2; /* SVG Füllfarbe */
+  color: #29abe2;
+  /* Textfarbe */
+  fill: #29abe2;
+  /* SVG Füllfarbe */
 }
 
 .custom-svg path {
   fill: #2a3647;
-  transition: fill 0.2s; /* Weiche Übergänge für die SVG-Füllfarbe */
+  transition: fill 0.2s;
+  /* Weiche Übergänge für die SVG-Füllfarbe */
 }
 
 .detail-footer-text {
-  transition: color 0.2s; /* Weiche Übergänge für die Textfarbe */
+  transition: color 0.2s;
+  /* Weiche Übergänge für die Textfarbe */
 }
 
 @media (max-width: 700px) {
+
   #board-content h1,
   #addtask-content h1 {
     font-weight: 700;
