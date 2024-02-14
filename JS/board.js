@@ -152,7 +152,6 @@ function renderCardContent(task, completionDetails) {
 }
 
 // Tasks erstellen
-
 function setupCreateTaskListener() {
     const createTaskButton = document.getElementById('create-task');
     if (createTaskButton) {
@@ -187,7 +186,7 @@ function detailModalContent(task){
     const subtasksHtml = task.subtask && task.subtask.length > 0 ? generateSubtasksHtml(task, task.subtask) : ''; // Hier wird `task` übergeben
     let tasksImg = taskImage(task);
     return `
-        <div class="task-details-header">
+        <div class="task-details-header" id="task-${task.id}">
             <div id="board-detail-title" class="board-card-label" style="background-color:${getLabelColor(task.category)};">${task.category}</div>
             <div id="close-modal-button-detail" class="add-tasks-modal-close">
                 <div class="first-img-container modal-x-tpl">
@@ -242,7 +241,7 @@ function detailModalContent(task){
                                 <path d="M5.68213 19.3967H7.08213L15.7071 10.7717L14.3071 9.37173L5.68213 17.9967V19.3967ZM19.9821 9.32173L15.7321 5.12173L17.1321 3.72173C17.5155 3.3384 17.9863 3.14673 18.5446 3.14673C19.103 3.14673 19.5738 3.3384 19.9571 3.72173L21.3571 5.12173C21.7405 5.50506 21.9405 5.96756 21.9571 6.50923C21.9738 7.0509 21.7905 7.5134 21.4071 7.89673L19.9821 9.32173ZM18.5321 10.7967L7.93213 21.3967H3.68213V17.1467L14.2821 6.54673L18.5321 10.7967Z"></path>
                             </g>
                         </svg>
-                        <span class="detail-footer-text">Edit</span>
+                        <span id="edit-task" class="detail-footer-text">Edit</span>
                     </div>
                 </div>
             </div>
@@ -384,6 +383,46 @@ function setupSubtaskCompletionListener() {
     });
 }
 
+function setupEditTaskListener() {
+    document.addEventListener('click', function(event) {
+        const editButton = event.target.closest('#edit-task');
+        if (editButton) {
+            // Die Task-ID direkt aus dem id-Attribut des task-details-header extrahieren
+            const taskHeaderElement = document.querySelector('.task-details-header');
+            if (taskHeaderElement && taskHeaderElement.id) {
+                const taskId = taskHeaderElement.id.replace('task-', '');
+                console.log('Task ID:', taskId);
+
+                if (taskId) {
+                    openAddTaskModalForEditing(taskId); // Stellen Sie sicher, dass diese Funktion existiert und korrekt implementiert ist
+                }
+            }
+        }
+    });
+}
+
+function openAddTaskModalForEditing(taskId) {
+    // Finden des Tasks im globalen Array oder wo immer es gespeichert ist.
+    const task = tasks.find(t => t.id === parseInt(taskId));
+    
+    if (task) {
+        // Aktualisieren des Modals für das Bearbeiten
+        document.getElementById('addtask-title').value = task.title;
+        document.getElementById('description').value = task.description || '';
+        document.getElementById('dueDate').value = task.dueDate;
+
+        // Anpassen der Überschrift des Modals für den Bearbeitungsmodus
+        document.querySelector('.addtask-modal-headline').textContent = 'Edit Task';
+
+        // Weitere Felder können hier entsprechend aktualisiert werden...
+
+        // Öffnen des Modals
+        document.getElementById('addtask-modal').style.display = 'block';
+    } else {
+        console.error('Task mit ID ' + taskId + ' nicht gefunden.');
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeBoard();
@@ -395,5 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCloseAddTaskModalListener();
     setupModalCloseDelegation();
     setupSubtaskCompletionListener();
+    setupEditTaskListener();
 });
 

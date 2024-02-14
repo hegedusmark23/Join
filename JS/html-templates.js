@@ -1,4 +1,3 @@
-
 function summaryHTML() {
     return /*html*/`
         <div class="summary-container">
