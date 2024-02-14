@@ -14,7 +14,6 @@
 .navbar-links {
   color: white;
   text-decoration: none;
-  width: 100%;
   cursor: pointer;
 }
 
@@ -23,12 +22,9 @@
 }
 
 .nav-link-div {
-  width: 100%;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding: 8px 0;
+  align-items: center;
+  padding: 8px 53px 8px 53px;
 }
 
 .nav-link-div:hover {
@@ -36,13 +32,27 @@
 }
 
 .navbar-icon {
+  width: 30px;
+  height: 30px;
   object-fit: contain;
+}
+
+.nav-icon-pos {
+  flex: 0 0 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-text {
+  flex: 1;
+  margin-left: 15px;
 }
 
 .nav-links-container {
   display: flex;
-  flex-direction: column;
   width: 100%;
+  flex-direction: column;
   gap: 20px;
 }
 
@@ -73,12 +83,12 @@
   flex-direction: row;
 }
 
-.board-contents{
+.board-contents {
   display: flex;
   flex-direction: row;
 }
 
-.add-contacts-contents{
+.add-contacts-contents {
   display: flex;
   flex-direction: row;
 }
@@ -109,6 +119,7 @@
   z-index: 0;
   top: 0;
   left: 0;
+  background-color: #fff;
 }
 
 .wrapper-container {
@@ -723,7 +734,7 @@ textarea {
   height: 100vh;
 }
 
-.board-sections>div {
+.board-sections > div {
   flex: 1;
 }
 
@@ -1111,7 +1122,6 @@ textarea {
 }
 
 @media (max-width: 700px) {
-
   #board-content h1,
   #addtask-content h1 {
     font-weight: 700;
