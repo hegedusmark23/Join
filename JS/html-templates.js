@@ -308,7 +308,7 @@ function contactsHTML() {
             <div id="contact-view-container" class="contact-view-container translateX"></div>
         </div>
     </section>
-</main>
+
 
     <!-- add Contact Overlay -->
     <div onclick="hideAddContactOverlay()" id="add-contact-overlay" class="contact-bg-dialog d-none">

@@ -1,7 +1,7 @@
 
 async function init(){
     await includeHTML();
-    generateSummaryContent();
+    // generateSummaryContent();
     timeDynamicWelcome();
 }
 
