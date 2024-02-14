@@ -73,6 +73,11 @@
   flex-direction: row;
 }
 
+.board-contents{
+  display: flex;
+  flex-direction: row;
+}
+
 .add-contacts-contents{
   display: flex;
   flex-direction: row;
