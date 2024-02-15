@@ -98,7 +98,6 @@ function timeDynamicWelcome() {      //Daytime dependant Welcom message.
     welcome.innerHTML = 'Good Afternoon,';
   } else {
     welcome.innerHTML = 'Good Evening,';
-
   }
 }
 
@@ -120,7 +119,9 @@ function revealPassword() {         //Reveals the password on the login page.
 
 
 function guestLogin() {
-  window.location.href = '/guest.index.html'
+  // window.location.href = '/guest.index.html'
+  window.location.href = '/index.html'
 }
+
 
 
