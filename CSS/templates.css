@@ -1154,11 +1154,11 @@ textarea {
   flex: 1;
 }
 
-.tasks-edit input,
-.tasks-edit textarea,
-.tasks-edit button,
-.tasks-edit select,
-.tasks-edit label {
+.form-wrapper input,
+.form-wrapper textarea,
+.form-wrapper button,
+.form-wrapper select,
+.form-wrapper label {
   font-size: 18px !important;
 }
 
