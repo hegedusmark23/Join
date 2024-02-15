@@ -911,13 +911,6 @@ textarea {
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-#task-details-container {
-  max-height: 75vh;
-  /* oder ein anderer Wert, der zu Ihrem Design passt */
-  overflow-y: auto;
-  /* Ermöglicht das Scrollen innerhalb dieses Containers */
-}
-
 /* Anpassen der Breite des Scrollbalkens */
 #task-details-container::-webkit-scrollbar {
   width: 5px;
@@ -978,13 +971,23 @@ textarea {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 400px;
-  max-width: 525px;
+  width: calc(525px - 80px); /* Berücksichtigt das Padding */
+  max-width: 445px; /* Falls notwendig, ansonsten anpassen */
+  min-height: 300px; /* Mindesthöhe, anpassen basierend auf Bedarf */
+  height: calc(931px - 96px);
   border-radius: 30px;
-  padding: 48px 40px 48px 40px;
+  padding: 48px 40px;
   display: flex;
+  flex-direction: column;
   gap: 24px;
   overflow: hidden;
+}
+
+#task-details-container {
+  flex-grow: 1;
+  overflow-y: auto; /* Ermöglicht Scrollen, falls nötig */
+  width: 100%;
+  padding-right: 10px;
 }
 
 #task-details {
@@ -1119,6 +1122,82 @@ textarea {
 .detail-footer-text {
   transition: color 0.2s;
   /* Weiche Übergänge für die Textfarbe */
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.addtask-form-edit {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-content {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 10px;
+  background-color: #fff;
+}
+
+.tasks-edit {
+  display: flex;
+  justify-content: center;
+}
+
+.task-edit-adjust {
+  padding: 0px 0px 0px 0px !important;
+  width: 485px;
+  background-color: #fff !important;
+  margin-top: 30px !important;
+  flex: 1;
+}
+
+.tasks-edit input,
+.tasks-edit textarea,
+.tasks-edit button,
+.tasks-edit select,
+.tasks-edit label {
+  font-size: 18px !important;
+}
+
+.right-section-edit {
+  margin-top: 24px !important;
+}
+
+.addtask-actions-edit {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  z-index: 1000;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.addtask-info-edit {
+  position: relative !important;
+  width: auto !important;
+}
+
+.subtasks-container-edit {
+  min-height: auto !important;
+}
+
+.wrapper-flex-container-edit {
+  min-height: auto !important;
+  background-color: #fff;
+}
+
+.add-tasks-modal-close-edit {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
 }
 
 @media (max-width: 700px) {
