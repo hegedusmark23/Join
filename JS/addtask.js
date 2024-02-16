@@ -98,6 +98,12 @@ function checkInputFields() {
     let titleFocused = false;
     let dueDateFocused = false;
 
+    // Überprüfe, ob alle benötigten Elemente existieren
+    if (!title || !dueDate || !titleErrorMsg || !dueDateErrorMsg) {
+        console.warn('Eines oder mehrere benötigte Elemente für checkInputFields() fehlen im DOM.');
+        return; // Bricht die Ausführung ab, wenn ein Element fehlt
+    }
+
     title.addEventListener('focus', () => {
         titleFocused = true;
     });
@@ -126,21 +132,33 @@ function checkInputFields() {
 function saveInputFields() {
     // Event-Listener für Titel
     const titleInput = document.getElementById('addtask-title');
-    titleInput.addEventListener('input', () => {
-        title = titleInput.value;
-    });
+    if (titleInput) {
+        titleInput.addEventListener('input', () => {
+            title = titleInput.value;
+        });
+    } else {
+        console.warn('Titel-Inputfeld nicht gefunden.');
+    }
 
     // Event-Listener für Beschreibung
     const descriptionInput = document.getElementById('description');
-    descriptionInput.addEventListener('input', () => {
-        description = descriptionInput.value;
-    });
+    if (descriptionInput) {
+        descriptionInput.addEventListener('input', () => {
+            description = descriptionInput.value;
+        });
+    } else {
+        console.warn('Beschreibungs-Inputfeld nicht gefunden.');
+    }
 
     // Event-Listener für das Fälligkeitsdatum
     const dueDateInput = document.getElementById('dueDate');
-    dueDateInput.addEventListener('input', () => {
-        dueDate = dueDateInput.value;
-    });
+    if (dueDateInput) {
+        dueDateInput.addEventListener('input', () => {
+            dueDate = dueDateInput.value;
+        });
+    } else {
+        console.warn('Fälligkeitsdatum-Inputfeld nicht gefunden.');
+    }
 }
 
 async function loadTasks() {
@@ -156,10 +174,16 @@ async function loadTasks() {
 }
 
 async function createTask() {
-    document.getElementById('create-task').addEventListener('click', async () => {
+    const createTaskButton = document.getElementById('create-task');
+    if (!createTaskButton) {
+        console.warn('Create-Task-Button wurde nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn das Button-Element nicht existiert
+    }
+
+    createTaskButton.addEventListener('click', async () => {
         if (!validateTaskForm()) {
             // Beendet die Funktion, wenn die Validierung fehlschlägt
-            console.info('Vaidation failed. No Task created.');
+            console.info('Validation failed. No Task created.');
             return;
         }
 

@@ -876,7 +876,8 @@ textarea {
 
 .modal {
   display: none;
-  /* Initial versteckt */
+  justify-content: center;
+  align-items: center;
   position: fixed;
   left: 0;
   top: 0;
@@ -884,12 +885,26 @@ textarea {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
-  /* Hintergrundfarbe */
   z-index: 3;
 }
 
+.modal-content-tasks {
+  background-color: #fff;
+  position: fixed;
+  width: calc(525px - 80px); /* Berücksichtigt das Padding */
+  max-width: 445px; /* Falls notwendig, ansonsten anpassen */
+  min-height: 300px; /* Mindesthöhe, anpassen basierend auf Bedarf */
+  height: calc(931px - 96px);
+  border-radius: 30px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow: hidden;
+}
+
 .modal-open {
-  display: block;
+  display: flex;
 }
 
 .modal-close {
@@ -941,7 +956,8 @@ textarea {
 
 .addtask-modal-tpl {
   background-color: #fff !important;
-  padding: 40px 50px !important;
+  padding: 0px 50px 40px 50px !important;
+  margin-top: 60px !important;
 }
 
 .addtask-modal-header {
@@ -963,24 +979,6 @@ textarea {
 
 .modal-x-tpl:hover::before {
   z-index: 1 !important;
-}
-
-.modal-content-tasks {
-  background-color: #fff;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(525px - 80px); /* Berücksichtigt das Padding */
-  max-width: 445px; /* Falls notwendig, ansonsten anpassen */
-  min-height: 300px; /* Mindesthöhe, anpassen basierend auf Bedarf */
-  height: calc(931px - 96px);
-  border-radius: 30px;
-  padding: 48px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  overflow: hidden;
 }
 
 #task-details-container {

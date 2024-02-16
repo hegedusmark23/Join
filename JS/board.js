@@ -176,7 +176,7 @@ function openTaskDetailModal(task) {
     modal.classList.add('modal-open'); // Fügt die Klasse hinzu, um das Modal anzuzeigen
 
     detailsContainer.innerHTML = detailModalContent(task)
-    modal.style.display = 'block'; // Modal anzeigen
+    modal.style.display = 'flex'; // Modal anzeigen
 }
 
 function detailModalContent(task){
@@ -309,53 +309,6 @@ function setupCloseTaskDetailModalListener() {
     }
 }
 
-// Offnet das AddTask Modal
-function setupOpenAddTaskModalListener() {
-    const openAddTaskButton = document.getElementById('open-modal-button'); // Stelle sicher, dass dies die korrekte ID ist
-    if (openAddTaskButton) {
-        openAddTaskButton.addEventListener('click', () => openModal('addtask-modal'));
-    }
-}
-
-// Schließt das AddTask Modal
-function setupCloseAddTaskModalListener() {
-    const closeAddTaskButton = document.getElementById('close-modal-button-addtask');
-    if (closeAddTaskButton) {
-        closeAddTaskButton.addEventListener('click', () => closeModal('addtask-modal'));
-    }
-}
-
-// Funktion zum Öffnen eines Modals
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'block'; // Stellt sicher, dass das Modal sichtbar ist
-        modal.classList.add('modal-open'); // Fügt die Klasse hinzu, um das Modal sanft einzublenden
-    }
-}
-
-// Funktion zum Schließen eines Modals
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
-        setTimeout(() => {
-            modal.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-        }, 200); // Wartezeit entspricht der Dauer der Animation
-    }
-}
-
-// Event-Delegation für den Schließ-Button im Modal einrichten
-function setupModalCloseDelegation() {
-    const modal = document.getElementById('task-detail-modal');
-    modal.addEventListener('click', function(event) {
-        // Prüfe, ob das geklickte Element der Schließ-Button oder ein Element innerhalb des Schließ-Buttons ist
-        if (event.target.closest('#close-modal-button-detail')) {
-            closeModal('task-detail-modal');
-        }
-    });
-}
-
 async function toggleSubtaskCompleted(taskId, subtaskId) {
     let task = tasks.find(task => task.id === taskId);
     if (task) {
@@ -383,229 +336,20 @@ function setupSubtaskCompletionListener() {
     });
 }
 
-function setupEditTaskListener() {
-    document.addEventListener('click', function(event) {
-        const editButton = event.target.closest('#edit-task');
-        if (editButton) {
-            // Die Task-ID direkt aus dem id-Attribut des task-details-header extrahieren
-            const taskHeaderElement = document.querySelector('.task-details-header');
-            if (taskHeaderElement && taskHeaderElement.id) {
-                const taskId = taskHeaderElement.id.replace('task-', '');
-                console.log('Task ID:', taskId);
-
-                if (taskId) {
-                    renderEditTask(taskId); 
-                }
-            }
-        }
-    });
-}
-
-function renderEditTask(taskId) {
-    const task = tasks.find(t => t.id === parseInt(taskId));
-    if (!task) {
-        console.error("Task nicht gefunden.");
-        return;
-    }
-
-    // Befüllen des Modals mit Taskdaten für die Bearbeitung
-    const modalContent =
-    `
-    
-    <main class="addTask-content">
-        <section id="addtask-content" class="task-edit-adjust">
-            <div id="close-modal-button-addtask" class="add-tasks-modal-close add-tasks-modal-close-edit">
-                <div class="first-img-container">
-                    <svg class="first-img" xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
-                        fill="none">
-                        <line x1="7" y1="6" x2="18" y2="17" stroke="#2A3647" stroke-width="2" stroke-linecap="round">
-                        </line>
-                        <line x1="7" y1="17" x2="18" y2="6" stroke="#2A3647" stroke-width="2" stroke-linecap="round">
-                        </line>
-                    </svg>
-                </div>
-            </div>
-            </div>
-            <div class="form-wrapper">
-                <form onsubmit="return false;" class="addtask-form-edit">
-                    <div class="form-content">
-                        <div class="form-section left-section">
-                            <div class="addtask-selection addtask-custom-label">
-                                <label>
-                                    <span class="label-text required">Title</span>
-                                    </span>
-                                    <input id="addtask-title" type="text"
-                                        class="input-addtask-title addtask-title-input" placeholder="Enter a title">
-                                    <p id="title-error-msg" style="visibility: hidden;">This field is required</p>
-                                </label>
-                            </div>
-
-                            <div class="addtask-selection">
-                                <label>
-                                    <span>Description</span>
-                                    <textarea class="textarea-description textarea" placeholder="Enter a description"
-                                        name="decription" id="description"></textarea>
-                                </label>
-                            </div>
-
-                            <div class="addtask-selection">
-                                <label>
-                                    <span>Assigned to</span>
-                                    <div class="dropdown">
-                                        <button id="dropdown-assignees" class="dropbtn">Select contacts to
-                                            assign</button>
-                                        <div class="dropdown-ctrl">
-                                            <div class="icon-background-down arrowDown" style="display: block;"></div>
-                                            <div class="arrow-dropdown-down arrowDown" style="display: block;"></div>
-                                            <div class="icon-background-up arrowUp" style="display:none;"></div>
-                                            <div class="arrow-dropdown-up arrowUp" style="display:none;"></div>
-                                        </div>
-                                        <div class="dropdown-content-assign" id="assign-to" style="display: none;">
-
-                                        </div>
-                                    </div>
-                                    <div id="selected-assignees">
-
-                                    </div>
-                                </label>
-                            </div>
-
-                        </div>
-                        <div class="divider" style="display:none"></div>
-                        <div class="form-section right-section right-section-edit">
-                            <div class="addtask-selection addtask-custom-label">
-                                <label>
-                                    <span class="required">Due date</span>
-                                    <input type="date" id="dueDate" name="due-date" class="input-date">
-                                    <p id="duedate-error-msg" style="visibility: hidden;">This field is required</p>
-                                </label>
-                            </div>
-
-                            <label class="addtask-custom-label">Prio</label>
-                            <div class="addtask-selection">
-                                <div class="addtask-prio-btn">
-                                    <button class="addtask-buttons" id="addtask-prio-urgent">Urgent
-                                        <img class="icon" src="/Join/assets/img/addtask_prio-urgent-icon.svg"
-                                            alt="Prio Urgent">
-                                    </button>
-                                    <button class="addtask-buttons" id="addtask-prio-medium">Medium
-                                        <img class="icon" src="/Join/assets/img/addtask_prio-medium-icon.svg"
-                                            alt="Prio Medium">
-                                    </button>
-                                    <button class="addtask-buttons" id="addtask-prio-low">Low
-                                        <img class="icon" src="/Join/assets/img/addtask_prio-low-icon.svg"
-                                            alt="Prio Low">
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="addtask-selection">
-                                <label>
-                                    <span class="required">Category</span>
-                                    <div class="dropdown">
-                                        <button id="dropdown-categories" class="dropbtn">Select task category</button>
-                                        <div id="dropdown-container" class="dropdown-ctrl">
-                                            <div class="icon-background-down arrowDown" style="display: block;"></div>
-                                            <div class="arrow-dropdown-down arrowDown" style="display: block;"></div>
-                                            <div class="icon-background-up arrowUp" style="display:none;"></div>
-                                            <div class="arrow-dropdown-up arrowUp" style="display:none;"></div>
-                                        </div>
-
-                                        <div class="dropdown-content" id="category" style="display:none;">
-                                        </div>
-                                    </div>
-                                    <p id="dropdown-categories-error-msg" style="visibility: hidden;">This field is
-                                        required
-                                    </p>
-                                </label>
-                            </div>
-
-                            <div class="addtask-selection">
-                                <label>
-                                    <span>Subtask</span>
-                                    <div class="input-area-custom">
-                                        <input class="custom-input" type="text" id="subtask" name="subtask"
-                                            placeholder="Add new subtask">
-                                        <div class="subtask-ctrl">
-                                            <div class="subtask-icons-before" style="display: block;">
-                                                <div class="icon-background-down"></div>
-                                                <div class="cross-dropdown-down"></div>
-                                            </div>
-                                            <div class="subtask-icons-after" style="display: none;">
-
-                                                <div class="first-img-container">
-                                                    <svg class="first-img" xmlns="http://www.w3.org/2000/svg" width="25"
-                                                        height="24" viewBox="0 0 25 24" fill="none">
-                                                        <line x1="7" y1="6" x2="18" y2="17" stroke="#2A3647"
-                                                            stroke-width="2" stroke-linecap="round" />
-                                                        <line x1="7" y1="17" x2="18" y2="6" stroke="#2A3647"
-                                                            stroke-width="2" stroke-linecap="round" />
-                                                    </svg>
-                                                </div>
-                                                <div class="divider-container">
-                                                    <svg width="2" height="100%" viewBox="0 0 2 25"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <defs>
-                                                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%"
-                                                                y2="0%">
-                                                                <stop offset="0%"
-                                                                    style="stop-color: #cdcecf; stop-opacity: 0" />
-                                                                <stop offset="50%"
-                                                                    style="stop-color: #cdcecf; stop-opacity: 1" />
-                                                                <stop offset="100%"
-                                                                    style="stop-color: #cdcecf; stop-opacity: 0" />
-                                                            </linearGradient>
-                                                        </defs>
-                                                        <rect width="2" height="100%" fill="url(#grad1)" />
-                                                    </svg>
-                                                </div>
-                                                <div class="second-img-container">
-                                                    <svg class="second-img" xmlns="http://www.w3.org/2000/svg"
-                                                        width="25" height="24" viewBox="0 0 25 24" fill="none">
-                                                        <path
-                                                            d="M9.69474 15.15L18.1697 6.675C18.3697 6.475 18.6072 6.375 18.8822 6.375C19.1572 6.375 19.3947 6.475 19.5947 6.675C19.7947 6.875 19.8947 7.1125 19.8947 7.3875C19.8947 7.6625 19.7947 7.9 19.5947 8.1L10.3947 17.3C10.1947 17.5 9.96141 17.6 9.69474 17.6C9.42807 17.6 9.19474 17.5 8.99474 17.3L4.69474 13C4.49474 12.8 4.3989 12.5625 4.40724 12.2875C4.41557 12.0125 4.51974 11.775 4.71974 11.575C4.91974 11.375 5.15724 11.275 5.43224 11.275C5.70724 11.275 5.94474 11.375 6.14474 11.575L9.69474 15.15Z"
-                                                            fill="#2A3647"></path>
-                                                    </svg>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label>
-
-                                <div class="wrapper-flex-container wrapper-flex-container-edit">
-                                    <div class="subtasks-container subtasks-container-edit">
-                                        <div id="subtasks-list-container">
-                                            <ul>
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="addtask-actions addtask-actions-edit">
-                        <div class="addtask-info info addtask-info-edit">This field is required</div>
-                        <div class="addtask-action-btns">
-                            <button id="create-task" class="blue-btn">Ok
-                                <img src="/Join/assets/icons/check.svg" alt="Create Task">
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
-        </div>
-    </main>
-
-    `;
-
-    // Ersetzen des aktuellen Inhalts des Detail-Modals durch das Bearbeitungsformular
-    const detailModalContainer = document.getElementById('task-details');
-    if (detailModalContainer) {
-        detailModalContainer.innerHTML = modalContent;
-    }
+function reinitializeEventListenersForEditModal() {
+    checkInputFields();
+    saveInputFields();
+    handlePrioButtons();
+    inputSubtask();
+    addSubTask();
+    setupEventListenersSubtasks();
+    renderAssignees();
+    setupAssigneeGlobalClickListener();
+    setupAssigneeDropdownToggleListener();
+    initCategoryDropdown();
+    setupCategoryDropdownEventListeners();
+    setupModalCloseDelegationEdit();
+    setupModalCloseDelegationAddAtskBoard();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -619,5 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModalCloseDelegation();
     setupSubtaskCompletionListener();
     setupEditTaskListener();
+    setupModalCloseDelegationEdit();
+    setupModalCloseDelegationAddAtskBoard();
 });
 
