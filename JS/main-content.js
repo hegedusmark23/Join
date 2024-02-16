@@ -120,7 +120,7 @@ function revealPassword() {         //Reveals the password on the login page.
 
 function guestLogin() {
   // window.location.href = '/guest.index.html'
-  window.location.href = '/index.html'
+  window.location.href = '/guest.index.html'
 }
 
 

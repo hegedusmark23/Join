@@ -143,6 +143,8 @@ p {
 
 .arrow {
   transition: transform 0.2s;
+  position: absolute;
+  right: 10px;
 }
 
 .arrow:hover {
