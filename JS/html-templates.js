@@ -11,14 +11,15 @@ function summaryHTML() {
                     <div class="blue-line-mobile"></div>
                 </div>
                 <div class="tasks-summary-section">
-                <div class="task-container-mid">
+
+                <a href="/board.html"><div class="task-container-mid">
                     <div id="pencil-button" onmouseover="changePencilImgColor()" class="summary-task-display-mid">
                         <div class="summary-icon-circle"><img id="pencil-icon" src="/assets/img/pencil-white.png" alt=""></div>
                         <div class="text-center">
                             <h1 class="tasks-number no-margin">0</h1>
                             <span class="summary-text">To-do</span>
                         </div>
-                    </div>
+                    </div></a>
 
                     <div id="check-button" onmouseover="changeCheckImgColor()" class="summary-task-display-mid">
                         <div class="summary-icon-circle"><img id="check-icon" src="/assets/img/check-white.png" alt=""></div>
@@ -72,7 +73,7 @@ function summaryHTML() {
 
 function legalNoticeHTML() {
     return /*html*/`
-        <a class="legal-site-arrow" onclick="generateSummaryContent()"><img class="arrow" src="/assets/img/arrow-left-blue.png" alt=""></a>
+        <a class="legal-site-arrow" href="/index.html"><img class="arrow" src="/assets/img/arrow-left-blue.png" alt=""></a>
             <div id="summary-content">
                 <div class="legal-text-container">
                     <div>
@@ -103,7 +104,7 @@ function legalNoticeHTML() {
 
 function privacyPolicyHTML() {
     return /*html*/`
-        <a class="legal-site-arrow" onclick="generateSummaryContent()"><img class="arrow"
+        <a class="legal-site-arrow" href="/index.html"><img class="arrow"
                     src="/assets/img/arrow-left-blue.png" alt=""></a>
             <div id="summary-content">
                 <div class="legal-text-container">
@@ -191,7 +192,7 @@ function privacyPolicyHTML() {
 
 function helpHTML() {
     return /*html*/`
-    <a class="legal-site-arrow" onclick="generateSummaryContent()"><img class="arrow"
+    <a class="legal-site-arrow" href="/index.html"><img class="arrow"
     src="/assets/img/arrow-left-blue.png" alt=""></a>
 <div id="summary-content">
 <div class="legal-text-container">

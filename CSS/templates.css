@@ -11,10 +11,27 @@
   z-index: 1;
 }
 
+.navbar-nouser {
+  min-width: 232px;
+  width: 232px;
+  height: 100vh;
+  background-color: #2a3647;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
+
 .navbar-links {
   color: white;
   text-decoration: none;
   cursor: pointer;
+}
+
+.blue-join-logo{
+  display: none;
 }
 
 .join-logo-small {
@@ -1295,8 +1312,22 @@ textarea {
     flex-direction: column;
   }
 
+  .blue-join-logo{
+    display: flex;
+    height: 60px;
+    padding: 10px;
+  }
+
   .nav-text {
     margin-left: 0px;
+  }
+
+  .legal-headline{
+    font-size: 47px;
+  }
+
+  .navbar-nouser{
+    display: none;
   }
 
   .navbar {
@@ -1374,6 +1405,16 @@ textarea {
   .join-logo-mobile {
     display: flex;
     height: 45px;
+    padding: 20px;
+  }
+
+  .legal-headline{
+    font-size: 37px;
+  }
+
+  .blue-join-logo{
+    display: flex;
+    height: 39px;
     padding: 20px;
   }
 

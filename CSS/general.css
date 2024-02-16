@@ -7,26 +7,31 @@
   font-weight: 100;
   src: url("../assets/fonts/Inter-Thin.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Inter";
   font-weight: 200;
   src: url("../assets/fonts/Inter-ExtraLight.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Inter";
   font-weight: 300;
   src: url("../assets/fonts/Inter-Light.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Inter";
   font-weight: 400;
   src: url("../assets/fonts/Inter-Regular.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Inter";
   font-weight: 500;
   src: url("../assets/fonts/Inter-Medium.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Inter";
   font-weight: 600;
@@ -44,6 +49,7 @@
   font-weight: 800;
   src: url("../assets/fonts/Inter-ExtraBold.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Inter";
   font-weight: 900;
@@ -74,6 +80,12 @@ ol {
 p {
   margin-block-start: 0px;
   margin-block-end: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
 }
 
 .no-margin {
@@ -170,6 +182,7 @@ p {
 
 .legal-headline {
   font-size: 61px;
+  font-weight: 600;
 }
 
 .red-urgent-icon {
@@ -210,11 +223,7 @@ p {
   height: 158px;
   gap: 10px;
   z-index: 1;
-}
-
-a {
-  cursor: pointer;
-}
+}ó
 
 .menu-popup {
   flex-direction: column;
@@ -237,6 +246,7 @@ a {
   color: white;
   text-decoration: none;
 }
+
 .popup-links-div {
   padding: 10px;
 }
@@ -270,13 +280,16 @@ a {
   transform: translateY(-50%);
   width: 24px;
   height: 24px;
-  z-index: 4; /* Stellt sicher, dass dies über den Pfeilen liegt */
-  pointer-events: auto; /* Stellt sicher, dass dieses Element auf Events reagieren kann */
+  z-index: 4;
+  /* Stellt sicher, dass dies über den Pfeilen liegt */
+  pointer-events: auto;
+  /* Stellt sicher, dass dieses Element auf Events reagieren kann */
 }
 
 .arrowDown,
 .arrowUp {
-  pointer-events: none; /* Lässt Click-Events durch die Pfeile hindurch */
+  pointer-events: none;
+  /* Lässt Click-Events durch die Pfeile hindurch */
 }
 
 .arrow-dropdown-down {
@@ -407,25 +420,31 @@ a {
 
 /* Anpassen des Scrollbalkens für Webkit-Browser wie Chrome, Safari */
 .dropdown-content-assign::-webkit-scrollbar {
-  width: 8px; /* Breite des vertikalen Scrollbalkens */
+  width: 8px;
+  /* Breite des vertikalen Scrollbalkens */
 }
 
 .dropdown-content-assign::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Farbe des Scrollbalkenhintergrunds */
+  background: #f1f1f1;
+  /* Farbe des Scrollbalkenhintergrunds */
 }
 
 .dropdown-content-assign::-webkit-scrollbar-thumb {
-  background: #888; /* Farbe des Scrollbalken-Griffs */
+  background: #888;
+  /* Farbe des Scrollbalken-Griffs */
 }
 
 .dropdown-content-assign::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Farbe des Scrollbalken-Griffs beim Hovern */
+  background: #555;
+  /* Farbe des Scrollbalken-Griffs beim Hovern */
 }
 
 /* Standard-Scrollbalken-Stile für Firefox */
 .dropdown-content-assign {
-  scrollbar-width: thin; /* 'thin', 'auto' oder ein spezifischer Wert */
-  scrollbar-color: #888 #f1f1f1; /* Griff- und Hintergrundfarbe */
+  scrollbar-width: thin;
+  /* 'thin', 'auto' oder ein spezifischer Wert */
+  scrollbar-color: #888 #f1f1f1;
+  /* Griff- und Hintergrundfarbe */
 }
 
 .message-animation {
@@ -440,7 +459,8 @@ a {
   justify-content: center;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
   animation: floathingMessage 0.7s linear;
-  animation-fill-mode: forwards; /* Sorgt dafür, dass die Animation bei 100% stehen bleibt */
+  animation-fill-mode: forwards;
+  /* Sorgt dafür, dass die Animation bei 100% stehen bleibt */
 }
 
 .message-animation-background {
@@ -464,6 +484,7 @@ a {
     bottom: 0;
     opacity: 0;
   }
+
   100% {
     bottom: 66%;
     opacity: 1;

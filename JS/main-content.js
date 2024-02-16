@@ -69,8 +69,7 @@ function showMenu() {
 
 function closeMenu() {
   let menu = document.getElementById('popup-menu');
-  menu.classList.remove('d-flex');
-  menu.classList.add('d-none');
+  menu.style.display = "none";
 }
 
 function signUpMessage() {    // A messeage does appear after a succesfull registration.
@@ -124,4 +123,23 @@ function guestLogin() {
 }
 
 
+function startAnimations() {
+  // Get elements by class name and add animation class
+  var elements = document.getElementsByClassName('tasks-headline-container');
+  for (var i = 0; i < elements.length; i++) {
+      elements[i].classList.add('invisVisMobile');
+  }
 
+  elements = document.getElementsByClassName('navbar');
+  for (var i = 0; i < elements.length; i++) {
+      elements[i].classList.add('invisVisMobile');
+  }
+
+  elements = document.getElementsByClassName('header');
+  for (var i = 0; i < elements.length; i++) {
+      elements[i].classList.add('invisVisMobile');
+  }
+
+  // Add animation class to welcome-section
+  document.querySelector('.welcome-section').classList.add('welcomeMessageMobile');
+}
