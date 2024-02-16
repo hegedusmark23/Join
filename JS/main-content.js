@@ -143,3 +143,4 @@ function startAnimations() {
   // Add animation class to welcome-section
   document.querySelector('.welcome-section').classList.add('welcomeMessageMobile');
 }
+

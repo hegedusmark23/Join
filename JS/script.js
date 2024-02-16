@@ -1,10 +1,11 @@
 
 async function init(){
     await includeHTML();
-    // generateSummaryContent();
     timeDynamicWelcome();
+    numberOfTodos();
 }
 
 async function initRegister(){
     await loadUsers();
 }
+

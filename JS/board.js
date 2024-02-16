@@ -621,3 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEditTaskListener();
 });
 
+function numberOfTodos(){
+    let toDos = document.getElementById('numberOfToDos')
+    toDos.innerHTML = toDo.length
+  }
