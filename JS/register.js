@@ -85,7 +85,7 @@ async function setCurrentUser() {   // Sets the current user after log in.
     message.innerHTML = currentUser[0]['name'];
     capitalisedName();
   } catch (error) {
-    console.error("Ein fehler aufgetreten.", error);
+    console.error("Es ist ein fehler aufgetreten.", error);
   }
 }
 

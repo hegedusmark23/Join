@@ -367,3 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModalCloseDelegationAddAtskBoard();
 });
 
+function numberOfTodos(){
+    let toDos = document.getElementById('numberOfToDos')
+    toDos.innerHTML = toDo.length
+  }
