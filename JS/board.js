@@ -177,6 +177,8 @@ function openTaskDetailModal(task) {
 
     detailsContainer.innerHTML = detailModalContent(task)
     modal.style.display = 'flex'; // Modal anzeigen
+    // Reinitialisieren der EventListener
+    setupDeleteTaskListener();
 }
 
 function detailModalContent(task){
@@ -220,7 +222,7 @@ function detailModalContent(task){
             </div>
             <div class="detail-footer">
                 <div class="subtask-icons-details">
-                    <div class="details-footer-hover">
+                    <div id="delete-task-button" class="details-footer-hover">
                         <svg class="custom-svg" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_75601_14777" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                                 <rect x="0.144531" width="24" height="24" fill="#D9D9D9"></rect>
@@ -336,6 +338,40 @@ function setupSubtaskCompletionListener() {
     });
 }
 
+// Funktion zum Einrichten des EventListeners für den "Delete"-Button
+function setupDeleteTaskListener() {
+    console.log('Setup Delete Task Listener');
+    const deleteButton = document.getElementById('delete-task-button');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', deleteCurrentTask);
+        console.log('Delete-Listener hinzugefügt');
+    } else {
+        console.warn('Delete-Button wurde nicht gefunden.');
+    }
+}
+
+// Funktion zum Löschen des aktuellen Tasks
+function deleteCurrentTask() {
+    console.log('Delete Task ausgelöst');
+    const taskHeaderElement = document.querySelector('.task-details-header');
+    if (taskHeaderElement && taskHeaderElement.id) {
+        const taskId = taskHeaderElement.id.replace('task-', '');
+        console.log('Löschende Task ID:', taskId); // Hinzugefügt zur Überprüfung
+        if (taskId) {
+            deleteTasks([parseInt(taskId)])
+                .then(() => {
+                    console.log('Task wurde erfolgreich gelöscht');
+                    closeModal('task-detail-modal'); // Korrigiert mit korrekter ID
+                    initializeBoardCard();
+                    // Weitere Aktionen nach dem Löschen
+                })
+                .catch(error => {
+                    console.error('Fehler beim Löschen des Tasks:', error);
+                });
+        }
+    }
+}
+
 function reinitializeEventListenersForEditModal() {
     checkInputFields();
     saveInputFields();
@@ -350,6 +386,7 @@ function reinitializeEventListenersForEditModal() {
     setupCategoryDropdownEventListeners();
     setupModalCloseDelegationEdit();
     setupModalCloseDelegationAddAtskBoard();
+    setupDeleteTaskListener();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -365,6 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEditTaskListener();
     setupModalCloseDelegationEdit();
     setupModalCloseDelegationAddAtskBoard();
+    setupDeleteTaskListener();
 });
 
 function numberOfTodos(){

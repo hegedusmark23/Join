@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-.blue-join-logo{
+.blue-join-logo {
   display: none;
 }
 
@@ -911,7 +911,7 @@ textarea {
   width: calc(525px - 80px); /* Berücksichtigt das Padding */
   max-width: 445px; /* Falls notwendig, ansonsten anpassen */
   min-height: 300px; /* Mindesthöhe, anpassen basierend auf Bedarf */
-  height: calc(931px - 96px);
+  max-height: calc(931px - 96px);
   border-radius: 30px;
   padding: 48px 40px;
   display: flex;
@@ -1310,7 +1310,7 @@ textarea {
     flex-direction: column;
   }
 
-  .blue-join-logo{
+  .blue-join-logo {
     display: flex;
     height: 60px;
     padding: 10px;
@@ -1320,11 +1320,11 @@ textarea {
     margin-left: 0px;
   }
 
-  .legal-headline{
+  .legal-headline {
     font-size: 47px;
   }
 
-  .navbar-nouser{
+  .navbar-nouser {
     display: none;
   }
 
@@ -1406,11 +1406,11 @@ textarea {
     padding: 20px;
   }
 
-  .legal-headline{
+  .legal-headline {
     font-size: 37px;
   }
 
-  .blue-join-logo{
+  .blue-join-logo {
     display: flex;
     height: 39px;
     padding: 20px;
