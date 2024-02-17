@@ -63,6 +63,7 @@ async function categorizeTasks() {
 
 async function initializeBoard() {
     await categorizeTasks(); // Tasks sortieren und in Arrays einordnen
+
 }
 
 // Tasks anzeigen
@@ -436,4 +437,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSubtaskCompletionListener();
     setupEditTaskListener();
 });
+
+function linkActive(){
+   document.getElementById('board-nav').style.backgroundColor = '#000'
+}
 
