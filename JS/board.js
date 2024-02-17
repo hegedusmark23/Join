@@ -405,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupDeleteTaskListener();
 });
 
-function numberOfTodos(){
+ function numberOfTodos(){
     let toDos = document.getElementById('numberOfToDos')
-    toDos.innerHTML = toDo.length
+    toDos.innerHTML =`<h1 class="tasks-number no-margin">${toDo.length}</h1>`;
   }
