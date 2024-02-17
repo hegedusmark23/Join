@@ -40,37 +40,47 @@ function inputSubtask() {
     let iconsBefore = document.querySelector('.subtask-icons-before');
     let iconsAfter = document.querySelector('.subtask-icons-after');
 
-    // Event-Listener für den Fokus auf das Inputfeld
-    inputField.addEventListener('focus', () => {
-        iconsBefore.style.display = 'none';
-        iconsAfter.style.display = 'flex';
-    });
+    if (inputField && clearButton && iconsBefore && iconsAfter) {
+        // Event-Listener für den Fokus auf das Inputfeld
+        inputField.addEventListener('focus', () => {
+            iconsBefore.style.display = 'none';
+            iconsAfter.style.display = 'flex';
+        });
 
-    // Event-Listener für das Clear-Button
-    clearButton.addEventListener('click', () => {
-        inputField.value = '';
-        setTimeout(() => {
-            iconsBefore.style.display = 'block';
-            iconsAfter.style.display = 'none';
-            inputField.blur();
-        }, 10); // Kleine Verzögerung von 10 Millisekunden
-    });
-    
+        // Event-Listener für das Clear-Button
+        clearButton.addEventListener('click', () => {
+            inputField.value = '';
+            setTimeout(() => {
+                iconsBefore.style.display = 'block';
+                iconsAfter.style.display = 'none';
+                inputField.blur();
+            }, 10); // Kleine Verzögerung von 10 Millisekunden
+        });
+    } else {
+        // Warnung ausgeben, wenn eines der Elemente nicht gefunden wurde
+        console.warn('Eines oder mehrere Subtask-bezogene Elemente wurden nicht im DOM gefunden.');
+    }
 }
 
 function addSubTask() {
-    // Event-Listener für den "Add"-Button
     let addButton = document.querySelector('.second-img-container');
-    addButton.addEventListener('click', renderSubtask);
-
-    // Event-Listener für das Drücken der Return-Taste im Eingabefeld
     let inputField = document.getElementById('subtask');
-    inputField.addEventListener('keypress', (event) => {
-        if (event.keyCode === 13 || event.which === 13) {
-            event.preventDefault(); // Verhindert das standardmäßige Verhalten der Return-Taste
-            renderSubtask();
-        }
-    });
+
+    if (addButton && inputField) {
+        // Event-Listener für den "Add"-Button
+        addButton.addEventListener('click', renderSubtask);
+
+        // Event-Listener für das Drücken der Return-Taste im Eingabefeld
+        inputField.addEventListener('keypress', (event) => {
+            if (event.keyCode === 13 || event.which === 13) {
+                event.preventDefault(); // Verhindert das standardmäßige Verhalten der Return-Taste
+                renderSubtask();
+            }
+        });
+    } else {
+        // Warnung ausgeben, wenn eines der Elemente nicht gefunden wurde
+        console.warn('Eines oder mehrere Elemente für das Hinzufügen von Subtasks wurden nicht im DOM gefunden.');
+    }
 }
 
 function renderSubtask() {
@@ -167,74 +177,60 @@ function saveSubtask(liElement) {
 }
 
 function setupEventListenersSubtasks() {
-    // Event-Listener für das Löschen von Subtasks und Doppelklicken auf Subtasks hinzufügen
-    let listContainer = document.getElementById('subtasks-list-container').querySelector('ul');
+    let listContainerElement = document.getElementById('subtasks-list-container');
+    if (!listContainerElement) {
+        console.warn('Container für Subtasks wurde nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn der Container nicht existiert
+    }
 
-    listContainer.addEventListener('click', (event) => {
+    let listContainer = listContainerElement.querySelector('ul');
+    if (!listContainer) {
+        console.warn('UL-Element für Subtasks wurde nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn das UL-Element nicht existiert
+    }
+
+    // Event-Listener für Klicks im UL-Container hinzufügen
+    listContainer.addEventListener('click', function(event) {
+        // Überprüfung auf das Löschen von Subtasks
         if (event.target.classList.contains('delete-subtask')) {
             let liToDelete = event.target.closest('li');
-            if (liToDelete) {
-                // Überprüft, ob eine ID für den Subtask vorhanden ist
+            if (liToDelete && listContainer.contains(liToDelete)) {
+                // Entfernt das <li>-Element aus dem DOM und aktualisiert das Array
                 let subtaskId = liToDelete.dataset.subtaskId;
                 if (subtaskId) {
-                    // Aktualisiert das subtasks-Array, indem der gelöschte Subtask entfernt wird
                     subtasks = subtasks.filter(subtask => subtask.id.toString() !== subtaskId);
                 }
-
-                // Entfernt das <li>-Element aus dem DOM
                 listContainer.removeChild(liToDelete);
+            }
+        }
+
+        // Überprüfung, ob der geklickte Button der Bearbeiten-Button ist
+        if (event.target.classList.contains('edit-subtask')) {
+            let liToEdit = event.target.closest('li');
+            if (liToEdit) {
+                editSubtask(liToEdit); // Ruft die Funktion `editSubtask` auf
+            }
+        }
+
+        // Überprüfung, ob der geklickte Button der Speichern-Button ist
+        if (event.target.classList.contains('save-subtask')) {
+            let liToSave = event.target.closest('li');
+            if (liToSave) {
+                saveSubtask(liToSave); // Ruft die Funktion `saveSubtask` auf
             }
         }
     });
 
     // Event-Listener für das Doppelklicken auf Subtasks hinzufügen
-    listContainer.addEventListener('dblclick', (event) => {
+    listContainer.addEventListener('dblclick', function(event) {
         let liToEdit = event.target.closest('li');
         if (liToEdit && !liToEdit.classList.contains('edit-mode')) {
-            editSubtask(liToEdit);
-        }
-    });
-
-    listContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('delete-subtask')) {
-            let liToDelete = event.target.closest('li');
-            if (liToDelete && listContainer.contains(liToDelete)) {
-                // Überprüfen, ob wir uns im Bearbeitungsmodus befinden
-                let inputElement = liToDelete.querySelector('.input-subtask');
-                let subtaskText;
-                if (inputElement) {
-                    // Im Bearbeitungsmodus, verwenden Sie den Wert des Input-Elements
-                    subtaskText = inputElement.value;
-                } else {
-                    // Nicht im Bearbeitungsmodus, verwenden Sie den Text aus dem <p>-Element
-                    let pElement = liToDelete.querySelector('p');
-                    subtaskText = pElement ? pElement.textContent : '';
-                }
-    
-                // Entfernen Sie den Subtask aus dem Array, wenn nötig
-                subtasks = subtasks.filter(subtask => subtask !== subtaskText);
-    
-                listContainer.removeChild(liToDelete);
-            }
-        }
-
-        // Überprüfen, ob der geklickte Button der Bearbeiten-Button ist
-        if (event.target.classList.contains('edit-subtask')) {
-            let liToEdit = event.target.closest('li');
-            if (liToEdit) {
-                editSubtask(liToEdit);
-            }
-        }
-
-        // Überprüfen, ob der geklickte Button der Speichern-Button ist
-        if (event.target.classList.contains('save-subtask')) {
-            let liToSave = event.target.closest('li');
-            if (liToSave) {
-                saveSubtask(liToSave);
-            }
+            editSubtask(liToEdit); // Ruft die Funktion `editSubtask` auf
         }
     });
 }
+
+
 // Assignee DropDown
 // Schaltet das Dropdown-Menü um und steuert die Anzeige der Pfeil-Icons
 function toggleAssigneeDropdown() {
@@ -266,9 +262,16 @@ function updateAssignee(user) {
 
 // Fügt dem Dropdown-Button einen Event-Listener hinzu, um das Dropdown-Menü zu steuern
 function setupAssigneeGlobalClickListener() {
+    // Prüfen, ob die Dropdown-Elemente existieren
+    const dropdownContent = document.getElementById('assign-to');
+    const dropdownButton = document.getElementById('dropdown-assignees');
+
+    if (!dropdownContent || !dropdownButton) {
+        console.warn('Dropdown-Elemente wurden nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn die Elemente nicht existieren
+    }
+
     document.addEventListener('click', function(event) {
-        let dropdownContent = document.getElementById('assign-to');
-        let dropdownButton = document.getElementById('dropdown-assignees');
         let isClickInsideDropdown = dropdownButton.contains(event.target) || dropdownContent.contains(event.target);
 
         if (!isClickInsideDropdown && dropdownContent.style.display === 'block') {
@@ -276,7 +279,6 @@ function setupAssigneeGlobalClickListener() {
         }
     });
 }
-
 
 // Ändert den 'added'-Status eines Benutzers und rendert die Benutzerliste neu
 function toggleAssigneeStatus(letter, index) {
@@ -312,10 +314,13 @@ function generateInitials(completeName) {
 
 // Rendert die Benutzerliste im Dropdown-Menü
 function renderAssignees() {
-    console.log("renderAssignees wird aufgerufen");
     let dropdownContent = document.getElementById('assign-to');
+    if (!dropdownContent) {
+        console.warn('Dropdown-Container für Assignees wurde nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
+    }
+
     dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
-    console.log('Aufrufen: ', letterContainer);
 
     Object.keys(letterContainer).forEach(letter => {
         letterContainer[letter].forEach((contact, index) => {
@@ -325,17 +330,12 @@ function renderAssignees() {
 
             // Erstellung des Checkbox SVG basierend auf dem 'added' Zustand
             const checkboxSVG = contact.added ? 
-                `<svg id="checkbox-checked-active" style="display:block" width="25" height="24"
-                    viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882"
-                        stroke="#fff" stroke-width="2" stroke-linecap="round" />
-                    <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" />
+                `<svg id="checkbox-checked-active" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#fff" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>` : 
-                `<svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24"
-                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647"
-                        stroke-width="2" />
+                `<svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
                 </svg>`;
 
             userContainer.innerHTML = `
@@ -360,10 +360,14 @@ function renderAssignees() {
     });
 }
 
-
 // Event-Listener für den Dropdown-Button einrichten
 function setupAssigneeDropdownToggleListener() {
     let dropdownButton = document.getElementById('dropdown-assignees');
+    if (!dropdownButton) {
+        console.warn('Dropdown-Button für Assignees wurde nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
+    }
+
     dropdownButton.addEventListener('click', (event) => {
         event.stopPropagation(); // Verhindert das Schließen des Dropdowns beim Klicken auf den Button
         toggleAssigneeDropdown();
@@ -392,9 +396,13 @@ function updateSelectedAssigneesDisplay() {
 
 // Category DropDown
 function initCategoryDropdown() {
-    let categories = ['Technical Task', 'User Story'];
     let dropdownContent = document.getElementById('category');
+    if (!dropdownContent) {
+        console.warn('Dropdown-Container für Kategorien wurde nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
+    }
 
+    let categories = ['Technical Task', 'User Story'];
     categories.forEach((category) => {
         let link = document.createElement('a');
         link.href = '#';
@@ -431,12 +439,21 @@ function toggleCategoryDropdown() {
 
 // Funktion zum Setup der Event-Listener für Dropdown
 function setupCategoryDropdownEventListeners() {
+    const dropdownCategoriesButton = document.getElementById('dropdown-categories');
+    if (!dropdownCategoriesButton) {
+        console.warn('Dropdown-Button für Kategorien wurde nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn das Button-Element nicht existiert
+    }
+
     // Hinzufügen des Event-Listeners zum Dropdown-Button
-    document.getElementById('dropdown-categories').addEventListener('click', toggleCategoryDropdown);
+    dropdownCategoriesButton.addEventListener('click', toggleCategoryDropdown);
 
     // Hinzufügen von Event-Listenern zu den Pfeilen (optional)
+    // Stellen Sie sicher, dass die Pfeile existieren, bevor Sie versuchen, Event-Listener hinzuzufügen
     document.querySelectorAll('.arrowDown, .arrowUp').forEach(arrow => {
-        arrow.addEventListener('click', toggleCategoryDropdown);
+        if (arrow) {
+            arrow.addEventListener('click', toggleCategoryDropdown);
+        }
     });
 }
 

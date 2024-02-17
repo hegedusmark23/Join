@@ -18,7 +18,6 @@
 
 .main-content {
     margin-top: 100px;
-    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -389,6 +388,15 @@
 
 @media (max-width: 485px) {
 
+    .legal-text-container {
+        padding: 0px 20px;
+        max-width: 1300px;
+      }
+
+      .legal-headline{
+        font-size: 49px;
+      }
+
     .summary-text{
         font-size: 18px;
     }
@@ -439,7 +447,7 @@
         height: 80px;
     }
 
-    .tasks-headline-container {
+    /*.tasks-headline-container {
         animation: invisVisMobile 1s linear;
     }
 
@@ -463,11 +471,11 @@
         .user-name-text {
             font-size: 35px;
         }
-    }
+    }*/
 }
 
 @media (max-width: 430px) {
-    .tasks-headline-container {
+    /*.tasks-headline-container {
         animation: invisVisMobile 1s linear;
     }
 
@@ -491,7 +499,8 @@
         .user-name-text {
             font-size: 25px;
         }
-    }
+    }*/
+    
 }
 
 @media (max-width: 375px) {
@@ -540,7 +549,7 @@
     }
 
     .tasks-summary-section {
-        gap: 16px;
+        gap: 10px;
     }
 
     .tasks-number {

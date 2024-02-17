@@ -177,7 +177,9 @@ function openTaskDetailModal(task) {
     modal.classList.add('modal-open'); // Fügt die Klasse hinzu, um das Modal anzuzeigen
 
     detailsContainer.innerHTML = detailModalContent(task)
-    modal.style.display = 'block'; // Modal anzeigen
+    modal.style.display = 'flex'; // Modal anzeigen
+    // Reinitialisieren der EventListener
+    setupDeleteTaskListener();
 }
 
 function detailModalContent(task){
@@ -221,7 +223,7 @@ function detailModalContent(task){
             </div>
             <div class="detail-footer">
                 <div class="subtask-icons-details">
-                    <div class="details-footer-hover">
+                    <div id="delete-task-button" class="details-footer-hover">
                         <svg class="custom-svg" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_75601_14777" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                                 <rect x="0.144531" width="24" height="24" fill="#D9D9D9"></rect>
@@ -310,53 +312,6 @@ function setupCloseTaskDetailModalListener() {
     }
 }
 
-// Offnet das AddTask Modal
-function setupOpenAddTaskModalListener() {
-    const openAddTaskButton = document.getElementById('open-modal-button'); // Stelle sicher, dass dies die korrekte ID ist
-    if (openAddTaskButton) {
-        openAddTaskButton.addEventListener('click', () => openModal('addtask-modal'));
-    }
-}
-
-// Schließt das AddTask Modal
-function setupCloseAddTaskModalListener() {
-    const closeAddTaskButton = document.getElementById('close-modal-button-addtask');
-    if (closeAddTaskButton) {
-        closeAddTaskButton.addEventListener('click', () => closeModal('addtask-modal'));
-    }
-}
-
-// Funktion zum Öffnen eines Modals
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'block'; // Stellt sicher, dass das Modal sichtbar ist
-        modal.classList.add('modal-open'); // Fügt die Klasse hinzu, um das Modal sanft einzublenden
-    }
-}
-
-// Funktion zum Schließen eines Modals
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
-        setTimeout(() => {
-            modal.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-        }, 200); // Wartezeit entspricht der Dauer der Animation
-    }
-}
-
-// Event-Delegation für den Schließ-Button im Modal einrichten
-function setupModalCloseDelegation() {
-    const modal = document.getElementById('task-detail-modal');
-    modal.addEventListener('click', function(event) {
-        // Prüfe, ob das geklickte Element der Schließ-Button oder ein Element innerhalb des Schließ-Buttons ist
-        if (event.target.closest('#close-modal-button-detail')) {
-            closeModal('task-detail-modal');
-        }
-    });
-}
-
 async function toggleSubtaskCompleted(taskId, subtaskId) {
     let task = tasks.find(task => task.id === taskId);
     if (task) {
@@ -384,46 +339,56 @@ function setupSubtaskCompletionListener() {
     });
 }
 
-function setupEditTaskListener() {
-    document.addEventListener('click', function(event) {
-        const editButton = event.target.closest('#edit-task');
-        if (editButton) {
-            // Die Task-ID direkt aus dem id-Attribut des task-details-header extrahieren
-            const taskHeaderElement = document.querySelector('.task-details-header');
-            if (taskHeaderElement && taskHeaderElement.id) {
-                const taskId = taskHeaderElement.id.replace('task-', '');
-                console.log('Task ID:', taskId);
-
-                if (taskId) {
-                    openAddTaskModalForEditing(taskId); // Stellen Sie sicher, dass diese Funktion existiert und korrekt implementiert ist
-                }
-            }
-        }
-    });
-}
-
-function openAddTaskModalForEditing(taskId) {
-    // Finden des Tasks im globalen Array oder wo immer es gespeichert ist.
-    const task = tasks.find(t => t.id === parseInt(taskId));
-    
-    if (task) {
-        // Aktualisieren des Modals für das Bearbeiten
-        document.getElementById('addtask-title').value = task.title;
-        document.getElementById('description').value = task.description || '';
-        document.getElementById('dueDate').value = task.dueDate;
-
-        // Anpassen der Überschrift des Modals für den Bearbeitungsmodus
-        document.querySelector('.addtask-modal-headline').textContent = 'Edit Task';
-
-        // Weitere Felder können hier entsprechend aktualisiert werden...
-
-        // Öffnen des Modals
-        document.getElementById('addtask-modal').style.display = 'block';
+// Funktion zum Einrichten des EventListeners für den "Delete"-Button
+function setupDeleteTaskListener() {
+    console.log('Setup Delete Task Listener');
+    const deleteButton = document.getElementById('delete-task-button');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', deleteCurrentTask);
+        console.log('Delete-Listener hinzugefügt');
     } else {
-        console.error('Task mit ID ' + taskId + ' nicht gefunden.');
+        console.warn('Delete-Button wurde nicht gefunden.');
     }
 }
 
+// Funktion zum Löschen des aktuellen Tasks
+function deleteCurrentTask() {
+    console.log('Delete Task ausgelöst');
+    const taskHeaderElement = document.querySelector('.task-details-header');
+    if (taskHeaderElement && taskHeaderElement.id) {
+        const taskId = taskHeaderElement.id.replace('task-', '');
+        console.log('Löschende Task ID:', taskId); // Hinzugefügt zur Überprüfung
+        if (taskId) {
+            deleteTasks([parseInt(taskId)])
+                .then(() => {
+                    console.log('Task wurde erfolgreich gelöscht');
+                    closeModal('task-detail-modal'); // Korrigiert mit korrekter ID
+                    initializeBoardCard();
+                    // Weitere Aktionen nach dem Löschen
+                })
+                .catch(error => {
+                    console.error('Fehler beim Löschen des Tasks:', error);
+                });
+        }
+    }
+}
+
+function reinitializeEventListenersForEditModal() {
+    checkInputFields();
+    saveInputFields();
+    handlePrioButtons();
+    inputSubtask();
+    addSubTask();
+    setupEventListenersSubtasks();
+    renderAssignees();
+    setupAssigneeGlobalClickListener();
+    setupAssigneeDropdownToggleListener();
+    initCategoryDropdown();
+    setupCategoryDropdownEventListeners();
+    setupModalCloseDelegationEdit();
+    setupModalCloseDelegationAddAtskBoard();
+    setupDeleteTaskListener();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeBoard();
@@ -436,9 +401,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModalCloseDelegation();
     setupSubtaskCompletionListener();
     setupEditTaskListener();
+    setupModalCloseDelegationEdit();
+    setupModalCloseDelegationAddAtskBoard();
+    setupDeleteTaskListener();
 });
 
-function linkActive(){
-   document.getElementById('board-nav').style.backgroundColor = '#000'
-}
-
+function numberOfTodos(){
+    let toDos = document.getElementById('numberOfToDos')
+    toDos.innerHTML = toDo.length
+  }

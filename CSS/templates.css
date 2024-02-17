@@ -11,10 +11,27 @@
   z-index: 1;
 }
 
+.navbar-nouser {
+  min-width: 232px;
+  width: 232px;
+  height: 100vh;
+  background-color: #2a3647;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
+
 .navbar-links {
   color: white;
   text-decoration: none;
   cursor: pointer;
+}
+
+.blue-join-logo {
+  display: none;
 }
 
 .join-logo-small {
@@ -876,7 +893,8 @@ textarea {
 
 .modal {
   display: none;
-  /* Initial versteckt */
+  justify-content: center;
+  align-items: center;
   position: fixed;
   left: 0;
   top: 0;
@@ -884,12 +902,26 @@ textarea {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
-  /* Hintergrundfarbe */
   z-index: 3;
 }
 
+.modal-content-tasks {
+  background-color: #fff;
+  position: fixed;
+  width: calc(525px - 80px); /* Berücksichtigt das Padding */
+  max-width: 445px; /* Falls notwendig, ansonsten anpassen */
+  min-height: 300px; /* Mindesthöhe, anpassen basierend auf Bedarf */
+  max-height: calc(931px - 96px);
+  border-radius: 30px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow: hidden;
+}
+
 .modal-open {
-  display: block;
+  display: flex;
 }
 
 .modal-close {
@@ -909,13 +941,6 @@ textarea {
   transform: translateX(100%);
   /* Startet von rechts */
   transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-#task-details-container {
-  max-height: 75vh;
-  /* oder ein anderer Wert, der zu Ihrem Design passt */
-  overflow-y: auto;
-  /* Ermöglicht das Scrollen innerhalb dieses Containers */
 }
 
 /* Anpassen der Breite des Scrollbalkens */
@@ -948,7 +973,8 @@ textarea {
 
 .addtask-modal-tpl {
   background-color: #fff !important;
-  padding: 40px 50px !important;
+  padding: 0px 50px 40px 50px !important;
+  margin-top: 60px !important;
 }
 
 .addtask-modal-header {
@@ -972,19 +998,11 @@ textarea {
   z-index: 1 !important;
 }
 
-.modal-content-tasks {
-  background-color: #fff;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 400px;
-  max-width: 525px;
-  border-radius: 30px;
-  padding: 48px 40px 48px 40px;
-  display: flex;
-  gap: 24px;
-  overflow: hidden;
+#task-details-container {
+  flex-grow: 1;
+  overflow-y: auto; /* Ermöglicht Scrollen, falls nötig */
+  width: 100%;
+  padding-right: 10px;
 }
 
 #task-details {
@@ -1121,6 +1139,82 @@ textarea {
   /* Weiche Übergänge für die Textfarbe */
 }
 
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.addtask-form-edit {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-content {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 10px;
+  background-color: #fff;
+}
+
+.tasks-edit {
+  display: flex;
+  justify-content: center;
+}
+
+.task-edit-adjust {
+  padding: 0px 0px 0px 0px !important;
+  width: 485px;
+  background-color: #fff !important;
+  margin-top: 30px !important;
+  flex: 1;
+}
+
+.form-wrapper input,
+.form-wrapper textarea,
+.form-wrapper button,
+.form-wrapper select,
+.form-wrapper label {
+  font-size: 18px !important;
+}
+
+.right-section-edit {
+  margin-top: 24px !important;
+}
+
+.addtask-actions-edit {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  z-index: 1000;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.addtask-info-edit {
+  position: relative !important;
+  width: auto !important;
+}
+
+.subtasks-container-edit {
+  min-height: auto !important;
+}
+
+.wrapper-flex-container-edit {
+  min-height: auto !important;
+  background-color: #fff;
+}
+
+.add-tasks-modal-close-edit {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
 @media (max-width: 700px) {
   #board-content h1,
   #addtask-content h1 {
@@ -1216,6 +1310,24 @@ textarea {
     flex-direction: column;
   }
 
+  .blue-join-logo {
+    display: flex;
+    height: 60px;
+    padding: 10px;
+  }
+
+  .nav-text {
+    margin-left: 0px;
+  }
+
+  .legal-headline {
+    font-size: 47px;
+  }
+
+  .navbar-nouser {
+    display: none;
+  }
+
   .navbar {
     width: 100%;
     height: 80px;
@@ -1240,9 +1352,11 @@ textarea {
 
   .nav-links-container {
     display: flex;
+    justify-content: center;
     flex-direction: row;
     width: 100%;
     gap: 20px;
+    justify-content: space-around;
   }
 
   .nav-link-div {
@@ -1292,6 +1406,16 @@ textarea {
     padding: 20px;
   }
 
+  .legal-headline {
+    font-size: 37px;
+  }
+
+  .blue-join-logo {
+    display: flex;
+    height: 39px;
+    padding: 20px;
+  }
+
   .user-name-capitalized {
     font-size: 15px !important;
   }
@@ -1320,5 +1444,6 @@ textarea {
 
   .nav-text {
     font-size: 14px;
+    margin-left: 0px;
   }
 }
