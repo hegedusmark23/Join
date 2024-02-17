@@ -63,6 +63,7 @@ async function categorizeTasks() {
 
 async function initializeBoard() {
     await categorizeTasks(); // Tasks sortieren und in Arrays einordnen
+
 }
 
 // Tasks anzeigen
