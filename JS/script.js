@@ -8,6 +8,3 @@ async function initRegister(){
     await loadUsers();
 }
 
- function initSummary(){
-    numberOfTodos();
-}

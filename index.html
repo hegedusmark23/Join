@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
-<body onload="initSummary(); init(); setCurrentUser();">
+<body onload="init(); setCurrentUser();">
     <main class="index-contents">
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="menu-header-and-main-content-container">
@@ -57,7 +57,7 @@
                                         <div class="summary-icon-circle"><img id="check-icon"
                                                 src="./assets/img/check-white.png" alt=""></div>
                                         <div class="text-center">
-                                            <h1 class="tasks-number no-margin">0</h1>
+                                            <h1 id="numberOfDone" class="tasks-number no-margin">0</h1>
                                             <span class="summary-text">Done</span>
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
                                         <div class="red-urgent-icon"><img src="./assets/img/doube-arrows-up.png" alt="">
                                         </div>
                                         <div class="text-center">
-                                            <h1 class="tasks-number no-margin">0</h1>
+                                            <h1 id="numberOfUrgent" class="tasks-number no-margin">0</h1>
                                             <span class="summary-text">Urgent</span>
                                         </div>
                                     </div>
@@ -86,14 +86,14 @@
                             <div class="small-task-container">
                                 <a href="/board.html">
                                     <div class="summary-task-display-small">
-                                        <h1 class="tasks-number no-margin">0</h1>
+                                        <h1 id="numberOfTasksInBoard" class="tasks-number no-margin">0</h1>
                                         <span class="summary-text-bigger">Tasks in Board</span>
                                     </div>
                                 </a>
 
                                 <a href="/board.html">
                                     <div class="summary-task-display-small">
-                                        <h1 class="tasks-number no-margin">0</h1>
+                                        <h1 id="numberOfTasksInProgress" class="tasks-number no-margin">0</h1>
                                         <span class="summary-text-bigger">Tasks In Progress</span>
                                     </div>
                                 </a>
