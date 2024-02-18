@@ -282,6 +282,12 @@ function setupAssigneeGlobalClickListener() {
 
 // Ändert den 'added'-Status eines Benutzers und rendert die Benutzerliste neu
 function toggleAssigneeStatus(letter, index) {
+    // Überprüfung, ob der erste Parameter ein Objekt ist
+    if (typeof letter === 'object' && letter !== null) {
+        index = letter.index;
+        letter = letter.letter;
+    }
+
     const contact = letterContainer[letter][index];
     contact.added = !contact.added;
     if (contact.added) {
@@ -304,6 +310,7 @@ function toggleAssigneeStatus(letter, index) {
     updateSelectedAssigneesDisplay(); // Aktualisiert die Anzeige der ausgewählten Benutzer
     renderAssignees(); // Rendert die Benutzerliste im Dropdown neu
 }
+
 
 // Initialen generieren
 function generateInitials(completeName) {

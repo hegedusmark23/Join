@@ -631,6 +631,7 @@ textarea {
   align-items: center;
   justify-content: space-between;
   padding: 7px 16px 7px 16px;
+  margin-bottom: 2px;
 }
 
 .dropdown-content-container:hover {
@@ -675,7 +676,7 @@ textarea {
 }
 
 .dropdown-content-assign {
-  max-height: 300px;
+  max-height: 260px;
   overflow-y: auto;
 }
 
@@ -908,9 +909,9 @@ textarea {
 .modal-content-tasks {
   background-color: #fff;
   position: fixed;
-  width: calc(525px - 80px); /* Berücksichtigt das Padding */
-  max-width: 445px; /* Falls notwendig, ansonsten anpassen */
-  min-height: 300px; /* Mindesthöhe, anpassen basierend auf Bedarf */
+  width: calc(525px - 80px);
+  max-width: 445px;
+  min-height: 300px;
   max-height: calc(931px - 96px);
   border-radius: 30px;
   padding: 48px 40px;

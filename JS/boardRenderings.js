@@ -292,6 +292,11 @@ function setupEditTaskListener() {
     });
 }
 
+// Hilfsfunktion zur Generierung von Initialen aus dem vollständigen Namen
+function generateInitials(completeName) {
+    return completeName.split(' ').map(part => part[0]).join('').toUpperCase();
+}
+
 function renderEditTask(taskId) {
     const task = tasks.find(t => t.id === parseInt(taskId));
     if (!task) {
@@ -299,10 +304,62 @@ function renderEditTask(taskId) {
         return;
     }
 
+    // Generieren der HTML-Strings für jeden zugewiesenen Benutzer
+    const assignedUsersHtml = task.assignTo.map(user =>
+        `<div class="dropdown-content-circle" style="background-color: ${user.color};">${generateInitials(user.name)}</div>`
+    ).join('');
+
+    let assigneesMarkup = '';
+    Object.keys(letterContainer).forEach(letter => {
+        letterContainer[letter].forEach(contact => {
+            // Überprüfen, ob dieser Kontakt bereits dem Task zugewiesen wurde
+            const isAssigned = task.assignTo.some(assignee => assignee.name === contact.completeName);
+            const userCheckedClass = isAssigned ? 'user-checked' : '';
+            const checkboxSVG = isAssigned ? 
+                `<svg id="checkbox-checked-active" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#fff" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>` : 
+                `<svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
+                </svg>`;
+    
+            // Initialen generieren und verwenden
+            const initials = generateInitials(contact.completeName);
+    
+            assigneesMarkup += `<div class="dropdown-content-container ${userCheckedClass}">
+                                    <div class="dropdown-content-binding">
+                                        <div class="dropdown-content-circle" style="background-color:${contact.badgeColor};">
+                                            <p id="user-initials">${initials}</p>
+                                        </div>
+                                        <div class="dropdown-content-name">
+                                            <a id="user-name" href="#" data-value="option">${contact.completeName}</a>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-content-checkbox">${checkboxSVG}</div>
+                                </div>`;
+        });
+    });
+    
+// Generieren der HTML-Strings für Subtasks im Bearbeitungsmodus
+const subtasksHtml = task.subtask.map(subtask =>
+    `<li data-subtask-id="${subtask.id}">
+        <div class="subtask-item-wrapper">
+            <p>${subtask.text}</p>
+            <div class="subtask-icons">
+                <img class="edit-subtask" src="./assets/img/edit_task.png">
+                <img class="divider-subtask" src="./assets/img/divider_small.png">
+                <img class="delete-subtask" src="./assets/img/delete-subtask.svg">
+            </div>
+        </div>
+    </li>`
+).join('');
+
+
     // Befüllen des Modals mit Taskdaten für die Bearbeitung
     const modalContent =
     `
-    <main class="addTask-content">
+    <main class="addTask-content" data-task-id="${taskId}">
         <section id="addtask-content" class="task-edit-adjust">
             <div id="close-modal-button-edittask" class="add-tasks-modal-close add-tasks-modal-close-edit">
                 <div class="first-img-container">
@@ -325,7 +382,7 @@ function renderEditTask(taskId) {
                                     <span class="label-text required">Title</span>
                                     </span>
                                     <input id="addtask-title" type="text"
-                                        class="input-addtask-title addtask-title-input" placeholder="Enter a title">
+                                        class="input-addtask-title addtask-title-input" placeholder="Enter a title" value="${task.title}">
                                     <p id="title-error-msg" style="visibility: hidden;">This field is required</p>
                                 </label>
                             </div>
@@ -334,7 +391,7 @@ function renderEditTask(taskId) {
                                 <label>
                                     <span>Description</span>
                                     <textarea class="textarea-description textarea" placeholder="Enter a description"
-                                        name="decription" id="description"></textarea>
+                                        name="decription" id="description">${task.description || ''}</textarea>
                                 </label>
                             </div>
 
@@ -351,11 +408,11 @@ function renderEditTask(taskId) {
                                             <div class="arrow-dropdown-up arrowUp" style="display:none;"></div>
                                         </div>
                                         <div class="dropdown-content-assign" id="assign-to" style="display: none;">
-
+                                        ${assigneesMarkup}
                                         </div>
                                     </div>
                                     <div id="selected-assignees">
-
+                                    ${assignedUsersHtml}
                                     </div>
                                 </label>
                             </div>
@@ -366,7 +423,7 @@ function renderEditTask(taskId) {
                             <div class="addtask-selection addtask-custom-label">
                                 <label>
                                     <span class="required">Due date</span>
-                                    <input type="date" id="dueDate" name="due-date" class="input-date">
+                                    <input type="date" id="dueDate" name="due-date" class="input-date" value="${task.dueDate}">
                                     <p id="duedate-error-msg" style="visibility: hidden;">This field is required</p>
                                 </label>
                             </div>
@@ -374,15 +431,15 @@ function renderEditTask(taskId) {
                             <label class="addtask-custom-label">Prio</label>
                             <div class="addtask-selection">
                                 <div class="addtask-prio-btn">
-                                    <button class="addtask-buttons" id="addtask-prio-urgent">Urgent
+                                    <button class="addtask-buttons ${task.prio === 'urgent' ? 'is-active' : ''}" id="addtask-prio-urgent" style="${task.prio === 'urgent' ? 'background-color: #ff3d00;' : ''}">Urgent
                                         <img class="icon" src="/Join/assets/img/addtask_prio-urgent-icon.svg"
                                             alt="Prio Urgent">
                                     </button>
-                                    <button class="addtask-buttons" id="addtask-prio-medium">Medium
+                                    <button class="addtask-buttons ${task.prio === 'medium' ? 'is-active' : ''}" id="addtask-prio-medium" style="${task.prio === 'medium' ? 'background-color: #ffa800;' : ''}">Medium
                                         <img class="icon" src="/Join/assets/img/addtask_prio-medium-icon.svg"
                                             alt="Prio Medium">
                                     </button>
-                                    <button class="addtask-buttons" id="addtask-prio-low">Low
+                                    <button class="addtask-buttons ${task.prio === 'low' ? 'is-active' : ''}" id="addtask-prio-low" style="${task.prio === 'low' ? 'background-color: #7ae229;' : ''}">Low
                                         <img class="icon" src="/Join/assets/img/addtask_prio-low-icon.svg"
                                             alt="Prio Low">
                                     </button>
@@ -393,14 +450,13 @@ function renderEditTask(taskId) {
                                 <label>
                                     <span class="required">Category</span>
                                     <div class="dropdown">
-                                        <button id="dropdown-categories" class="dropbtn">Select task category</button>
+                                        <button id="dropdown-categories" class="dropbtn">${task.category || 'Select task category'}</button>
                                         <div id="dropdown-container" class="dropdown-ctrl">
                                             <div class="icon-background-down arrowDown" style="display: block;"></div>
                                             <div class="arrow-dropdown-down arrowDown" style="display: block;"></div>
                                             <div class="icon-background-up arrowUp" style="display:none;"></div>
                                             <div class="arrow-dropdown-up arrowUp" style="display:none;"></div>
                                         </div>
-
                                         <div class="dropdown-content" id="category" style="display:none;">
                                         </div>
                                     </div>
@@ -467,7 +523,7 @@ function renderEditTask(taskId) {
                                     <div class="subtasks-container subtasks-container-edit">
                                         <div id="subtasks-list-container">
                                             <ul>
-
+                                            ${subtasksHtml}
                                             </ul>
                                         </div>
                                     </div>
@@ -491,13 +547,62 @@ function renderEditTask(taskId) {
 
     `;
 
-    // Ersetzen des aktuellen Inhalts des Detail-Modals durch das Bearbeitungsformular
-    const detailModalContainer = document.getElementById('task-details');
-    if (detailModalContainer) {
-        detailModalContainer.innerHTML = modalContent;
-    }
+// Ersetzen des aktuellen Inhalts des Detail-Modals durch das Bearbeitungsformular
+const detailModalContainer = document.getElementById('task-details');
+if (detailModalContainer) {
+    // Aktualisieren des Inhalts des Modals, ohne #assign-to zu befüllen
+    detailModalContainer.innerHTML = modalContent;
 
-    reinitializeEventListenersForEditModal();
+    // Neuaufruf von renderAssignees(), um sicherzustellen, dass die Liste korrekt gerendert und Event-Listener zugeordnet sind
+    renderAssignees();
+
+    setTimeout(() => {
+        const assignToContainer = document.getElementById('assign-to');
+        if (assignToContainer) {
+            assignToContainer.innerHTML = assigneesMarkup;
+    
+            // Binden der Event-Listener an alle Container und Überprüfung des geklickten Elements
+            document.querySelectorAll('.dropdown-content-container').forEach((container) => {
+                container.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Stoppt die Weiterleitung des Events
+                    // Identifizieren des tatsächlichen Ziel-Elements, basierend auf der Klick-Aktion
+                    let targetElement = event.target;
+                    
+                    // Bestimmung, ob das geklickte Element oder eines seiner Parent-Elemente die Checkbox oder der Name ist
+                    if (targetElement.tagName.toLowerCase() === 'svg' || targetElement.closest('.dropdown-content-checkbox')) {
+                        // Logik für Klick auf die Checkbox
+                    } else if (targetElement.tagName.toLowerCase() === 'a' || targetElement.closest('.dropdown-content-name')) {
+                        // Logik für Klick auf den Namen
+                    }
+                    
+                    // Extraktion des Buchstabens und des Indexes
+                    const containerIndex = Array.from(assignToContainer.children).indexOf(container);
+                    let { letter, index } = extractLetterFromIndex(containerIndex);
+                    toggleAssigneeStatus(letter, index);
+                });
+            });
+    
+            console.log('Assign-to aktualisiert:', assignToContainer.innerHTML);
+        } else {
+            console.error('#assign-to wurde nach dem Einfügen des Modals nicht gefunden.');
+        }
+    }, 0);// Verzögerung sicherstellen, dass das DOM vollständig aktualisiert wurde
+}
+
+reinitializeEventListenersForEditModal();
+
+}
+function extractLetterFromIndex(globalIndex) {
+    let runningIndex = 0;
+    for (let letter in letterContainer) {
+        if (letterContainer.hasOwnProperty(letter)) {
+            if (globalIndex < runningIndex + letterContainer[letter].length) {
+                return { letter: letter, index: globalIndex - runningIndex };
+            }
+            runningIndex += letterContainer[letter].length;
+        }
+    }
+    return { letter: null, index: -1 }; // Falls kein passender Eintrag gefunden wurde
 }
 
 // Funktion zum Schließen des dynamischen Modals für Tasks-Editieren

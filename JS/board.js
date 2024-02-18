@@ -327,12 +327,23 @@ async function toggleSubtaskCompleted(taskId, subtaskId) {
 
 function setupSubtaskCompletionListener() {
     document.addEventListener('click', async function(event) {
-        if (event.target.closest('.dropdown-content-checkbox')) {
-            const taskId = event.target.closest('[data-task-id]').dataset.taskId;
-            const subtaskId = event.target.closest('[data-subtask-id]').dataset.subtaskId;
-            const updatedTask = await toggleSubtaskCompleted(parseInt(taskId), parseInt(subtaskId));
-            if (updatedTask) {
-                openTaskDetailModal(updatedTask); // Öffne das Modal mit dem aktualisierten Task
+        // Zuerst versuchen wir, das Task-Element im Bearbeitungsmodus zu identifizieren.
+        let taskIdElement = document.querySelector('.addTask-content[data-task-id]');
+
+        // Dann prüfen wir, ob das geklickte Element oder eines seiner übergeordneten Elemente ein Subtask-Element ist.
+        let subtaskElement = event.target.closest('[data-subtask-id]');
+
+        // Wenn wir sowohl ein Task-Element als auch ein Subtask-Element haben...
+        if (taskIdElement && subtaskElement) {
+            const taskId = taskIdElement.dataset.taskId;
+            const subtaskId = subtaskElement.dataset.subtaskId;
+
+            // Überprüfen, ob der Klick auf eine Checkbox innerhalb des Subtask-Elements erfolgt ist
+            if (event.target.matches('.subtask-checkbox')) {
+               const updatedTask = await toggleSubtaskCompleted(parseInt(taskId), parseInt(subtaskId));
+                if (updatedTask) {
+                    openTaskDetailModal(updatedTask); // Öffne das Modal mit dem aktualisierten Task
+                }
             }
         }
     });
@@ -373,6 +384,7 @@ function deleteCurrentTask() {
 }
 
 function reinitializeEventListenersForEditModal() {
+    console.log('Reinitializing event listeners...');
     checkInputFields();
     saveInputFields();
     handlePrioButtons();
