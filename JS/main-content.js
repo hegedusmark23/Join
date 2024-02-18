@@ -9,17 +9,17 @@ function generateSummaryContent() {
 }
 
 function generateLegalNoticeContent() {
-  let container = document.getElementById('main-content');
+  let container = document.querySelector('section');
   container.innerHTML = legalNoticeHTML();
 }
 
 function generatePrivacyPolicyContent() {
-  let container = document.getElementById('main-content');
+  let container = document.querySelector('section');
   container.innerHTML = privacyPolicyHTML();
 }
 
 function generateHelpContent() {
-  let container = document.getElementById('main-content');
+  let container = document.querySelector('section');
   container.innerHTML = helpHTML();
 }
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
+    <link rel="stylesheet" href="./CSS/summary.css">
     <title>Add Task</title>
     <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
@@ -16,9 +17,9 @@
         <div class="menu-header-and-main-content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
-                        onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
+                        onclick="closeMenu(); generatePrivacyPolicyContent();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
-                        onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
+                        onclick=" closeMenu(); generateLegalNoticeContent();">Privacy Policy</a></div>
                 <div class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
             </menu>
             <header w3-include-html="./assets/templates/header.html"></header>
@@ -212,6 +213,7 @@
     <script src="./JS/addtaskFormHandling.js"></script>
     <script src="./JS/addtask.js"></script>
     <script src="./JS/w3include.js"></script>
+    <script src="./JS/html-templates.js"></script>
     <script src="./JS/main-content.js"></script>
 </body>
 

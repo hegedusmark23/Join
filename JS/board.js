@@ -63,6 +63,7 @@ async function categorizeTasks() {
 
 async function initializeBoard() {
     await categorizeTasks(); // Tasks sortieren und in Arrays einordnen
+
 }
 
 // Tasks anzeigen
@@ -415,9 +416,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModalCloseDelegationEdit();
     setupModalCloseDelegationAddAtskBoard();
     setupDeleteTaskListener();
+    numberOfTodos();
 });
 
 function numberOfTodos(){
-    let toDos = document.getElementById('numberOfToDos')
-    toDos.innerHTML = toDo.length
+    let toDos = document.getElementById('numberOfToDos');
+    toDos.innerHTML = `<h1 class="tasks-number no-margin">${toDo.length}</h1>`;
+  }
+
+  function numberOfDone(){
+    let dones = document.getElementById('numberOfDone')
+    dones.innerHTML = `<h1 class="tasks-number no-margin">${done.length}</h1>`;
   }
