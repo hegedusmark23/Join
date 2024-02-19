@@ -13,15 +13,15 @@
 </head>
 
 <body onload="init();">
-    <main>
+    <main class="index-contents">
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <div>
+        <div class="menu-header-and-main-content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
-                        onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
+                        onclick="closeMenu(); generatePrivacyPolicyContent();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
-                        onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
-                <div class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
+                        onclick="closeMenu(); generateLegalNoticeContent();">Privacy Policy</a></div>
+                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
             </menu>
             <header w3-include-html="./assets/templates/header.html"></header>
             <section class="main-content" onclick="closeMenu()" id="main-content">
@@ -36,14 +36,16 @@
                                 <div class="blue-line-mobile"></div>
                             </div>
                             <div class="tasks-summary-section">
+
                                 <a href="/board.html">
                                     <div class="task-container-mid">
                                         <div id="pencil-button" onmouseover="changePencilImgColor()"
                                             class="summary-task-display-mid">
                                             <div class="summary-icon-circle"><img id="pencil-icon"
-                                                    src="./assets/img/pencil-white.png" alt=""></div>
+                                                    src="./assets/img/pencil-white.png" alt="">
+                                            </div>
                                             <div class="text-center">
-                                                <h1 class="tasks-number no-margin">0</h1>
+                                                <h1 id="numberOfToDos" class="tasks-number no-margin">0</h1>
                                                 <span class="summary-text">To-do</span>
                                             </div>
                                         </div>
@@ -55,11 +57,12 @@
                                         <div class="summary-icon-circle"><img id="check-icon"
                                                 src="./assets/img/check-white.png" alt=""></div>
                                         <div class="text-center">
-                                            <h1 class="tasks-number no-margin">0</h1>
+                                            <h1 id="numberOfDone" class="tasks-number no-margin">0</h1>
                                             <span class="summary-text">Done</span>
                                         </div>
                                     </div>
                                 </a>
+
                             </div>
 
                             <a href="/board.html">
@@ -68,7 +71,7 @@
                                         <div class="red-urgent-icon"><img src="./assets/img/doube-arrows-up.png" alt="">
                                         </div>
                                         <div class="text-center">
-                                            <h1 class="tasks-number no-margin">0</h1>
+                                            <h1 id="numberOfUrgent" class="tasks-number no-margin">0</h1>
                                             <span class="summary-text">Urgent</span>
                                         </div>
                                     </div>
@@ -83,14 +86,14 @@
                             <div class="small-task-container">
                                 <a href="/board.html">
                                     <div class="summary-task-display-small">
-                                        <h1 class="tasks-number no-margin">0</h1>
+                                        <h1 id="numberOfTasksInBoard" class="tasks-number no-margin">0</h1>
                                         <span class="summary-text-bigger">Tasks in Board</span>
                                     </div>
                                 </a>
 
                                 <a href="/board.html">
                                     <div class="summary-task-display-small">
-                                        <h1 class="tasks-number no-margin">0</h1>
+                                        <h1 id="numberOfTasksInProgress" class="tasks-number no-margin">0</h1>
                                         <span class="summary-text-bigger">Tasks In Progress</span>
                                     </div>
                                 </a>
@@ -110,19 +113,15 @@
                     </div>
                 </div>
         </div>
-            </section>
+        </section>
         </div>
     </main>
     <script src="./JS/w3include.js"></script>
     <script src="./JS/html-templates.js"></script>
     <script src="./JS/storage.js"></script>
     <script src="./JS/register.js"></script>
-    <script src="./JS/contacts.js"></script>
-    <script src="./models/tasks.class.js"></script>
-    <script src="./models/contact.class.js"></script>
-    <script src="./JS/contacts-template-func.js"></script>
-    <script src="./JS/addtask.js"></script>
     <script src="./JS/main-content.js"></script>
+    <script src="./JS/board.js"></script>
     <script src="./JS/script.js"></script>
 
 

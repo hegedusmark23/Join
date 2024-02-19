@@ -70,7 +70,8 @@ async function login() {
 
 function logOut() {  // Empties the arrays related to the current user, and redirects to the login page.
   Name = [];
-  deleteCurrentUser()
+  currentUser = [];
+  deleteUser();
   window.location.href = '/landingpage.html';
 }
 
