@@ -20,7 +20,8 @@
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
-                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
+                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log
+                        out</a></div>
             </menu>
             <header w3-include-html="./assets/templates/header.html"></header>
 
@@ -83,7 +84,8 @@
 
                         <div id="board-card-section-1" class="board-section-cards">
                             <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
-                            <div id="task-cards-container"></div>
+                        </div>
+                        <div id="toDo" class="toDo-container" ondrop="moveTo('toDo')" ondragover="allowDrop(event)">
                         </div>
 
                     </div>
@@ -104,10 +106,10 @@
                         </div>
 
                         <div class="board-section-cards">
-                            <div class="board-card-bg">No tasks In progress
-                            </div>
-
+                            <div id="no-task-in-progress-bg" class="board-card-bg">No tasks In progress</div>
                         </div>
+                        <div id="in-progress" class="in-progress-container" ondrop="moveTo('in-progress')"
+                            ondragover="allowDrop(event)"></div>
                     </div>
 
 
@@ -129,6 +131,7 @@
                         <div class="board-section-cards">
                             <div class="board-card-bg">No tasks Await feedback</div>
                         </div>
+                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)"></div>
 
                     </div>
 

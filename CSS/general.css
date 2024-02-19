@@ -222,9 +222,9 @@ a {
   height: 158px;
   gap: 10px;
   z-index: 1;
-}ó
+}
 
-.menu-popup {
+ó .menu-popup {
   flex-direction: column;
   justify-content: center;
   background-color: #2a3647;
@@ -505,4 +505,19 @@ a {
     position: fixed;
     z-index: 1000;
   }
+}
+
+.toDo-container {
+  height: 100%;
+  width: 100%;
+}
+
+.in-progress-container {
+  height: 100%;
+  width: 100%;
+}
+
+.await-feedback-container {
+  height: 100%;
+  width: 100%;
 }
