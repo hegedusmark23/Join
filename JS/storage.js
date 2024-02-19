@@ -17,6 +17,21 @@ async function getItem(key) {
     });
 };
 
+async function deleteItem(key) {
+    const payload = { key, token: STORAGE_TOKEN }
+    return fetch(STORAGE_URL, { method: 'DELETE', body: JSON.stringify(payload) }).then(resp => resp.json());
+}
+
+// A felhasználó törlése például:
+async function deleteCurrentUser() {
+    try {
+        await deleteItem('user');
+        currentUser = []; // Vagy az aktuális felhasználó törlése az adatokból
+    } catch (error) {
+        console.error("Es ist ein Fehler aufgetreten.", error);
+    }
+}
+
 async function deleteTasks(taskIds = []) {
     try {
         let tasks = await getItem('tasks'); // Abrufen aller gespeicherten Tasks als String
@@ -36,7 +51,7 @@ async function deleteTasks(taskIds = []) {
   
         if (taskIds && taskIds.length > 0) {
             // Löschen spezifischer Tasks durch ihre IDs
-            tasks = tasks.filter(task => !taskIds.includes(task.id));
+            tasks = tasks.filter(task => !taskIds.includes(task.id)); 
         } else {
             // Löschen aller Tasks, wenn keine IDs bereitgestellt werden
             tasks = [];
