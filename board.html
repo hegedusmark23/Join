@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
-<body onload="includeHTML()" class="tasks board-page">
+<body onload="includeHTML(); setCurrentUserName();" class="tasks board-page">
     <main class="board-contents">
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="menu-header-and-main-content-container">
@@ -164,6 +164,7 @@
     <script src="./JS/addtask.js"></script>
     <script src="./JS/addtaskFormHandling.js"></script>
     <script src="./JS/contacts.js"></script>
+    <script src="./JS/register.js"></script>
     <script src="./JS/html-templates.js"></script>
     <script src="./JS/main-content.js"></script>
 

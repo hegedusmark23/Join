@@ -89,6 +89,18 @@ async function setCurrentUser() {   // Sets the current user after log in.
   }
 }
 
+async function setCurrentUserName() {   // Sets the current user after log in.
+  const userData = await getItem('user');
+  try {
+    const jsonUserData = JSON.parse(userData);
+    currentUser.push(jsonUserData);
+    capitalisedName();
+  } catch (error) {
+    console.error("Es ist ein fehler aufgetreten.", error);
+  }
+}
+
+
 function getNamefromArray() {
   let message = document.getElementById('welcome-message');
   message.innerHTML = currentUser[0]['name'];
