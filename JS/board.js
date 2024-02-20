@@ -162,7 +162,7 @@ function renderCardContent(i, task, completionDetails) {
         </div>` : '';
 
     return /*html*/ `
-    <div id="board-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${i})">
+    <div id="board-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging('${task.state}${i}')">
         <div class="board-card" data-task-id="${task.id}">
             <div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
@@ -456,7 +456,8 @@ function numberOfDone() {
 //   Drag and Drop ----------------------------->
 
 function startDragging(id) {
-    currentDraggedElement = id;
+    let rightId = id[id.length - 1] // nimmt die letze buchstabe, in diesem fall einen nummer
+    currentDraggedElement = rightId;
 }
 
 function allowDrop(ev) {
