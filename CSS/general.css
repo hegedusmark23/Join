@@ -170,9 +170,9 @@ a {
 }
 
 .legal-site-arrow {
-  position: sticky;
+  position: fixed;
   top: 225px;
-  left: 1827px;
+  right: 30px;
 }
 
 .blue-text {
