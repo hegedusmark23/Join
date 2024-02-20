@@ -6,6 +6,7 @@ let prio = null;
 let subtasks = [];
 let assignedTo = [];
 let category = null;
+let identifier = 0;
 
 let tasks = [];
 
@@ -186,7 +187,7 @@ async function createTask() {
             console.info('Validation failed. No Task created.');
             return;
         }
-
+        identifier = +1; 
         // Erstellen einer neuen Task-Instanz
         let newTask = new Task(
             Date.now(), // Eindeutige ID
@@ -197,6 +198,7 @@ async function createTask() {
             prio,
             new Date().toISOString(), // Erstellungsdatum
             STORAGE_TOKEN, // Storage-Token
+            identifier
         );
 
         // Hinzufügen von Kategorie und Subtasks

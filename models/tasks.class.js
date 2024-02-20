@@ -1,6 +1,6 @@
 class Task {
-    constructor(id, title, description, assignTo, dueDate, prio, createdAt, token)
-    {
+    identifier;
+    constructor(id, title, description, assignTo, dueDate, prio, createdAt, token, identifier) {
         this.id = id;
         this.title = title
         this.description = description;
@@ -9,7 +9,8 @@ class Task {
         this.prio = prio;
         this.createdAt = createdAt;
         this.token = token;
-        
+        this.identifier = identifier
+
         this.category = []
         this.subtask = []
         this.state = 'toDo';

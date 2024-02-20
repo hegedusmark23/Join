@@ -74,19 +74,27 @@ async function initializeBoard() {
 async function initializeBoardCard() {
     let tasks = await fetchTasks(); // Annahme: fetchTasks gibt ein Array von Tasks zurück
 
-    let noTasksDiv = document.getElementById('board-card-background-1');
+    let noTasksDiv1 = document.getElementById('board-card-background-1');
+    let noTaskDiv2 = document.getElementById('board-card-background-2');
+    let noTaskDiv3 = document.getElementById('board-card-background-3');
+    let noTaskDiv4 = document.getElementById('board-card-background-4');
     let toDoCardsContainer = document.getElementById('toDo');
     let inProgressCardContainer = document.getElementById('in-progress');
     let awaitFeedBackCardContainer = document.getElementById('await-feedback');
     let doneCardContainer = document.getElementById('done');
 
-    if (tasks.length === 0) {
-        noTasksDiv.style.display = 'block';
-        toDoCardsContainer.innerHTML = '';
-    } else {
-        noTasksDiv.style.display = 'none';
+    // if (tasks.length === 0) {
+    //     // noTasksDiv.style.display = 'block';
+    //     toDoCardsContainer.innerHTML = '';
+    // } else {
+    //     noTasksDiv.style.display = 'none';
 
         let todos = tasks.filter(t => t['state'] == 'toDo');
+        if(todos.length > 0){
+            noTasksDiv1.style.display = 'none'
+        } else {
+            noTasksDiv1.style.display = 'flex'
+        }
         toDoCardsContainer.innerHTML = '';
         for (let i = 0; i < todos.length; i++) {
             let task = todos[i]
@@ -95,7 +103,11 @@ async function initializeBoardCard() {
         }
 
         let inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
-        document.getElementById('no-task-in-progress-bg').style.display = 'none'
+        if(inProgress.length > 0){
+            noTaskDiv2.style.display = 'none'
+        } else {
+            noTaskDiv2.style.display = 'flex';
+        }
         inProgressCardContainer.innerHTML = '';
         for (let i = 0; i < inProgress.length; i++) {
             let task = inProgress[i];
@@ -103,7 +115,12 @@ async function initializeBoardCard() {
             inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
         }
 
-        let awaitFeedBack = tasks.filter(awFe => awFe['state'] == 'await-feedback')
+        let awaitFeedBack = tasks.filter(awFe => awFe['state'] == 'await-feedback');
+        if(awaitFeedBack.length > 0){
+            noTaskDiv3.style.display = 'none'
+        } else {
+            noTaskDiv3.style.display = 'flex';
+        }
         awaitFeedBackCardContainer.innerHTML = '';
         for (let i = 0; i < awaitFeedBack.length; i++) {
             let task = awaitFeedBack[i];
@@ -111,7 +128,12 @@ async function initializeBoardCard() {
             awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
         }
 
-        let done = tasks.filter(d => d['state'] == 'done')
+        let done = tasks.filter(d => d['state'] == 'done');
+        if(done.length > 0){
+            noTaskDiv4.style.display = 'none'
+        } else {
+            noTaskDiv4.style.display = 'flex';
+        }
         doneCardContainer.innerHTML = '';
         for (let i = 0; i < done.length; i++) {
             let task = done[i];
@@ -120,7 +142,7 @@ async function initializeBoardCard() {
         }
     }
     setupTaskClickListeners();
-}
+
 
 function updateSubtaskProgress(task) {
     let totalSubtasks = task.subtask ? task.subtask.length : 0;
