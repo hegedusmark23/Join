@@ -1216,6 +1216,16 @@ textarea {
   margin-right: 10px;
 }
 
+@media (max-width: 800px){
+  .addtask-action-btns {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px 10px 16px;
+    background-color: #f0f0f0;
+    margin: 81px 0px;
+  }
+}
+
 @media (max-width: 700px) {
   #board-content h1,
   #addtask-content h1 {
@@ -1276,6 +1286,7 @@ textarea {
     justify-content: space-between;
     padding: 10px 16px 10px 16px;
     background-color: #f0f0f0;
+    margin: 81px 0px;
   }
 
   .wrapper-flex-container {
