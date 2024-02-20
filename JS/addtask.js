@@ -196,7 +196,7 @@ async function createTask() {
             dueDate,
             prio,
             new Date().toISOString(), // Erstellungsdatum
-            STORAGE_TOKEN // Storage-Token
+            STORAGE_TOKEN, // Storage-Token
         );
 
         // Hinzufügen von Kategorie und Subtasks

@@ -35,36 +35,37 @@ async function fetchTasks() {
 // Aufrufen der Funktion zum Abrufen der Tasks
 fetchTasks();
 
-async function categorizeTasks() {
-    let tasks = await fetchTasks(); // Annahme, dass fetchTasks die Tasks zurückgibt
+// async function categorizeTasks() {
+//     let tasks = await fetchTasks(); // Annahme, dass fetchTasks die Tasks zurückgibt
 
-    // Leere die Arrays, um Duplikate bei wiederholten Aufrufen zu vermeiden
-    toDo = [];
-    inProgress = [];
-    awaitFeedback = [];
-    done = [];
+//     // Leere die Arrays, um Duplikate bei wiederholten Aufrufen zu vermeiden
+//     toDo = [];
+//     inProgress = [];
+//     awaitFeedback = [];
+//     done = [];
 
-    tasks.forEach(task => {
-        switch (task.state) {
-            case 'toDo':
-                toDo.push(task);
-                break;
-            case 'inProgress':
-                inProgress.push(task);
-                break;
-            case 'awaitFeedback':
-                awaitFeedback.push(task);
-                break;
-            case 'done':
-                done.push(task);
-                break;
-        }
-    });
+//     tasks.forEach(task => {
+//         switch (task.state) {
+//             case 'toDo':
+//                 toDo.push(task);
+//                 break;
+//             case 'inProgress':
+//                 inProgress.push(task);
+//                 break;
+//             case 'awaitFeedback':
+//                 awaitFeedback.push(task);
+//                 break;
+//             case 'done':
+//                 done.push(task);
+//                 break;
+//         }
+//     });
 
-}
+// }
 
 async function initializeBoard() {
-    await categorizeTasks(); // Tasks sortieren und in Arrays einordnen
+    // await categorizeTasks(); // Tasks sortieren und in Arrays einordnen
+    await initializeBoardCard()
 
 }
 
@@ -76,7 +77,8 @@ async function initializeBoardCard() {
     let noTasksDiv = document.getElementById('board-card-background-1');
     let toDoCardsContainer = document.getElementById('toDo');
     let inProgressCardContainer = document.getElementById('in-progress');
-    let awaitFeedBackCardContainer = document.getElementById('await-feedback')
+    let awaitFeedBackCardContainer = document.getElementById('await-feedback');
+    let doneCardContainer = document.getElementById('done');
 
     if (tasks.length === 0) {
         noTasksDiv.style.display = 'block';
@@ -107,6 +109,14 @@ async function initializeBoardCard() {
             let task = awaitFeedBack[i];
             let completionDetails = updateSubtaskProgress(task);
             awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+        }
+
+        let done = tasks.filter(d => d['state'] == 'done')
+        doneCardContainer.innerHTML = '';
+        for (let i = 0; i < done.length; i++) {
+            let task = done[i];
+            let completionDetails = updateSubtaskProgress(task);
+            doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
         }
     }
     setupTaskClickListeners();
@@ -162,7 +172,7 @@ function renderCardContent(i, task, completionDetails) {
         </div>` : '';
 
     return /*html*/ `
-    <div id="board-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging('${task.state}${i}')">
+    <div id="board-card-content" draggable="true" class="board-card-content" ondragstart="startDragging(${i})">
         <div class="board-card" data-task-id="${task.id}">
             <div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
@@ -456,8 +466,7 @@ function numberOfDone() {
 //   Drag and Drop ----------------------------->
 
 function startDragging(id) {
-    let rightId = id[id.length - 1] // nimmt die letze buchstabe, in diesem fall einen nummer
-    currentDraggedElement = rightId;
+    currentDraggedElement = id;
 }
 
 function allowDrop(ev) {

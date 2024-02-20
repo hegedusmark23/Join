@@ -510,14 +510,27 @@ a {
 .toDo-container {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .in-progress-container {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .await-feedback-container {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.done-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column
 }
