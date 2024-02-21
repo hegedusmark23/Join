@@ -175,6 +175,7 @@ async function loadTasks() {
 }
 
 async function createTask() {
+    console.log('Adding event listener to create-task button');
     const createTaskButton = document.getElementById('create-task');
     if (!createTaskButton) {
         console.warn('Create-Task-Button wurde nicht im DOM gefunden.');
@@ -182,6 +183,7 @@ async function createTask() {
     }
 
     createTaskButton.addEventListener('click', async () => {
+        console.log('Create Task button clicked'); // Zum Debuggen
         if (!validateTaskForm()) {
             // Beendet die Funktion, wenn die Validierung fehlschlägt
             console.info('Validation failed. No Task created.');
@@ -278,7 +280,36 @@ async function showTasks() {
     console.log('Das sind die Tasks in meinem Array: ', tasks);
 }
 
+function reinitializeEventListenersForEditModal() {
+    checkInputFields();
+    saveInputFields();
+    handlePrioButtons();
+    inputSubtask();
+    addSubTask();
+    setupEventListenersSubtasks();
+    renderAssignees();
+    setupAssigneeGlobalClickListener();
+    setupAssigneeDropdownToggleListener();
+    initCategoryDropdown();
+    setupCategoryDropdownEventListeners();
+    setupModalCloseDelegationEdit();
+    setupModalCloseDelegationAddAtskBoard();
+    setupDeleteTaskListener();
+    setupSaveTaskEditListener();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // console.log('DOM fully loaded and parsed');
+    // const createTaskButton = document.getElementById('create-task');
+    // if (createTaskButton) {
+    //     console.log('Create Task button found:', createTaskButton);
+    //     createTaskButton.addEventListener('click', () => {
+    //         console.log('Create Task button clicked');
+    //         // Hier kommt Ihre Logik zum Erstellen eines Tasks
+    //     });
+    // } else {
+    //     console.error('Create Task button not found');
+    // }
     checkInputFields();
     saveInputFields();
     loadTasks();
@@ -295,4 +326,21 @@ document.addEventListener('DOMContentLoaded', () => {
     setupAssigneeDropdownToggleListener();
     initCategoryDropdown();
     setupCategoryDropdownEventListeners();
+
+    // board.js
+
+    initializeBoard();
+    initializeBoardCard();
+    setupCreateTaskListener();
+    setupTaskClickListeners();
+    setupCloseTaskDetailModalListener();
+    setupOpenAddTaskModalListener();
+    setupCloseAddTaskModalListener();
+    setupModalCloseDelegation();
+    setupEditTaskListener();
+    setupModalCloseDelegationEdit();
+    setupModalCloseDelegationAddAtskBoard();
+    setupDeleteTaskListener();
+    setupSaveTaskEditListener();
+    setupSubtaskClickListener();
 });

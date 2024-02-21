@@ -522,12 +522,15 @@ textarea {
   align-items: center;
   margin-bottom: 5px;
   position: relative;
-  /* Für Pseudo-Elemente */
   padding: 5px 0px 5px 0px;
   cursor: pointer;
   min-height: 25px;
   border-radius: 12px;
   background-color: #e9eaeb;
+}
+
+#subtasks-list-container li.edit-mode:hover {
+  background-color: transparent;
 }
 
 .subtask-icons {
@@ -585,19 +588,22 @@ textarea {
 .subtask-icons-edit {
   position: absolute;
   display: none;
-  /* Standardmäßig versteckt */
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  /* Zentriert den Container vertikal */
   background-color: transparent;
   z-index: 3;
-  /* Höher als das Inputfeld, um es beim Hovern zu überlagern */
+}
+
+input#subtask-edit-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
 }
 
 .subtask-item-wrapper-edit:hover .subtask-icons-edit {
   display: flex;
-  /* Zeigt Icons beim Hovern an */
 }
 
 .subtask-item-wrapper-edit {
@@ -928,6 +934,16 @@ textarea {
 .modal-close {
   transform: translateX(100%);
   transition: transform 0.2s ease;
+}
+
+#close-modal-button-edittask {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
+  box-shadow: 0px -4px 6px -1px rgba(255, 255, 255, 1),
+    0px -2px 4px -2px rgba(255, 255, 255, 1);
+  padding: 0px 0px 10px 0px;
 }
 
 .modal-content {

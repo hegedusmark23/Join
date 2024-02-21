@@ -583,7 +583,7 @@ if (detailModalContainer) {
                 });
             });
     
-            // console.log('Assign-to aktualisiert:', assignToContainer.innerHTML);
+            console.log('Assign-to aktualisiert:', assignToContainer.innerHTML);
         } else {
             console.error('#assign-to wurde nach dem Einfügen des Modals nicht gefunden.');
         }
