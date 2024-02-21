@@ -1,124 +1,108 @@
 // Globale Variable
-
-let category = []
+let title = null;
+let description = null;
+let dueDate = null;
+let prio = null;
 let subtasks = [];
+let assignedTo = [];
+let category = null;
 
-// Category DropDown
+let tasks = [];
 
-function categoryDropdown() {
-    let categories = ['Technical Task', 'User Story'];
-    let dropdownContent = document.getElementById('category');
-    let dropdownButton = document.getElementById('dropdown-categories');
-    let arrowDown = dropdownButton.nextElementSibling.querySelector('.arrow-dropdown-down');
-    let arrowUp = dropdownButton.nextElementSibling.querySelector('.arrow-dropdown-up');
-    let iconBgDown = dropdownButton.nextElementSibling.querySelector('.icon-background-down');
-    let iconBgUp = dropdownButton.nextElementSibling.querySelector('.icon-background-up');
+function clearAllInputs() {
+    // Eingabefelder zurücksetzen
+    document.getElementById('addtask-title').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('dueDate').value = '';
 
-    categories.forEach((category, index) => {
-        let link = document.createElement('a');
-        link.href = '#';
-        link.dataset.value = 'option' + (index + 1);
-        link.textContent = category;
+    // Globale Variablen zurücksetzen
+    title = null;
+    description = null;
+    dueDate = null;
+    prio = null;
 
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            dropdownButton.textContent = this.textContent;
-            dropdownContent.style.display = 'none';
-            arrowDown.style.display = 'block';
-            arrowUp.style.display = 'none';
-            iconBgDown.style.display = 'block';
-            iconBgUp.style.display = 'none';
-            
-        });
+    // Dropdown zurücksetzen
+    category = null; // Löscht die Auswahl in der Kategorie
+    document.getElementById('dropdown-categories').textContent = 'Select task category';
+    document.getElementById('dropdown-categories-error-msg').style.visibility = 'hidden'; // Fehlermeldung verbergen
 
-        dropdownContent.appendChild(link);
-    });
-}
-
-
-function setupDropdown(dropdownButtonId, dropdownContentId, errorId, isRequired = false) {
-    let isDropdownSelected = false;
-    let hasDropdownBeenOpened = false;
-    const dropdownButton = document.getElementById(dropdownButtonId);
-
-    dropdownButton.isDropdownSelected = false;
-    dropdownButton.hasDropdownBeenOpened = false;
-
-    const dropdownContent = document.getElementById(dropdownContentId);
-    const errorElement = errorId ? document.getElementById(errorId) : null;
-    const arrowDown = dropdownButton.nextElementSibling.querySelector('.arrow-dropdown-down');
-    const arrowUp = dropdownButton.nextElementSibling.querySelector('.arrow-dropdown-up');
-    const iconBgDown = dropdownButton.nextElementSibling.querySelector('.icon-background-down');
-    const iconBgUp = dropdownButton.nextElementSibling.querySelector('.icon-background-up');
-
-    function closeDropdown() {
-        dropdownContent.style.display = 'none';
-        arrowDown.style.display = 'block';
-        arrowUp.style.display = 'none';
-        iconBgDown.style.display = 'block';
-        iconBgUp.style.display = 'none';
+    // Assignee-Dropdown zurücksetzen
+    assignedTo = []; // Leert das Array der zugewiesenen Benutzer
+    document.getElementById('dropdown-assignees').textContent = 'Select contacts to assign';
     
-        if (errorElement) {
-            if (isRequired && !isDropdownSelected && hasDropdownBeenOpened && !dropdownButton.isReset) {
-                errorElement.style.visibility = 'visible';
-            } else {
-                errorElement.style.visibility = 'hidden';
-            }
-        }
+    // Aktualisiert die Anzeige der ausgewählten Benutzer
+    updateSelectedAssigneesDisplay(); 
+
+    // Rendert die Benutzerliste im Dropdown neu
+    renderAssignees(); 
+
+    // Setzt den 'added'-Status aller Kontakte zurück und aktualisiert die Anzeige
+    resetAssigneeSelection();
+
+    // Den visuellen Zustand des Dropdowns zurücksetzen
+    const dropdownContent = document.getElementById('category');
+    dropdownContent.style.display = 'none'; // Schließt das Dropdown
+    toggleCategoryDropdownArrows(true); // Setzt die Pfeile zurück auf den "geschlossenen" Zustand
+
+    // Subtasks aus dem Array und dem DOM löschen
+    subtasks = []; // Löscht alle Subtasks, falls vorhanden
+    const subtasksList = document.querySelector('#subtasks-list-container ul');
+    if (subtasksList) {
+        subtasksList.innerHTML = ''; // Entfernt alle Subtask-Listenelemente aus dem DOM
     }
-
-    dropdownButton.addEventListener('click', function(event) {
-        event.stopPropagation();
-        hasDropdownBeenOpened = true;
-        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-        arrowDown.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-        arrowUp.style.display = (dropdownContent.style.display === 'block') ? 'block' : 'none';
-        iconBgDown.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-        iconBgUp.style.display = (dropdownContent.style.display === 'block') ? 'block' : 'none';
+    
+    // Prioritäts-Buttons zurücksetzen
+    const prioButtons = document.querySelectorAll('.addtask-buttons');
+    prioButtons.forEach(button => {
+        button.classList.remove('is-active');
+        button.style.backgroundColor = '';
     });
 
-    dropdownContent.addEventListener('click', function(event) {
-        if (event.target.tagName === 'A') {
-            event.preventDefault();
-            dropdownButton.textContent = event.target.textContent;
-            isDropdownSelected = true;
-            closeDropdown();
-        }
-    });
+    // Subtask Feld zurücksetzen
+    const inputField = document.getElementById('subtask');
+    inputField.value = '';
+    document.querySelector('.subtask-icons-before').style.display = 'block';
+    document.querySelector('.subtask-icons-after').style.display = 'none';
 
-    window.addEventListener('click', function(event) {
-        if (!event.target.closest(`#${dropdownButtonId}`) && !event.target.closest(`#${dropdownContentId}`)) {
-            closeDropdown();
-        }
-    });
+    // Fehlermeldungen für andere Felder zurücksetzen
+    document.getElementById('title-error-msg').style.visibility = 'hidden';
+    document.getElementById('duedate-error-msg').style.visibility = 'hidden';
 }
 
-function resetDropdown(dropdownButtonId, defaultText, errorElementId) {
-    const dropdownButton = document.getElementById(dropdownButtonId);
-    const errorElement = document.getElementById(errorElementId);
+// Funktion, die den 'added'-Status aller Kontakte zurücksetzt
+function resetAssigneeSelection() {
+    // Durchläuft den letterContainer und setzt den 'added'-Status jedes Kontakts zurück
+    Object.values(letterContainer).forEach(contacts => {
+        contacts.forEach(contact => {
+            contact.added = false; // Setzt den Zustand zurück
+        });
+    });
 
-    dropdownButton.textContent = defaultText;
-    errorElement.style.visibility = 'hidden';
+    // Leert das Array der zugewiesenen Benutzer
+    assignedTo = [];
 
-    // Verzögere das Entfernen des Fokus, um sicherzustellen, dass es richtig verarbeitet wird
-    setTimeout(() => {
-        dropdownButton.blur();
-    }, 0);
+    // Rendert die Benutzerliste im Dropdown neu, um den zurückgesetzten Zustand widerzuspiegeln
+    renderAssignees();
 
-    // Setze die Zustände des Dropdown-Buttons zurück
-    dropdownButton.isDropdownSelected = false;
-    dropdownButton.hasDropdownBeenOpened = false;
-    dropdownButton.isReset = true; // Füge eine neue Eigenschaft hinzu, um anzuzeigen, dass das Dropdown zurückgesetzt wurde
+    // Aktualisiert die Anzeige der ausgewählten Benutzer
+    updateSelectedAssigneesDisplay();
 }
 
 
+// Die anderen Inputfelder prüfen
 function checkInputFields() {
     const title = document.getElementById('addtask-title');
-    const dueDate = document.getElementById('due-date');
+    const dueDate = document.getElementById('dueDate');
     const titleErrorMsg = document.getElementById('title-error-msg');
     const dueDateErrorMsg = document.getElementById('duedate-error-msg');
     let titleFocused = false;
     let dueDateFocused = false;
+
+    // Überprüfe, ob alle benötigten Elemente existieren
+    if (!title || !dueDate || !titleErrorMsg || !dueDateErrorMsg) {
+        console.warn('Eines oder mehrere benötigte Elemente für checkInputFields() fehlen im DOM.');
+        return; // Bricht die Ausführung ab, wenn ein Element fehlt
+    }
 
     title.addEventListener('focus', () => {
         titleFocused = true;
@@ -145,298 +129,170 @@ function checkInputFields() {
     });
 }
 
-function clearAllInputs(){
-    
-    // Eingabefelder zurücksetzten
-    let title = document.getElementById('addtask-title');
-    let description = document.getElementById('description');
-    let dropdownAssigned = document.getElementById('dropdown-assignees');
-    let dueDate = document.getElementById('due-date');
-    let dropdownCategory = document.getElementById('dropdown-categories')
-    
-    title.value = '';
-    description.value = '';
-    dropdownAssigned.textContent = 'Select contacts to assign';
-    dueDate.value = '';
-    dropdownCategory.textContent = 'Select task category';
-
-    // Prio Buttons zurücksetzen
-    const prioButtons = document.querySelectorAll('.addtask-buttons');
-    prioButtons.forEach(button => {
-        button.classList.remove('is-active');
-        button.style.backgroundColor = '';
-    });
-
-    // Fehlermeldungen zurücksetzen
-    
-    let titleErr = document.getElementById('title-error-msg');
-    let dueDateErr = document.getElementById('duedate-error-msg');
-    let catErr = document.getElementById('dropdown-categories-error-msg');
-
-    titleErr.style.visibility = 'hidden';
-    dueDateErr.style.visibility = 'hidden';
-    setTimeout(() => {
-        catErr.style.visibility = 'hidden';
-    }, 0);
-
-    // Dropdowns zurücksetzen
-    resetDropdown('dropdown-assignees', 'Select contacts to assign', 'dropdown-assignees-error-msg');
-    resetDropdown('dropdown-categories', 'Select task category', 'dropdown-categories-error-msg');
-    // Setze die isReset-Eigenschaft zurück, nachdem das Zurücksetzen abgeschlossen ist
-    setTimeout(() => {
-        document.getElementById('dropdown-assignees').isReset = false;
-        document.getElementById('dropdown-categories').isReset = false;
-    }, 0);
-
-    // Subtaskfeld zurücksetzen
-
-    let iconsBefore = document.querySelector('.subtask-icons-before');
-    let iconsAfter = document.querySelector('.subtask-icons-after');
-    let inputField = document.getElementById('subtask');
-    iconsBefore.style.display = 'block';
-    iconsAfter.style.display = 'none';
-    inputField.value = '';
-
-}
-
-function inputSubtask() {
-    let inputField = document.getElementById('subtask');
-    let clearButton = document.querySelector('.first-img-container');
-    let iconsBefore = document.querySelector('.subtask-icons-before');
-    let iconsAfter = document.querySelector('.subtask-icons-after');
-
-    // Event-Listener für den Fokus auf das Inputfeld
-    inputField.addEventListener('focus', () => {
-        iconsBefore.style.display = 'none';
-        iconsAfter.style.display = 'flex';
-    });
-
-    // Event-Listener für das Clear-Button
-    clearButton.addEventListener('click', () => {
-        inputField.value = '';
-        setTimeout(() => {
-            iconsBefore.style.display = 'block';
-            iconsAfter.style.display = 'none';
-            inputField.blur();
-        }, 10); // Kleine Verzögerung von 10 Millisekunden
-    });
-    
-}
-
-function addSubTask(){
-    // Event-Listener für den Button hinzufügen
-    let addButton = document.querySelector('.second-img-container');
-    addButton.addEventListener('click', renderSubtask);
-
-    // Event-Listener für das Enter-Ereignis im Inputfeld hinzufügen
-    let inputField = document.getElementById('subtask');
-    inputField.addEventListener('keypress', (event) => {
-        if (event.keyCode === 13 || event.which === 13) { // Unterstützung für unterschiedliche Browser
-            renderSubtask();
-        }
-    });
-}
-
-function renderSubtask() {
-    let inputField = document.getElementById('subtask');
-    let newSubtaskText = inputField.value.trim();
-
-    // Fügt nur ein neues Listenelement hinzu, wenn Text vorhanden ist
-    if (newSubtaskText) {
-        let newSubtask = {
-            id: Date.now(), // Erzeugt eine einfache eindeutige ID
-            text: newSubtaskText
-        };
-        subtasks.push(newSubtask);
-
-        // Erstellen des neuen Listenelements
-        let newLi = document.createElement('li');
-        newLi.dataset.subtaskId = newSubtask.id; // Speichert die ID im Dataset des li-Elements
-        newLi.innerHTML = `
-            <div class="subtask-item-wrapper">
-                <p>${newSubtaskText}</p>
-                <div class="subtask-icons">
-                    <img class="edit-subtask" src="./assets/img/edit_task.png">
-                    <img class="divider-subtask" src="./assets/img/divider_small.png">
-                    <img class="delete-subtask" src="./assets/img/delete-subtask.svg">
-                </div>
-            </div>
-        `;
-
-        // Hinzufügen des neuen Listenelements zum UL-Container
-        let listContainer = document.getElementById('subtasks-list-container').querySelector('ul');
-        listContainer.appendChild(newLi);
+function saveInputFields() {
+    // Event-Listener für Titel
+    const titleInput = document.getElementById('addtask-title');
+    if (titleInput) {
+        titleInput.addEventListener('input', () => {
+            title = titleInput.value;
+        });
+    } else {
+        console.warn('Titel-Inputfeld nicht gefunden.');
     }
 
-    // Leeren des Inputfeldes
-    inputField.value = '';
-    // Verzögertes Zurücksetzen des Inputfeldes und der Icons
-    setTimeout(resetSubtaskField, 0);
+    // Event-Listener für Beschreibung
+    const descriptionInput = document.getElementById('description');
+    if (descriptionInput) {
+        descriptionInput.addEventListener('input', () => {
+            description = descriptionInput.value;
+        });
+    } else {
+        console.warn('Beschreibungs-Inputfeld nicht gefunden.');
+    }
+
+    // Event-Listener für das Fälligkeitsdatum
+    const dueDateInput = document.getElementById('dueDate');
+    if (dueDateInput) {
+        dueDateInput.addEventListener('input', () => {
+            dueDate = dueDateInput.value;
+        });
+    } else {
+        console.warn('Fälligkeitsdatum-Inputfeld nicht gefunden.');
+    }
 }
 
-
-function resetSubtaskField() {
-    let inputField = document.getElementById('subtask');
-    let iconsBefore = document.querySelector('.subtask-icons-before');
-    let iconsAfter = document.querySelector('.subtask-icons-after');
-
-    inputField.value = '';
-    iconsBefore.style.display = 'block';
-    iconsAfter.style.display = 'none';
-
-    inputField.blur()
+async function loadTasks() {
+    try {
+        const storedTasks = await getItem('tasks');
+        if (storedTasks) {
+            tasks = JSON.parse(storedTasks);
+        }
+        showTasks();
+    } catch (error) {
+        console.error('Fehler beim Laden der Tasks:', error);
+    }
 }
 
-// Funktion zum Bearbeiten des Subtasks
-function editSubtask(liElement) {
-    let subtaskText = liElement.querySelector('p').textContent;
-    liElement.classList.add('edit-mode'); // Fügt die Klasse hinzu, um den Bullet Point auszublenden
+async function createTask() {
+    const createTaskButton = document.getElementById('create-task');
+    if (!createTaskButton) {
+        console.warn('Create-Task-Button wurde nicht im DOM gefunden.');
+        return; // Beendet die Funktion frühzeitig, wenn das Button-Element nicht existiert
+    }
 
-    liElement.innerHTML = `
-        <div class="subtask-item-wrapper-edit">
-            <input id="subtask-edit-input" class="input-subtask" type="text" value="${subtaskText}">
-            <div class="subtask-icons-edit">
-                <img class="delete-subtask" src="./assets/img/delete-subtask.svg">
-                <img class="divider-subtask" src="./assets/img/divider_small.png">
-                <img class="save-subtask" src="./assets/img/check-small.png">
-            </div>
-        </div>
-    `;
-}
+    createTaskButton.addEventListener('click', async () => {
+        if (!validateTaskForm()) {
+            // Beendet die Funktion, wenn die Validierung fehlschlägt
+            console.info('Validation failed. No Task created.');
+            return;
+        }
 
-// Funktion zum Speichern des Subtasks
-function saveSubtask(liElement) {
-    let inputElement = liElement.querySelector('input.input-subtask');
-    let newSubtaskText = inputElement.value;
-    liElement.classList.remove('edit-mode'); // Entfernt die Klasse
+        // Erstellen einer neuen Task-Instanz
+        let newTask = new Task(
+            Date.now(), // Eindeutige ID
+            title,
+            description,
+            assignedTo,
+            dueDate,
+            prio,
+            new Date().toISOString(), // Erstellungsdatum
+            STORAGE_TOKEN // Storage-Token
+        );
 
-    liElement.innerHTML = `
-        <div class="subtask-item-wrapper">
-            <p>${newSubtaskText}</p>
-            <div class="subtask-icons">
-                <img class="edit-subtask" src="./assets/img/edit_task.png">
-                <img class="divider-subtask" src="./assets/img/divider_small.png">
-                <img class="delete-subtask" src="./assets/img/delete-subtask.svg">
-            </div>
-        </div>
-    `;
-}
+        // Hinzufügen von Kategorie und Subtasks
+        newTask.category = category;
+        newTask.subtask = subtasks;
 
-function setupEventListeners() {
-    // Event-Listener für das Löschen von Subtasks und Doppelklicken auf Subtasks hinzufügen
-    let listContainer = document.getElementById('subtasks-list-container').querySelector('ul');
+        try {
+            // Hinzufügen des neuen Tasks zum Array
+            tasks.push(newTask);
 
-    listContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('delete-subtask')) {
-            let liToDelete = event.target.closest('li');
-            if (liToDelete) {
-                // Überprüft, ob eine ID für den Subtask vorhanden ist
-                let subtaskId = liToDelete.dataset.subtaskId;
-                if (subtaskId) {
-                    // Aktualisiert das subtasks-Array, indem der gelöschte Subtask entfernt wird
-                    subtasks = subtasks.filter(subtask => subtask.id.toString() !== subtaskId);
-                }
+            // Speichern des aktualisierten Arrays
+            await setItem('tasks', JSON.stringify(tasks));
 
-                // Entfernt das <li>-Element aus dem DOM
-                listContainer.removeChild(liToDelete);
-            }
+            console.log('Task erfolgreich gespeichert');
+            // Animation starten
+            showTaskAddedMessage();
+            clearAllInputs();
+        } catch (error) {
+            console.error('Fehler beim Speichern des Tasks:', error);
         }
     });
+}
 
-    // Event-Listener für das Doppelklicken auf Subtasks hinzufügen
-    listContainer.addEventListener('dblclick', (event) => {
-        let liToEdit = event.target.closest('li');
-        if (liToEdit && !liToEdit.classList.contains('edit-mode')) {
-            editSubtask(liToEdit);
-        }
-    });
+function validateTaskForm() {
+    let isValid = true;
 
-    listContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('delete-subtask')) {
-            let liToDelete = event.target.closest('li');
-            if (liToDelete && listContainer.contains(liToDelete)) {
-                // Überprüfen, ob wir uns im Bearbeitungsmodus befinden
-                let inputElement = liToDelete.querySelector('.input-subtask');
-                let subtaskText;
-                if (inputElement) {
-                    // Im Bearbeitungsmodus, verwenden Sie den Wert des Input-Elements
-                    subtaskText = inputElement.value;
-                } else {
-                    // Nicht im Bearbeitungsmodus, verwenden Sie den Text aus dem <p>-Element
-                    let pElement = liToDelete.querySelector('p');
-                    subtaskText = pElement ? pElement.textContent : '';
-                }
-    
-                // Entfernen Sie den Subtask aus dem Array, wenn nötig
-                subtasks = subtasks.filter(subtask => subtask !== subtaskText);
-    
-                listContainer.removeChild(liToDelete);
-            }
+    // Titel validieren
+    const titleInput = document.getElementById('addtask-title');
+    if (titleInput.value.trim() === "") {
+        document.getElementById('title-error-msg').style.visibility = 'visible';
+        isValid = false;
+    } else {
+        document.getElementById('title-error-msg').style.visibility = 'hidden';
+    }
+
+    // Fälligkeitsdatum validieren
+    const dueDateInput = document.getElementById('dueDate');
+    if (dueDateInput.value.trim() === "") {
+        document.getElementById('duedate-error-msg').style.visibility = 'visible';
+        isValid = false;
+    } else {
+        document.getElementById('duedate-error-msg').style.visibility = 'hidden';
+    }
+
+    // Kategorie validieren
+    if (!category) { // Nehmen an, dass 'category' global oder irgendwo gesetzt wird
+        document.getElementById('dropdown-categories-error-msg').style.visibility = 'visible';
+        isValid = false;
+    } else {
+        document.getElementById('dropdown-categories-error-msg').style.visibility = 'hidden';
+    }
+
+    return isValid;
+}
+
+
+function showTaskAddedMessage(fromModal = false) {
+    const messageElement = document.getElementById('create-task-message');
+    if (messageElement) {
+        messageElement.style.display = 'flex'; // Zeigt die Nachricht an
+
+        // Wenn die Funktion aus dem Modal heraus aufgerufen wird, passe die Klasse entsprechend an
+        if (fromModal) {
+            messageElement.classList.add('no-background'); // Angenommen, 'no-background' entfernt den dunklen Hintergrund
+        } else {
+            messageElement.classList.remove('no-background');
         }
 
-        // Überprüfen, ob der geklickte Button der Bearbeiten-Button ist
-        if (event.target.classList.contains('edit-subtask')) {
-            let liToEdit = event.target.closest('li');
-            if (liToEdit) {
-                editSubtask(liToEdit);
-            }
-        }
+        // Nachricht nach einer gewissen Zeit ausblenden
+        setTimeout(() => {
+            messageElement.style.display = 'none';
+        }, 3000); // Warte 1,5 Sekunden, bevor die Nachricht ausgeblendet wird
+    } else {
+        console.error('Element für Task-Hinzugefügt-Nachricht wurde nicht gefunden.');
+    }
+}
 
-        // Überprüfen, ob der geklickte Button der Speichern-Button ist
-        if (event.target.classList.contains('save-subtask')) {
-            let liToSave = event.target.closest('li');
-            if (liToSave) {
-                saveSubtask(liToSave);
-            }
-        }
-    });
+async function showTasks() {
+    console.log('Das sind die Tasks in meinem Array: ', tasks);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     checkInputFields();
-    // Funktion für Pflichtfeld-Dropdown
-    setupDropdown('dropdown-categories', 'category', 'dropdown-categories-error-msg', true);
-    // Funktion für optionales Dropdown
-    setupDropdown('dropdown-assignees', 'assign-to', null);
+    saveInputFields();
+    loadTasks();
+    createTask();
+
+    // addtaskFormHandling.js
+
+    handlePrioButtons();
     inputSubtask();
     addSubTask();
-    setupEventListeners();
-    categoryDropdown();
-
-    // Prio Buttons einfärben und is-active setzten bzw. entfernen
-    const prioButtons = document.querySelectorAll('.addtask-buttons');
-
-    const colors = {
-    urgent: '#ff3d00',
-    medium: '#ffa800',
-    low: '#7ae229'
-    };
-    
-    // Iteriere durch jeden Button und füge den Event-Listener hinzu
-    prioButtons.forEach(button => {
-    button.addEventListener('click', handleClick);
-    });
-    
-    function handleClick(event) {
-        const button = event.target;
-    
-        // Überprüfen, ob der geklickte Button bereits 'is-active' hat
-        if (button.classList.contains('is-active')) {
-            // Wenn ja, entferne 'is-active' und den Hintergrundstil
-            button.classList.remove('is-active');
-            button.style.backgroundColor = '';
-        } else {
-            // Entferne 'is-active' und den Hintergrundstil von allen Buttons
-            prioButtons.forEach(btn => {
-                btn.classList.remove('is-active');
-                btn.style.backgroundColor = '';
-            });
-    
-            // Füge 'is-active' zum geklickten Button hinzu und setze die Hintergrundfarbe
-            button.classList.add('is-active');
-            const priority = button.id.replace('addtask-prio-', '');
-            button.style.backgroundColor = colors[priority];
-        }
-    }
-    
+    setupEventListenersSubtasks();
+    renderAssignees();
+    setupAssigneeGlobalClickListener();
+    setupAssigneeDropdownToggleListener();
+    initCategoryDropdown();
+    setupCategoryDropdownEventListeners();
 });

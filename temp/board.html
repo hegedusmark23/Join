@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/templates.css">
+    <link rel="stylesheet" href="./CSS/general.css">
+    <link rel="stylesheet" href="./CSS/summary.css">
+    <title>Board</title>
+    <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
+</head>
+
+<body onload="includeHTML()" class="tasks board-page">
+    <main class="board-contents">
+        <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
+        <div class="menu-header-and-main-content-container">
+            <menu id="popup-menu" class="menu-popup">
+                <div class="popup-links-div"><a class="popup-links"
+                        onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
+                <div class="popup-links-div"><a class="popup-links"
+                        onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
+                <div class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
+            </menu>
+            <header w3-include-html="./assets/templates/header.html"></header>
+
+            <div id="addtask-modal" class="modal">
+                <div class="modal-content">
+
+                </div>
+            </div>
+
+            <div id="task-detail-modal" class="modal">
+                <div class="modal-content-tasks">
+                    <div id="task-details-container">
+                        <div id="task-details">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <section id="board-content">
+                <div class="board-header">
+                    <div class="board-header-left">
+                        <h1 style="font-weight: 800;">Board</h1>
+                    </div>
+                    <div class="board-header-right">
+                        <div class="board-search-input">
+                            <div class="board-search-field">
+                                <input type="text" placeholder="Find Task">
+                            </div>
+                            <div class="board-search-icons">
+                                <div class="divider-img"><img src="/Join/assets/icons/divider.svg" alt="Divider Icon">
+                                </div>
+                                <div class="search-icon"><img src="/Join/assets/icons/search.svg" alt="Search Icon">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-add-task">
+                            <button id="open-modal-button" class="blue-btn">Add Task
+                                <img src="/Join/assets/icons/add.svg" alt="Plus Icon">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="board-sections">
+                    <div class="board-section-1">
+                        <div class="board-section-column">
+                            <div class="board-section-title">To do</div>
+                            <div id="addtask-todo" class="board-section-add-task">
+                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div id="board-card-section-1" class="board-section-cards">
+                            <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
+                            <div id="task-cards-container"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="board-section-2">
+
+                        <div class="board-section-column">
+                            <div class="board-section-title">In progress</div>
+                            <div class="board-section-add-task">
+                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="board-section-cards">
+                            <div class="board-card-bg">No tasks In progress
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="board-section-3">
+
+                        <div class="board-section-column">
+                            <div class="board-section-title">Await feedback</div>
+                            <div class="board-section-add-task">
+                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="board-section-cards">
+                            <div class="board-card-bg">No tasks Await feedback</div>
+                        </div>
+
+                    </div>
+
+                    <div class="board-section-4">
+
+                        <div class="board-section-column">
+                            <div class="board-section-title">Done</div>
+
+                        </div>
+
+                        <div class="board-section-cards">
+                            <div class="board-card-bg">No tasks Done</div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <div id="create-task-message" class="message-animation-background" style="display: none;">
+                <div class="message-animation">
+                    <p>Task added to board</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./JS/script.js"></script>
+    <script src="./JS/w3include.js"></script>
+    <script src="./models/board.class.js"></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/board.js"></script>
+    <script src="./JS/boardRenderings.js"></script>
+    <script src="./models/tasks.class.js"></script>
+    <script src="./JS/addtask.js"></script>
+    <script src="./JS/addtaskFormHandling.js"></script>
+    <script src="./JS/contacts.js"></script>
+    <script src="./JS/html-templates.js"></script>
+    <script src="./JS/main-content.js"></script>
+
+</body>
+
+</html>

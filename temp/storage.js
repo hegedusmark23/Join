@@ -48,28 +48,6 @@ async function deleteTasks(taskIds = []) {
         console.error('Fehler beim Löschen des/der Task(s):', error);
     }
   }
-
-  async function deleteUser() {
-    try {
-        let user = await getItem('user'); // Abrufen aller gespeicherten Tasks als String
-  
-        // Konvertieren des String zurück in ein Array
-        try {
-            user = JSON.parse(user);
-        } catch (error) {
-            console.error('Fehler beim Parsen der User:', error);
-            return; // Beendet die Funktion vorzeitig, wenn das Parsen fehlschlägt
-        }
-  
-           // Löschen aller Tasks, wenn keine IDs bereitgestellt werden
-            user = ''
-  
-        await setItem('user', JSON.stringify(user)); // Aktualisieren des Speichers mit den verbleibenden/leeren Tasks
-        console.log('User erfolgreich gelöscht');
-    } catch (error) {
-        console.error('Fehler beim Löschen des User:', error);
-    }
-  }
   
 
 async function addStateToExistingTasks() {
@@ -95,30 +73,6 @@ async function addStateToExistingTasks() {
       console.error('Fehler beim Aktualisieren der vorhandenen Tasks:', error);
   }
 }
-
-async function changeAddStateTasks() {
-    try {
-        let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
-        tasks = JSON.parse(tasks); // Versuch, den String zu parsen
-  
-        if (!Array.isArray(tasks)) {
-            console.error('Die abgerufenen Daten sind kein Array:', tasks);
-            return; // Beendet die Funktion, wenn keine Array-Daten vorliegen
-        }
-  
-        tasks = tasks.map(task => {
-            if (!task.state) { // Hinzufügen von 'state', falls nicht vorhanden
-                task.state = 'toDo';
-            }
-            return task;
-        });
-  
-        await setItem('tasks', JSON.stringify(tasks)); // Speichern der aktualisierten Tasks
-        console.log('Alle vorhandenen Tasks wurden erfolgreich aktualisiert.');
-    } catch (error) {
-        console.error('Fehler beim Aktualisieren der vorhandenen Tasks:', error);
-    }
-  }
 
 async function addCompletedToExistingSubtasks() {
     try {
@@ -176,24 +130,6 @@ async function updateSubtaskCompletion(taskId, subtaskId, completionStatus) {
         console.error('Fehler beim Aktualisieren der Subtask:', error);
     }
 }
-
-async function loadUser() {
-    try {
-        const response = await getItem('user');
-        if (response) {
-            user = JSON.parse(response);
-            console.log('User geladen:', user);
-        } else {
-            console.log('Keine User gefunden.');
-        }
-    } catch (e) {
-        console.error('Fehler beim Laden der User:', e);
-    }
-}
-
-
-// deleteUser()
-loadUser()
 
 // Setze die completed-Eigenschaft eines Subtasks auf 'done'
 // updateSubtaskCompletion(1707393834234, 1707393814989, 'done');
