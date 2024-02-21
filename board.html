@@ -12,7 +12,7 @@
 </head>
 
 <body onload="includeHTML(); setCurrentUserName();" class="tasks board-page">
-    <main class="board-contents">
+    <main class="board-contents" onclick="deleteTasks()">
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="menu-header-and-main-content-container">
             <menu id="popup-menu" class="menu-popup">
@@ -162,10 +162,10 @@
     <script src="./JS/w3include.js"></script>
     <script src="./models/board.class.js"></script>
     <script src="./JS/storage.js"></script>
+    <script src="./JS/addtask.js"></script>
     <script src="./JS/board.js"></script>
     <script src="./JS/boardRenderings.js"></script>
     <script src="./models/tasks.class.js"></script>
-    <script src="./JS/addtask.js"></script>
     <script src="./JS/addtaskFormHandling.js"></script>
     <script src="./JS/contacts.js"></script>
     <script src="./JS/register.js"></script>

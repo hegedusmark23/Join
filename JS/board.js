@@ -1,7 +1,7 @@
-let toDo = []
-let inProgress = []
-let AwaitFeedback = []
-let done = []
+// let toDo = []
+// let inProgress = []
+// let AwaitFeedback = []
+// let done = []
 
 let currentDraggedElement;
 
@@ -143,7 +143,6 @@ async function initializeBoardCard() {
     }
     setupTaskClickListeners();
 
-
 function updateSubtaskProgress(task) {
     let totalSubtasks = task.subtask ? task.subtask.length : 0;
     let completedSubtasks = task.subtask ? task.subtask.filter(subtask => subtask.completed === 'done').length : 0;
@@ -194,7 +193,7 @@ function renderCardContent(i, task, completionDetails) {
         </div>` : '';
 
     return /*html*/ `
-    <div id="board-card-content" draggable="true" class="board-card-content" ondragstart="startDragging(${i})">
+    <div id="board-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier})">
         <div class="board-card" data-task-id="${task.id}">
             <div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
@@ -500,3 +499,12 @@ async function moveTo(state) {
     await setItem('tasks', JSON.stringify(tasks));
     await initializeBoardCard();
 }
+
+// async function deleteTasks(){
+//         for(let i = 0; i < tasks.length; i++){
+//             tasks.splice(i, 1)
+//         }
+//         await setItem('tasks', JSON.stringify(tasks));
+//         await initializeBoard();
+
+//     }
