@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="/assets/img/logo-small-white.png" type="image/x-icon">
 </head>
 
-<body onload="renderContact() ">
+<body onload="renderContact(); setCurrentUserName();">
     <main class="add-contacts-contents">
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="menu-header-and-main-content-container">
@@ -21,7 +21,7 @@
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
-                <div class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
+                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
             </menu>
             <header w3-include-html="./assets/templates/header.html"></header>
             <section id="contact-section" class="contact-section">
@@ -110,6 +110,7 @@
 
     <script src="./JS/contacts.js"></script>
     <script src="./JS/storage.js"></script>
+    <script src="./JS/register.js"></script>
     <script src="./models/contact.class.js"></script>
     <script src="./JS/contacts-template-func.js"></script>
     <script src="./JS/w3include.js"></script>

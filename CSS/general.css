@@ -62,7 +62,7 @@ html {
 
 body {
   margin: 0px;
-  background-color: #f6f7f8;
+  background-color: #fcfcfc
 }
 
 h3 {
@@ -156,7 +156,6 @@ a {
 .arrow {
   transition: transform 0.2s;
   position: absolute;
-  right: 10px;
 }
 
 .arrow:hover {
@@ -171,9 +170,9 @@ a {
 }
 
 .legal-site-arrow {
-  position: sticky;
+  position: fixed;
   top: 225px;
-  left: 1827px;
+  right: 30px;
 }
 
 .blue-text {
@@ -223,9 +222,9 @@ a {
   height: 158px;
   gap: 10px;
   z-index: 1;
-}ó
+}
 
-.menu-popup {
+ó .menu-popup {
   flex-direction: column;
   justify-content: center;
   background-color: #2a3647;
@@ -506,4 +505,32 @@ a {
     position: fixed;
     z-index: 1000;
   }
+}
+
+.toDo-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.in-progress-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.await-feedback-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.done-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column
 }

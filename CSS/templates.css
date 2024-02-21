@@ -1232,6 +1232,22 @@ input#subtask-edit-input {
   margin-right: 10px;
 }
 
+@media (max-width: 800px){
+  .addtask-action-btns {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px 10px 16px;
+    background-color: #f0f0f0;
+    margin: 81px 0px;
+  }
+
+  .addtask-actions {
+    position: fixed;
+    width: 100%;
+    z-index: 0;
+  }
+}
+
 @media (max-width: 700px) {
   #board-content h1,
   #addtask-content h1 {
@@ -1284,7 +1300,7 @@ input#subtask-edit-input {
   .addtask-actions {
     position: fixed;
     width: 100%;
-    z-index: 100;
+    z-index: 0;
   }
 
   .addtask-action-btns {
@@ -1292,6 +1308,7 @@ input#subtask-edit-input {
     justify-content: space-between;
     padding: 10px 16px 10px 16px;
     background-color: #f0f0f0;
+    margin: 81px 0px;
   }
 
   .wrapper-flex-container {

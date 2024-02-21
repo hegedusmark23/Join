@@ -69,9 +69,9 @@ async function login() {
 }
 
 function logOut() {  // Empties the arrays related to the current user, and redirects to the login page.
-  currentUser = [];
   Name = [];
-  setItem('user', '');
+  currentUser = [];
+  deleteUser();
   window.location.href = '/landingpage.html';
 }
 
@@ -88,6 +88,18 @@ async function setCurrentUser() {   // Sets the current user after log in.
     console.error("Es ist ein fehler aufgetreten.", error);
   }
 }
+
+async function setCurrentUserName() {   // Sets the current user after log in.
+  const userData = await getItem('user');
+  try {
+    const jsonUserData = JSON.parse(userData);
+    currentUser.push(jsonUserData);
+    capitalisedName();
+  } catch (error) {
+    console.error("Es ist ein fehler aufgetreten.", error);
+  }
+}
+
 
 function getNamefromArray() {
   let message = document.getElementById('welcome-message');
