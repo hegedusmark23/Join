@@ -1,9 +1,4 @@
 
-document.addEventListener("DOMContentLoaded", function () {
-  buttonFocus();
-  // other initialization code if needed
-});
-
 function generateLegalNoticeContent() {
   let container = document.querySelector('section');
   container.innerHTML = legalNoticeHTML();
@@ -73,7 +68,7 @@ function redirectToLogin() {   // Redirects to the Login page after registration
 }
 
 
-function timeDynamicWelcome() {      //Daytime dependant Welcom message.
+function timeDynamicWelcome() {      //Daytime dependant Welcome message.
   let welcome = document.getElementById('daytime')
   let date = new Date();
   let hour = date.getHours();
@@ -131,8 +126,18 @@ function startAnimations() {
 }
 
 function buttonFocus() {
-  let summaryNav = document.getElementById('summary-nav');
-  if (window.location.href === "http://127.0.0.1:5500/index.html") {
+  let summaryNav = document.getElementById("summary-nav");
+  let addTaskNav = document.getElementById("addTask-nav");
+  let boardNav = document.getElementById("board-nav");
+  let contactsNav = document.getElementById("contacts-nav");
+  setTimeout(buttonFocus, 100);
+  if (window.location.href === "http://127.0.0.1:5500/index.html" && summaryNav) {
     summaryNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/addtask.html" && addTaskNav) {
+    addTaskNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/board.html" && boardNav) {
+    boardNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/addcontacts.html" && contactsNav) {
+    contactsNav.style.backgroundColor = "#091931";
   }
 }
