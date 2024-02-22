@@ -58,11 +58,12 @@
 
 html {
   font-family: "Inter", sans-serif;
+  overflow: hidden;
 }
 
 body {
   margin: 0px;
-  background-color: #fcfcfc
+  background-color: #fcfcfc;
 }
 
 h3 {
@@ -204,7 +205,11 @@ a {
 
 .menu-header-and-main-content-container {
   display: flex;
+  flex-grow: 1;
   width: 100%;
+  overflow-y: auto; /* Macht diesen Bereich scrollbar */
+  margin-left: 232px;
+  margin-top: 96px;
 }
 
 .menu-popup {
@@ -528,9 +533,9 @@ a {
   flex-direction: column;
 }
 
-.done-container{
+.done-container {
   height: 100%;
   width: 100%;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
