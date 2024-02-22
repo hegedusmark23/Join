@@ -1,12 +1,8 @@
 
-function generateSummaryContent() {
-  let container = document.getElementById('main-content');
-  let background = document.getElementById('summary-nav');
-  // container.innerHTML = summaryHTML();
-  //background.classList.add('selected-nav-link-background');
-  timeDynamicWelcome();
-  getNamefromArray();
-}
+document.addEventListener("DOMContentLoaded", function () {
+  buttonFocus();
+  // other initialization code if needed
+});
 
 function generateLegalNoticeContent() {
   let container = document.querySelector('section');
@@ -23,16 +19,6 @@ function generateHelpContent() {
   container.innerHTML = helpHTML();
 }
 
-// function generateAddTaskContent() {
-//   let container = document.getElementById('main-content');
-//   container.innerHTML = addTaskHTML();
-// }
-
-// function generateContactsContent() {
-//   let container = document.getElementById('main-content');
-//   container.innerHTML = contactsHTML();
-//   renderContact();
-// }
 
 function changePencilImgColor() {                //Changes the color of an icon on hover
   var image = document.getElementById("pencil-icon");
@@ -127,20 +113,26 @@ function startAnimations() {
   // Get elements by class name and add animation class
   var elements = document.getElementsByClassName('tasks-headline-container');
   for (var i = 0; i < elements.length; i++) {
-      elements[i].classList.add('invisVisMobile');
+    elements[i].classList.add('invisVisMobile');
   }
 
   elements = document.getElementsByClassName('navbar');
   for (var i = 0; i < elements.length; i++) {
-      elements[i].classList.add('invisVisMobile');
+    elements[i].classList.add('invisVisMobile');
   }
 
   elements = document.getElementsByClassName('header');
   for (var i = 0; i < elements.length; i++) {
-      elements[i].classList.add('invisVisMobile');
+    elements[i].classList.add('invisVisMobile');
   }
 
   // Add animation class to welcome-section
   document.querySelector('.welcome-section').classList.add('welcomeMessageMobile');
 }
 
+function buttonFocus() {
+  let summaryNav = document.getElementById('summary-nav');
+  if (window.location.href === "http://127.0.0.1:5500/index.html") {
+    summaryNav.style.backgroundColor = "#091931";
+  }
+}
