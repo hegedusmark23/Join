@@ -60,7 +60,7 @@ async function initializeBoardCard() {
         for (let i = 0; i < todos.length; i++) {
             let task = todos[i]
             let completionDetails = updateSubtaskProgress(task);
-            toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
+            toDoCardsContainer.innerHTML += renderCardContent(task, completionDetails);
         }
 
         let inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
@@ -73,7 +73,7 @@ async function initializeBoardCard() {
         for (let i = 0; i < inProgress.length; i++) {
             let task = inProgress[i];
             let completionDetails = updateSubtaskProgress(task);
-            inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+            inProgressCardContainer.innerHTML += renderCardContent(task, completionDetails);
         }
 
         let awaitFeedBack = tasks.filter(awFe => awFe['state'] == 'await-feedback');
@@ -86,7 +86,7 @@ async function initializeBoardCard() {
         for (let i = 0; i < awaitFeedBack.length; i++) {
             let task = awaitFeedBack[i];
             let completionDetails = updateSubtaskProgress(task);
-            awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+            awaitFeedBackCardContainer.innerHTML += renderCardContent(task, completionDetails);
         }
 
         let done = tasks.filter(d => d['state'] == 'done');
@@ -99,7 +99,7 @@ async function initializeBoardCard() {
         for (let i = 0; i < done.length; i++) {
             let task = done[i];
             let completionDetails = updateSubtaskProgress(task);
-            doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+            doneCardContainer.innerHTML += renderCardContent(task, completionDetails);
         }
 
         setupTaskClickListeners();
@@ -139,7 +139,7 @@ function getLabelColor(category) {
     return category === 'Technical Task' ? labelCol1 : labelCol2;
 }
 
-function renderCardContent(i, task, completionDetails) {
+function renderCardContent(task, completionDetails) {
     let tasksImg = taskImage(task);
 
     // Initialisiert einen leeren String für die Fußzeile der Zuweisungen (Assignees).
@@ -166,7 +166,7 @@ function renderCardContent(i, task, completionDetails) {
         </div>` : '';
 
     return /*html*/ `
-    <div id="board-card-content" draggable="true" class="board-card-content" ondragstart="startDragging(${i})">
+    <div id="board-card-content" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier})">
         <div class="board-card" data-task-id="${task.id}">
             <div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
