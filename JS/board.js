@@ -39,7 +39,7 @@ async function initializeBoard() {
 
 // Tasks anzeigen
 async function initializeBoardCard() {
-    let tasks = await fetchTasks(); 
+    let tasks = await fetchTasks();
 
     let noTasksDiv1 = document.getElementById('board-card-background-1');
     let noTaskDiv2 = document.getElementById('board-card-background-2');
@@ -50,60 +50,60 @@ async function initializeBoardCard() {
     let awaitFeedBackCardContainer = document.getElementById('await-feedback');
     let doneCardContainer = document.getElementById('done');
 
-        let todos = tasks.filter(t => t['state'] == 'toDo');
-        if(todos.length > 0){
-            noTasksDiv1.style.display = 'none'
-        } else {
-            noTasksDiv1.style.display = 'flex'
-        }
-        toDoCardsContainer.innerHTML = '';
-        for (let i = 0; i < todos.length; i++) {
-            let task = todos[i]
-            let completionDetails = updateSubtaskProgress(task);
-            toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
-        }
-
-        let inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
-        if(inProgress.length > 0){
-            noTaskDiv2.style.display = 'none'
-        } else {
-            noTaskDiv2.style.display = 'flex';
-        }
-        inProgressCardContainer.innerHTML = '';
-        for (let i = 0; i < inProgress.length; i++) {
-            let task = inProgress[i];
-            let completionDetails = updateSubtaskProgress(task);
-            inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
-        }
-
-        let awaitFeedBack = tasks.filter(awFe => awFe['state'] == 'await-feedback');
-        if(awaitFeedBack.length > 0){
-            noTaskDiv3.style.display = 'none'
-        } else {
-            noTaskDiv3.style.display = 'flex';
-        }
-        awaitFeedBackCardContainer.innerHTML = '';
-        for (let i = 0; i < awaitFeedBack.length; i++) {
-            let task = awaitFeedBack[i];
-            let completionDetails = updateSubtaskProgress(task);
-            awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
-        }
-
-        let done = tasks.filter(d => d['state'] == 'done');
-        if(done.length > 0){
-            noTaskDiv4.style.display = 'none'
-        } else {
-            noTaskDiv4.style.display = 'flex';
-        }
-        doneCardContainer.innerHTML = '';
-        for (let i = 0; i < done.length; i++) {
-            let task = done[i];
-            let completionDetails = updateSubtaskProgress(task);
-            doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
-        }
-
-        setupTaskClickListeners();
+    let todos = tasks.filter(t => t['state'] == 'toDo');
+    if (todos.length > 0) {
+        noTasksDiv1.style.display = 'none'
+    } else {
+        noTasksDiv1.style.display = 'flex'
     }
+    toDoCardsContainer.innerHTML = '';
+    for (let i = 0; i < todos.length; i++) {
+        let task = todos[i]
+        let completionDetails = updateSubtaskProgress(task);
+        toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+
+    let inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
+    if (inProgress.length > 0) {
+        noTaskDiv2.style.display = 'none'
+    } else {
+        noTaskDiv2.style.display = 'flex';
+    }
+    inProgressCardContainer.innerHTML = '';
+    for (let i = 0; i < inProgress.length; i++) {
+        let task = inProgress[i];
+        let completionDetails = updateSubtaskProgress(task);
+        inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+
+    let awaitFeedBack = tasks.filter(awFe => awFe['state'] == 'await-feedback');
+    if (awaitFeedBack.length > 0) {
+        noTaskDiv3.style.display = 'none'
+    } else {
+        noTaskDiv3.style.display = 'flex';
+    }
+    awaitFeedBackCardContainer.innerHTML = '';
+    for (let i = 0; i < awaitFeedBack.length; i++) {
+        let task = awaitFeedBack[i];
+        let completionDetails = updateSubtaskProgress(task);
+        awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+
+    let done = tasks.filter(d => d['state'] == 'done');
+    if (done.length > 0) {
+        noTaskDiv4.style.display = 'none'
+    } else {
+        noTaskDiv4.style.display = 'flex';
+    }
+    doneCardContainer.innerHTML = '';
+    for (let i = 0; i < done.length; i++) {
+        let task = done[i];
+        let completionDetails = updateSubtaskProgress(task);
+        doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+
+    setupTaskClickListeners();
+}
 
 
 function updateSubtaskProgress(task) {
@@ -114,10 +114,10 @@ function updateSubtaskProgress(task) {
     let completedSubtasks = task.subtask ? task.subtask.filter(subtask => subtask.completed === 'done').length : 0;
 
     // Berechne den Prozentsatz der abgeschlossenen Subtasks.
-        let completionPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+    let completionPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
     // Die Funktion gibt ein Objekt zurück, das zwei Eigenschaften enthält:
-       return {
+    return {
         completionPercentage,
         subtaskText: totalSubtasks > 0 ? `${completedSubtasks}/${totalSubtasks} Subtasks` : 'No Subtasks'
     };
@@ -132,7 +132,7 @@ function taskImage(task) {
 
 // Funktion, um die Farbe basierend auf der Kategorie zu bestimmen
 function getLabelColor(category) {
-    const labelCol1 = '#0038ff'; 
+    const labelCol1 = '#0038ff';
     const labelCol2 = '#1FD7C1';
 
     return category === 'Technical Task' ? labelCol1 : labelCol2;
@@ -165,7 +165,7 @@ function renderCardContent(i, task, completionDetails) {
         </div>` : '';
 
     return /*html*/ `
-    <div id="board-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier})">
+    <div id="${task.state}-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier},'${task.state}',${i})">
         <div class="board-card" data-task-id="${task.id}">
             <div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
@@ -282,7 +282,7 @@ async function toggleSubtaskCompleted(taskId, subtaskId) {
 }
 
 // Rendern der Karte mit Detailinformationen
-function detailModalContent(task){
+function detailModalContent(task) {
     // Erzeugen des Assignee-HTML-Strings, falls Assignees vorhanden sind
     const assigneesHtml = task.assignTo && task.assignTo.length > 0 ? generateAssigneesHtml(task.assignTo) : '';
     // Erzeugen des Subtask-HTML-Strings, falls Subtasks vorhanden sind
@@ -420,7 +420,7 @@ function setupCloseTaskDetailModalListener() {
 
 
 function setupSubtaskCompletionListener() {
-    document.addEventListener('click', async function(event) {
+    document.addEventListener('click', async function (event) {
         // Zuerst versuchen wir, das Task-Element im Bearbeitungsmodus zu identifizieren.
         let taskIdElement = document.querySelector('.addTask-content[data-task-id]');
 
@@ -434,7 +434,7 @@ function setupSubtaskCompletionListener() {
 
             // Überprüfen, ob der Klick auf eine Checkbox innerhalb des Subtask-Elements erfolgt ist
             if (event.target.matches('.subtask-checkbox')) {
-               const updatedTask = await toggleSubtaskCompleted(parseInt(taskId), parseInt(subtaskId));
+                const updatedTask = await toggleSubtaskCompleted(parseInt(taskId), parseInt(subtaskId));
                 if (updatedTask) {
                     openTaskDetailModal(updatedTask); // Öffne das Modal mit dem aktualisierten Task
                 }
@@ -488,8 +488,9 @@ function numberOfDone() {
 
 //   Drag and Drop ----------------------------->
 
-function startDragging(id) {
+function startDragging(id, state, i) {
     currentDraggedElement = id;
+    document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg'
 }
 
 function allowDrop(ev) {
