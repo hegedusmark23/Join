@@ -189,7 +189,7 @@ async function createTask() {
             console.info('Validation failed. No Task created.');
             return;
         }
-
+    
         // Erstellen einer neuen Task-Instanz
         let newTask = new Task(
             Date.now(), // Eindeutige ID

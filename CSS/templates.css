@@ -764,7 +764,7 @@ input#subtask-edit-input {
   display: flex;
   justify-content: space-between;
   gap: 32px;
-  height: 100vh;
+  height: 100%;
 }
 
 .board-sections > div {
@@ -1395,6 +1395,11 @@ input#subtask-edit-input {
     display: none;
   }
 
+  .navbar-links {
+    padding: 0px 10px;
+    border-radius: 16px;
+  }
+
   .navbar {
     width: 100%;
     height: 80px;
@@ -1497,7 +1502,8 @@ input#subtask-edit-input {
   }
 
   .navbar-links {
-    width: 80px;
+    padding: 2px;
+    border-radius: 16px;
   }
 
   .user-icon {
