@@ -82,12 +82,6 @@ async function initializeBoardCard() {
     let awaitFeedBackCardContainer = document.getElementById('await-feedback');
     let doneCardContainer = document.getElementById('done');
 
-    // if (tasks.length === 0) {
-    //     // noTasksDiv.style.display = 'block';
-    //     toDoCardsContainer.innerHTML = '';
-    // } else {
-    //     noTasksDiv.style.display = 'none';
-
         let todos = tasks.filter(t => t['state'] == 'toDo');
         if(todos.length > 0){
             noTasksDiv1.style.display = 'none'
@@ -139,8 +133,10 @@ async function initializeBoardCard() {
             let completionDetails = updateSubtaskProgress(task);
             doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
         }
+
+        setupTaskClickListeners();
     }
-    setupTaskClickListeners();
+
 
 
 function updateSubtaskProgress(task) {
@@ -315,28 +311,6 @@ async function toggleSubtaskCompleted(taskId, subtaskId) {
         console.log('Task nicht gefunden');
     }
     return null;
-}
-
-function setupSubtaskClickListener() {
-    const boardsContainer = document.querySelector('#task-cards-container'); // Annahme, dass dies der Container ist, in dem deine Tasks/Subtasks gerendert werden.
-    
-    boardsContainer.addEventListener('click', function(event) {
-        // Finde den naheliegendsten Vorfahren des angeklickten Elements, der ein Subtask-Element ist
-        const clickedSubtask = event.target.closest('[data-subtask-id]');
-        
-        if (clickedSubtask) {
-            // Extrahiere die task und subtask ID
-            const taskId = parseInt(clickedSubtask.getAttribute('data-task-id'));
-            const subtaskId = parseInt(clickedSubtask.getAttribute('data-subtask-id'));
-            
-            // Rufe die Funktion zum Umschalten des Status und Aktualisieren des Bildes auf
-            toggleSubtaskCompleted(taskId, subtaskId).then(() => {
-                console.log('Subtask-Status erfolgreich aktualisiert.');
-            }).catch(error => {
-                console.error('Fehler beim Aktualisieren des Subtask-Status:', error);
-            });
-        }
-    });
 }
 
 // Rendern der Karte mit Detailinformationen

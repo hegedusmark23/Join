@@ -344,5 +344,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModalCloseDelegationAddAtskBoard();
     setupDeleteTaskListener();
     setupSaveTaskEditListener();
-    setupSubtaskClickListener();
-});
+  });
