@@ -13,6 +13,7 @@
 
 <body onload="includeHTML(); setCurrentUserName();" class="tasks board-page">
     <main class="board-contents">
+        <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="menu-header-and-main-content-container">
             <menu id="popup-menu" class="menu-popup">
@@ -23,7 +24,7 @@
                 <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log
                         out</a></div>
             </menu>
-            <header w3-include-html="./assets/templates/header.html"></header>
+
 
             <div id="addtask-modal" class="modal">
                 <div class="modal-content">
@@ -112,7 +113,6 @@
                             ondragover="allowDrop(event)"></div>
                     </div>
 
-
                     <div class="board-section-3">
 
                         <div class="board-section-column">
@@ -133,7 +133,6 @@
                         </div>
                         <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')"
                             ondragover="allowDrop(event)"></div>
-
                     </div>
 
                     <div class="board-section-4">
@@ -143,9 +142,8 @@
                         <div class="board-section-cards">
                             <div id="board-card-background-4" class="board-card-bg">No tasks Done</div>
                         </div>
-                        <div id="done" class="done-container" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
-
-
+                        <div id="done" class="done-container" ondrop="moveTo('done')" ondragover="allowDrop(event)">
+                        </div>
 
                     </div>
                 </div>
