@@ -189,6 +189,7 @@ async function createTask() {
             console.info('Validation failed. No Task created.');
             return;
         }
+
         // Erstellen einer neuen Task-Instanz
         let newTask = new Task(
             Date.now(), // Eindeutige ID
@@ -201,11 +202,9 @@ async function createTask() {
             STORAGE_TOKEN, // Storage-Token
             identifier
         );
-
         // Hinzufügen von Kategorie und Subtasks
         newTask.category = category;
         newTask.subtask = subtasks;
-
         try {
             // Hinzufügen des neuen Tasks zum Array
             tasks.push(newTask);
@@ -214,11 +213,11 @@ async function createTask() {
             console.log('Task erfolgreich gespeichert');
             // Animation starten
             showTaskAddedMessage();
-            identifier = +1
             clearAllInputs();
         } catch (error) {
             console.error('Fehler beim Speichern des Tasks:', error);
         }
+        identifier++
     });
 }
 
