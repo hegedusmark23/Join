@@ -181,7 +181,7 @@ loadUser()
 // addStateToExistingTasks();
 // addCompletedToExistingSubtasks();
 // Verwendung der Funktion zum Löschen von Tasks
-// deleteTasks([1707558734060, 1707558735780, 1707558737023, 1707558737365, 1707558737739, 1707558737980, 1707558738166, 1707558738383, 1707558738641, 1707558740503, 1707558741315, 1707558904648, 1707559138203, 1707559193353, 1707559260451, 1707559288220, 1707559338204, 1707559632292, 1707560882716, 1707560951921]); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
+// deleteTasks(); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
 
 
 

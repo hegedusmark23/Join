@@ -189,7 +189,7 @@ async function createTask() {
             console.info('Validation failed. No Task created.');
             return;
         }
-        identifier = +1; 
+    
         // Erstellen einer neuen Task-Instanz
         let newTask = new Task(
             Date.now(), // Eindeutige ID
@@ -221,6 +221,8 @@ async function createTask() {
         } catch (error) {
             console.error('Fehler beim Speichern des Tasks:', error);
         }
+
+        identifier++
     });
 }
 

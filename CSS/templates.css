@@ -764,7 +764,7 @@ input#subtask-edit-input {
   display: flex;
   justify-content: space-between;
   gap: 32px;
-  height: 100vh;
+  height: 100%;
 }
 
 .board-sections > div {
