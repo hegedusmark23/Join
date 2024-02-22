@@ -32,39 +32,7 @@ async function fetchTasks() {
     }
 }
 
-// Aufrufen der Funktion zum Abrufen der Tasks
-fetchTasks();
-
-// async function categorizeTasks() {
-//     let tasks = await fetchTasks(); // Annahme, dass fetchTasks die Tasks zurückgibt
-
-//     // Leere die Arrays, um Duplikate bei wiederholten Aufrufen zu vermeiden
-//     toDo = [];
-//     inProgress = [];
-//     awaitFeedback = [];
-//     done = [];
-
-//     tasks.forEach(task => {
-//         switch (task.state) {
-//             case 'toDo':
-//                 toDo.push(task);
-//                 break;
-//             case 'inProgress':
-//                 inProgress.push(task);
-//                 break;
-//             case 'awaitFeedback':
-//                 awaitFeedback.push(task);
-//                 break;
-//             case 'done':
-//                 done.push(task);
-//                 break;
-//         }
-//     });
-
-// }
-
 async function initializeBoard() {
-    // await categorizeTasks(); // Tasks sortieren und in Arrays einordnen
     await initializeBoardCard()
 
 }
@@ -81,12 +49,6 @@ async function initializeBoardCard() {
     let inProgressCardContainer = document.getElementById('in-progress');
     let awaitFeedBackCardContainer = document.getElementById('await-feedback');
     let doneCardContainer = document.getElementById('done');
-
-    // if (tasks.length === 0) {
-    //     // noTasksDiv.style.display = 'block';
-    //     toDoCardsContainer.innerHTML = '';
-    // } else {
-    //     noTasksDiv.style.display = 'none';
 
         let todos = tasks.filter(t => t['state'] == 'toDo');
         if(todos.length > 0){
@@ -139,8 +101,10 @@ async function initializeBoardCard() {
             let completionDetails = updateSubtaskProgress(task);
             doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
         }
+
+        setupTaskClickListeners();
     }
-    setupTaskClickListeners();
+
 
 function updateSubtaskProgress(task) {
     // Prüfe zunächst, ob der Task Subtasks hat. Wenn ja, ermittle die Gesamtanzahl der Subtasks.
@@ -237,12 +201,15 @@ function setupCreateTaskListener() {
 function openTaskDetailModal(task) {
     const modal = document.getElementById('task-detail-modal');
     const detailsContainer = document.getElementById('task-details');
-    modal.classList.add('modal-open');
     detailsContainer.innerHTML = detailModalContent(task);
-    modal.style.display = 'flex';
-    // Reinitialisieren der EventListener
-    setupDeleteTaskListener();
+    modal.style.display = 'flex'; // Modal zuerst anzeigen
 
+    // Kurze Verzögerung, bevor die Klasse hinzugefügt wird, um die Transition zu ermöglichen
+    setTimeout(() => {
+        modal.classList.add('modal-open');
+    }, 10);
+
+    setupDeleteTaskListener();
 }
 
 // Funktion zum Hinzufügen des Event Listeners für Subtasks
@@ -279,8 +246,6 @@ function updateTaskDetailsAndBindListener(task) {
     addSubtaskEventListener();
 }
 
-
-// Implementierung der Funktion zum Umschalten des Subtask-Status
 // Implementierung der Funktion zum Umschalten des Subtask-Status
 async function toggleSubtaskCompleted(taskId, subtaskId) {
     console.log(`toggleSubtaskCompleted aufgerufen für taskId: ${taskId}, subtaskId: ${subtaskId}`);
@@ -314,28 +279,6 @@ async function toggleSubtaskCompleted(taskId, subtaskId) {
         console.log('Task nicht gefunden');
     }
     return null;
-}
-
-function setupSubtaskClickListener() {
-    const boardsContainer = document.querySelector('#task-cards-container'); // Annahme, dass dies der Container ist, in dem deine Tasks/Subtasks gerendert werden.
-    
-    boardsContainer.addEventListener('click', function(event) {
-        // Finde den naheliegendsten Vorfahren des angeklickten Elements, der ein Subtask-Element ist
-        const clickedSubtask = event.target.closest('[data-subtask-id]');
-        
-        if (clickedSubtask) {
-            // Extrahiere die task und subtask ID
-            const taskId = parseInt(clickedSubtask.getAttribute('data-task-id'));
-            const subtaskId = parseInt(clickedSubtask.getAttribute('data-subtask-id'));
-            
-            // Rufe die Funktion zum Umschalten des Status und Aktualisieren des Bildes auf
-            toggleSubtaskCompleted(taskId, subtaskId).then(() => {
-                console.log('Subtask-Status erfolgreich aktualisiert.');
-            }).catch(error => {
-                console.error('Fehler beim Aktualisieren des Subtask-Status:', error);
-            });
-        }
-    });
 }
 
 // Rendern der Karte mit Detailinformationen

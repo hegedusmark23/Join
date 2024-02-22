@@ -279,6 +279,34 @@ async function showTasks() {
     console.log('Das sind die Tasks in meinem Array: ', tasks);
 }
 
+// Diese Funktion überprüft, ob wir uns auf der "Board"-Seite befinden, basierend auf dem Vorhandensein bestimmter Elemente.
+function checkIfBoardPage() {
+    // Liste der Element-IDs, die auf der Board-Seite vorhanden sein sollten.
+    const ids = [
+        'board-card-background-1',
+        'board-card-background-2',
+        'board-card-background-3',
+        'board-card-background-4',
+        'toDo',
+        'in-progress',
+        'await-feedback',
+        'done'
+    ];
+
+    // Überprüfe, ob mindestens eines dieser Elemente existiert.
+    return ids.some(id => document.getElementById(id) !== null);
+}
+
+function initializeBoardIfNeeded() {
+    if (checkIfBoardPage()) {
+        // Führe die Initialisierung für die Board-Seite aus.
+        initializeBoard();
+    } else {
+        // Logge eine Nachricht, falls wir uns nicht auf der Board-Seite befinden.
+        console.log('Nicht auf der Board-Seite, Initialisierung übersprungen.');
+    }
+}
+
 function reinitializeEventListenersForEditModal() {
     checkInputFields();
     saveInputFields();
@@ -295,27 +323,18 @@ function reinitializeEventListenersForEditModal() {
     setupModalCloseDelegationAddAtskBoard();
     setupDeleteTaskListener();
     setupSaveTaskEditListener();
+    initializeBoardIfNeeded();
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // console.log('DOM fully loaded and parsed');
-    // const createTaskButton = document.getElementById('create-task');
-    // if (createTaskButton) {
-    //     console.log('Create Task button found:', createTaskButton);
-    //     createTaskButton.addEventListener('click', () => {
-    //         console.log('Create Task button clicked');
-    //         // Hier kommt Ihre Logik zum Erstellen eines Tasks
-    //     });
-    // } else {
-    //     console.error('Create Task button not found');
-    // }
+    // Initialisierungen, die auf allen Seiten durchgeführt werden sollten
     checkInputFields();
     saveInputFields();
     loadTasks();
     createTask();
-
-    // addtaskFormHandling.js
-
+    
+    // Funktionen, die sowohl auf der "Add Task"-Seite als auch auf der "Board"-Seite benötigt werden
     handlePrioButtons();
     inputSubtask();
     addSubTask();
@@ -326,20 +345,33 @@ document.addEventListener('DOMContentLoaded', () => {
     initCategoryDropdown();
     setupCategoryDropdownEventListeners();
 
-    // board.js
+    // Hilfsfunktion, um zu überprüfen, ob wir uns auf der "Board"-Seite befinden
+    function isBoardPage() {
+        return document.getElementById('board-card-background-1') !== null;
+  
+    }
 
-    initializeBoard();
-    initializeBoardCard();
-    setupCreateTaskListener();
-    setupTaskClickListeners();
-    setupCloseTaskDetailModalListener();
-    setupOpenAddTaskModalListener();
-    setupCloseAddTaskModalListener();
-    setupModalCloseDelegation();
-    setupEditTaskListener();
-    setupModalCloseDelegationEdit();
-    setupModalCloseDelegationAddAtskBoard();
-    setupDeleteTaskListener();
-    setupSaveTaskEditListener();
-    setupSubtaskClickListener();
+    // Funktionen spezifisch für die "Board"-Seite
+    function initializeBoardPage() {
+        console.log('Initialisiere Board-Seite...');
+        initializeBoardCard();
+        setupCreateTaskListener();
+        setupTaskClickListeners();
+        setupCloseTaskDetailModalListener();
+        setupOpenAddTaskModalListener();
+        setupCloseAddTaskModalListener();
+        setupModalCloseDelegation();
+        setupEditTaskListener();
+        setupModalCloseDelegationEdit();
+        setupModalCloseDelegationAddAtskBoard();
+        setupDeleteTaskListener();
+        setupSaveTaskEditListener();
+    }
+
+    // Bedingte Initialisierung basierend auf der aktuellen Seite
+    if (isBoardPage()) {
+        initializeBoardPage();
+    } else {
+        console.log('Nicht auf der Board-Seite, spezifische Board-Initialisierungen werden übersprungen.');
+    }
 });

@@ -899,7 +899,7 @@ input#subtask-edit-input {
 }
 
 .modal {
-  display: none;
+  display: none; /* Initial versteckt */
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -910,11 +910,21 @@ input#subtask-edit-input {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 3;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.modal-open {
+  display: flex;
+  opacity: 1;
 }
 
 .modal-content-tasks {
   background-color: #fff;
   position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) translateX(100%);
   width: calc(525px - 80px);
   max-width: 445px;
   min-height: 300px;
@@ -925,15 +935,18 @@ input#subtask-edit-input {
   flex-direction: column;
   gap: 24px;
   overflow: hidden;
+  transition: transform 0.5s ease-out, opacity 0.7s ease;
+  opacity: 1;
 }
 
-.modal-open {
-  display: flex;
+.modal-open .modal-content-tasks {
+  transform: translate(-50%, -50%);
+  opacity: 1;
 }
 
-.modal-close {
-  transform: translateX(100%);
-  transition: transform 0.2s ease;
+.modal-close .modal-content-tasks {
+  transform: translate(-50%, -50%) translateX(100%);
+  opacity: 0;
 }
 
 #close-modal-button-edittask {
@@ -954,10 +967,28 @@ input#subtask-edit-input {
   width: 90%;
   border-radius: 30px;
   opacity: 0;
-  /* Startet versteckt */
   transform: translateX(100%);
-  /* Startet von rechts */
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.5s ease-out, opacity 0.5s ease;
+}
+
+.addtask-modal-content {
+  transition: transform 0.5s ease-out, opacity 0.5s ease;
+}
+
+.modal-open .addtask-modal-content {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.modal-open .modal-content {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.addtask-modal-close .addtask-modal-content {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.5s ease-in, opacity 0.5s ease-in;
 }
 
 /* Anpassen der Breite des Scrollbalkens */
@@ -979,13 +1010,6 @@ input#subtask-edit-input {
 /* Ändern der Farbe des Scrollbalken-Griffs beim Hover */
 #task-details-container::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
-}
-
-.modal-open .modal-content {
-  opacity: 1;
-  /* Wird sichtbar */
-  transform: translateX(0%);
-  /* Bewegt sich zur Mitte */
 }
 
 .addtask-modal-tpl {
@@ -1232,7 +1256,7 @@ input#subtask-edit-input {
   margin-right: 10px;
 }
 
-@media (max-width: 800px){
+@media (max-width: 800px) {
   .addtask-action-btns {
     display: flex;
     justify-content: space-between;

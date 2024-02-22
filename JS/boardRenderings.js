@@ -23,19 +23,29 @@ function setupCloseAddTaskModalListener() {
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'block'; // Stellt sicher, dass das Modal sichtbar ist
+      modal.style.display = 'block'; // Stellt sicher, dass das Modal sichtbar ist
+      setTimeout(() => {
         modal.classList.add('modal-open'); // Fügt die Klasse hinzu, um das Modal sanft einzublenden
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+          modalContent.classList.add('addtask-modal-content'); // Spezifische Klasse für Animation
+        }
+      }, 10);
     }
-}
+  }
 
-// Funktion zum Schließen eines Modals
+// Funktion zum Schließen eines Modals mit vollständigem Ausfahren des Inhalts
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
+    const modalContent = modal.querySelector('.modal-content-tasks'); // Zugriff auf den Inhalt des Modals
+    if (modal && modalContent) {
+        modal.classList.remove('modal-open'); // Entfernt die Klasse, die das Modal einblendet
+        modalContent.classList.add('modal-close'); // Fügt die Klasse hinzu, die den Inhalt ausfährt
+
         setTimeout(() => {
             modal.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-        }, 200); // Wartezeit entspricht der Dauer der Animation
+            modalContent.classList.remove('modal-close'); // Bereitet den Inhalt für die nächste Öffnung vor
+        }, 700); // Wartezeit entspricht der Dauer der Animation
     }
 }
 
@@ -699,7 +709,7 @@ function closeModalTaskEdit() {
         modalEdit.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
         setTimeout(() => {
             modalEdit.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-        }, 200); // Wartezeit entspricht der Dauer der Animation
+        }, 500); // Wartezeit entspricht der Dauer der Animation
     }
 }
 
