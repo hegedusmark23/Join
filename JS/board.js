@@ -32,39 +32,7 @@ async function fetchTasks() {
     }
 }
 
-// Aufrufen der Funktion zum Abrufen der Tasks
-fetchTasks();
-
-// async function categorizeTasks() {
-//     let tasks = await fetchTasks(); // Annahme, dass fetchTasks die Tasks zurückgibt
-
-//     // Leere die Arrays, um Duplikate bei wiederholten Aufrufen zu vermeiden
-//     toDo = [];
-//     inProgress = [];
-//     awaitFeedback = [];
-//     done = [];
-
-//     tasks.forEach(task => {
-//         switch (task.state) {
-//             case 'toDo':
-//                 toDo.push(task);
-//                 break;
-//             case 'inProgress':
-//                 inProgress.push(task);
-//                 break;
-//             case 'awaitFeedback':
-//                 awaitFeedback.push(task);
-//                 break;
-//             case 'done':
-//                 done.push(task);
-//                 break;
-//         }
-//     });
-
-// }
-
 async function initializeBoard() {
-    // await categorizeTasks(); // Tasks sortieren und in Arrays einordnen
     await initializeBoardCard()
 
 }
@@ -234,12 +202,15 @@ function setupCreateTaskListener() {
 function openTaskDetailModal(task) {
     const modal = document.getElementById('task-detail-modal');
     const detailsContainer = document.getElementById('task-details');
-    modal.classList.add('modal-open');
     detailsContainer.innerHTML = detailModalContent(task);
-    modal.style.display = 'flex';
-    // Reinitialisieren der EventListener
-    setupDeleteTaskListener();
+    modal.style.display = 'flex'; // Modal zuerst anzeigen
 
+    // Kurze Verzögerung, bevor die Klasse hinzugefügt wird, um die Transition zu ermöglichen
+    setTimeout(() => {
+        modal.classList.add('modal-open');
+    }, 10);
+
+    setupDeleteTaskListener();
 }
 
 // Funktion zum Hinzufügen des Event Listeners für Subtasks
@@ -276,8 +247,6 @@ function updateTaskDetailsAndBindListener(task) {
     addSubtaskEventListener();
 }
 
-
-// Implementierung der Funktion zum Umschalten des Subtask-Status
 // Implementierung der Funktion zum Umschalten des Subtask-Status
 async function toggleSubtaskCompleted(taskId, subtaskId) {
     console.log(`toggleSubtaskCompleted aufgerufen für taskId: ${taskId}, subtaskId: ${subtaskId}`);

@@ -173,9 +173,21 @@ function setupCreateTaskListener() {
 function openTaskDetailModal(task) {
     const modal = document.getElementById('task-detail-modal');
     const detailsContainer = document.getElementById('task-details');
-    modal.classList.add('modal-open');
-    detailsContainer.innerHTML = detailModalContent(task);
-    modal.style.display = 'flex';
+
+    // Setze den Anfangszustand für die Animation
+    modal.style.opacity = '0'; // Bereitet den Hintergrund für das Einblenden vor
+    modal.style.display = 'flex'; // Zeigt das Modal an, startet aber transparent
+
+    // Bereitet das Modal für die Animation von rechts vor
+    detailsContainer.style.transform = 'translateX(100%)';
+    detailsContainer.style.opacity = '0';
+
+    // Startet die Animation nach einem kurzen Timeout, um CSS-Transitionen zu ermöglichen
+    setTimeout(() => {
+        modal.style.opacity = '1'; // Blendet den Hintergrund ein
+        detailsContainer.style.transform = 'translateX(0%)'; // Bewegt das Modal in die Ansicht
+        detailsContainer.style.opacity = '1'; // Macht das Modal sichtbar
+    }, 10);
     // Reinitialisieren der EventListener
     setupDeleteTaskListener();
 
