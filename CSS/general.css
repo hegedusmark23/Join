@@ -507,24 +507,32 @@ a {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+  width: 100%;
+  height: 100%;
 }
 
 .in-progress-container {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+  width: 100%;
+  height: 100%;
 }
 
 .await-feedback-container {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+  width: 100%;
+  height: 100%;
 }
 
 .done-container {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+  width: 100%;
+  height: 100%;
 }
 
 .highlight {
