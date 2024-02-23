@@ -525,19 +525,6 @@ function hideNoTaskDiv(state) {
     document.getElementById(background).style.display = 'none';
 };
 
-function resetNoTaskDiv(state) {
-    if (state == 'toDo') {
-        background ='board-card-background-1'
-    } else if (state == 'in-progress') {
-        background = 'board-card-background-2'
-    } else if (state == 'await-feedback') {
-        background = 'board-card-background-3'
-    } else if (state == 'done'){
-        background = 'board-card-background-4';
-    }
-    document.getElementById(background).style.display = '';
-};
-
 // async function deleteTasks(){
 //         for(let i = 0; i < tasks.length; i++){
 //             tasks.splice(i, 1)

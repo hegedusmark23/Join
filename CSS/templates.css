@@ -876,7 +876,7 @@ input#subtask-edit-input {
 
 .board-card-content {
   margin-bottom: 20px;
-  transition: all 0.2s cubic-bezier(.215, .61, .355, 1);
+  transition: all 0.1s cubic-bezier(.215, .61, .355, 1);
 }
 
 .board-card-footer-assignees {
