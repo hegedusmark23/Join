@@ -141,3 +141,9 @@ function buttonFocus() {
     contactsNav.style.backgroundColor = "#091931";
   }
 }
+
+function numberOfAllTasks(){
+  allTasks = document.getElementById('numberOfTasksInBoard');
+  allTasks.innerHTML = tasks.length;
+  console.log('test')
+ }

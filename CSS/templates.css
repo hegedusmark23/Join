@@ -15,7 +15,7 @@
 .navbar {
   min-width: 232px;
   width: 232px;
-  height: 100%;
+  height: 100vh;
   background-color: #2a3647;
   display: flex;
   align-items: center;

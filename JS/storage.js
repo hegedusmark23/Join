@@ -147,22 +147,6 @@ async function loadUser() {
         const response = await getItem('user');
         if (response) {
             user = JSON.parse(response);
-            console.log('User geladen:', user);
-        } else {
-            console.log('Keine User gefunden.');
-        }
-    } catch (e) {
-        console.error('Fehler beim Laden der User:', e);
-    }
-}
-
-
-async function loadUser() {
-    try {
-        const response = await getItem('user');
-        if (response) {
-            user = JSON.parse(response);
-            console.log('User geladen:', user);
         } else {
             console.log('Keine User gefunden.');
         }

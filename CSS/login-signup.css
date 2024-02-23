@@ -486,7 +486,7 @@ form {
 
         50% {
             height: 180px;
-            top: 250%;
+            top: 50%;
             left: 50%;
             -webkit-transform: translate3d(-50%, 0, 0);
         }
@@ -607,7 +607,7 @@ form {
 
         50% {
             height: 180px;
-            top: 250%;
+            top: 50%;
             left: 50%;
             -webkit-transform: translate3d(-50%, 0, 0);
         }

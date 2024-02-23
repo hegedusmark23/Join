@@ -329,21 +329,21 @@ function reinitializeEventListenersForEditModal() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialisierungen, die auf allen Seiten durchgeführt werden sollten
-    checkInputFields();
-    saveInputFields();
-    loadTasks();
-    createTask();
-    
-    // Funktionen, die sowohl auf der "Add Task"-Seite als auch auf der "Board"-Seite benötigt werden
-    handlePrioButtons();
-    inputSubtask();
-    addSubTask();
-    setupEventListenersSubtasks();
-    renderAssignees();
-    setupAssigneeGlobalClickListener();
-    setupAssigneeDropdownToggleListener();
-    initCategoryDropdown();
-    setupCategoryDropdownEventListeners();
+        checkInputFields();
+        saveInputFields();
+        loadTasks();
+        createTask();
+        
+        // Funktionen, die sowohl auf der "Add Task"-Seite als auch auf der "Board"-Seite benötigt werden
+        handlePrioButtons();
+        inputSubtask();
+        addSubTask();
+        setupEventListenersSubtasks();
+        renderAssignees();
+        setupAssigneeGlobalClickListener();
+        setupAssigneeDropdownToggleListener();
+        initCategoryDropdown();
+        setupCategoryDropdownEventListeners();
 
     // Hilfsfunktion, um zu überprüfen, ob wir uns auf der "Board"-Seite befinden
     function isBoardPage() {

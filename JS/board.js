@@ -483,7 +483,8 @@ function numberOfTodos() {
 }
 
 function numberOfDone() {
-    let dones = document.getElementById('numberOfDone')
+    let dones = document.getElementById('numberOfDone');
+    dones.innerHTML = `<h1 class="tasks-number no-margin">${done.length}</h1>`;
 }
 
 //   Drag and Drop ----------------------------->
