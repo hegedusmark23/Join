@@ -497,11 +497,46 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
+function highlight(id) {
+    document.getElementById(id).classList.add('highlight');
+}
+
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('highlight');
+}
+
 async function moveTo(state) {
     tasks[currentDraggedElement]['state'] = state;
+    document.getElementById(state).classList.remove('highlight');
     await setItem('tasks', JSON.stringify(tasks));
     await initializeBoardCard();
 }
+let background;
+function hideNoTaskDiv(state) {
+    if (state == 'toDo') {
+        background ='board-card-background-1'
+    } else if (state == 'in-progress') {
+        background = 'board-card-background-2'
+    } else if (state == 'await-feedback') {
+        background = 'board-card-background-3'
+    } else if (state == 'done'){
+        background = 'board-card-background-4';
+    }
+    document.getElementById(background).style.display = 'none';
+};
+
+function resetNoTaskDiv(state) {
+    if (state == 'toDo') {
+        background ='board-card-background-1'
+    } else if (state == 'in-progress') {
+        background = 'board-card-background-2'
+    } else if (state == 'await-feedback') {
+        background = 'board-card-background-3'
+    } else if (state == 'done'){
+        background = 'board-card-background-4';
+    }
+    document.getElementById(background).style.display = '';
+};
 
 // async function deleteTasks(){
 //         for(let i = 0; i < tasks.length; i++){

@@ -207,7 +207,8 @@ a {
   display: flex;
   flex-grow: 1;
   width: 100%;
-  overflow-y: auto; /* Macht diesen Bereich scrollbar */
+  overflow-y: auto;
+  /* Macht diesen Bereich scrollbar */
   margin-left: 232px;
   margin-top: 96px;
 }
@@ -517,6 +518,7 @@ a {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .in-progress-container {
@@ -524,6 +526,7 @@ a {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .await-feedback-container {
@@ -531,6 +534,7 @@ a {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .done-container {
@@ -538,4 +542,9 @@ a {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
+}
+
+.highlight {
+  border: 1px dashed rgba(0, 0, 0, 0.3);
 }
