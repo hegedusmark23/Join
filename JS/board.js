@@ -511,6 +511,7 @@ async function moveTo(state) {
     await setItem('tasks', JSON.stringify(tasks));
     await initializeBoardCard();
 }
+
 let background;
 function hideNoTaskDiv(state) {
     if (state == 'toDo') {
@@ -526,13 +527,14 @@ function hideNoTaskDiv(state) {
 };
 
 function resetNoTaskDiv(state) {
-    if (state == 'toDo' && todos.length <= 0) {
+    if (state == 'toDo' && todos.length == 0) {
         background ='board-card-background-1'
-    } else if (state == 'in-progress' && inProgress.length <= 0) {
+    } else if (state == 'in-progress' && inProgress.length == 0) {
+        console.log(inProgress.length);
         background = 'board-card-background-2'
-    } else if (state == 'await-feedback' && awaitFeedback.length <= 0) {
+    } else if (state == 'await-feedback' && awaitFeedback.length == 0) {
         background = 'board-card-background-3'
-    } else if (state == 'done' && done.length <= 0){
+    } else if (state == 'done' && done.length == 0){
         background = 'board-card-background-4';
     }
     document.getElementById(background).style.display = '';
