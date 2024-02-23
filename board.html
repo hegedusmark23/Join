@@ -87,7 +87,7 @@
                             <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
                         </div>
                         <div id="toDo" class="toDo-container" ondrop="moveTo('toDo')" ondragover="allowDrop(event)"
-                            ondragleave="removeHighlight('toDo');"
+                            ondragleave="removeHighlight('toDo'); resetNoTaskDiv('toDo')"
                             ondragenter="hideNoTaskDiv('toDo'); highlight('toDo')">
                         </div>
 
@@ -112,7 +112,7 @@
                             <div id="board-card-background-2" class="board-card-bg">No tasks In progress</div>
                         </div>
                         <div id="in-progress" class="in-progress-container" ondrop="moveTo('in-progress')"
-                            ondragover="allowDrop(event);" ondragleave="removeHighlight('in-progress');"
+                            ondragover="allowDrop(event);" ondragleave="removeHighlight('in-progress'); resetNoTaskDiv('in-progress')"
                             ondragenter="hideNoTaskDiv('in-progress'); highlight('in-progress')"></div>
                     </div>
 
@@ -135,7 +135,7 @@
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
                         <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')"
-                            ondragover="allowDrop(event);" ondragleave="removeHighlight('await-feedback');"
+                            ondragover="allowDrop(event);" ondragleave="removeHighlight('await-feedback'); resetNoTaskDiv('await-feedback')"
                             ondragenter="hideNoTaskDiv('await-feedback'); highlight('await-feedback')"></div>
                     </div>
 
@@ -147,7 +147,7 @@
                             <div id="board-card-background-4" class="board-card-bg">No tasks Done</div>
                         </div>
                         <div id="done" class="done-container" ondrop="moveTo('done')" ondragover="allowDrop(event);"
-                            ondragleave="removeHighlight('done');"
+                            ondragleave="removeHighlight('done'); resetNoTaskDiv('done')"
                             ondragenter="hideNoTaskDiv('done'); highlight('done')">
                         </div>
 

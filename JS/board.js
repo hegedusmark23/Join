@@ -1,7 +1,7 @@
-// let toDo = []
-// let inProgress = []
-// let AwaitFeedback = []
-// let done = []
+let todos;
+let inProgress;
+let awaitFeedback;
+let done;
 
 let currentDraggedElement;
 
@@ -50,7 +50,7 @@ async function initializeBoardCard() {
     let awaitFeedBackCardContainer = document.getElementById('await-feedback');
     let doneCardContainer = document.getElementById('done');
 
-    let todos = tasks.filter(t => t['state'] == 'toDo');
+    todos = tasks.filter(t => t['state'] == 'toDo');
     if (todos.length > 0) {
         noTasksDiv1.style.display = 'none'
     } else {
@@ -63,7 +63,7 @@ async function initializeBoardCard() {
         toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
     }
 
-    let inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
+    inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
     if (inProgress.length > 0) {
         noTaskDiv2.style.display = 'none'
     } else {
@@ -89,7 +89,7 @@ async function initializeBoardCard() {
         awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
     }
 
-    let done = tasks.filter(d => d['state'] == 'done');
+    done = tasks.filter(d => d['state'] == 'done');
     if (done.length > 0) {
         noTaskDiv4.style.display = 'none'
     } else {
@@ -523,6 +523,19 @@ function hideNoTaskDiv(state) {
         background = 'board-card-background-4';
     }
     document.getElementById(background).style.display = 'none';
+};
+
+function resetNoTaskDiv(state) {
+    if (state == 'toDo' && todos.length <= 0) {
+        background ='board-card-background-1'
+    } else if (state == 'in-progress' && inProgress.length <= 0) {
+        background = 'board-card-background-2'
+    } else if (state == 'await-feedback' && awaitFeedback.length <= 0) {
+        background = 'board-card-background-3'
+    } else if (state == 'done' && done.length <= 0){
+        background = 'board-card-background-4';
+    }
+    document.getElementById(background).style.display = '';
 };
 
 // async function deleteTasks(){
