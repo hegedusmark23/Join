@@ -158,7 +158,7 @@ function renderCardContent(i, task, completionDetails) {
     // Bereite die Anzeige der Subtasks vor, nur wenn vorhanden
     let subtaskContent = (task.subtask && task.subtask.length > 0) ?
     /*html*/ `<div class="board-card-progress">
-            <div id="progress-bar-container" style="background-color: #F4F4F4; width: 164px; height: 8px; border-radius: 4px;">
+            <div id="progress-bar-container" style="background-color: #F4F4F4; width: 120px; height: 8px; border-radius: 4px;">
                 <div id="progress-bar" style="height: 8px; border-radius: 4px; background-color: #4589FF; width: ${completionDetails.completionPercentage}%;"></div>
             </div>
             <div class="board-card-progress-text">${completionDetails.subtaskText}</div>
