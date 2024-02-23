@@ -1,7 +1,7 @@
-// let toDo = []
-// let inProgress = []
-// let AwaitFeedback = []
-// let done = []
+let todos;
+let inProgress;
+let awaitFeedback;
+let done;
 
 let currentDraggedElement;
 
@@ -50,31 +50,31 @@ async function initializeBoardCard() {
     let awaitFeedBackCardContainer = document.getElementById('await-feedback');
     let doneCardContainer = document.getElementById('done');
 
-        let todos = tasks.filter(t => t['state'] == 'toDo');
-        if(todos.length > 0){
-            noTasksDiv1.style.display = 'none'
-        } else {
-            noTasksDiv1.style.display = 'flex'
-        }
-        toDoCardsContainer.innerHTML = '';
-        for (let i = 0; i < todos.length; i++) {
-            let task = todos[i]
-            let completionDetails = updateSubtaskProgress(task);
-            toDoCardsContainer.innerHTML += renderCardContent(task, completionDetails);
-        }
+    todos = tasks.filter(t => t['state'] == 'toDo');
+    if (todos.length > 0) {
+        noTasksDiv1.style.display = 'none'
+    } else {
+        noTasksDiv1.style.display = 'flex'
+    }
+    toDoCardsContainer.innerHTML = '';
+    for (let i = 0; i < todos.length; i++) {
+        let task = todos[i]
+        let completionDetails = updateSubtaskProgress(task);
+        toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
 
-        let inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
-        if(inProgress.length > 0){
-            noTaskDiv2.style.display = 'none'
-        } else {
-            noTaskDiv2.style.display = 'flex';
-        }
-        inProgressCardContainer.innerHTML = '';
-        for (let i = 0; i < inProgress.length; i++) {
-            let task = inProgress[i];
-            let completionDetails = updateSubtaskProgress(task);
-            inProgressCardContainer.innerHTML += renderCardContent(task, completionDetails);
-        }
+    inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
+    if (inProgress.length > 0) {
+        noTaskDiv2.style.display = 'none'
+    } else {
+        noTaskDiv2.style.display = 'flex';
+    }
+    inProgressCardContainer.innerHTML = '';
+    for (let i = 0; i < inProgress.length; i++) {
+        let task = inProgress[i];
+        let completionDetails = updateSubtaskProgress(task);
+        inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
 
         let awaitFeedBack = tasks.filter(awFe => awFe['state'] == 'await-feedback');
         if(awaitFeedBack.length > 0){
@@ -89,18 +89,18 @@ async function initializeBoardCard() {
             awaitFeedBackCardContainer.innerHTML += renderCardContent(task, completionDetails);
         }
 
-        let done = tasks.filter(d => d['state'] == 'done');
-        if(done.length > 0){
-            noTaskDiv4.style.display = 'none'
-        } else {
-            noTaskDiv4.style.display = 'flex';
-        }
-        doneCardContainer.innerHTML = '';
-        for (let i = 0; i < done.length; i++) {
-            let task = done[i];
-            let completionDetails = updateSubtaskProgress(task);
-            doneCardContainer.innerHTML += renderCardContent(task, completionDetails);
-        }
+    done = tasks.filter(d => d['state'] == 'done');
+    if (done.length > 0) {
+        noTaskDiv4.style.display = 'none'
+    } else {
+        noTaskDiv4.style.display = 'flex';
+    }
+    doneCardContainer.innerHTML = '';
+    for (let i = 0; i < done.length; i++) {
+        let task = done[i];
+        let completionDetails = updateSubtaskProgress(task);
+        doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
 
     setupTaskClickListeners();
 }
@@ -526,13 +526,13 @@ function hideNoTaskDiv(state) {
 };
 
 function resetNoTaskDiv(state) {
-    if (state == 'toDo') {
+    if (state == 'toDo' && todos.length <= 0) {
         background ='board-card-background-1'
-    } else if (state == 'in-progress') {
+    } else if (state == 'in-progress' && inProgress.length <= 0) {
         background = 'board-card-background-2'
-    } else if (state == 'await-feedback') {
+    } else if (state == 'await-feedback' && awaitFeedback.length <= 0) {
         background = 'board-card-background-3'
-    } else if (state == 'done'){
+    } else if (state == 'done' && done.length <= 0){
         background = 'board-card-background-4';
     }
     document.getElementById(background).style.display = '';
