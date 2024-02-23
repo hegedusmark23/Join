@@ -9,7 +9,7 @@ class Task {
         this.prio = prio;
         this.createdAt = createdAt;
         this.token = token;
-        this.identifier = identifier
+        this.identifier = identifier;
 
         this.category = []
         this.subtask = []

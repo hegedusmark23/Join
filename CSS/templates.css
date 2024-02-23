@@ -1,13 +1,26 @@
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  height: 96px;
+  z-index: 0;
+  top: 0;
+  background-color: #fff;
+  z-index: 1000;
+}
+
 .navbar {
   min-width: 232px;
   width: 232px;
-  height: 100vh;
+  height: 100%;
   background-color: #2a3647;
   display: flex;
   align-items: center;
   flex-direction: column;
   position: fixed;
-  top: 0px;
   bottom: 0;
   z-index: 1001;
   overflow-y: auto;
@@ -16,16 +29,39 @@
 .navbar-nouser {
   min-width: 232px;
   width: 232px;
-  height: 100vh;
+  height: 100%;
   background-color: #2a3647;
   display: flex;
   align-items: center;
   flex-direction: column;
   position: fixed;
-  top: 0px;
   bottom: 0;
   z-index: 1001;
   overflow-y: auto;
+}
+
+#board-content {
+  overflow-y: auto;
+  max-height: calc(100vh - 96px - 262px);
+}
+
+.content-container {
+  position: absolute;
+  top: 96px;
+  left: 232px;
+  width: calc(100% - 232px);
+  right: 0;
+  bottom: 0;
+  background-color: #f0f0f0;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-header-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .navbar-links {
@@ -129,21 +165,6 @@
   background-color: rgb(199, 199, 199);
 }
 
-.header {
-  position: fixed;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
-  height: 96px;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-  z-index: 1000;
-}
-
 .wrapper-container {
   display: flex;
   flex-direction: column;
@@ -160,7 +181,7 @@
 .header-headline {
   font-size: 20px;
   font-weight: 400;
-  margin-left: 270px;
+  margin-left: 310px;
 }
 
 .nav-text {
@@ -211,6 +232,10 @@ select:focus {
   outline: none;
 }
 
+.board-search-input input {
+  outline: none;
+}
+
 /* Add Task Template */
 
 /* !!! Label --> Könnte man auslagern!!!*/
@@ -228,11 +253,6 @@ section#addtask-content {
   padding: 10px 30px 10px 80px;
   background-color: #f0f0f0;
   flex: 1;
-}
-
-#board-content {
-  background-color: #f0f0f0;
-  max-height: 100%;
 }
 
 .label-text {
@@ -267,7 +287,8 @@ input {
 #addtask-content input:focus,
 #addtask-content textarea:focus,
 #addtask-content button:focus,
-#addtask-content select:focus {
+#addtask-content select:focus,
+.board-search-input input:focus {
   border: 1px solid #29abe2;
 }
 
@@ -277,13 +298,10 @@ textarea {
   overflow: auto;
 }
 
-#board-content h1,
+.board-header h1,
 #addtask-content h1 {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 61px;
-  line-height: 73.2px;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
 }
 
 .addtask-prio-btn {
@@ -713,6 +731,8 @@ input#subtask-edit-input {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 30px 15px 80px;
+  background-color: #f0f0f0;
 }
 
 .board-search-input input {
@@ -762,13 +782,26 @@ input#subtask-edit-input {
 
 .board-sections {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 32px;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
+  overflow-y: visible;
+}
+
+.board-sector {
+  display: flex;
+  justify-content: flex-start;
+  gap: 32px;
+  height: auto;
+  overflow-y: visible;
+  padding: 10px 30px 10px 80px;
+  background-color: #f0f0f0;
 }
 
 .board-sections > div {
   flex: 1;
+  max-width: 252px;
 }
 
 .board-section-column {
@@ -776,6 +809,8 @@ input#subtask-edit-input {
   justify-content: space-between;
   padding-top: 10px;
   padding-bottom: 14px;
+  max-width: 252px;
+  width: 100%;
 }
 
 .board-section-title {
@@ -804,7 +839,6 @@ input#subtask-edit-input {
   background-color: #fff;
   border-radius: 24px;
   box-shadow: 0px 0px 10px 3px #00000014;
-  min-width: 252px;
   padding: 16px;
   z-index: 2;
   cursor: pointer;
@@ -839,12 +873,9 @@ input#subtask-edit-input {
 .board-card-description {
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  /* Anzahl der angezeigten Zeilen */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 251px;
-  /*Breite ab dem in Zeile 2 abgeschnitten wird */
   margin-bottom: 8px;
   color: #a8a8a8;
   font-size: 18px;
@@ -876,6 +907,7 @@ input#subtask-edit-input {
 
 .board-card-content {
   margin-bottom: 20px;
+  transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .board-card-footer-assignees {
@@ -1395,6 +1427,11 @@ input#subtask-edit-input {
     display: none;
   }
 
+  .navbar-links {
+    padding: 0px 10px;
+    border-radius: 16px;
+  }
+
   .navbar {
     width: 100%;
     height: 80px;
@@ -1497,7 +1534,8 @@ input#subtask-edit-input {
   }
 
   .navbar-links {
-    width: 80px;
+    padding: 2px;
+    border-radius: 16px;
   }
 
   .user-icon {

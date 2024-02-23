@@ -30,12 +30,12 @@ function clearAllInputs() {
     // Assignee-Dropdown zurücksetzen
     assignedTo = []; // Leert das Array der zugewiesenen Benutzer
     document.getElementById('dropdown-assignees').textContent = 'Select contacts to assign';
-    
+
     // Aktualisiert die Anzeige der ausgewählten Benutzer
-    updateSelectedAssigneesDisplay(); 
+    updateSelectedAssigneesDisplay();
 
     // Rendert die Benutzerliste im Dropdown neu
-    renderAssignees(); 
+    renderAssignees();
 
     // Setzt den 'added'-Status aller Kontakte zurück und aktualisiert die Anzeige
     resetAssigneeSelection();
@@ -51,7 +51,7 @@ function clearAllInputs() {
     if (subtasksList) {
         subtasksList.innerHTML = ''; // Entfernt alle Subtask-Listenelemente aus dem DOM
     }
-    
+
     // Prioritäts-Buttons zurücksetzen
     const prioButtons = document.querySelectorAll('.addtask-buttons');
     prioButtons.forEach(button => {
@@ -202,18 +202,14 @@ async function createTask() {
             STORAGE_TOKEN, // Storage-Token
             identifier
         );
-
         // Hinzufügen von Kategorie und Subtasks
         newTask.category = category;
         newTask.subtask = subtasks;
-
         try {
             // Hinzufügen des neuen Tasks zum Array
             tasks.push(newTask);
-
             // Speichern des aktualisierten Arrays
             await setItem('tasks', JSON.stringify(tasks));
-
             console.log('Task erfolgreich gespeichert');
             // Animation starten
             showTaskAddedMessage();
@@ -221,7 +217,6 @@ async function createTask() {
         } catch (error) {
             console.error('Fehler beim Speichern des Tasks:', error);
         }
-
         identifier++
     });
 }

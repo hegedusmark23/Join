@@ -56,14 +56,14 @@
   src: url("../assets/fonts/Inter-Black.ttf") format("truetype");
 }
 
-html {
-  font-family: "Inter", sans-serif;
-  overflow: hidden;
-}
-
+html,
 body {
-  margin: 0px;
+  font-family: "Inter", sans-serif;
+  height: 100%;
+  margin: 0;
+
   background-color: #fcfcfc;
+  overflow: hidden;
 }
 
 h3 {
@@ -201,15 +201,6 @@ a {
 
 .d-flex {
   display: flex;
-}
-
-.menu-header-and-main-content-container {
-  display: flex;
-  flex-grow: 1;
-  width: 100%;
-  overflow-y: auto; /* Macht diesen Bereich scrollbar */
-  margin-left: 232px;
-  margin-top: 96px;
 }
 
 .menu-popup {
@@ -513,29 +504,29 @@ a {
 }
 
 .toDo-container {
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .in-progress-container {
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .await-feedback-container {
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .done-container {
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
+}
+
+.highlight {
+  border: 1px dashed rgba(0, 0, 0, 0.3);
 }

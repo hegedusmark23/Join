@@ -1,13 +1,4 @@
 
-function generateSummaryContent() {
-  let container = document.getElementById('main-content');
-  let background = document.getElementById('summary-nav');
-  // container.innerHTML = summaryHTML();
-  //background.classList.add('selected-nav-link-background');
-  timeDynamicWelcome();
-  getNamefromArray();
-}
-
 function generateLegalNoticeContent() {
   let container = document.querySelector('section');
   container.innerHTML = legalNoticeHTML();
@@ -23,16 +14,6 @@ function generateHelpContent() {
   container.innerHTML = helpHTML();
 }
 
-// function generateAddTaskContent() {
-//   let container = document.getElementById('main-content');
-//   container.innerHTML = addTaskHTML();
-// }
-
-// function generateContactsContent() {
-//   let container = document.getElementById('main-content');
-//   container.innerHTML = contactsHTML();
-//   renderContact();
-// }
 
 function changePencilImgColor() {                //Changes the color of an icon on hover
   var image = document.getElementById("pencil-icon");
@@ -87,7 +68,7 @@ function redirectToLogin() {   // Redirects to the Login page after registration
 }
 
 
-function timeDynamicWelcome() {      //Daytime dependant Welcom message.
+function timeDynamicWelcome() {      //Daytime dependant Welcome message.
   let welcome = document.getElementById('daytime')
   let date = new Date();
   let hour = date.getHours();
@@ -127,20 +108,36 @@ function startAnimations() {
   // Get elements by class name and add animation class
   var elements = document.getElementsByClassName('tasks-headline-container');
   for (var i = 0; i < elements.length; i++) {
-      elements[i].classList.add('invisVisMobile');
+    elements[i].classList.add('invisVisMobile');
   }
 
   elements = document.getElementsByClassName('navbar');
   for (var i = 0; i < elements.length; i++) {
-      elements[i].classList.add('invisVisMobile');
+    elements[i].classList.add('invisVisMobile');
   }
 
   elements = document.getElementsByClassName('header');
   for (var i = 0; i < elements.length; i++) {
-      elements[i].classList.add('invisVisMobile');
+    elements[i].classList.add('invisVisMobile');
   }
 
   // Add animation class to welcome-section
   document.querySelector('.welcome-section').classList.add('welcomeMessageMobile');
 }
 
+function buttonFocus() {
+  let summaryNav = document.getElementById("summary-nav");
+  let addTaskNav = document.getElementById("addTask-nav");
+  let boardNav = document.getElementById("board-nav");
+  let contactsNav = document.getElementById("contacts-nav");
+  setTimeout(buttonFocus, 100);
+  if (window.location.href === "http://127.0.0.1:5500/index.html" && summaryNav) {
+    summaryNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/addtask.html" && addTaskNav) {
+    addTaskNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/board.html" && boardNav) {
+    boardNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/addcontacts.html" && contactsNav) {
+    contactsNav.style.backgroundColor = "#091931";
+  }
+}
