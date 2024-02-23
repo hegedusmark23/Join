@@ -15,7 +15,7 @@
     <main class="board-contents">
         <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <div class="menu-header-and-main-content-container">
+        <div class="content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
@@ -42,11 +42,10 @@
                 </div>
             </div>
 
-
-            <section id="board-content">
+            <div class="board-header-wrapper">
                 <div class="board-header">
                     <div class="board-header-left">
-                        <h1 style="font-weight: 800;">Board</h1>
+                        <h1>Board</h1>
                     </div>
                     <div class="board-header-right">
                         <div class="board-search-input">
@@ -68,22 +67,57 @@
                     </div>
                 </div>
 
+                <div id="board-sectors" class="board-sector">
+                    <div class="board-section-column">
+                        <div class="board-section-title">To do</div>
+                        <div id="addtask-todo" class="board-section-add-task">
+                            <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="board-section-column">
+                        <div class="board-section-title">In progress</div>
+                        <div class="board-section-add-task">
+                            <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="board-section-column">
+                        <div class="board-section-title">Await feedback</div>
+                        <div class="board-section-add-task">
+                            <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="board-section-column">
+                        <div class="board-section-title">Done</div>
+                    </div>
+
+                </div>
+
+            </div>
+            <section id="board-content">
                 <div class="board-sections">
                     <div class="board-section-1">
-                        <div class="board-section-column">
-                            <div class="board-section-title">To do</div>
-                            <div id="addtask-todo" class="board-section-add-task">
-                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div id="board-card-section-1" class="board-section-cards">
+                        <div class="board-section-cards">
                             <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
                         </div>
                         <div id="toDo" class="toDo-container" ondrop="moveTo('toDo')" ondragover="allowDrop(event)"
@@ -94,55 +128,27 @@
                     </div>
 
                     <div class="board-section-2">
-
-                        <div class="board-section-column">
-                            <div class="board-section-title">In progress</div>
-                            <div class="board-section-add-task">
-                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </div>
-                        </div>
-
                         <div class="board-section-cards">
                             <div id="board-card-background-2" class="board-card-bg">No tasks In progress</div>
                         </div>
                         <div id="in-progress" class="in-progress-container" ondrop="moveTo('in-progress')"
-                            ondragover="allowDrop(event);" ondragleave="removeHighlight('in-progress'); resetNoTaskDiv('in-progress')"
+                            ondragover="allowDrop(event);"
+                            ondragleave="removeHighlight('in-progress'); resetNoTaskDiv('in-progress')"
                             ondragenter="hideNoTaskDiv('in-progress'); highlight('in-progress')"></div>
                     </div>
 
                     <div class="board-section-3">
-
-                        <div class="board-section-column">
-                            <div class="board-section-title">Await feedback</div>
-                            <div class="board-section-add-task">
-                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </div>
-                        </div>
-
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
                         <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')"
+                            ondragover="allowDrop(event);"
+                            ondragleave="removeHighlight('await-feedback'); resetNoTaskDiv('await-feedback')"
                             ondragover="allowDrop(event);" ondragleave="removeHighlight('await-feedback'); resetNoTaskDiv('await-feedback');"
                             ondragenter="hideNoTaskDiv('await-feedback'); highlight('await-feedback')"></div>
                     </div>
 
                     <div class="board-section-4">
-                        <div class="board-section-column">
-                            <div class="board-section-title">Done</div>
-                        </div>
                         <div class="board-section-cards">
                             <div id="board-card-background-4" class="board-card-bg">No tasks Done</div>
                         </div>
@@ -150,7 +156,6 @@
                             ondragleave="removeHighlight('done'); resetNoTaskDiv('done')"
                             ondragenter="hideNoTaskDiv('done'); highlight('done')">
                         </div>
-
                     </div>
                 </div>
             </section>

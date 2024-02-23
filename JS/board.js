@@ -76,18 +76,18 @@ async function initializeBoardCard() {
         inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
     }
 
-    let awaitFeedBack = tasks.filter(awFe => awFe['state'] == 'await-feedback');
-    if (awaitFeedBack.length > 0) {
-        noTaskDiv3.style.display = 'none'
-    } else {
-        noTaskDiv3.style.display = 'flex';
-    }
-    awaitFeedBackCardContainer.innerHTML = '';
-    for (let i = 0; i < awaitFeedBack.length; i++) {
-        let task = awaitFeedBack[i];
-        let completionDetails = updateSubtaskProgress(task);
-        awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
-    }
+        let awaitFeedBack = tasks.filter(awFe => awFe['state'] == 'await-feedback');
+        if(awaitFeedBack.length > 0){
+            noTaskDiv3.style.display = 'none'
+        } else {
+            noTaskDiv3.style.display = 'flex';
+        }
+        awaitFeedBackCardContainer.innerHTML = '';
+        for (let i = 0; i < awaitFeedBack.length; i++) {
+            let task = awaitFeedBack[i];
+            let completionDetails = updateSubtaskProgress(task);
+            awaitFeedBackCardContainer.innerHTML += renderCardContent(task, completionDetails);
+        }
 
     done = tasks.filter(d => d['state'] == 'done');
     if (done.length > 0) {
@@ -138,7 +138,7 @@ function getLabelColor(category) {
     return category === 'Technical Task' ? labelCol1 : labelCol2;
 }
 
-function renderCardContent(i, task, completionDetails) {
+function renderCardContent(task, completionDetails) {
     let tasksImg = taskImage(task);
 
     // Initialisiert einen leeren String für die Fußzeile der Zuweisungen (Assignees).
@@ -158,14 +158,14 @@ function renderCardContent(i, task, completionDetails) {
     // Bereite die Anzeige der Subtasks vor, nur wenn vorhanden
     let subtaskContent = (task.subtask && task.subtask.length > 0) ?
     /*html*/ `<div class="board-card-progress">
-            <div id="progress-bar-container" style="background-color: #F4F4F4; width: 164px; height: 8px; border-radius: 4px;">
+            <div id="progress-bar-container" style="background-color: #F4F4F4; width: 120px; height: 8px; border-radius: 4px;">
                 <div id="progress-bar" style="height: 8px; border-radius: 4px; background-color: #4589FF; width: ${completionDetails.completionPercentage}%;"></div>
             </div>
             <div class="board-card-progress-text">${completionDetails.subtaskText}</div>
         </div>` : '';
 
     return /*html*/ `
-    <div id="${task.state}-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier},'${task.state}',${i})">
+    <div id="board-card-content" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier})">
         <div class="board-card" data-task-id="${task.id}">
             <div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
