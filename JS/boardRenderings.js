@@ -598,9 +598,9 @@ if (detailModalContainer) {
             console.error('#assign-to wurde nach dem Einfügen des Modals nicht gefunden.');
         }
     }, 0);// Verzögerung sicherstellen, dass das DOM vollständig aktualisiert wurde
-}
 
-reinitializeEventListenersForEditModal();
+    reinitializeEventListenersForEditModal()
+}
 
 }
 function extractLetterFromIndex(globalIndex) {

@@ -308,6 +308,7 @@ function initializeBoardIfNeeded() {
 }
 
 function reinitializeEventListenersForEditModal() {
+    console.log('Funktionen werden aufgerufen!')
     checkInputFields();
     saveInputFields();
     handlePrioButtons();

@@ -38,8 +38,8 @@ async function initializeBoard() {
 }
 
 // Tasks anzeigen
-async function initializeBoardCard() {
-    let tasks = await fetchTasks();
+async function initializeBoardCard(filteredTasks = null) {
+    let tasks = filteredTasks ? filteredTasks : await fetchTasks();
 
     let noTasksDiv1 = document.getElementById('board-card-background-1');
     let noTaskDiv2 = document.getElementById('board-card-background-2');
