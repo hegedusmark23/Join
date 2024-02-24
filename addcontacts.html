@@ -13,17 +13,18 @@
 </head>
 
 <body onload="buttonFocus(); renderContact(); setCurrentUserName();">
-    <main class="add-contacts-contents"> 
+    <main class="add-contacts-contents">
+        <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <div class="menu-header-and-main-content-container">
+        <div class="content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
-                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
+                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log
+                        out</a></div>
             </menu>
-            <header w3-include-html="./assets/templates/header.html"></header>
             <section id="contact-section" class="contact-section">
                 <div id="contact-book" class="contact-book">
                     <div onclick="showAddContactOverlay()" id="add-new-contact-btn-mobile"
@@ -44,7 +45,7 @@
                     <img onclick="backToContactList()" class="arrow-left-line" src="./assets/icons/arrow-left-line.svg"
                         alt="">
                     <div id="contact-view-title-container" class="contact-view-title-container">
-                        <h2 class="contact-view-title">Contacts</h2>
+                        <h1 class="contact-view-title">Contacts</h1>
                         <span class="contact-view-separator-bar"></span>
                         <h3 class="contact-view-subtitle">Better with a team</h3>
                         <span class="contact-view-separator-bar-mobile"></span>

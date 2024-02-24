@@ -14,19 +14,19 @@
 
 <body onload="init(); setCurrentUser();">
     <main class="index-contents">
+        <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <div class="menu-header-and-main-content-container">
+        <div class="content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="closeMenu(); generatePrivacyPolicyContent();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="closeMenu(); generateLegalNoticeContent();">Privacy Policy</a></div>
-                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log out</a></div>
+                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log
+                        out</a></div>
             </menu>
-            <header w3-include-html="./assets/templates/header.html"></header>
             <section class="main-content" onclick="closeMenu()" id="main-content">
                 <div class="summary-container">
-
                     <div class="summary-main-content">
                         <div class="tasks-headline-container">
                             <div class="summary-headline">
@@ -49,7 +49,7 @@
                                                 <span class="summary-text">To-do</span>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
                                 </a>
 
                                 <a href="/board.html">

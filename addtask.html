@@ -13,6 +13,7 @@
 
 <body onload="includeHTML(); setCurrentUserName(); buttonFocus();" class="tasks addtask-page">
     <main class="addTask-content">
+        <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="content-container">
             <menu id="popup-menu" class="menu-popup">
@@ -23,7 +24,7 @@
                 <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log
                         out</a></div>
             </menu>
-            <header w3-include-html="./assets/templates/header.html"></header>
+
             <section id="addtask-content">
                 <h1 style="font-weight: 800;">Add Task</h1>
                 <form onsubmit="return false;" class="addtask-form">

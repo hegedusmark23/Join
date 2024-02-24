@@ -910,7 +910,6 @@ input#subtask-edit-input {
   cursor: move;
 }
 
-
 .board-card-footer-assignees {
   display: flex;
   margin-left: 14px;
@@ -1312,6 +1311,10 @@ input#subtask-edit-input {
     width: 100%;
     z-index: 0;
   }
+
+  section#addtask-content {
+    padding: 10px 16px 10px 16px;
+  }
 }
 
 @media (max-width: 700px) {
@@ -1445,6 +1448,12 @@ input#subtask-edit-input {
     z-index: 1;
     transform: translate3d(0, 0, 0);
     margin-top: auto;
+  }
+
+  .content-container {
+    top: 0;
+    left: 0;
+    width: 100%;
   }
 
   .join-logo-small {

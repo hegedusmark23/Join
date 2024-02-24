@@ -10,7 +10,6 @@ class Task {
         this.createdAt = createdAt;
         this.token = token;
         this.identifier = identifier;
-
         this.category = []
         this.subtask = []
         this.state = 'toDo';

@@ -269,7 +269,7 @@ function showTaskAddedMessage(fromModal = false) {
         // Nachricht nach einer gewissen Zeit ausblenden
         setTimeout(() => {
             messageElement.style.display = 'none';
-        }, 3000); // Warte 1,5 Sekunden, bevor die Nachricht ausgeblendet wird
+        }, 2000); // Warte 1,5 Sekunden, bevor die Nachricht ausgeblendet wird
     } else {
         console.error('Element für Task-Hinzugefügt-Nachricht wurde nicht gefunden.');
     }
