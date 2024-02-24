@@ -104,27 +104,6 @@ function guestLogin() {
 }
 
 
-function startAnimations() {
-  // Get elements by class name and add animation class
-  var elements = document.getElementsByClassName('tasks-headline-container');
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.add('invisVisMobile');
-  }
-
-  elements = document.getElementsByClassName('navbar');
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.add('invisVisMobile');
-  }
-
-  elements = document.getElementsByClassName('header');
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.add('invisVisMobile');
-  }
-
-  // Add animation class to welcome-section
-  document.querySelector('.welcome-section').classList.add('welcomeMessageMobile');
-}
-
 function buttonFocus() {
   let summaryNav = document.getElementById("summary-nav");
   let addTaskNav = document.getElementById("addTask-nav");
@@ -142,8 +121,29 @@ function buttonFocus() {
   }
 }
 
-function numberOfAllTasks(){
-  allTasks = document.getElementById('numberOfTasksInBoard');
+function numberOfAllTasks() {
+  let allTasks = document.getElementById('numberOfTasksInBoard');
+  urgent = document.getElementById('numberOfUrgent');
+  urgentDate = document.getElementById('urgentDate');
+  awaitingFeedback = document.getElementById('awaitingFeedback');
   allTasks.innerHTML = tasks.length;
-  console.log('test')
- }
+}
+
+
+function sortTasksByStateToDo() {
+let toDo = document.getElementById('numberOfToDos');
+var result = tasks.filter((task) => task.state.includes("toDo")).length;
+toDo.innerHTML = result;
+}
+
+function sortTasksByStateInProgress() {
+  let inProgress = document.getElementById('numberOfTasksInProgress');
+  var result = tasks.filter((task) => task.state.includes("in-progress")).length;
+  inProgress.innerHTML = result;
+  }
+
+  function sortTasksByStateDone() {
+    let done = document.getElementById('numberOfDone');
+    var result = tasks.filter((task) => task.state.includes("done")).length;
+    done.innerHTML = result;
+    }

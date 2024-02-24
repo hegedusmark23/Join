@@ -375,3 +375,4 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Nicht auf der Board-Seite, spezifische Board-Initialisierungen werden übersprungen.');
     }
 });
+

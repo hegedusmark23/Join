@@ -2,8 +2,13 @@
 async function init(){
     await includeHTML();
     timeDynamicWelcome();
-    numberOfAllTasks();
+    
     buttonFocus();
+    setTimeout(() => {
+        sortTasksByStateToDo();
+        sortTasksByStateInProgress();
+        numberOfAllTasks();
+    }, 50);
     }
 
 async function initRegister(){

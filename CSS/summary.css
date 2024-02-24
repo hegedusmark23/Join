@@ -483,6 +483,10 @@
 }
 
 @media (max-width: 430px) {
+
+    .summary-headline {
+        padding: 20px 0px;
+    }
     /*.tasks-headline-container {
         animation: invisVisMobile 1s linear;
     }
@@ -514,7 +518,7 @@
 @media (max-width: 375px) {
 
     .summary-headline {
-        padding: 18px 0px;
+        padding: 0px 0px;
     }
 
     .summary-headline-bold {
