@@ -9,7 +9,7 @@
     flex-direction: row;
     align-items: center;
     gap: 30px;
-    padding: 0 50px;
+    padding: 10px 50px;
 }
 
 .small-task-container {
@@ -34,6 +34,8 @@
 .summary-headline-bold {
     font-size: 61px;
     font-weight: 800;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
 }
 
 .summary-headline-normal {

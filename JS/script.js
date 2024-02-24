@@ -4,7 +4,6 @@ async function init(){
     timeDynamicWelcome();
     numberOfAllTasks();
     buttonFocus();
-    
     }
 
 async function initRegister(){

@@ -173,7 +173,7 @@ a {
 .legal-site-arrow {
   position: fixed;
   top: 225px;
-  right: 30px;
+  right: 40px;
 }
 
 .blue-text {
@@ -209,7 +209,7 @@ a {
   justify-content: center;
   background-color: #2a3647;
   border-radius: 20px 0px 20px 20px;
-  position: absolute;
+  position: fixed;
   top: 100px;
   right: 20px;
   padding-inline: 20px;
