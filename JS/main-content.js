@@ -123,27 +123,37 @@ function buttonFocus() {
 
 function numberOfAllTasks() {
   let allTasks = document.getElementById('numberOfTasksInBoard');
-  urgent = document.getElementById('numberOfUrgent');
-  urgentDate = document.getElementById('urgentDate');
-  awaitingFeedback = document.getElementById('awaitingFeedback');
   allTasks.innerHTML = tasks.length;
 }
 
 
 function sortTasksByStateToDo() {
-let toDo = document.getElementById('numberOfToDos');
-var result = tasks.filter((task) => task.state.includes("toDo")).length;
-toDo.innerHTML = result;
+  let toDo = document.getElementById('numberOfToDos');
+  var result = tasks.filter((task) => task.state.includes("toDo")).length;
+  toDo.innerHTML = result;
 }
 
 function sortTasksByStateInProgress() {
   let inProgress = document.getElementById('numberOfTasksInProgress');
   var result = tasks.filter((task) => task.state.includes("in-progress")).length;
   inProgress.innerHTML = result;
-  }
+}
 
-  function sortTasksByStateDone() {
-    let done = document.getElementById('numberOfDone');
-    var result = tasks.filter((task) => task.state.includes("done")).length;
-    done.innerHTML = result;
-    }
+function sortTasksByStateDone() {
+  let done = document.getElementById('numberOfDone');
+  var result = tasks.filter((task) => task.state.includes("done")).length;
+  done.innerHTML = result;
+}
+
+function sortTasksByStateAwaitingFeedback() {
+  let awaitingFeedback = document.getElementById('awaitingFeedback');
+  var result = tasks.filter((task) => task.state.includes("await-feedback")).length;
+  awaitingFeedback.innerHTML = result;
+}
+
+function sortTasksByPrioUrgent() {
+  let urgent = document.getElementById('numberOfUrgent');
+  urgentDate = document.getElementById('urgentDate');
+  var result = tasks.filter((task) => task.prio.includes("urgent")).length;
+  urgent.innerHTML = result;
+}

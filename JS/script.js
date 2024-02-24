@@ -8,6 +8,9 @@ async function init(){
         sortTasksByStateToDo();
         sortTasksByStateInProgress();
         numberOfAllTasks();
+        sortTasksByStateAwaitingFeedback();
+        sortTasksByStateDone();
+        sortTasksByPrioUrgent();
     }, 50);
     }
 
