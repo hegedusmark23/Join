@@ -7,6 +7,7 @@ function setupOpenAddTaskModalListener() {
         openAddTaskButton.addEventListener('click', () => {
             insertDynamicContentIntoModal();
             openModal('addtask-modal');
+            setupModalEventListeners();
         });
     }
 }
@@ -244,7 +245,7 @@ function insertDynamicContentIntoModal() {
                                 </button>
                                 <div class="addtask-info-mobile info-mobile">This field is required
                                 </div>
-                                <button id="create-task" class="blue-btn">Create Task
+                                <button id="create-task-board" class="blue-btn">Create Task
                                     <img src="/Join/assets/icons/check.svg" alt="Create Task"></button>
                             </div>
                         </div>
@@ -257,6 +258,88 @@ function insertDynamicContentIntoModal() {
         `;
         modalContent.innerHTML = dynamicContent;
     }
+    reinitializeEventListenersForEditModal();
+}
+
+// Funktion zum Leeren des Modal-Inhalts
+function clearModalContent() {
+    // Zugriff auf den .modal-content Container innerhalb des Modals
+    const modalContent = document.querySelector('#addtask-modal .modal-content');
+    if (modalContent) {
+        modalContent.innerHTML = ''; // Entfernt den Inhalt des .modal-content Containers
+        modalContent.className = 'modal-content'; // Stellt die ursprünglichen Klassen des Containers wieder her
+    }
+    
+    // Zugriff auf das Modal selbst, um es zu schließen und auf den ursprünglichen Zustand zurückzusetzen
+    const modal = document.getElementById('addtask-modal');
+    if (modal) {
+        modal.classList.remove('modal-open'); // Entferne die modal-open Klasse, falls vorhanden
+        modal.style.display = ''; // Setze den display Stil zurück (entfernt das Attribut, falls es gesetzt wurde)
+    }
+}
+
+
+// Eventlistner für das Schließen des Modals oder Erstellen eines Tasks
+function setupModalEventListeners() {
+    // Event-Listener für den Schließen-Button
+    const closeModalButton = document.getElementById('close-modal-button-addtask-board');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', function() {
+            clearModalContent();
+            reinitializeEventListenersForEditModal();
+        });
+    }
+
+    // Event-Listener für den Erstellen-Button
+    const createTaskButton = document.getElementById('create-task-board');
+    if (createTaskButton) {
+        console.log('Create Task button found', createTaskButton);
+        createTaskButton.addEventListener('click', function() {
+            console.log('Create Task button clicked');
+            createTaskModal()
+        });
+    } else {
+        console.log('Create Task button not found');
+    }
+}
+
+async function createTaskModal() {
+    // Validiere das Formular
+    if (!validateTaskForm()) {
+        console.info('Validation failed. No Task created.');
+        return;
+    }
+
+    // Erstellen einer neuen Task-Instanz und Logik zur Speicherung des Tasks
+    let newTask = new Task(
+        Date.now(), // Eindeutige ID
+        title,
+        description,
+        assignedTo,
+        dueDate,
+        prio,
+        new Date().toISOString(), // Erstellungsdatum
+        STORAGE_TOKEN, // Storage-Token
+        identifier
+    );
+    // Hinzufügen von Kategorie und Subtasks
+    newTask.category = category;
+    newTask.subtask = subtasks;
+
+    try {
+        // Hinzufügen des neuen Tasks zum Array und Speichern
+        tasks.push(newTask);
+        await setItem('tasks', JSON.stringify(tasks));
+        console.log('Task erfolgreich gespeichert');
+        showTaskAddedMessage();
+        clearAllInputs();
+    } catch (error) {
+        console.error('Fehler beim Speichern des Tasks:', error);
+    }
+
+    identifier++;
+
+    clearModalContent();
     reinitializeEventListenersForEditModal();
 }
 

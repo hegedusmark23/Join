@@ -325,7 +325,15 @@ function reinitializeEventListenersForEditModal() {
     setupDeleteTaskListener();
     setupSaveTaskEditListener();
     initializeBoardIfNeeded();
-
+    createTask();
+    setupCreateTaskListener();
+    setupOpenAddTaskModalListener();
+    setupCloseAddTaskModalListener();
+    setupEditTaskListener();
+    setupModalCloseDelegationEdit();
+    setupModalCloseDelegationAddAtskBoard();
+    setupDeleteTaskListener();
+    setupSaveTaskEditListener();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -345,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupAssigneeDropdownToggleListener();
         initCategoryDropdown();
         setupCategoryDropdownEventListeners();
+
 
     // Hilfsfunktion, um zu überprüfen, ob wir uns auf der "Board"-Seite befinden
     function isBoardPage() {
@@ -367,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupModalCloseDelegationAddAtskBoard();
         setupDeleteTaskListener();
         setupSaveTaskEditListener();
+        setupModalEventListeners();
     }
 
     // Bedingte Initialisierung basierend auf der aktuellen Seite
