@@ -721,7 +721,7 @@ h1.contact-view-title {
 
   .cross-icon-container {
     top: 48px;
-    right: 12px;
+    right: 38px;
   }
 
   .add-contact-title {
@@ -944,8 +944,21 @@ h1.contact-view-title {
 }
 
 @media (max-width: 420px) {
+  .contact-dialog {
+    height: auto;
+  }
+
+  .cross-icon-container{
+    top: 24px;
+  }
+
   .contact-right-container {
     padding: 32px 24px;
+  }
+
+  .person-icon-container {
+    width: 80px;
+    height: 80px;
   }
 
   .add-contact-title {
@@ -974,11 +987,16 @@ h1.contact-view-title {
   }
 
   .mobile-badge-container {
-    margin-top: -90px;
+    margin-top: -73px;
+  }
+
+  .edit-contact-badge-container{
+    width: 80px;
+    height: 80px;
   }
 
   .inputs-container {
-    gap: 8px;
+    gap: 32px;
   }
 
   .input-name,

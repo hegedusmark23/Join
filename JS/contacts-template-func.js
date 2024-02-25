@@ -87,11 +87,11 @@ function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
     <div id="contact-view-information-container${key}${i}" class="contact-view-information-container">
         <div class="contact-view-email-container">
             <h3 class="contact-view-email-title">Email</h3>
-           <a id="contact-view-email${key}${i}" class="contact-view-email">${email}</a>
+           <a href="mailto:${email}" id="contact-view-email${key}${i}"  class="contact-view-email">${email}</a>
         </div>
         <div class="contact-view-phone-container">
             <h3 class="contact-view-phone-title">Phone</h3>
-            <span id="contact-view-phone${key}${i}" class="contact-view-phone">${phone}</span>
+            <a href="tel:${phone}" id="contact-view-phone${key}${i}" class="contact-view-phone">${phone}</a>
         </div>
     </div>
     `
