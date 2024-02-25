@@ -1,9 +1,7 @@
 
 async function init(){
     await includeHTML();
-    timeDynamicWelcome();
-    
-    buttonFocus();
+    timeDynamicWelcome();buttonFocus();
     setTimeout(() => {
         sortTasksByStateToDo();
         sortTasksByStateInProgress();
@@ -11,7 +9,7 @@ async function init(){
         sortTasksByStateAwaitingFeedback();
         sortTasksByStateDone();
         sortTasksByPrioUrgent();
-    }, 50);
+    }, 250);
     }
 
 async function initRegister(){
