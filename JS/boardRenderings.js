@@ -470,8 +470,7 @@ const subtasksHtml = task.subtask.map(subtask =>
             <div class="subtask-icons">
                 <img class="edit-subtask" src="./assets/img/edit_task.png">
                 <img class="divider-subtask" src="./assets/img/divider_small.png">
-                <img class="delete-subtask" src="./assets/img/
-                -subtask.svg">
+                <img class="delete-subtask" src="./assets/img/delete-subtask.svg">
             </div>
         </div>
     </li>`
@@ -529,7 +528,7 @@ const subtasksHtml = task.subtask.map(subtask =>
                                             <div class="icon-background-up arrowUp" style="display:none;"></div>
                                             <div class="arrow-dropdown-up arrowUp" style="display:none;"></div>
                                         </div>
-                                        <div class="dropdown-content-assign" id="assign-to" style="display: none;">
+                                        <div class="dropdown-content-assign-modal" id="assign-to" style="display: none;">
                                         ${assigneesMarkup}
                                         </div>
                                     </div>
