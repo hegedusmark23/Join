@@ -151,35 +151,18 @@ function sortTasksByStateAwaitingFeedback() {
   awaitingFeedback.innerHTML = result;
 }
 
-/*function sortTasksByPrioUrgent() {
-  let Urgent = document.getElementById('numberOfUrgent');
-  let urgentDate = document.getElementById('urgentDate');
-  let result = tasks.filter((task) => task.prio === "urgent").length;
-  Urgent.innerHTML = result;
-}*/
-  
+
 function sortTasksByPrioUrgent() {
   let Urgent = document.getElementById('numberOfUrgent');
   let urgentDate = document.getElementById('urgentDate');
-  
-  // Filterezzük az urgent prioritású feladatokat
   let urgentTasks = tasks.filter((task) => task.prio === "urgent");
-
-  // Keresd meg a legrövidebb határidővel rendelkező feladatot
   let shortestDueDateTask = urgentTasks.reduce((minTask, currentTask) => {
-    // Ellenőrizd, hogy mindkét feladatnak van határidője
     if (minTask.dueDate && currentTask.dueDate) {
-      // Hasonlítsd össze a határidőket és válaszd ki a kisebbet
       return minTask.dueDate < currentTask.dueDate ? minTask : currentTask;
     } else {
-      // Ha egyik feladatnak sincs határidője, vagy csak az egyiknek van, akkor válaszd azt, amelyiknek van
       return currentTask.dueDate ? currentTask : minTask;
     }
-  }, urgentTasks[0]); // Kezdeti érték: az első urgent feladat
-
-  // Frissítsd az Urgent div-et a számolt urgent feladatok számával
+  }, urgentTasks[0]);
   Urgent.innerHTML = urgentTasks.length;
-
-  // Frissítsd az urgentDate div-et a legrövidebb határidővel
-  urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "Nincs határidő";
+  urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
 }

@@ -542,3 +542,53 @@ a {
 .highlight {
   border: 1px dashed rgba(0, 0, 0, 0.3);
 }
+
+.add-task-mobile {
+  display: none;
+}
+
+
+@media (max-width: 1000px) {
+  .board-header {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .board-sections {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .toDo-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .in-progress-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .await-feedback-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .done-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .board-card {
+    z-index: 0;
+  }
+
+}
+
+
+
+@media (max-width: 800px) {
+  .board-header {
+    padding: 100px 30px 15px 80px;
+  }
+}
