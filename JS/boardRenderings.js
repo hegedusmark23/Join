@@ -261,7 +261,7 @@ function insertDynamicContentIntoModal() {
     reinitializeEventListenersForEditModal();
 }
 
-// Funktion zum Leeren des Modal-Inhalts
+// Funktion zum Leeren des Modal-Inhalts für das Hinzufügen eines Tasks
 function clearModalContent() {
     // Zugriff auf den .modal-content Container innerhalb des Modals
     const modalContent = document.querySelector('#addtask-modal .modal-content');
@@ -277,6 +277,27 @@ function clearModalContent() {
         modal.style.display = ''; // Setze den display Stil zurück (entfernt das Attribut, falls es gesetzt wurde)
     }
 }
+
+// Funktion zum Leeren des Modal-Inhalts für das Editieren eines Tasks und Wiederherstellen des Anfangszustandes
+function clearEditModalContent() {
+    const modal = document.getElementById('task-detail-modal');
+    const taskDetailsContainer = modal.querySelector('#task-details-container');
+
+    // Stellt sicher, dass der Container existiert
+    if (taskDetailsContainer) {
+        // Setzt den Inhalt von #task-details-container zurück auf den Anfangszustand
+        taskDetailsContainer.innerHTML = `
+            <div id="task-details">
+                
+            </div>
+        `;
+    }
+
+    // Entfernt zusätzliche Klassen und stellt den Anzeigestatus wieder her
+    modal.classList.remove('modal-open'); // Entfernt die Öffnungsklasse
+    modal.style.display = 'none'; // Versteckt das Modal
+}
+
 
 
 // Eventlistner für das Schließen des Modals oder Erstellen eines Tasks
@@ -371,14 +392,21 @@ function setupEditTaskListener() {
     document.addEventListener('click', function(event) {
         const editButton = event.target.closest('#edit-task');
         if (editButton) {
-            // Die Task-ID direkt aus dem id-Attribut des task-details-header extrahieren
+            // Extrahieren der Task-ID
             const taskHeaderElement = document.querySelector('.task-details-header');
             if (taskHeaderElement && taskHeaderElement.id) {
                 const taskId = taskHeaderElement.id.replace('task-', '');
                 console.log('Task ID:', taskId);
 
                 if (taskId) {
-                    renderEditTask(taskId); 
+                    // Hier wird angenommen, dass `renderEditTask` das Modal öffnet und vorbereitet
+                    renderEditTask(taskId); // Diese Funktion muss die obige Logik enthalten
+                    
+                    // Beispiel, wie Sie die taskId setzen könnten, falls direkt hier
+                    const saveButton = document.getElementById('save-task-edit');
+                    if (saveButton) {
+                        saveButton.setAttribute('data-task-id', taskId);
+                    }
                 }
             }
         }
@@ -698,16 +726,30 @@ function extractLetterFromIndex(globalIndex) {
     }
     return { letter: null, index: -1 }; // Falls kein passender Eintrag gefunden wurde
 }
-// Eventlister für das Klicken auf den Speicher-Button
+// Setup für den Speichern-Button des Bearbeitungsmodals
 function setupSaveTaskEditListener() {
     const saveButton = document.getElementById('save-task-edit');
     if (saveButton) {
-        saveButton.addEventListener('click', function() {
-            const taskId = document.querySelector('.addTask-content').getAttribute('data-task-id');
-            saveTaskEdit(taskId);
+        saveButton.addEventListener('click', async function() {
+            // Die ID des zu bearbeitenden Tasks wird als Data-Attribut des Speichern-Buttons gespeichert.
+            const taskId = this.getAttribute('data-task-id');
+            if (!taskId) {
+                console.error('Task ID fehlt.');
+                return;
+            }
+
+            try {
+                await saveTaskEdit(taskId);
+                console.log('Task erfolgreich gespeichert.');
+            } catch (error) {
+                console.error('Fehler beim Speichern des Tasks:', error);
+            }
         });
+    } else {
+        console.warn('Der Speichern-Button noch nicht vorhanden.');
     }
 }
+
 
 function extractPriority() {
     const activeButton = document.querySelector('.addtask-prio-btn .is-active');
@@ -721,68 +763,64 @@ function extractPriority() {
 
 // Speichern des Tasks nach Änderungen im Edit-Modus
 async function saveTaskEdit(taskId) {
-    const taskIndex = tasks.findIndex(task => task.id === parseInt(taskId));
-    if (taskIndex === -1) {
-        console.error('Aufgabe nicht gefunden.');
-        return;
-    }
+    // Verzögerung hinzufügen, um sicherzustellen, dass alle Elemente geladen sind
+    setTimeout(async () => {
+        const taskIndex = tasks.findIndex(task => task.id === parseInt(taskId));
+        if (taskIndex === -1) {
+            console.error('Aufgabe nicht gefunden.');
+            return;
+        }
 
-    // Werte aus dem Formular extrahieren und die Aufgabe aktualisieren
-    const title = document.getElementById('addtask-title').value;
-    const description = document.getElementById('description').value;
-    const dueDate = document.getElementById('dueDate').value;
-    const category = document.getElementById('dropdown-categories').textContent;
-    const priority = extractPriority() 
+        // Werte aus dem Formular extrahieren, nachdem sichergestellt wurde, dass die Elemente existieren
+        const title = document.getElementById('addtask-title') ? document.getElementById('addtask-title').value : '';
+        const description = document.getElementById('description') ? document.getElementById('description').value : '';
+        const dueDate = document.getElementById('dueDate') ? document.getElementById('dueDate').value : '';
+        const category = document.getElementById('dropdown-categories') ? document.getElementById('dropdown-categories').textContent : '';
+        const priority = extractPriority(); // Implementieren Sie diese Funktion entsprechend Ihrer Logik
 
-    // Extrahieren von Assignees
-    const assignees = Array.from(document.querySelectorAll('.dropdown-content-container.user-checked')).map(assigneeContainer => {
-    const name = assigneeContainer.querySelector('.dropdown-content-name').textContent;
-    const color = assigneeContainer.querySelector('.dropdown-content-circle').style.backgroundColor;
-    const initials = assigneeContainer.querySelector('#user-initials').textContent; // Angenommen, dass die Initialen im Element mit der ID user-initials stehen
-    return { name, initials, color };
-    });
+        // Extrahieren von Assignees
+        const assignTo = Array.from(document.querySelectorAll('.dropdown-content-container.user-checked')).map(assigneeContainer => {
+            const name = assigneeContainer.querySelector('.dropdown-content-name').textContent;
+            const color = assigneeContainer.querySelector('.dropdown-content-circle').style.backgroundColor;
+            const initials = assigneeContainer.querySelector('#user-initials').textContent;
+            return { name, initials, color };
+        });
 
-    // Extrahieren von Subtasks, einschließlich neuer Subtasks
-    const subtasks = Array.from(document.querySelectorAll('#subtasks-list-container ul li')).map(subtaskItem => {
-        const text = subtaskItem.querySelector('p').textContent;
-        const id = subtaskItem.dataset.subtaskId ? parseInt(subtaskItem.dataset.subtaskId) : Date.now(); // Verwenden Sie eine neue ID, wenn keine vorhanden ist
-        const completed = subtaskItem.classList.contains('subtask-completed') ? 'done' : null; 
-        return { id, text, completed };
-    });
+        // Extrahieren von Subtasks
+        const subtask = Array.from(document.querySelectorAll('#subtasks-list-container ul li')).map(subtaskItem => {
+            const text = subtaskItem.querySelector('p').textContent;
+            const id = subtaskItem.dataset.subtaskId ? parseInt(subtaskItem.dataset.subtaskId) : Date.now();
+            const completed = subtaskItem.classList.contains('subtask-completed') ? 'done' : '';
+            return { id, text, completed };
+        });
 
-    // Aktualisieren der Aufgabe im tasks Array
-    tasks[taskIndex].title = title;
-    tasks[taskIndex].description = description;
-    tasks[taskIndex].dueDate = dueDate;
-    tasks[taskIndex].category = category;
-    tasks[taskIndex].prio = priority;
-    tasks[taskIndex].assignTo = assignees;
-    tasks[taskIndex].subtask = subtasks;
+        // Aufgabe im tasks Array aktualisieren
+        tasks[taskIndex] = {
+            ...tasks[taskIndex],
+            title,
+            description,
+            dueDate,
+            category,
+            priority,
+            assignTo,
+            subtask
+        };
 
-    // Direktes Arbeiten mit dem aktualisierten Task-Objekt
-    const updatedTask = tasks[taskIndex];
+        console.log('Speichern der Änderungen für Task ID:', taskId);
+        try {
+            // Speichern der Aufgaben
+            await setItem('tasks', tasks);
+            console.log('Aufgaben erfolgreich gespeichert.');
 
-    try {
-        await setItem('tasks', tasks);
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-        console.log('Aufgaben erfolgreich gespeichert.');
-
-        // Schließe den Bearbeitungsmodus und zeige die Detailansicht des aktualisierten Tasks an
-        openTaskDetailModal(updatedTask); // Verwendet die aktualisierte Task-Daten, um die Detailansicht zu öffnen
-
-        reinitializeEventListenersForEditModal();
-    
-
-        // Zeige die Detailansicht des aktualisierten Tasks an
-        const detailsContainer = document.getElementById('task-details');
-        detailsContainer.innerHTML = detailModalContent(updatedTask); // Generiert und zeigt die aktualisierte Detailansicht
-
-        // Aktualisiere die Board-Karten
-        await initializeBoardCard();
-    } catch (error) {
-        console.error('Fehler beim Speichern der Aufgaben:', error);
-    }
-
+            // Nachfolgende Aktionen
+            clearEditModalContent();
+            reinitializeEventListenersForEditModal();
+            openTaskDetailModal(tasks[taskIndex]); // Öffnet die Detailansicht mit den aktualisierten Daten
+            await initializeBoardCard(); // Aktualisieren der Board-Karten
+        } catch (error) {
+            console.error('Fehler beim Speichern der Aufgaben:', error);
+        }
+    }, 100); // 1 Sekunde warten, um sicherzustellen, dass alle Elemente geladen sind
 }
 
 // Funktion zum Schließen des dynamischen Modals für Tasks-Editieren
@@ -796,14 +834,16 @@ function closeModalTaskEdit() {
     }
 }
 
-// Event-Delegation für den Schließ-Button im Modal Tasks-Editieren einrichten
+// Setup für den Schließ-Button des Bearbeitungsmodals
 function setupModalCloseDelegationEdit() {
-    const modalEditBtn = document.getElementById('close-modal-button-edittask');
-    if (modalEditBtn) { // Überprüfung, ob das Element existiert
-        modalEditBtn.addEventListener('click', function(event) {
-            closeModalTaskEdit(); 
+    const closeModalButton = document.getElementById('close-modal-button-edittask');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', function() {
+            clearEditModalContent();
+            reinitializeEventListenersForEditModal();
         });
-    } else {
+    }
+    else {
         return;
     }
 }

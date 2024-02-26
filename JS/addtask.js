@@ -323,7 +323,6 @@ function reinitializeEventListenersForEditModal() {
     setupModalCloseDelegationEdit();
     setupModalCloseDelegationAddAtskBoard();
     setupDeleteTaskListener();
-    setupSaveTaskEditListener();
     initializeBoardIfNeeded();
     createTask();
     setupCreateTaskListener();

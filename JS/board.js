@@ -319,7 +319,7 @@ function detailModalContent(task) {
             </div>
             <div class="task-detail">
                 <span class="detail-label">Priority:</span>
-                <span class="detail-value">${task.prio}</span>
+                <span class="detail-value">${task.prio.charAt(0).toUpperCase()}${task.prio.slice(1)}</span>
                 <img style="margin-left: 4px;" src="/Join/assets/icons/${tasksImg}" alt="Priority">
             </div>
             <div class="detail-assignees">Assigned To:</div>
