@@ -376,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupDeleteTaskListener();
         setupSaveTaskEditListener();
         setupModalEventListeners();
+        setupTaskStateListeners();
     }
 
     // Bedingte Initialisierung basierend auf der aktuellen Seite

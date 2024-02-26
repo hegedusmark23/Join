@@ -61,7 +61,35 @@ function setupModalCloseDelegation() {
     });
 }
 
-function insertDynamicContentIntoModal() {
+function setupTaskStateListeners() {
+    // Array mit den IDs der Buttons und den entsprechenden States
+    const stateMappings = [
+        { buttonId: 'addtask-todo', taskState: 'toDo' },
+        { buttonId: 'addtask-in-progress', taskState: 'in-progress' },
+        { buttonId: 'addtask-await-feedback', taskState: 'await-feedback' }
+    ];
+
+    // Für jedes Mapping einen EventListener hinzufügen
+    stateMappings.forEach(mapping => {
+        const button = document.getElementById(mapping.buttonId);
+        if (button) {
+            button.addEventListener('click', () => {
+                openCreateTaskModalWithState(mapping.taskState);
+            });
+        }
+    });
+}
+
+function openCreateTaskModalWithState(taskState) {
+    insertDynamicContentIntoModal(taskState); // Diese Funktion muss entsprechend angepasst werden, um den State zu berücksichtigen
+    // Modal öffnen
+    openModal('addtask-modal');
+
+    // EventListeners für das Modal einrichten
+    setupModalEventListeners(taskState); // Stellen Sie sicher, dass diese Funktion angepasst wird, um den State zu berücksichtigen
+}
+
+function insertDynamicContentIntoModal(taskState) {
     const modalContent = document.querySelector('#addtask-modal .modal-content');
     if (modalContent) {
         const dynamicContent = `
@@ -81,6 +109,7 @@ function insertDynamicContentIntoModal() {
             </div>
         </div>
         <form onsubmit="return false;" class="addtask-form addtask-form-tpl">
+            <input type="hidden" id="taskState" value="${taskState}">
             <div class="form-section left-section">
                 <div class="addtask-selection addtask-custom-label">
                     <label>
@@ -301,7 +330,7 @@ function clearEditModalContent() {
 
 
 // Eventlistner für das Schließen des Modals oder Erstellen eines Tasks
-function setupModalEventListeners() {
+function setupModalEventListeners(taskState) {
     // Event-Listener für den Schließen-Button
     const closeModalButton = document.getElementById('close-modal-button-addtask-board');
     if (closeModalButton) {
@@ -317,7 +346,7 @@ function setupModalEventListeners() {
         console.log('Create Task button found', createTaskButton);
         createTaskButton.addEventListener('click', function() {
             console.log('Create Task button clicked');
-            createTaskModal()
+            createTaskModal(taskState)
         });
     } else {
         console.log('Create Task button not found');
@@ -330,6 +359,8 @@ async function createTaskModal() {
         console.info('Validation failed. No Task created.');
         return;
     }
+
+    const taskState = document.getElementById('taskState').value;
 
     // Erstellen einer neuen Task-Instanz und Logik zur Speicherung des Tasks
     let newTask = new Task(
@@ -346,6 +377,7 @@ async function createTaskModal() {
     // Hinzufügen von Kategorie und Subtasks
     newTask.category = category;
     newTask.subtask = subtasks;
+    newTask.state = taskState || 'toDo'; // Setzen des Task-Zustandes
 
     try {
         // Hinzufügen des neuen Tasks zum Array und Speichern

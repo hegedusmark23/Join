@@ -125,10 +125,18 @@ function updateSubtaskProgress(task) {
 
 
 function taskImage(task) {
-    if (task.prio === 'low') return 'prio_low.svg';
-    else if (task.prio === 'medium') return 'prio_medium.svg';
-    else return 'prio_high.svg';
+    if (task.prio === 'low') {
+        return 'prio_low.svg';
+    } else if (task.prio === 'medium') {
+        return 'prio_medium.svg';
+    } else if (task.prio === 'high') {
+        return 'prio_high.svg';
+    } else {
+        // Kein Bild für 'N/A' oder null-Werte
+        return null;
+    }
 }
+
 
 // Funktion, um die Farbe basierend auf der Kategorie zu bestimmen
 function getLabelColor(category) {
@@ -140,6 +148,8 @@ function getLabelColor(category) {
 
 function renderCardContent(i, task, completionDetails) {
     let tasksImg = taskImage(task);
+    let imgHtml = tasksImg ? `<div class="board-card-footer-prio"><img src="/Join/assets/icons/${tasksImg}" alt="Prio Symbol"></div>` : '';
+
 
     // Initialisiert einen leeren String für die Fußzeile der Zuweisungen (Assignees).
     let assigneesFooter = '';
@@ -173,7 +183,7 @@ function renderCardContent(i, task, completionDetails) {
             ${subtaskContent}
             <div class="board-card-footer">
                 <div class="board-card-footer-assignees">${assigneesFooter}</div>
-                <div class="board-card-footer-prio"><img src="/Join/assets/icons/${tasksImg}" alt="Prio Symbol"></div>
+                <div class="board-card-footer-prio">${imgHtml}</div>
             </div>
         </div>
     </div>`;
@@ -284,10 +294,13 @@ async function toggleSubtaskCompleted(taskId, subtaskId) {
 // Rendern der Karte mit Detailinformationen
 function detailModalContent(task) {
     // Erzeugen des Assignee-HTML-Strings, falls Assignees vorhanden sind
-    const assigneesHtml = task.assignTo && task.assignTo.length > 0 ? generateAssigneesHtml(task.assignTo) : '';
+    let assigneesHtml = task.assignTo && task.assignTo.length > 0 ? generateAssigneesHtml(assignTo) : '<div class="detail-assignee-na">N/A</div>';
+
     // Erzeugen des Subtask-HTML-Strings, falls Subtasks vorhanden sind
     const subtasksHtml = task.subtask && task.subtask.length > 0 ? generateSubtasksHtml(task, task.subtask) : ''; // Hier wird `task` übergeben
     let tasksImg = taskImage(task);
+    let imgHtml = tasksImg ? `<img style="margin-left: 4px;" src="/Join/assets/icons/${tasksImg}" alt="Priority">` : '';
+
 
     // Erzeuge das Subtasks-HTML nur, wenn Subtasks vorhanden sind
     let subtasksContent = '';
@@ -312,15 +325,15 @@ function detailModalContent(task) {
         </div>
         <div class="task-details-main-content">
             <div class="task-detail-headline">${task.title}</div>
-            <div class="task-detail-description">${task.description || 'No description'}</div>
+            <div class="task-detail-description">${task.description || 'Description: N/A'}</div>
             <div class="task-detail">
                 <span class="detail-label">Due date:</span>
                 <span class="detail-value">${task.dueDate}</span>
             </div>
             <div class="task-detail">
                 <span class="detail-label">Priority:</span>
-                <span class="detail-value">${task.prio.charAt(0).toUpperCase()}${task.prio.slice(1)}</span>
-                <img style="margin-left: 4px;" src="/Join/assets/icons/${tasksImg}" alt="Priority">
+                <span class="detail-value">${task.prio ? task.prio.charAt(0).toUpperCase() + task.prio.slice(1) : 'N/A'}</span>
+                ${imgHtml}
             </div>
             <div class="detail-assignees">Assigned To:</div>
             <div class="detail-assignee">
@@ -362,6 +375,9 @@ function detailModalContent(task) {
 
 // Funktion zur Erzeugung des HTML-Strings für Assignees
 function generateAssigneesHtml(assignees) {
+    if (!assignees || assignees.length === 0) {
+        return '<div class="detail-assignee-na">N/A</div>';
+    }
     return assignees.map(assignee => `
         <div class="dropdown-content-binding">
             <div class="dropdown-content-circle" style="background-color:${assignee.color};">
@@ -373,6 +389,7 @@ function generateAssigneesHtml(assignees) {
         </div>
     `).join('');
 }
+
 
 // Funktion zur Erzeugung des HTML-Strings für Subtasks
 function generateSubtasksHtml(task, subtasks) {
