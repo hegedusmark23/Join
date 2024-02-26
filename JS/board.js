@@ -294,7 +294,7 @@ async function toggleSubtaskCompleted(taskId, subtaskId) {
 // Rendern der Karte mit Detailinformationen
 function detailModalContent(task) {
     // Erzeugen des Assignee-HTML-Strings, falls Assignees vorhanden sind
-    let assigneesHtml = task.assignTo && task.assignTo.length > 0 ? generateAssigneesHtml(assignTo) : '<div class="detail-assignee-na">N/A</div>';
+    let assigneesHtml = task.assignTo && task.assignTo.length > 0 ? generateAssigneesHtml(task.assignTo) : '<div class="detail-assignee-na">N/A</div>';
 
     // Erzeugen des Subtask-HTML-Strings, falls Subtasks vorhanden sind
     const subtasksHtml = task.subtask && task.subtask.length > 0 ? generateSubtasksHtml(task, task.subtask) : ''; // Hier wird `task` übergeben

@@ -30,13 +30,14 @@ async function searchTasks(searchTerm) {
     let tasks = await fetchTasks();
 
     if (searchTerm.trim() !== '') {
-        tasks = tasks.filter(task => 
-            task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            task.description.toLowerCase().includes(searchTerm.toLowerCase())
+        tasks = tasks.filter(task =>
+            (task.title && task.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (task.description && task.description.toLowerCase().includes(searchTerm.toLowerCase()))
         );
     }
 
     // initializeBoardCard mit gefilterten Tasks aufrufen
     await initializeBoardCard(tasks);
 }
+
 
