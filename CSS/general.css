@@ -547,6 +547,10 @@ a {
   display: none;
 }
 
+.board-section-title-mobile {
+  display: none;
+}
+
 
 @media (max-width: 1000px) {
   .board-header {
@@ -580,10 +584,67 @@ a {
   }
 
   .board-card {
+    min-width: 220px;
+  }
+
+  .board-card {
     z-index: 0;
   }
 
+  #titleToHide0 {
+    display: none;
+  }
+
+  #titleToHide1 {
+    display: none;
+  }
+
+  #titleToHide2 {
+    display: none;
+  }
+
+  #titleToHide3 {
+    display: none;
+  }
+
+  .board-section-title-mobile {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 0px 10px 0px;
+  }
+
+  section#board-content {
+    padding: 10px 30px 10px 80px;
+    background-color: #f0f0f0;
+    flex: 1;
+    overflow-x: hidden;
+  }
+
+  .board-sections>div {
+    flex: 1;
+    max-width: 600px;
+    overflow-x: scroll;
+  }
+
+  .board-section-1::-webkit-scrollbar {
+    display: none;
+  }
+
+  .board-section-2::-webkit-scrollbar {
+    display: none;
+  }
+
+  .board-section-3::-webkit-scrollbar {
+    display: none;
+  }
+
+  .board-section-4::-webkit-scrollbar {
+    display: none;
+  }
 }
+
+
 
 
 
@@ -591,4 +652,36 @@ a {
   .board-header {
     padding: 100px 30px 15px 80px;
   }
+
+  .board-header h1,
+  #addtask-content h1 {
+    font-size: 51px;
+    margin-block-start: 20px;
+    margin-block-end: 20px;
+  }
+
+  .board-add-task button {
+    display: none;
+  }
+
+  .add-task-mobile {
+    display: flex;
+  }
+
+  .board-header-left {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 485px) {
+  .board-header {
+    padding: 100px 30px 15px 40px;
+}
+
+section#board-content {
+  padding: 10px 30px 10px 40px;
+}
 }

@@ -127,8 +127,7 @@ function rememberMe() {   // The function behind the "Remember me" checkbox.
   var rememberMeCheckbox = document.getElementById('remember');
   var usernameInput = document.getElementById('email');
   var passwordInput = document.getElementById('password');
-
-  if (localStorage.chkbx && localStorage.chkbx !== '') {
+if (localStorage.chkbx && localStorage.chkbx !== '') {
     rememberMeCheckbox.checked = true;
     usernameInput.value = localStorage.usrname;
     passwordInput.value = localStorage.pass;
