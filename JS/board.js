@@ -38,73 +38,41 @@ async function initializeBoard() {
 }
 
 // Tasks anzeigen
-async function initializeBoardCard(filteredTasks = null) {
+async function fetchAndFilterTasks(filteredTasks, status) {
     let tasks = filteredTasks ? filteredTasks : await fetchTasks();
+    return tasks.filter(task => task['state'] === status);
+}
 
-    let noTasksDiv1 = document.getElementById('board-card-background-1');
-    let noTaskDiv2 = document.getElementById('board-card-background-2');
-    let noTaskDiv3 = document.getElementById('board-card-background-3');
-    let noTaskDiv4 = document.getElementById('board-card-background-4');
-    let toDoCardsContainer = document.getElementById('toDo');
-    let inProgressCardContainer = document.getElementById('in-progress');
-    let awaitFeedBackCardContainer = document.getElementById('await-feedback');
-    let doneCardContainer = document.getElementById('done');
+function displayNoTasksDiv(noTasksDiv, tasks) {
+    noTasksDiv.style.display = tasks.length > 0 ? 'none' : 'flex';
+}
 
-    todos = tasks.filter(t => t['state'] == 'toDo');
-    if (todos.length > 0) {
-        noTasksDiv1.style.display = 'none';
-    } else {
-        noTasksDiv1.style.display = 'flex';
-    }
-    toDoCardsContainer.innerHTML = '';
-    for (let i = 0; i < todos.length; i++) {
-        let task = todos[i]
+function populateTaskContainer(container, tasks) {
+    container.innerHTML = '';
+    tasks.forEach((task, i) => {
         let completionDetails = updateSubtaskProgress(task);
-        toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
-    }
+        container.innerHTML += renderCardContent(i, task, completionDetails);
+    });
+}
 
-    inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
-    if (inProgress.length > 0) {
-        noTaskDiv2.style.display = 'none';
-    } else {
-        noTaskDiv2.style.display = 'flex';
-    }
-    inProgressCardContainer.innerHTML = '';
-    for (let i = 0; i < inProgress.length; i++) {
-        let task = inProgress[i];
-        let completionDetails = updateSubtaskProgress(task);
-        inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
-    }
+// Spezialisierte Funktionen für jeden Aufgabenstatus
+async function processTasksForStatus(filteredTasks, status, noTasksDivId, containerId) {
+    let tasks = await fetchAndFilterTasks(filteredTasks, status);
+    let noTasksDiv = document.getElementById(noTasksDivId);
+    let container = document.getElementById(containerId);
+    displayNoTasksDiv(noTasksDiv, tasks);
+    populateTaskContainer(container, tasks);
+}
 
-    awaitFeedback = tasks.filter(awFe => awFe['state'] == 'await-feedback');
-    if (awaitFeedback.length > 0) {
-        noTaskDiv3.style.display = 'none';
-    } else {
-        noTaskDiv3.style.display = 'flex';
-    }
-    awaitFeedBackCardContainer.innerHTML = '';
-    for (let i = 0; i < awaitFeedback.length; i++) {
-        let task = awaitFeedback[i];
-        let completionDetails = updateSubtaskProgress(task);
-        awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
-    }
-
-    done = tasks.filter(d => d['state'] == 'done');
-    if (done.length > 0) {
-        noTaskDiv4.style.display = 'none';
-    } else {
-        noTaskDiv4.style.display = 'flex';
-    }
-    doneCardContainer.innerHTML = '';
-    for (let i = 0; i < done.length; i++) {
-        let task = done[i];
-        let completionDetails = updateSubtaskProgress(task);
-        doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
-    }
+// Refaktorisierte initializeBoardCard Funktion
+async function initializeBoardCard(filteredTasks = null) {
+    await processTasksForStatus(filteredTasks, 'toDo', 'board-card-background-1', 'toDo');
+    await processTasksForStatus(filteredTasks, 'in-progress', 'board-card-background-2', 'in-progress');
+    await processTasksForStatus(filteredTasks, 'await-feedback', 'board-card-background-3', 'await-feedback');
+    await processTasksForStatus(filteredTasks, 'done', 'board-card-background-4', 'done');
 
     setupTaskClickListeners();
 }
-
 
 function updateSubtaskProgress(task) {
     // Prüfe zunächst, ob der Task Subtasks hat. Wenn ja, ermittle die Gesamtanzahl der Subtasks.
@@ -123,7 +91,6 @@ function updateSubtaskProgress(task) {
     };
 }
 
-
 function taskImage(task) {
     if (task.prio === 'low') {
         return 'prio_low.svg';
@@ -137,6 +104,17 @@ function taskImage(task) {
     }
 }
 
+//! Funktionen zur Übersicht der Karten im Board
+// Assignees im Footer der Karte anzeigen
+function createAssigneesFooter(task) {
+    let assigneesFooter = '';
+    if (task.assignTo && task.assignTo.length > 0) {
+        task.assignTo.forEach(assignee => {
+            assigneesFooter += `<div class="board-content-circle" style="background-color: ${assignee.color};">${assignee.initials}</div>`;
+        });
+    }
+    return assigneesFooter;
+}
 
 // Funktion, um die Farbe basierend auf der Kategorie zu bestimmen
 function getLabelColor(category) {
@@ -146,33 +124,24 @@ function getLabelColor(category) {
     return category === 'Technical Task' ? labelCol1 : labelCol2;
 }
 
-function renderCardContent(i, task, completionDetails) {
-    let tasksImg = taskImage(task);
-    let imgHtml = tasksImg ? `<div class="board-card-footer-prio"><img src="/Join/assets/icons/${tasksImg}" alt="Prio Symbol"></div>` : '';
-
-
-    // Initialisiert einen leeren String für die Fußzeile der Zuweisungen (Assignees).
-    let assigneesFooter = '';
-
-    // Überprüft, ob dem Task Personen (Assignees) zugewiesen sind und erstellt für jede zugewiesene Person ein HTML-Element.
-    // Jedes Element enthält einen Kreis mit der Farbe des Assignees und dessen Initialen.
-    if (task.assignTo && task.assignTo.length > 0) {
-        task.assignTo.forEach(assignee => {
-            assigneesFooter += `<div class="board-content-circle" style="background-color: ${assignee.color};">${assignee.initials}</div>`;
-        });
-    }
-
-    // Überprüft, ob eine Beschreibung vorhanden ist. Ist keine Beschreibung vorhanden, wird ein leerer String verwendet.
-    let description = task.description ? task.description : "";
-
-    // Bereite die Anzeige der Subtasks vor, nur wenn vorhanden
-    let subtaskContent = (task.subtask && task.subtask.length > 0) ?
-    /*html*/ `<div class="board-card-progress">
+// Subtasks darstellem
+function createSubtaskContent(task, completionDetails) {
+    return (task.subtask && task.subtask.length > 0) ?
+        /*html*/ `<div class="board-card-progress">
             <div id="progress-bar-container" style="background-color: #F4F4F4; width: 120px; height: 8px; border-radius: 4px;">
                 <div id="progress-bar" style="height: 8px; border-radius: 4px; background-color: #4589FF; width: ${completionDetails.completionPercentage}%;"></div>
             </div>
             <div class="board-card-progress-text">${completionDetails.subtaskText}</div>
         </div>` : '';
+}
+
+// Board Karten erstellen 
+function renderCardContent(i, task, completionDetails) {
+    let tasksImg = taskImage(task);
+    let imgHtml = tasksImg ? `<div class="board-card-footer-prio"><img src="/Join/assets/icons/${tasksImg}" alt="Prio Symbol"></div>` : '';
+    let assigneesFooter = createAssigneesFooter(task);
+    let description = task.description ? task.description : "";
+    let subtaskContent = createSubtaskContent(task, completionDetails);
 
     return /*html*/ `
     <div id="${task.state}-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier}, '${task.state}', ${i})">
@@ -183,13 +152,13 @@ function renderCardContent(i, task, completionDetails) {
             ${subtaskContent}
             <div class="board-card-footer">
                 <div class="board-card-footer-assignees">${assigneesFooter}</div>
-                <div class="board-card-footer-prio">${imgHtml}</div>
+                ${imgHtml}
             </div>
         </div>
     </div>`;
 }
 
-// Tasks erstellen
+//! Tasks erstellen
 function setupCreateTaskListener() {
     const createTaskButton = document.getElementById('create-task');
     if (createTaskButton) {
@@ -218,90 +187,60 @@ function openTaskDetailModal(task) {
     setTimeout(() => {
         modal.classList.add('modal-open');
     }, 10);
-
     setupDeleteTaskListener();
 }
 
 // Funktion zum Hinzufügen des Event Listeners für Subtasks
 function addSubtaskEventListener() {
-    console.log('Vor dem Hinzufügen des Event Listeners', document.querySelector('#task-details'));
-
     document.body.addEventListener('click', async (event) => {
         const checkboxContainer = event.target.closest('.dropdown-content-checkbox');
-
         if (checkboxContainer) {
             const taskId = checkboxContainer.getAttribute('data-task-id');
             const subtaskId = checkboxContainer.getAttribute('data-subtask-id');
-
             if (taskId && subtaskId) {
-                console.log(`Subtask ${subtaskId} von Task ${taskId} wurde geklickt.`);
                 const updatedTask = await toggleSubtaskCompleted(parseInt(taskId), parseInt(subtaskId));
                 if (updatedTask) {
-                    console.log('Subtask-Status aktualisiert.');
-                    // Hier könnten Sie die Ansicht aktualisieren, um den neuen Status widerzuspiegeln
                 }
             }
         }
     });
-
-    console.log('Nach dem Hinzufügen des Event Listeners', document.querySelector('#task-details'));
 }
 
 // Funktion zum Binden des Listeners nach dem Einfügen der Inhalte
 function updateTaskDetailsAndBindListener(task) {
     const detailsContainer = document.getElementById('task-details');
-    detailsContainer.innerHTML = detailModalContent(task); // Angenommen, diese Funktion füllt `#task-details` mit Inhalt
-
+    detailsContainer.innerHTML = detailModalContent(task); 
     // Binden des Event Listeners, nachdem der Inhalt eingefügt wurde
     addSubtaskEventListener();
 }
 
 // Implementierung der Funktion zum Umschalten des Subtask-Status
 async function toggleSubtaskCompleted(taskId, subtaskId) {
-    console.log(`toggleSubtaskCompleted aufgerufen für taskId: ${taskId}, subtaskId: ${subtaskId}`);
-    let taskIndex = tasks.findIndex(task => task.id === taskId);
-    if (taskIndex !== -1) {
-        let task = tasks[taskIndex];
-        console.log('Task gefunden:', task);
-        let subtaskIndex = task.subtask.findIndex(subtask => subtask.id === subtaskId);
-        if (subtaskIndex !== -1) {
-            let subtask = task.subtask[subtaskIndex];
-            console.log('Subtask vor der Änderung:', subtask);
-
+    let task = tasks.find(task => task.id === taskId);
+    if (task) {
+        let subtask = task.subtask.find(subtask => subtask.id === subtaskId);
+        if (subtask) {
             // Status umschalten
             subtask.completed = subtask.completed === 'done' ? '' : 'done';
-
-            console.log('Subtask nach der Änderung:', subtask);
-            await setItem('tasks', JSON.stringify(tasks)); // Hier speichern Sie die geänderten Tasks im Speicher
-            console.log('Änderungen gespeichert');
-
-            // Aktualisiere die Board-Ansicht, falls benötigt
+            await setItem('tasks', JSON.stringify(tasks));
             initializeBoardCard();
+            openTaskDetailModal(task);
 
-            // Aktualisiere die Detailansicht mit dem aktualisierten Task
-            openTaskDetailModal(tasks[taskIndex]);
-
-            return tasks[taskIndex];
-        } else {
-            console.log('Subtask nicht gefunden');
+            return task;
         }
-    } else {
-        console.log('Task nicht gefunden');
     }
     return null;
 }
+
 
 // Rendern der Karte mit Detailinformationen
 function detailModalContent(task) {
     // Erzeugen des Assignee-HTML-Strings, falls Assignees vorhanden sind
     let assigneesHtml = task.assignTo && task.assignTo.length > 0 ? generateAssigneesHtml(task.assignTo) : '<div class="detail-assignee-na">N/A</div>';
-
     // Erzeugen des Subtask-HTML-Strings, falls Subtasks vorhanden sind
     const subtasksHtml = task.subtask && task.subtask.length > 0 ? generateSubtasksHtml(task, task.subtask) : ''; // Hier wird `task` übergeben
     let tasksImg = taskImage(task);
     let imgHtml = tasksImg ? `<img style="margin-left: 4px;" src="/Join/assets/icons/${tasksImg}" alt="Priority">` : '';
-
-
     // Erzeuge das Subtasks-HTML nur, wenn Subtasks vorhanden sind
     let subtasksContent = '';
     if (task.subtask && task.subtask.length > 0) {
