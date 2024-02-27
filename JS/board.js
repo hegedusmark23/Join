@@ -547,7 +547,7 @@ function resetNoTaskDiv(id) {
         background = 'board-card-background-4'
     }
 
-    document.getElementById(background).style.display = "none"
+    document.getElementById(background).style.display = ""
 }
 
 // async function deleteTasks(){
