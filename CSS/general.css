@@ -217,7 +217,7 @@ a {
   margin-block-end: 0;
   height: 158px;
   gap: 10px;
-  z-index: 1;
+  z-index: 1000;
 }
 
 ó .menu-popup {
@@ -679,9 +679,100 @@ a {
 @media (max-width: 485px) {
   .board-header {
     padding: 100px 30px 15px 40px;
+  }
+
+  section#board-content {
+    padding: 10px 30px 10px 40px;
+  }
 }
 
-section#board-content {
-  padding: 10px 30px 10px 40px;
+@media (max-width: 430px) {
+  .board-header {
+    padding: 100px 30px 15px 20px;
+  }
+
+  section#board-content {
+    padding: 10px 30px 10px 20px;
+  }
+
+  .board-header h1,
+  #addtask-content h1 {
+    font-size: 41px;
+    margin-block-start: 15px;
+    margin-block-end: 15px;
+  }
+
+  .board-search-input input {
+    width: 290px;
+  }
+
+  .modal-content-tasks {
+    max-width: 299px;
+  }
+}
+
+@media (max-width: 375px) {
+  .board-header {
+    padding: 100px 30px 15px 20px;
+  }
+
+  section#board-content {
+    padding: 10px 30px 10px 20px;
+  }
+
+  .board-header h1,
+  #addtask-content h1 {
+    font-size: 38px;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+  }
+
+  .board-search-input input {
+    width: 240px;
+  }
+
+  .board-search-input input {
+    height: 40px;
+  }
+
+  .divider-img {
+    top: 4px;
+  }
+
+  .board-card {
+    min-width: 190px;
+  }
+
+  .modal-content-tasks {
+    max-width: 245px;
+    padding: 10px 34px;
+  }
+
+  .task-detail-headline {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 330px) {
+  .board-search-input input {
+    width: 187px;
+  }
+
+  .modal-content-tasks {
+    max-width: 220px;
+    padding: 10px 34px;
+  }
+
+  .task-detail-description, .detail-assignees, .detail-subtasks, .task-detail, .detail-assignee-na {
+    font-size: 15px;
+}
+
+.task-detail-headline {
+  font-size: 30px;
+}
+
+.detail-subtask-name {
+  margin-left: 12px;
+  font-size: 12px;
 }
 }
