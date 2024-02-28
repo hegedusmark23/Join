@@ -256,7 +256,7 @@ h1.contact-view-title {
   font-weight: 400;
 }
 
-@media (min-width: 421px) {
+@media (min-width: 1051px) {
   .translateSuccButton {
     transform: translateX(1200px);
   }
@@ -356,6 +356,11 @@ h1.contact-view-title {
   border-radius: 20px;
   cursor: pointer;
   position: relative;
+  transition: all 0.5s cubic-bezier(.215, .61, .355, 1);
+}
+
+.translateContactDialogPopUp{
+  transform: translateX(300%);
 }
 
 .contacts-left-container {
@@ -935,6 +940,12 @@ h1.contact-view-title {
     width: 120px;
     height: 120px;
   }
+
+  .successfulButtonContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }
 
 @media (min-width: 421px) {
@@ -948,7 +959,7 @@ h1.contact-view-title {
     height: auto;
   }
 
-  .cross-icon-container{
+  .cross-icon-container {
     top: 24px;
   }
 
@@ -978,6 +989,15 @@ h1.contact-view-title {
     padding: 8px;
   }
 
+  .contact-view-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 24px;
+    flex: 1;
+    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
   .edit-contact-btn1 {
     width: auto;
   }
@@ -990,7 +1010,7 @@ h1.contact-view-title {
     margin-top: -73px;
   }
 
-  .edit-contact-badge-container{
+  .edit-contact-badge-container {
     width: 80px;
     height: 80px;
   }
@@ -1014,7 +1034,8 @@ h1.contact-view-title {
   .successfulButtonContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    flex: 1;
     height: 85px;
     overflow-y: hidden;
   }
@@ -1025,7 +1046,7 @@ h1.contact-view-title {
   }
 
   .translateSuccButtonMobile {
-    transform: translateY(75px);
+    transform: translateY(500px);
   }
 }
 

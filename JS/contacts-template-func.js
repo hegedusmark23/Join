@@ -100,7 +100,7 @@ function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
 // Show the "Edit Contact" pop-up to change the settings of a contact or delete it;
 function editContactOverlayHTML(key, i, badgeColor) {
   return /*html*/ `
-    <div onclick="doNotClose(event)" id="contact-dialog${key}${i}" class="contact-dialog">
+    <div onclick="doNotClose(event)" id="contact-dialog${key}${i}" class="contact-dialog translateContactDialogPopUp">
             <div class="contacts-left-container">
                 <div class="logo-and-title-container">
                     <span><img class="contact-dialog-logo mobile-d-none" src="./assets/img/logo-small-white.png" alt=""></span>
@@ -115,7 +115,7 @@ function editContactOverlayHTML(key, i, badgeColor) {
                 </div>
             </div>
               <form onsubmit="saveNewContact('${key}', ${i}); return false" class="input-and-btn-container">
-                    <span onclick="hideEditContactOverlay(event)" class="cross-icon-container"> 
+                    <span onclick="hideEditContactOverlay('${key}', ${i}, event)" class="cross-icon-container"> 
                       <svg class="cross-icon" width="24" height="25" viewBox="0 0 24 25" fill=""
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

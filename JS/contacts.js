@@ -99,12 +99,12 @@ function showContactsInTheList(key) {
     }
 }
 
-function truncEmailMobile(key, i){
+function truncEmailMobile(key, i) {
     let email = document.getElementById(`contact-list-email${key}${i}`)
     let emailText = email.innerText;
-    if(emailText.length > 21 && windowWidth <= 400){
-       let truncedEmail = emailText.slice(0, 21);
-       email.innerText = truncedEmail + '...'
+    if (emailText.length > 21 && windowWidth <= 400) {
+        let truncedEmail = emailText.slice(0, 21);
+        email.innerText = truncedEmail + '...'
     }
 }
 
@@ -178,24 +178,26 @@ async function showAlreadyCreatedContactInTheView() {
     badgeColor = letterContainer[key][i]['badgeColor']
     capitalizeLetters(name);
     contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor);
-    setTimeout(successfulContactAddedButton, 1000);
+    successfulContactAddedButton()
 }
 
 async function successfulContactAddedButton() {
-    let successButton = document.getElementById('successfulButton');
-    if(windowWidth <= 420){
-        successButton.classList.remove('translateSuccButtonMobile')
-    } else {
-        successButton.classList.remove('translateSuccButton');
-    }
+    setTimeout(() => {
+        let successButton = document.getElementById('successfulButton');
+        if (windowWidth <= 420) {
+            successButton.classList.remove('translateSuccButtonMobile')
+        } else {
+            successButton.classList.remove('translateSuccButton');
+        }
+    }, 2000);
     setTimeout(hideSuccessfulContactAddedButton, 2000);
 }
 
 function hideSuccessfulContactAddedButton() {
     let successButton = document.getElementById('successfulButton');
-    if(windowWidth <= 420){
+    if (windowWidth <= 420) {
         successButton.classList.add('translateSuccButtonMobile')
-    } else{
+    } else {
         successButton.classList.add('translateSuccButton');
     }
 }
@@ -211,6 +213,21 @@ function showEditContactOverlay(key, i) {
     editContactOverlay.innerHTML = editContactOverlayHTML(key, i,);
     getTheInputs(key, i);
     displayTheContactDataInTheInputs(name, email, phone, badgeColor);
+    setTimeout(() => {
+        translateContactDialogPopUpInside(`${key}`, `${i}`)
+    }, 10)
+}
+
+function translateContactDialogPopUpInside(key, i){
+    document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
+}
+
+function hideEditContactOverlay(key, i, event) {
+    document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
+    setTimeout(()=> {
+        document.getElementById('edit-contact-overlay').classList.add('d-none');
+    }, 500)
+    doNotClose(event)
 }
 
 function getTheInputs(key, i) {
@@ -243,7 +260,11 @@ async function saveNewContact(key, i) {
 
 async function deleteContact(key, i) {
     letterContainer[key].splice(i, 1);
-    document.getElementById('contact-view-container').innerHTML = '';
+    if (windowWidth <= 1050) {
+        backToContactList();
+    } else {
+        document.getElementById('contact-view-container').innerHTML = '';
+    }
     await setItem('contacts', JSON.stringify(letterContainer));
     renderContact();
     hideEditContactOverlay();
@@ -262,20 +283,24 @@ function backgroundAndTextOriginal(key, i) {
 }
 
 
-function hideEditContactOverlay(event) {
-    document.getElementById('edit-contact-overlay').classList.add('d-none');
-    doNotClose(event)
-}
 function showAddContactOverlay() {
     document.getElementById('add-contact-overlay').classList.remove('d-none');
+    setTimeout(()=> {
+        document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp');
+    }, 10)
     document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#29ABE2'
 }
 
 function hideAddContactOverlay() {
-    document.getElementById('add-contact-overlay').classList.add('d-none');
-    setTimeout(originalBgColorOfAddContactBtnMobile, 800)
+    document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
+    setTimeout(() => {
+        document.getElementById('add-contact-overlay').classList.add('d-none');
+    }, 200)
+    setTimeout(originalBgColorOfAddContactBtnMobile, 800);
     doNotClose(event)
 }
+
+
 
 function originalBgColorOfAddContactBtnMobile() {
     document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#2A3647'
