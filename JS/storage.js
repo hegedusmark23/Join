@@ -159,7 +159,6 @@ async function loadUser() {
 
 
 // deleteUser()
-loadUser()
 
 // Setze die completed-Eigenschaft eines Subtasks auf 'done'
 // updateSubtaskCompletion(1707393834234, 1707393814989, 'done');

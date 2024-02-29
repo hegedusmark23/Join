@@ -1334,7 +1334,7 @@ input#subtask-edit-input {
   }
 
   section#addtask-content {
-    padding: 10px 16px 10px 16px;
+    padding: 80px 16px 10px 16px;
   }
 }
 
@@ -1346,7 +1346,7 @@ input#subtask-edit-input {
   }
 
   section#addtask-content {
-    padding: 10px 16px 10px 16px;
+    padding: 100px 16px 10px 16px;
   }
 
   .addtask-form {

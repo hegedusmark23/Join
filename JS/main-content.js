@@ -166,3 +166,40 @@ function sortTasksByPrioUrgent() {
   Urgent.innerHTML = urgentTasks.length;
   urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  playAnimations();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  playAnimations();
+});
+
+function playAnimations() {
+  const elements = document.querySelectorAll('.tasks-headline-container, .navbar, .header, .welcome-section');
+  
+  elements.forEach(element => {
+      element.style.animation = getAnimationStyle(element);
+      element.classList.add('animated'); // Assuming 'animated' class triggers the animations in your CSS
+  });
+
+  // Optional: Remove event listener after animations played once
+  document.removeEventListener("DOMContentLoaded", playAnimations);
+}
+
+function getAnimationStyle(element) {
+  switch (element.className) {
+      case 'tasks-headline-container':
+      case 'navbar':
+      case 'header':
+          return 'invisVisMobile 1s linear';
+      case 'welcome-section':
+          return 'welcomeMessageMobile 0.9s linear';
+      default:
+          return '';
+  }
+}
+
+  // Optional: Remove event listener after animations played once
+  
