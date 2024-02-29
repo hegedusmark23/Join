@@ -70,26 +70,28 @@ async function addStateToExistingTasks() {
 async function changeAddStateTasks() {
     try {
         let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
-        tasks = JSON.parse(tasks); // Versuch, den String zu parsen
-  
+        if (typeof tasks === 'string') {
+            tasks = JSON.parse(tasks); // Versuch, den String zu parsen
+        }
+
         if (!Array.isArray(tasks)) {
             console.error('Die abgerufenen Daten sind kein Array:', tasks);
-            return; // Beendet die Funktion, wenn keine Array-Daten vorliegen
+            tasks = []; // Initialisiert tasks als leeres Array, falls die Daten nicht im Array-Format vorliegen
         }
   
-        tasks = tasks.map(task => {
+        const updatedTasks = tasks.map(task => {
             if (!task.state) { // Hinzufügen von 'state', falls nicht vorhanden
-                task.state = 'toDo';
+                return { ...task, state: 'toDo' };
             }
             return task;
         });
   
-        await setItem('tasks', JSON.stringify(tasks)); // Speichern der aktualisierten Tasks
+        await setItem('tasks', JSON.stringify(updatedTasks)); // Speichern der aktualisierten Tasks
         console.log('Alle vorhandenen Tasks wurden erfolgreich aktualisiert.');
     } catch (error) {
         console.error('Fehler beim Aktualisieren der vorhandenen Tasks:', error);
     }
-  }
+}
 
 async function addCompletedToExistingSubtasks() {
     try {
@@ -163,6 +165,7 @@ loadUser()
 // updateSubtaskCompletion(1707393834234, 1707393814989, 'done');
 // Aufrufen der Funktion
 // addStateToExistingTasks();
+// changeAddStateTasks()
 // addCompletedToExistingSubtasks();
 // Verwendung der Funktion zum Löschen von Tasks
 // deleteTasks(); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.

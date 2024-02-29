@@ -48,11 +48,15 @@ function displayNoTasksDiv(noTasksDiv, tasks) {
 }
 
 function populateTaskContainer(container, tasks) {
-    container.innerHTML = '';
-    tasks.forEach((task, i) => {
+    if (container) {
+        container.innerHTML = '';
+        tasks.forEach((task, i) => {
         let completionDetails = updateSubtaskProgress(task);
         container.innerHTML += renderCardContent(i, task, completionDetails);
     });
+    } else {
+        console.warn('Der Container wurde nicht gefunden.');
+    }
 }
 
 // Spezialisierte Funktionen für jeden Aufgabenstatus
@@ -77,13 +81,10 @@ async function initializeBoardCard(filteredTasks = null) {
 function updateSubtaskProgress(task) {
     // Prüfe zunächst, ob der Task Subtasks hat. Wenn ja, ermittle die Gesamtanzahl der Subtasks.
     let totalSubtasks = task.subtask ? task.subtask.length : 0;
-
     // Ermittle die Anzahl der abgeschlossenen Subtasks.
     let completedSubtasks = task.subtask ? task.subtask.filter(subtask => subtask.completed === 'done').length : 0;
-
     // Berechne den Prozentsatz der abgeschlossenen Subtasks.
     let completionPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
-
     // Die Funktion gibt ein Objekt zurück, das zwei Eigenschaften enthält:
     return {
         completionPercentage,
@@ -234,21 +235,82 @@ async function toggleSubtaskCompleted(taskId, subtaskId) {
 
 
 // Rendern der Karte mit Detailinformationen
-function detailModalContent(task) {
-    // Erzeugen des Assignee-HTML-Strings, falls Assignees vorhanden sind
-    let assigneesHtml = task.assignTo && task.assignTo.length > 0 ? generateAssigneesHtml(task.assignTo) : '<div class="detail-assignee-na">N/A</div>';
-    // Erzeugen des Subtask-HTML-Strings, falls Subtasks vorhanden sind
-    const subtasksHtml = task.subtask && task.subtask.length > 0 ? generateSubtasksHtml(task, task.subtask) : ''; // Hier wird `task` übergeben
-    let tasksImg = taskImage(task);
-    let imgHtml = tasksImg ? `<img style="margin-left: 4px;" src="/Join/assets/icons/${tasksImg}" alt="Priority">` : '';
-    // Erzeuge das Subtasks-HTML nur, wenn Subtasks vorhanden sind
-    let subtasksContent = '';
-    if (task.subtask && task.subtask.length > 0) {
-        // Subtasks-Label hinzufügen
-        subtasksContent += `<div class="detail-subtasks"><span>Subtasks</span></div>`;
-        // Subtasks innerhalb des "details-subtasks-binding" Containers rendern
-        subtasksContent += `<div class="details-subtasks-binding">${generateSubtasksHtml(task, task.subtask)}</div>`;
+function generateDescriptionHtml(task) {
+    return `<div class="task-detail-description">${task.description || 'Description: N/A'}</div>`;
+}
+
+// Funktion zur Generierung der Due-Date-Anzeige
+function generateDueDateHtml(task) {
+    return `
+        <div class="task-detail">
+            <span class="detail-label">Due date:</span>
+            <span class="detail-value">${task.dueDate}</span>
+        </div>`;
+}
+
+function generatePriorityHtml(task) {
+    let imgHtml = taskImage(task) ? `<img style="margin-left: 4px;" src="/Join/assets/icons/${taskImage(task)}" alt="Priority">` : '';
+    return `
+        <div class="task-detail">
+            <span class="detail-label">Priority:</span>
+            <span class="detail-value">${task.prio ? task.prio.charAt(0).toUpperCase() + task.prio.slice(1) : 'N/A'}</span>
+        ${imgHtml}
+        </div>`;
+}
+
+// Funktion zur Erzeugung des HTML-Strings für Subtasks
+function generateSubtasksHtml(task, subtasks) {
+
+    if (!subtasks || subtasks.length === 0) {
+        return ''; // Kein HTML, wenn keine Subtasks vorhanden sind
     }
+
+    // Direktes Erstellen der Subtasks HTML ohne das "Subtasks"-Label
+    return subtasks.map(subtask => `
+        <div id="subtask-container" class="dropdown-content-container details-subtasks">    
+            <div onclick="toggleSubtaskCompleted(${task.id}, ${subtask.id})" class="dropdown-content-binding details-subtasks-content" data-task-id="${task.id}" data-subtask-id="${subtask.id}">
+                <div class="dropdown-content-checkbox">
+                    ${subtask.completed === 'done' ? `
+                        <svg class="checkbox-checked-active" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#2A3647" stroke-width="2" stroke-linecap="round"></path>
+                            <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>` : `
+                        <svg class="checkbox-unchecked-normal" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
+                        </svg>
+                    `}
+                </div>
+                <div class="detail-subtask-name">${subtask.text}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Funktion zur Erzeugung des HTML-Strings für Assignees
+function generateAssigneesHtml(assignees) {  
+    if (!assignees || assignees.length === 0) {
+        return '<div class="detail-assignee-na">N/A</div>';
+    }
+    return assignees.map(assignee => `
+        <div class="dropdown-content-binding">
+            <div class="dropdown-content-circle" style="background-color:${assignee.color};">
+                <p id="user-initials">${assignee.initials}</p>
+            </div>
+            <div class="dropdown-content-name">
+                ${assignee.name}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Hauptfunktion mit ausgelagerter Logik
+function detailModalContent(task) {
+
+    // Bereitet HTML für Assignees vor, zeigt "N/A", wenn keine vorhanden sind
+    let assigneesHtml = generateAssigneesHtml(task.assignTo);
+
+    // Bereitet HTML für Subtasks vor, zeigt nichts, wenn keine vorhanden sind
+    let subtasksHtml = generateSubtasksHtml(task, task.subtask);
 
     return `
         <div class="task-details-header" id="task-${task.id}">
@@ -264,23 +326,12 @@ function detailModalContent(task) {
         </div>
         <div class="task-details-main-content">
             <div class="task-detail-headline">${task.title}</div>
-            <div class="task-detail-description">${task.description || 'Description: N/A'}</div>
-            <div class="task-detail">
-                <span class="detail-label">Due date:</span>
-                <span class="detail-value">${task.dueDate}</span>
-            </div>
-            <div class="task-detail">
-                <span class="detail-label">Priority:</span>
-                <span class="detail-value">${task.prio ? task.prio.charAt(0).toUpperCase() + task.prio.slice(1) : 'N/A'}</span>
-                ${imgHtml}
-            </div>
-            <div class="detail-assignees">Assigned To:</div>
-            <div class="detail-assignee">
-                ${assigneesHtml}
-            </div>
-
-            ${subtasksContent}
-            
+            ${generateDescriptionHtml(task)}
+            ${generateDueDateHtml(task)}
+            ${generatePriorityHtml(task)}
+              <div class="detail-assignees">Assigned To:</div>
+            <div class="detail-assignee">${assigneesHtml}</div>
+            ${subtasksHtml}
             <div class="detail-footer">
                 <div class="subtask-icons-details">
                     <div id="delete-task-button" class="details-footer-hover">
@@ -309,49 +360,9 @@ function detailModalContent(task) {
                 </div>
             </div>
         </div>
-`
+    `;
 }
 
-// Funktion zur Erzeugung des HTML-Strings für Assignees
-function generateAssigneesHtml(assignees) {
-    if (!assignees || assignees.length === 0) {
-        return '<div class="detail-assignee-na">N/A</div>';
-    }
-    return assignees.map(assignee => `
-        <div class="dropdown-content-binding">
-            <div class="dropdown-content-circle" style="background-color:${assignee.color};">
-                <p id="user-initials">${assignee.initials}</p>
-            </div>
-            <div class="dropdown-content-name">
-                ${assignee.name}
-            </div>
-        </div>
-    `).join('');
-}
-
-
-// Funktion zur Erzeugung des HTML-Strings für Subtasks
-function generateSubtasksHtml(task, subtasks) {
-    // Direktes Erstellen der Subtasks HTML ohne das "Subtasks"-Label
-    return subtasks.map(subtask => `
-        <div id="subtask-container" class="dropdown-content-container details-subtasks">    
-            <div onclick="toggleSubtaskCompleted(${task.id}, ${subtask.id})" class="dropdown-content-binding details-subtasks-content" data-task-id="${task.id}" data-subtask-id="${subtask.id}">
-                <div class="dropdown-content-checkbox">
-                    ${subtask.completed === 'done' ? `
-                        <svg class="checkbox-checked-active" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#2A3647" stroke-width="2" stroke-linecap="round"></path>
-                            <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>` : `
-                        <svg class="checkbox-unchecked-normal" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
-                        </svg>
-                    `}
-                </div>
-                <div class="detail-subtask-name">${subtask.text}</div>
-            </div>
-        </div>
-    `).join('');
-}
 
 // Eventlistner für Modals
 // Funktion zum öffnen der Board Card

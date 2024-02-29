@@ -84,9 +84,9 @@ function openCreateTaskModalWithState(taskState) {
     insertDynamicContentIntoModal(taskState); // Diese Funktion muss entsprechend angepasst werden, um den State zu berücksichtigen
     // Modal öffnen
     openModal('addtask-modal');
-
     // EventListeners für das Modal einrichten
     setupModalEventListeners(taskState); // Stellen Sie sicher, dass diese Funktion angepasst wird, um den State zu berücksichtigen
+    initializeBoard();
 }
 
 function insertDynamicContentIntoModal(taskState) {
