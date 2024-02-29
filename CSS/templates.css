@@ -1541,6 +1541,12 @@ input#subtask-edit-input {
     padding: 20px;
   }
 
+  .task-details-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
   .legal-headline {
     font-size: 37px;
   }
