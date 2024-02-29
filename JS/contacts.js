@@ -213,20 +213,33 @@ function showEditContactOverlay(key, i) {
     editContactOverlay.innerHTML = editContactOverlayHTML(key, i,);
     getTheInputs(key, i);
     displayTheContactDataInTheInputs(name, email, phone, badgeColor);
-    setTimeout(() => {
-        translateContactDialogPopUpInside(`${key}`, `${i}`)
-    }, 10)
+    translateContactDialogPopUpInside(`${key}`, `${i}`)
 }
 
-function translateContactDialogPopUpInside(key, i){
-    document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
+function translateContactDialogPopUpInside(key, i) {
+    if (windowWidth > 1050) {
+        setTimeout(() => {
+            document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
+        }, 10);
+    } else {
+        setTimeout(() => {
+            document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp-Mobile');
+        }, 10)
+    }
 }
 
 function hideEditContactOverlay(key, i, event) {
-    document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
-    setTimeout(()=> {
-        document.getElementById('edit-contact-overlay').classList.add('d-none');
-    }, 500)
+    if (windowWidth > 1050) {
+        document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
+        setTimeout(() => {
+            document.getElementById('edit-contact-overlay').classList.add('d-none');
+        }, 500)
+    } else {
+        document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp-Mobile');
+        setTimeout(() => {
+            document.getElementById('edit-contact-overlay').classList.add('d-none');
+        }, 200);
+    }
     doNotClose(event)
 }
 
@@ -284,19 +297,33 @@ function backgroundAndTextOriginal(key, i) {
 
 
 function showAddContactOverlay() {
-    document.getElementById('add-contact-overlay').classList.remove('d-none');
-    setTimeout(()=> {
-        document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp');
-    }, 10)
-    document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#29ABE2'
+    if (windowWidth > 1050) {
+        document.getElementById('add-contact-overlay').classList.remove('d-none');
+        setTimeout(() => {
+            document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp');
+        }, 10)
+    } else {
+        document.getElementById('add-contact-overlay').classList.remove('d-none');
+        setTimeout(() => {
+            document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp-Mobile');
+        }, 100)
+        document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#29ABE2'
+    }
 }
 
 function hideAddContactOverlay() {
-    document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
-    setTimeout(() => {
-        document.getElementById('add-contact-overlay').classList.add('d-none');
-    }, 200)
-    setTimeout(originalBgColorOfAddContactBtnMobile, 800);
+    if (windowWidth > 1050) {
+        document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
+        setTimeout(() => {
+            document.getElementById('add-contact-overlay').classList.add('d-none');
+        }, 200)
+    } else {
+        document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp-Mobile');
+        setTimeout(() => {
+            document.getElementById('add-contact-overlay').classList.add('d-none');
+        }, 100)
+        setTimeout(originalBgColorOfAddContactBtnMobile, 800);
+    }
     doNotClose(event)
 }
 

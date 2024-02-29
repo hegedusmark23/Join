@@ -55,7 +55,8 @@
 
                 <!-- add Contact Overlay -->
                 <div onclick="hideAddContactOverlay()" id="add-contact-overlay" class="contact-bg-dialog d-none">
-                    <div onclick="doNotClose(event)" id="contact-dialog" class="contact-dialog translateContactDialogPopUp">
+                    <div onclick="doNotClose(event)" id="contact-dialog"
+                        class="contact-dialog translateContactDialogPopUp-Mobile translateContactDialogPopUp">
                         <div class="contacts-left-container">
                             <div class="logo-and-title-container">
                                 <span class="contact-dialog-logo-container"><img class="contact-dialog-logo"
@@ -90,7 +91,13 @@
                                 </div>
                                 <div class="contact-btn-container">
                                     <button class="add-contact-btn1" onclick="emptyInputs()">Cancel
-                                        <img class="cross-icon-btn1" src="./assets/icons/cross.svg" alt="">
+                                        <svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z"
+                                                stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
                                     </button>
                                     <button class="add-contact-btn2">Create contact<img class="check-icon-btn2"
                                             src="./assets/icons/check.svg" alt=""></button>

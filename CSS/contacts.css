@@ -177,8 +177,29 @@ h1.contact-view-title {
 }
 
 .edit {
-  font-size: 16px;
+  font-size: 20px;
 }
+
+.contact-view-edit-container:hover .edit{
+  color: #29abe2;
+}
+
+.contact-view-edit-container:hover .pencil-edit path {
+  fill: #29abe2 !important;
+}
+
+.delete {
+  font-size: 20px;
+}
+
+.contact-view-delete-container:hover .trashbin-edit path {
+  fill: #29abe2 !important;
+}
+
+.contact-view-delete-container:hover .delete {
+  color: #29abe2;
+}
+
 
 .contact-view-delete-container {
   display: flex;
@@ -346,6 +367,7 @@ h1.contact-view-title {
   align-items: center;
   cursor: pointer;
   z-index: 1004;
+  overflow: hidden;
 }
 
 .contact-dialog {
@@ -357,10 +379,6 @@ h1.contact-view-title {
   cursor: pointer;
   position: relative;
   transition: all 0.5s cubic-bezier(.215, .61, .355, 1);
-}
-
-.translateContactDialogPopUp{
-  transform: translateX(300%);
 }
 
 .contacts-left-container {
@@ -434,6 +452,12 @@ h1.contact-view-title {
   position: absolute;
   top: 48px;
   right: 32px;
+  border-radius: 50px;
+  box-sizing: border-box;
+}
+
+.cross-icon-container:hover{
+   background: #eee;
 }
 
 .cross-icon {
@@ -764,6 +788,10 @@ h1.contact-view-title {
 }
 
 @media (min-width: 1051px) {
+  .translateContactDialogPopUp {
+    transform: translateX(300%);
+  }
+
   .arrow-left-line {
     display: none;
   }
@@ -778,6 +806,10 @@ h1.contact-view-title {
 }
 
 @media (max-width: 1050px) {
+  .translateContactDialogPopUp-Mobile {
+    transform: translateY(300%);
+  }
+
   .contact-book {
     width: 100%;
   }
@@ -805,7 +837,7 @@ h1.contact-view-title {
 
   .contact-view-icons-container {
     position: fixed;
-    bottom: 107px;
+    bottom: 90px;
     right: 0px;
     flex-direction: column;
     align-items: center;
