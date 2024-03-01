@@ -24,24 +24,18 @@
                 <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log
                         out</a></div>
             </menu>
-
-
             <div id="addtask-modal" class="modal">
                 <div class="modal-content">
-
                 </div>
             </div>
-
             <div id="task-detail-modal" class="modal">
                 <div class="modal-content-tasks">
                     <div id="task-details-container">
                         <div id="task-details">
-
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="board-header-wrapper">
                 <div class="board-header">
                     <div class="board-header-left">
@@ -69,7 +63,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="board-sectors" class="board-sector">
                     <div class="board-section-column">
                         <div class="board-section-title">To do</div>
@@ -83,7 +76,6 @@
                             </svg>
                         </div>
                     </div>
-
                     <div class="board-section-column">
                         <div class="board-section-title">In progress</div>
                         <div id="addtask-in-progress" class="board-section-add-task">
@@ -96,7 +88,6 @@
                             </svg>
                         </div>
                     </div>
-
                     <div class="board-section-column">
                         <div class="board-section-title">Await feedback</div>
                         <div id="addtask-await-feedback" class="board-section-add-task">
@@ -109,13 +100,10 @@
                             </svg>
                         </div>
                     </div>
-
                     <div class="board-section-column">
                         <div class="board-section-title">Done</div>
                     </div>
-
                 </div>
-
             </div>
             <section id="board-content">
                 <div class="board-sections">
@@ -124,37 +112,34 @@
                             <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
                         </div>
                         <div id="toDo" class="toDo-container" ondrop="moveTo('toDo')"
-                            ondragover="allowDrop(event);hideNoTaskDiv('toDo')" ondragleave="resetNoTaskDiv('toDo')">
+                            ondragover="allowDrop(event);hideNoTaskDiv('toDo')"; ondragleave="resetNoTaskDiv('toDo')">
                         </div>
-
                     </div>
-
                     <div class="board-section-2">
                         <div class="board-section-cards">
                             <div id="board-card-background-2" class="board-card-bg">No tasks In progress</div>
                         </div>
-                        <div id="in-progress" class="in-progress-container" ondrop="moveTo('in-progress')"
-                            ondragover="allowDrop(event); hideNoTaskDiv('in-progress')"
-                            ondragleave="resetNoTaskDiv('in-progress')">
+                        <div id="in-progress" class="in-progress-container" ondrop="moveTo('in-progress')" ;
+                            ondragover="allowDrop(event); hideNoTaskDiv('in-progress')"; ondragleave="resetNoTaskDiv('in-progress')">
+                            
                         </div>
                     </div>
-
                     <div class="board-section-3">
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
-                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')";
+                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')" ;
                             ondragover="allowDrop(event); hideNoTaskDiv('await-feedback')"; ondragleave="resetNoTaskDiv('await-feedback')">
+                           
                         </div>
                     </div>
-
                     <div class="board-section-4">
                         <div class="board-section-cards">
                             <div id="board-card-background-4" class="board-card-bg">No tasks Done</div>
                         </div>
                         <div id="done" class="done-container" ondrop="moveTo('done')" ;
-                            ondragover="allowDrop(event); hideNoTaskDiv('done')"; ondragleave="resetNoTaskDiv('done')"
-                            ;>
+                            ondragover="allowDrop(event); hideNoTaskDiv('done')"; ondragleave="resetNoTaskDiv('done')"> 
+                           
                         </div>
                     </div>
             </section>
@@ -165,28 +150,26 @@
             </div>
         </div>
     </main>
-
-        <script src="./JS/script.js"></script>
-        <script src="./JS/w3include.js"></script>
-        <script src="./models/board.class.js"></script>
-        <script src="./JS/storage.js"></script>
-        <script src="./JS/addtask.js"></script>
-        <script src="./JS/main-content.js"></script>
-        <script src="./JS/board.js"></script>
-        <script src="./JS/board_dragdrop.js"></script>
-        <script src="./JS/board_overview.js"></script>
-        <script src="./JS/board_eventHandlers.js"></script>
-        <script src="./JS/board_showTaskDetails.js"></script>
-        <script src="./JS/board_createTasks.js"></script>
-        <script src="./JS/board_editTasks.js"></script>
-        <script src="./JS/board_editTasksRender.js"></script>
-        <script src="./models/tasks.class.js"></script>
-        <script src="./JS/addtaskFormHandling.js"></script>
-        <script src="./JS/search.js"></script>
-        <script src="./JS/contacts.js"></script>
-        <script src="./JS/register.js"></script>
-        <script src="./JS/html-templates.js"></script>
-
+    <script src="./JS/script.js"></script>
+    <script src="./JS/w3include.js"></script>
+    <script src="./models/board.class.js"></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/addtask.js"></script>
+    <script src="./JS/main-content.js"></script>
+    <script src="./JS/board.js"></script>
+    <script src="./JS/board_dragdrop.js"></script>
+    <script src="./JS/board_overview.js"></script>
+    <script src="./JS/board_eventHandlers.js"></script>
+    <script src="./JS/board_showTaskDetails.js"></script>
+    <script src="./JS/board_createTasks.js"></script>
+    <script src="./JS/board_editTasks.js"></script>
+    <script src="./JS/board_editTasksRender.js"></script>
+    <script src="./models/tasks.class.js"></script>
+    <script src="./JS/addtaskFormHandling.js"></script>
+    <script src="./JS/search.js"></script>
+    <script src="./JS/contacts.js"></script>
+    <script src="./JS/register.js"></script>
+    <script src="./JS/html-templates.js"></script>
 </body>
 
 </html>
