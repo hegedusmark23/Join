@@ -100,7 +100,7 @@ function checkInputFields() {
 
     // Überprüfe, ob alle benötigten Elemente existieren
     if (!title || !dueDate || !titleErrorMsg || !dueDateErrorMsg) {
-        console.warn('Eines oder mehrere benötigte Elemente für checkInputFields() fehlen im DOM.');
+        console.info('Eines oder mehrere benötigte Elemente für checkInputFields() fehlen im DOM.');
         return; // Bricht die Ausführung ab, wenn ein Element fehlt
     }
 
@@ -137,7 +137,7 @@ function saveInputFields() {
             title = titleInput.value;
         });
     } else {
-        console.warn('Titel-Inputfeld nicht gefunden.');
+        console.info('Titel-Inputfeld nicht gefunden.');
     }
 
     // Event-Listener für Beschreibung
@@ -147,7 +147,7 @@ function saveInputFields() {
             description = descriptionInput.value;
         });
     } else {
-        console.warn('Beschreibungs-Inputfeld nicht gefunden.');
+        console.info('Beschreibungs-Inputfeld nicht gefunden.');
     }
 
     // Event-Listener für das Fälligkeitsdatum
@@ -157,7 +157,7 @@ function saveInputFields() {
             dueDate = dueDateInput.value;
         });
     } else {
-        console.warn('Fälligkeitsdatum-Inputfeld nicht gefunden.');
+        console.info('Fälligkeitsdatum-Inputfeld nicht gefunden.');
     }
 }
 
@@ -176,7 +176,7 @@ async function loadTasks() {
 async function createTask() {
     const createTaskButton = document.getElementById('create-task');
     if (!createTaskButton) {
-        console.warn('Create-Task-Button wurde nicht im DOM gefunden.');
+        console.info('Create-Task-Button wurde nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn das Button-Element nicht existiert
     }
 

@@ -47,10 +47,3 @@ async function initializeBoardCard(filteredTasks = null) {
     await processTasksForStatus(filteredTasks, 'done', 'board-card-background-4', 'done');
     setupTaskClickListeners();
 }
-
-
-
-
-
-
-

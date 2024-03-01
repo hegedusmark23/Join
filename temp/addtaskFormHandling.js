@@ -58,7 +58,7 @@ function inputSubtask() {
         });
     } else {
         // Warnung ausgeben, wenn eines der Elemente nicht gefunden wurde
-        console.warn('Eines oder mehrere Subtask-bezogene Elemente wurden nicht im DOM gefunden.');
+        console.info('Eines oder mehrere Subtask-bezogene Elemente wurden nicht im DOM gefunden.');
     }
 }
 
@@ -79,7 +79,7 @@ function addSubTask() {
         });
     } else {
         // Warnung ausgeben, wenn eines der Elemente nicht gefunden wurde
-        console.warn('Eines oder mehrere Elemente für das Hinzufügen von Subtasks wurden nicht im DOM gefunden.');
+        console.info('Eines oder mehrere Elemente für das Hinzufügen von Subtasks wurden nicht im DOM gefunden.');
     }
 }
 
@@ -179,13 +179,13 @@ function saveSubtask(liElement) {
 function setupEventListenersSubtasks() {
     let listContainerElement = document.getElementById('subtasks-list-container');
     if (!listContainerElement) {
-        console.warn('Container für Subtasks wurde nicht im DOM gefunden.');
+        console.info('Container für Subtasks wurde nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn der Container nicht existiert
     }
 
     let listContainer = listContainerElement.querySelector('ul');
     if (!listContainer) {
-        console.warn('UL-Element für Subtasks wurde nicht im DOM gefunden.');
+        console.info('UL-Element für Subtasks wurde nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn das UL-Element nicht existiert
     }
 
@@ -267,7 +267,7 @@ function setupAssigneeGlobalClickListener() {
     const dropdownButton = document.getElementById('dropdown-assignees');
 
     if (!dropdownContent || !dropdownButton) {
-        console.warn('Dropdown-Elemente wurden nicht im DOM gefunden.');
+        console.info('Dropdown-Elemente wurden nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn die Elemente nicht existieren
     }
 
@@ -323,7 +323,7 @@ function generateInitials(completeName) {
 function renderAssignees() {
     let dropdownContent = document.getElementById('assign-to');
     if (!dropdownContent) {
-        console.warn('Dropdown-Container für Assignees wurde nicht im DOM gefunden.');
+        console.info('Dropdown-Container für Assignees wurde nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
     }
 
@@ -371,7 +371,7 @@ function renderAssignees() {
 function setupAssigneeDropdownToggleListener() {
     let dropdownButton = document.getElementById('dropdown-assignees');
     if (!dropdownButton) {
-        console.warn('Dropdown-Button für Assignees wurde nicht im DOM gefunden.');
+        console.info('Dropdown-Button für Assignees wurde nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
     }
 
@@ -405,7 +405,7 @@ function updateSelectedAssigneesDisplay() {
 function initCategoryDropdown() {
     let dropdownContent = document.getElementById('category');
     if (!dropdownContent) {
-        console.warn('Dropdown-Container für Kategorien wurde nicht im DOM gefunden.');
+        console.info('Dropdown-Container für Kategorien wurde nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
     }
 
@@ -448,7 +448,7 @@ function toggleCategoryDropdown() {
 function setupCategoryDropdownEventListeners() {
     const dropdownCategoriesButton = document.getElementById('dropdown-categories');
     if (!dropdownCategoriesButton) {
-        console.warn('Dropdown-Button für Kategorien wurde nicht im DOM gefunden.');
+        console.info('Dropdown-Button für Kategorien wurde nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn das Button-Element nicht existiert
     }
 

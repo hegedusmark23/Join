@@ -1,9 +1,22 @@
 const STORAGE_TOKEN = 'J1DF6T54G0IGAJIJ3AG9Z7W92UFJ0PRM1DJFQ500';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
+
+/**
+ * Speichert ein Item im remoteStorage.
+ * @param {string} key - Der Schlüssel unter dem das Item gespeichert wird.
+ * @param {string} value - Der Wert des Items als String.
+ * @returns {Promise<Object>} Eine Promise mit der Antwort vom Server.
+ */
 async function setItem(key, value) {
     const payload = { key, value, token: STORAGE_TOKEN }
     return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) }).then(resp => resp.json());
 };
+
+/**
+ * Ruft ein Item vom remoteStorage ab.
+ * @param {string} key - Der Schlüssel des abzurufenden Items.
+ * @returns {Promise<string>} Eine Promise mit dem Wert des Items als String.
+ */
 async function getItem(key) {
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`
     return fetch(url).then(resp => resp.json()).then(resp => {
@@ -14,12 +27,17 @@ async function getItem(key) {
         }
     });
 };
+
+/**
+ * Löscht bestimmte Tasks oder alle, falls keine spezifischen IDs übergeben werden.
+ * @param {number[]} [taskIds=[]] - Die IDs der zu löschenden Tasks.
+ */
 async function deleteTasks(taskIds = []) {
     try {
         let tasks = await getItem('tasks'); // Abrufen aller gespeicherten Tasks als String
-        // Konvertieren des String zurück in ein Array
+        
         try {
-            tasks = JSON.parse(tasks);
+            tasks = JSON.parse(tasks); // Konvertieren des String zurück in ein Array
         } catch (error) {
             console.error('Fehler beim Parsen der Tasks:', error);
             return; // Beendet die Funktion vorzeitig, wenn das Parsen fehlschlägt
@@ -42,17 +60,17 @@ async function deleteTasks(taskIds = []) {
     }
 }
 
-
+/**
+ * Fügt allen vorhandenen Tasks einen 'state' hinzu, falls dieser noch nicht vorhanden ist.
+ */
 async function addStateToExistingTasks() {
   try {
       let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
       tasks = JSON.parse(tasks); // Versuch, den String zu parsen
-
       if (!Array.isArray(tasks)) {
           console.error('Die abgerufenen Daten sind kein Array:', tasks);
           return; // Beendet die Funktion, wenn keine Array-Daten vorliegen
       }
-
       tasks = tasks.map(task => {
           if (!task.state) { // Hinzufügen von 'state', falls nicht vorhanden
               task.state = 'toDo';
@@ -67,6 +85,9 @@ async function addStateToExistingTasks() {
   }
 }
 
+/**
+ * Ändert den 'state' aller vorhandenen Tasks oder fügt ihn hinzu, falls nicht vorhanden.
+ */
 async function changeAddStateTasks() {
     try {
         let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
@@ -93,6 +114,9 @@ async function changeAddStateTasks() {
     }
 }
 
+/**
+ * Fügt allen vorhandenen Subtasks das Attribut 'completed' hinzu, falls dieses noch nicht vorhanden ist.
+ */
 async function addCompletedToExistingSubtasks() {
     try {
         let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
@@ -118,13 +142,19 @@ async function addCompletedToExistingSubtasks() {
         console.error('Fehler beim Aktualisieren der Subtasks:', error);
     }
 }
+
+/**
+ * Aktualisiert den Abschlussstatus einer spezifischen Subtask.
+ * @param {number} taskId - Die ID des übergeordneten Tasks.
+ * @param {number} subtaskId - Die ID der zu aktualisierenden Subtask.
+ * @param {string} completionStatus - Der neue Abschlussstatus ('done' oder null).
+ */
 async function updateSubtaskCompletion(taskId, subtaskId, completionStatus) {
     try {
         let tasks = await getItem('tasks');
         if (tasks) {
             tasks = JSON.parse(tasks);
-            // Finde den spezifischen Task und Subtask
-            let taskToUpdate = tasks.find(task => task.id === taskId);
+            let taskToUpdate = tasks.find(task => task.id === taskId); // Finde den spezifischen Task und Subtask
             if (taskToUpdate) {
                 let subtaskToUpdate = taskToUpdate.subtask.find(subtask => subtask.id === subtaskId);
                 if (subtaskToUpdate) {
@@ -144,6 +174,10 @@ async function updateSubtaskCompletion(taskId, subtaskId, completionStatus) {
         console.error('Fehler beim Aktualisieren der Subtask:', error);
     }
 }
+
+/**
+ * Lädt die User-Daten vom remoteStorage und initialisiert das User-Objekt.
+ */
 async function loadUser() {
     try {
         const response = await getItem('user');
@@ -157,21 +191,13 @@ async function loadUser() {
     }
 }
 
-
-// deleteUser()
 loadUser()
 
-// Setze die completed-Eigenschaft eines Subtasks auf 'done'
+//! Funktionen die bei Bedarf aufgerufen werden können
+
+// deleteUser()
 // updateSubtaskCompletion(1707393834234, 1707393814989, 'done');
-// Aufrufen der Funktion
 // addStateToExistingTasks();
 // changeAddStateTasks()
 // addCompletedToExistingSubtasks();
-// Verwendung der Funktion zum Löschen von Tasks
-// deleteTasks(); // Ersetzen tatsächlichen Task-ID oder weglassen um alle Tasks zu löschen.
-
-
-
-
-
-
+// deleteTasks();

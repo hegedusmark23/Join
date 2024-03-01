@@ -101,7 +101,7 @@ function checkInputFields() {
 
     // Überprüfe, ob alle benötigten Elemente existieren
     if (!title || !dueDate || !titleErrorMsg || !dueDateErrorMsg) {
-        console.warn('Eines oder mehrere benötigte Elemente für checkInputFields() fehlen im DOM.');
+        console.info('Eines oder mehrere benötigte Elemente für checkInputFields() fehlen im DOM.');
         return; // Bricht die Ausführung ab, wenn ein Element fehlt
     }
 
@@ -138,7 +138,7 @@ function saveInputFields() {
             title = titleInput.value;
         });
     } else {
-        console.warn('Titel-Inputfeld nicht gefunden.');
+        console.info('Titel-Inputfeld nicht gefunden.');
     }
 
     // Event-Listener für Beschreibung
@@ -148,7 +148,7 @@ function saveInputFields() {
             description = descriptionInput.value;
         });
     } else {
-        console.warn('Beschreibungs-Inputfeld nicht gefunden.');
+        console.info('Beschreibungs-Inputfeld nicht gefunden.');
     }
 
     // Event-Listener für das Fälligkeitsdatum
@@ -158,7 +158,7 @@ function saveInputFields() {
             dueDate = dueDateInput.value;
         });
     } else {
-        console.warn('Fälligkeitsdatum-Inputfeld nicht gefunden.');
+        console.info('Fälligkeitsdatum-Inputfeld nicht gefunden.');
     }
 }
 
@@ -178,12 +178,11 @@ async function createTask() {
     console.log('Adding event listener to create-task button');
     const createTaskButton = document.getElementById('create-task');
     if (!createTaskButton) {
-        console.warn('Create-Task-Button wurde nicht im DOM gefunden.');
+        console.info('Create-Task-Button wurde nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn das Button-Element nicht existiert
     }
 
     createTaskButton.addEventListener('click', async () => {
-        console.log('Create Task button clicked'); // Zum Debuggen
         if (!validateTaskForm()) {
             // Beendet die Funktion, wenn die Validierung fehlschlägt
             console.info('Validation failed. No Task created.');
@@ -325,7 +324,7 @@ function reinitializeEventListenersForEditModal() {
     setupDeleteTaskListener();
     initializeBoardIfNeeded();
     createTask();
-    setupCreateTaskListener();
+    //setupCreateTaskListener();
     setupOpenAddTaskModalListener();
     setupCloseAddTaskModalListener();
     setupEditTaskListener();
@@ -364,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeBoardPage() {
         console.log('Initialisiere Board-Seite...');
         initializeBoardCard();
-        setupCreateTaskListener();
+        //setupCreateTaskListener();
         setupTaskClickListeners();
         setupCloseTaskDetailModalListener();
         setupOpenAddTaskModalListener();

@@ -145,7 +145,7 @@ function renderCardContent(task, completionDetails) {
             ${subtaskContent}
             <div class="board-card-footer">
                 <div class="board-card-footer-assignees">${assigneesFooter}</div>
-                <div class="board-card-footer-prio"><img src="/Join/assets/icons/${tasksImg}" alt="Prio Symbol"></div>
+                <div class="board-card-footer-prio"><img src="./assets/icons/${tasksImg}" alt="Prio Symbol"></div>
             </div>
         </div>
     </div>`;
@@ -281,7 +281,7 @@ function detailModalContent(task){
             <div class="task-detail">
                 <span class="detail-label">Priority:</span>
                 <span class="detail-value">${task.prio}</span>
-                <img style="margin-left: 4px;" src="/Join/assets/icons/${tasksImg}" alt="Priority">
+                <img style="margin-left: 4px;" src="./assets/icons/${tasksImg}" alt="Priority">
             </div>
             <div class="detail-assignees">Assigned To:</div>
             <div class="detail-assignee">
@@ -390,7 +390,7 @@ function setupDeleteTaskListener() {
         deleteButton.addEventListener('click', deleteCurrentTask);
         console.log('Delete-Listener hinzugefügt');
     } else {
-        console.warn('Delete-Button wurde nicht gefunden.');
+        console.info('Delete-Button wurde nicht gefunden.');
     }
 }
 

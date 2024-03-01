@@ -150,7 +150,7 @@ function createSubtaskContent(task, completionDetails) {
  */
 function renderCardContent(i, task, completionDetails) {
     let tasksImg = taskImage(task);
-    let imgHtml = tasksImg ? `<div class="board-card-footer-prio"><img src="/Join/assets/icons/${tasksImg}" alt="Prio Symbol"></div>` : '';
+    let imgHtml = tasksImg ? `<div class="board-card-footer-prio"><img src="./assets/icons/${tasksImg}" alt="Prio Symbol"></div>` : '';
     let assigneesFooter = createAssigneesFooter(task);
     let description = task.description ? task.description : "";
     let subtaskContent = createSubtaskContent(task, completionDetails);
@@ -169,3 +169,25 @@ function renderCardContent(i, task, completionDetails) {
     </div>`;
 }
 
+/**
+ * Wechselt den Abschlussstatus eines Subtasks.
+ * @param {number} taskId - Die ID des übergeordneten Tasks.
+ * @param {number} subtaskId - Die ID des Subtasks.
+ * @returns {Object|null} Das aktualisierte Task-Objekt oder null, falls nicht gefunden.
+ */
+async function toggleSubtaskCompleted(taskId, subtaskId) {
+    let task = tasks.find(task => task.id === taskId);
+    if (task) {
+        let subtask = task.subtask.find(subtask => subtask.id === subtaskId);
+        if (subtask) {
+            // Status umschalten
+            subtask.completed = subtask.completed === 'done' ? '' : 'done';
+            await setItem('tasks', JSON.stringify(tasks));
+            initializeBoardCard();
+            openTaskDetailModal(task);
+
+            return task;
+        }
+    }
+    return null;
+}

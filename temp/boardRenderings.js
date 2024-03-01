@@ -128,13 +128,13 @@ function insertDynamicContentIntoModal() {
                 <div class="addtask-selection">
                     <div class="addtask-prio-btn">
                         <button class="addtask-buttons" id="addtask-prio-urgent">Urgent
-                            <img class="icon" src="/Join/assets/img/addtask_prio-urgent-icon.svg" alt="Prio Urgent">
+                            <img class="icon" src="./assets/img/addtask_prio-urgent-icon.svg" alt="Prio Urgent">
                         </button>
                         <button class="addtask-buttons" id="addtask-prio-medium">Medium
-                            <img class="icon" src="/Join/assets/img/addtask_prio-medium-icon.svg" alt="Prio Medium">
+                            <img class="icon" src="./assets/img/addtask_prio-medium-icon.svg" alt="Prio Medium">
                         </button>
                         <button class="addtask-buttons" id="addtask-prio-low">Low
-                            <img class="icon" src="/Join/assets/img/addtask_prio-low-icon.svg" alt="Prio Low">
+                            <img class="icon" src="./assets/img/addtask_prio-low-icon.svg" alt="Prio Low">
                         </button>
                     </div>
                 </div>
@@ -235,7 +235,7 @@ function insertDynamicContentIntoModal() {
                                 <div class="addtask-info-mobile info-mobile">This field is required
                                 </div>
                                 <button id="create-task" class="blue-btn">Create Task
-                                    <img src="/Join/assets/icons/check.svg" alt="Create Task"></button>
+                                    <img src="./assets/icons/check.svg" alt="Create Task"></button>
                             </div>
                         </div>
                     </div>
@@ -433,15 +433,15 @@ const subtasksHtml = task.subtask.map(subtask =>
                             <div class="addtask-selection">
                                 <div class="addtask-prio-btn">
                                     <button class="addtask-buttons ${task.prio === 'urgent' ? 'is-active' : ''}" id="addtask-prio-urgent" style="${task.prio === 'urgent' ? 'background-color: #ff3d00;' : ''}">Urgent
-                                        <img class="icon" src="/Join/assets/img/addtask_prio-urgent-icon.svg"
+                                        <img class="icon" src="./assets/img/addtask_prio-urgent-icon.svg"
                                             alt="Prio Urgent">
                                     </button>
                                     <button class="addtask-buttons ${task.prio === 'medium' ? 'is-active' : ''}" id="addtask-prio-medium" style="${task.prio === 'medium' ? 'background-color: #ffa800;' : ''}">Medium
-                                        <img class="icon" src="/Join/assets/img/addtask_prio-medium-icon.svg"
+                                        <img class="icon" src="./assets/img/addtask_prio-medium-icon.svg"
                                             alt="Prio Medium">
                                     </button>
                                     <button class="addtask-buttons ${task.prio === 'low' ? 'is-active' : ''}" id="addtask-prio-low" style="${task.prio === 'low' ? 'background-color: #7ae229;' : ''}">Low
-                                        <img class="icon" src="/Join/assets/img/addtask_prio-low-icon.svg"
+                                        <img class="icon" src="./assets/img/addtask_prio-low-icon.svg"
                                             alt="Prio Low">
                                     </button>
                                 </div>
@@ -536,7 +536,7 @@ const subtasksHtml = task.subtask.map(subtask =>
                         <div class="addtask-info info addtask-info-edit">This field is required</div>
                         <div class="addtask-action-btns">
                             <button id="save-task-edit" class="blue-btn">Ok
-                                <img src="/Join/assets/icons/check.svg" alt="Create Task">
+                                <img src="./assets/icons/check.svg" alt="Create Task">
                             </button>
                         </div>
                     </div>
