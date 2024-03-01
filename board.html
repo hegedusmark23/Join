@@ -125,7 +125,7 @@
                     <div class="board-section-1">
                         <div class="board-section-title-mobile">
                             <div class="board-section-title">To do</div>
-                            <a href="addtask.html"><div id="addtask-todo" class="board-section-add-task">
+                            <a href="addtask.html"><div class="board-section-add-task">
                                 <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
@@ -148,7 +148,7 @@
                     <div class="board-section-2">
                         <div class="board-section-title-mobile">
                             <div class="board-section-title">In Progress</div>
-                            <a href="addtask.html"><div id="addtask-todo" class="board-section-add-task">
+                            <a href="addtask.html"><div class="board-section-add-task">
                                 <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
@@ -171,7 +171,7 @@
                     <div class="board-section-3">
                         <div class="board-section-title-mobile">
                             <div class="board-section-title">Await feedback</div>
-                            <a href="addtask.html"><div id="addtask-todo" class="board-section-add-task">
+                            <a href="addtask.html"><div class="board-section-add-task">
                                 <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
@@ -185,16 +185,16 @@
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
-                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')"
+                        <div class="await-feedback-container" ondrop="moveTo('await-feedback')"
                             ondragover="allowDrop(event); hideNoTaskDiv('await-feedback')"
-                            ondragleave="resetNoTaskDiv('await-feedback')">;
+                            ondragleave="resetNoTaskDiv('await-feedback')">
                         </div>
                     </div>
 
                     <div class="board-section-4">
                         <div class="board-section-title-mobile">
                             <div class="board-section-title">Done</div>
-                            <a href="addtask.html"><div id="addtask-todo" class="board-section-add-task">
+                            <a href="addtask.html"><div class="board-section-add-task">
                                 <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
@@ -222,20 +222,24 @@
         </div>
         </section>
 
-    <script src="./JS/script.js"></script>
-    <script src="./JS/w3include.js"></script>
-    <script src="./models/board.class.js"></script>
-    <script src="./JS/storage.js"></script>
-    <script src="./JS/addtask.js"></script>
-    <script src="./JS/main-content.js"></script>
-    <script src="./JS/board.js"></script>
-    <script src="./JS/boardRenderings.js"></script>
-    <script src="./models/tasks.class.js"></script>
-    <script src="./JS/addtaskFormHandling.js"></script>
-    <script src="./JS/search.js"></script>
-    <script src="./JS/contacts.js"></script>
-    <script src="./JS/register.js"></script>
-    <script src="./JS/html-templates.js"></script>
+        <script src="./JS/script.js"></script>
+        <script src="./JS/w3include.js"></script>
+        <script src="./models/board.class.js"></script>
+        <script src="./JS/storage.js"></script>
+        <script src="./JS/addtask.js"></script>
+        <script src="./JS/main-content.js"></script>
+        <script src="./JS/board.js"></script>
+        <script src="./JS/board_overview.js"></script>
+        <script src="./JS/board_eventHandlers.js"></script>
+        <script src="./JS/board_dragdrop.js"></script>
+        <script src="./JS/board_taskDetails.js"></script>
+        <script src="./JS/boardRenderings.js"></script>
+        <script src="./models/tasks.class.js"></script>
+        <script src="./JS/addtaskFormHandling.js"></script>
+        <script src="./JS/search.js"></script>
+        <script src="./JS/contacts.js"></script>
+        <script src="./JS/register.js"></script>
+        <script src="./JS/html-templates.js"></script>
 
 
 

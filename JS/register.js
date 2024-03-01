@@ -43,7 +43,6 @@ function resetForm() {     // Resets the form after registration.
 function match() {      // Checks if the passwords are matching at the registration.
   var password = document.getElementById("password")
     , confirm_password = document.getElementById("confirm_password");
-
   function validatePassword() {
     if (password.value != confirm_password.value) {
       confirm_password.setCustomValidity("Passwords Don't Match");
@@ -127,7 +126,7 @@ function rememberMe() {   // The function behind the "Remember me" checkbox.
   var rememberMeCheckbox = document.getElementById('remember');
   var usernameInput = document.getElementById('email');
   var passwordInput = document.getElementById('password');
-if (localStorage.chkbx && localStorage.chkbx !== '') {
+  if (localStorage.chkbx && localStorage.chkbx !== '') {
     rememberMeCheckbox.checked = true;
     usernameInput.value = localStorage.usrname;
     passwordInput.value = localStorage.pass;

@@ -465,7 +465,7 @@
 
     .header {
         animation: invisVisMobile 1s linear ;
-    }
+    }*/
 
     .welcome-section {
         position: absolute !important;
@@ -479,7 +479,7 @@
         .user-name-text {
             font-size: 35px;
         }
-    }*/
+    }
 }
 
 @media (max-width: 430px) {

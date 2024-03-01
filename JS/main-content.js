@@ -166,3 +166,6 @@ function sortTasksByPrioUrgent() {
   Urgent.innerHTML = urgentTasks.length;
   urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
 }
+
+
+  
