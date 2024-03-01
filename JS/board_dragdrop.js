@@ -50,6 +50,7 @@ function hideNoTaskDiv(id) {
  * @param {string} id - Die ID der Spalte, für die der Hinweis zurückgesetzt werden soll.
  */
 function resetNoTaskDiv(id) {
+    let background;
     if (id == 'toDo' && todos.length == 0) {
         background = 'board-card-background-1';
     } else if (id == 'in-progress' && inProgress.length == 0) {
@@ -59,5 +60,5 @@ function resetNoTaskDiv(id) {
     } else if (id == 'done' && done.length == 0) {
         background = 'board-card-background-4'
     }
-    document.getElementById(background).style.display = ''
+    document.getElementById(background).style.display = 'block'
 }
