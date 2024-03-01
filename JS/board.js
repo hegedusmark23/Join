@@ -40,10 +40,64 @@ async function initializeBoard() {
  * Initialisiert das Board neu, indem alle Task-Karten basierend auf dem Filterzustand neu gerendert werden.
  * @param {Array} [filteredTasks=null] - Optional. Array von gefilterten Tasks.
  */
-async function initializeBoardCard(filteredTasks = null) {
-    await processTasksForStatus(filteredTasks, 'toDo', 'board-card-background-1', 'toDo');
-    await processTasksForStatus(filteredTasks, 'in-progress', 'board-card-background-2', 'in-progress');
-    await processTasksForStatus(filteredTasks, 'await-feedback', 'board-card-background-3', 'await-feedback');
-    await processTasksForStatus(filteredTasks, 'done', 'board-card-background-4', 'done');
+
+async function initializeBoardCard() {
+    let tasks = await fetchTasks();
+    let noTasksDiv1 = document.getElementById('board-card-background-1');
+    let noTaskDiv2 = document.getElementById('board-card-background-2');
+    let noTaskDiv3 = document.getElementById('board-card-background-3');
+    let noTaskDiv4 = document.getElementById('board-card-background-4');
+    let toDoCardsContainer = document.getElementById('toDo');
+    let inProgressCardContainer = document.getElementById('in-progress');
+    let awaitFeedBackCardContainer = document.getElementById('await-feedback');
+    let doneCardContainer = document.getElementById('done');
+    todos = tasks.filter(t => t['state'] == 'toDo');
+    if (todos.length > 0) {
+        noTasksDiv1.style.display = 'none';
+    } else {
+        noTasksDiv1.style.display = 'flex';
+    }
+    toDoCardsContainer.innerHTML = '';
+    for (let i = 0; i < todos.length; i++) {
+        let task = todos[i]
+        let completionDetails = updateSubtaskProgress(task);
+        toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+    inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
+    if (inProgress.length > 0) {
+        noTaskDiv2.style.display = 'none';
+    } else {
+        noTaskDiv2.style.display = 'flex';
+    }
+    inProgressCardContainer.innerHTML = '';
+    for (let i = 0; i < inProgress.length; i++) {
+        let task = inProgress[i];
+        let completionDetails = updateSubtaskProgress(task);
+        inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+    awaitFeedback = tasks.filter(awFe => awFe['state'] == 'await-feedback');
+    if (awaitFeedback.length > 0) {
+        noTaskDiv3.style.display = 'none';
+    } else {
+        noTaskDiv3.style.display = 'flex';
+    }
+    awaitFeedBackCardContainer.innerHTML = '';
+    for (let i = 0; i < awaitFeedback.length; i++) {
+        let task = awaitFeedback[i];
+        let completionDetails = updateSubtaskProgress(task);
+        awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+    done = tasks.filter(d => d['state'] == 'done');
+    if (done.length > 0) {
+        noTaskDiv4.style.display = 'none';
+    } else {
+        noTaskDiv4.style.display = 'flex';
+    }
+    doneCardContainer.innerHTML = '';
+    for (let i = 0; i < done.length; i++) {
+        let task = done[i];
+        let completionDetails = updateSubtaskProgress(task);
+        doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
     setupTaskClickListeners();
 }
