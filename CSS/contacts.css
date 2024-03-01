@@ -116,7 +116,7 @@ h1.contact-view-title {
   flex-direction: column;
   justify-content: space-between;
   gap: 24px;
-  height: 364px;
+  height: 305px;
   gap: 21px;
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
@@ -419,7 +419,7 @@ h1.contact-view-title {
 .input-and-btn-container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
 }
 
 .cross-icon-container {
@@ -646,7 +646,7 @@ h1.contact-view-title {
 
 @media (max-width: 1250px) {
   .contact-book {
-    padding: 32px 12px;
+    padding: 100px 12px;
   }
 
   .add-new-contact-btn {
@@ -663,7 +663,7 @@ h1.contact-view-title {
   }
 
   .contact-view-section {
-    padding: 32px 12px;
+    padding: 92px 12px;
   }
 
   .contact-view-title-container {
@@ -943,10 +943,14 @@ h1.contact-view-title {
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 430px) {
   .contact-dialog {
     height: auto;
   }
+
+  .contacts-left-container {
+    padding: 31px 24px;
+}
 
   .cross-icon-container{
     top: 24px;
@@ -996,7 +1000,7 @@ h1.contact-view-title {
   }
 
   .inputs-container {
-    gap: 32px;
+    gap: 20px;
   }
 
   .input-name,

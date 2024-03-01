@@ -16,7 +16,7 @@
         <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <section class="content-container">
-
+            
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
@@ -125,18 +125,15 @@
                     <div class="board-section-1">
                         <div class="board-section-title-mobile">
                             <div class="board-section-title">To do</div>
-                            <a href="addtask.html">
-                                <div class="board-section-add-task">
-                                    <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647"
-                                            stroke-width="2" />
-                                        <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                        <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                </div>
-                            </a>
+                            <a href="addtask.html"><div class="board-section-add-task">
+                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div></a>
                         </div>
 
                         <div class="board-section-cards">
@@ -151,18 +148,15 @@
                     <div class="board-section-2">
                         <div class="board-section-title-mobile">
                             <div class="board-section-title">In Progress</div>
-                            <a href="addtask.html">
-                                <div class="board-section-add-task">
-                                    <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647"
-                                            stroke-width="2" />
-                                        <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                        <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                </div>
-                            </a>
+                            <a href="addtask.html"><div class="board-section-add-task">
+                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div></a>
                         </div>
 
                         <div class="board-section-cards">
@@ -177,44 +171,38 @@
                     <div class="board-section-3">
                         <div class="board-section-title-mobile">
                             <div class="board-section-title">Await feedback</div>
-                            <a href="addtask.html">
-                                <div class="board-section-add-task">
-                                    <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647"
-                                            stroke-width="2" />
-                                        <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                        <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                </div>
-                            </a>
+                            <a href="addtask.html"><div class="board-section-add-task">
+                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div></a>
                         </div>
 
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
-                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')"
+                        <div class="await-feedback-container" ondrop="moveTo('await-feedback')"
                             ondragover="allowDrop(event); hideNoTaskDiv('await-feedback')"
-                            ondragleave="resetNoTaskDiv('await-feedback')">;
+                            ondragleave="resetNoTaskDiv('await-feedback')">
                         </div>
                     </div>
 
                     <div class="board-section-4">
                         <div class="board-section-title-mobile">
                             <div class="board-section-title">Done</div>
-                            <a href="addtask.html">
-                                <div class="board-section-add-task">
-                                    <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647"
-                                            stroke-width="2" />
-                                        <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                        <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                </div>
-                            </a>
+                            <a href="addtask.html"><div class="board-section-add-task">
+                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div></a>
                         </div>
 
                         <div class="board-section-cards">
@@ -231,7 +219,7 @@
                     <p>Task added to board</p>
                 </div>
             </div>
-            </div>
+        </div>
         </section>
 
         <script src="./JS/script.js"></script>
