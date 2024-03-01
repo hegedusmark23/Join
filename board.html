@@ -15,8 +15,7 @@
     <main class="board-contents">
         <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <section class="content-container">
-            
+        <div class="content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
@@ -47,8 +46,6 @@
                 <div class="board-header">
                     <div class="board-header-left">
                         <h1>Board</h1>
-                        <a href="./addtask.html"><img class="add-task-mobile"
-                                src="./assets/img/plus-add-task-mobile.png" alt=""></a>
                     </div>
                     <div class="board-header-right">
                         <div class="board-search-input">
@@ -56,24 +53,24 @@
                                 <input type="text" placeholder="Find Task">
                             </div>
                             <div class="board-search-icons">
-                                <div class="divider-img"><img src="./assets/icons/divider.svg" alt="Divider Icon">
+                                <div class="divider-img"><img src="/Join/assets/icons/divider.svg" alt="Divider Icon">
                                 </div>
                                 <div class="search-icon">
-                                    <img src="./assets/icons/search.svg" style="display: block;" alt="Search Icon">
-                                    <img src="./assets/icons/cross.svg" style="display: none;"
+                                    <img src="/Join/assets/icons/search.svg" style="display: block;" alt="Search Icon">
+                                    <img src="/Join/assets/icons/cross.svg" style="display: none;"
                                         alt=" Delete Search Icon">
                                 </div>
                             </div>
                         </div>
                         <div class="board-add-task">
                             <button id="open-modal-button" class="blue-btn">Add Task
-                                <img src="./assets/icons/add.svg" alt="Plus Icon">
+                                <img src="/Join/assets/icons/add.svg" alt="Plus Icon">
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div id="titleToHide0" id="board-sectors" class="board-sector">
+                <div id="board-sectors" class="board-sector">
                     <div class="board-section-column">
                         <div class="board-section-title">To do</div>
                         <div id="addtask-todo" class="board-section-add-task">
@@ -87,7 +84,7 @@
                         </div>
                     </div>
 
-                    <div id="titleToHide1" class="board-section-column">
+                    <div class="board-section-column">
                         <div class="board-section-title">In progress</div>
                         <div id="addtask-in-progress" class="board-section-add-task">
                             <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -100,7 +97,7 @@
                         </div>
                     </div>
 
-                    <div id="titleToHide2" class="board-section-column">
+                    <div class="board-section-column">
                         <div class="board-section-title">Await feedback</div>
                         <div id="addtask-await-feedback" class="board-section-add-task">
                             <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -113,7 +110,7 @@
                         </div>
                     </div>
 
-                    <div id="titleToHide3" class="board-section-column">
+                    <div class="board-section-column">
                         <div class="board-section-title">Done</div>
                     </div>
 
@@ -123,19 +120,6 @@
             <section id="board-content">
                 <div class="board-sections">
                     <div class="board-section-1">
-                        <div class="board-section-title-mobile">
-                            <div class="board-section-title">To do</div>
-                            <a href="addtask.html"><div class="board-section-add-task">
-                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </div></a>
-                        </div>
-
                         <div class="board-section-cards">
                             <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
                         </div>
@@ -146,19 +130,6 @@
                     </div>
 
                     <div class="board-section-2">
-                        <div class="board-section-title-mobile">
-                            <div class="board-section-title">In Progress</div>
-                            <a href="addtask.html"><div class="board-section-add-task">
-                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </div></a>
-                        </div>
-
                         <div class="board-section-cards">
                             <div id="board-card-background-2" class="board-card-bg">No tasks In progress</div>
                         </div>
@@ -169,42 +140,16 @@
                     </div>
 
                     <div class="board-section-3">
-                        <div class="board-section-title-mobile">
-                            <div class="board-section-title">Await feedback</div>
-                            <a href="addtask.html"><div class="board-section-add-task">
-                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </div></a>
-                        </div>
-
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
-                        <div class="await-feedback-container" ondrop="moveTo('await-feedback')"
+                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')"
                             ondragover="allowDrop(event); hideNoTaskDiv('await-feedback')"
-                            ondragleave="resetNoTaskDiv('await-feedback')">
+                            ondragleave="resetNoTaskDiv('await-feedback')">;
                         </div>
                     </div>
 
                     <div class="board-section-4">
-                        <div class="board-section-title-mobile">
-                            <div class="board-section-title">Done</div>
-                            <a href="addtask.html"><div class="board-section-add-task">
-                                <svg class="boardAddTaskBtn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-                                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-                                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </div></a>
-                        </div>
-
                         <div class="board-section-cards">
                             <div id="board-card-background-4" class="board-card-bg">No tasks Done</div>
                         </div>
@@ -220,28 +165,28 @@
                 </div>
             </div>
         </div>
-        </section>
+    </main>
 
-        <script src="./JS/script.js"></script>
-        <script src="./JS/w3include.js"></script>
-        <script src="./models/board.class.js"></script>
-        <script src="./JS/storage.js"></script>
-        <script src="./JS/addtask.js"></script>
-        <script src="./JS/main-content.js"></script>
-        <script src="./JS/board.js"></script>
-        <script src="./JS/board_overview.js"></script>
-        <script src="./JS/board_eventHandlers.js"></script>
-        <script src="./JS/board_dragdrop.js"></script>
-        <script src="./JS/board_showTaskDetails.js"></script>
-        <script src="./JS/board_createTasks.js"></script>
-        <script src="./JS/board_editTasks.js"></script>
-        <script src="./JS/board_editTasksRender.js"></script>
-        <script src="./models/tasks.class.js"></script>
-        <script src="./JS/addtaskFormHandling.js"></script>
-        <script src="./JS/search.js"></script>
-        <script src="./JS/contacts.js"></script>
-        <script src="./JS/register.js"></script>
-        <script src="./JS/html-templates.js"></script>
+    <script src="./JS/script.js"></script>
+    <script src="./JS/w3include.js"></script>
+    <script src="./models/board.class.js"></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/addtask.js"></script>
+    <script src="./JS/main-content.js"></script>
+    <script src="./JS/board.js"></script>
+    <script src="./JS/board_overview.js"></script>
+    <script src="./JS/board_eventHandlers.js"></script>
+    <script src="./JS/board_dragdrop.js"></script>
+    <script src="./JS/board_showTaskDetails.js"></script>
+    <script src="./JS/board_createTasks.js"></script>
+    <script src="./JS/board_editTasks.js"></script>
+    <script src="./JS/board_editTasksRender.js"></script>
+    <script src="./models/tasks.class.js"></script>
+    <script src="./JS/addtaskFormHandling.js"></script>
+    <script src="./JS/search.js"></script>
+    <script src="./JS/contacts.js"></script>
+    <script src="./JS/register.js"></script>
+    <script src="./JS/html-templates.js"></script>
 
 </body>
 
