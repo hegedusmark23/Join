@@ -185,9 +185,8 @@
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
-                        <div class="await-feedback-container" ondrop="moveTo('await-feedback')"
-                            ondragover="allowDrop(event); hideNoTaskDiv('await-feedback')"
-                            ondragleave="resetNoTaskDiv('await-feedback')">
+                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')";
+                            ondragover="allowDrop(event); hideNoTaskDiv('await-feedback')"; ondragleave="resetNoTaskDiv('await-feedback')">
                         </div>
                     </div>
 
@@ -229,9 +228,9 @@
         <script src="./JS/addtask.js"></script>
         <script src="./JS/main-content.js"></script>
         <script src="./JS/board.js"></script>
+        <script src="./JS/board_dragdrop.js"></script>
         <script src="./JS/board_overview.js"></script>
         <script src="./JS/board_eventHandlers.js"></script>
-        <script src="./JS/board_dragdrop.js"></script>
         <script src="./JS/board_showTaskDetails.js"></script>
         <script src="./JS/board_createTasks.js"></script>
         <script src="./JS/board_editTasks.js"></script>

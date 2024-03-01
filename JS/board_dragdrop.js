@@ -1,3 +1,7 @@
+let todos;
+let inProgress;
+let awaitFeedback;
+let done;
 /**
  * Startet den Drag-Vorgang für ein Task-Element.
  * @param {number} id - Die ID des zu verschiebenden Tasks.
