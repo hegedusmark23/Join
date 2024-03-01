@@ -26,47 +26,6 @@ async function fetchAndFilterTasks(filteredTasks, status) {
 }
 
 /**
- * Steuert die Anzeige des "Keine Tasks"-Divs.
- * @param {HTMLElement} noTasksDiv - Das Div-Element, das angezeigt wird, wenn keine Tasks vorhanden sind.
- * @param {Array} tasks - Array von Tasks.
- */
-function displayNoTasksDiv(noTasksDiv, tasks) {
-    noTasksDiv.style.display = tasks.length > 0 ? 'none' : 'flex';
-}
-
-/**
- * Füllt den Task-Container mit Task-Karten.
- * @param {HTMLElement} container - Der Container für die Task-Karten.
- * @param {Array} tasks - Array von Tasks.
- */
-function populateTaskContainer(container, tasks) {
-    if (container) {
-        container.innerHTML = '';
-        tasks.forEach((task, i) => {
-        let completionDetails = updateSubtaskProgress(task);
-        container.innerHTML += renderCardContent(i, task, completionDetails);
-    });
-    } else {
-        console.info('Der Container wurde nicht gefunden.');
-    }
-}
-
-/**
- * Verarbeitet Tasks für einen bestimmten Status und aktualisiert die Anzeige entsprechend.
- * @param {Array} filteredTasks - Array von gefilterten Tasks.
- * @param {string} status - Der Status, nach dem gefiltert werden soll.
- * @param {string} noTasksDivId - Die ID des "Keine Tasks"-Divs.
- * @param {string} containerId - Die ID des Containers für die Task-Karten.
- */
-async function processTasksForStatus(filteredTasks, status, noTasksDivId, containerId) {
-    let tasks = await fetchAndFilterTasks(filteredTasks, status);
-    let noTasksDiv = document.getElementById(noTasksDivId);
-    let container = document.getElementById(containerId);
-    displayNoTasksDiv(noTasksDiv, tasks);
-    populateTaskContainer(container, tasks);
-}
-
-/**
  * Aktualisiert den Fortschritt der Subtasks für einen gegebenen Task.
  * @param {Object} task - Der Task, dessen Subtask-Fortschritt aktualisiert werden soll.
  * @returns {Object} Ein Objekt mit dem Prozentsatz des Fortschritts und einem Text, der den Fortschritt anzeigt.
@@ -150,7 +109,7 @@ function createSubtaskContent(task, completionDetails) {
  */
 function renderCardContent(i, task, completionDetails) {
     let tasksImg = taskImage(task);
-    let imgHtml = tasksImg ? `<div class="board-card-footer-prio"><img src="/Join/assets/icons/${tasksImg}" alt="Prio Symbol"></div>` : '';
+    let imgHtml = tasksImg ? `<div class="board-card-footer-prio"><img src="./assets/icons/${tasksImg}" alt="Prio Symbol"></div>` : '';
     let assigneesFooter = createAssigneesFooter(task);
     let description = task.description ? task.description : "";
     let subtaskContent = createSubtaskContent(task, completionDetails);
@@ -169,3 +128,25 @@ function renderCardContent(i, task, completionDetails) {
     </div>`;
 }
 
+/**
+ * Wechselt den Abschlussstatus eines Subtasks.
+ * @param {number} taskId - Die ID des übergeordneten Tasks.
+ * @param {number} subtaskId - Die ID des Subtasks.
+ * @returns {Object|null} Das aktualisierte Task-Objekt oder null, falls nicht gefunden.
+ */
+async function toggleSubtaskCompleted(taskId, subtaskId) {
+    let task = tasks.find(task => task.id === taskId);
+    if (task) {
+        let subtask = task.subtask.find(subtask => subtask.id === subtaskId);
+        if (subtask) {
+            // Status umschalten
+            subtask.completed = subtask.completed === 'done' ? '' : 'done';
+            await setItem('tasks', JSON.stringify(tasks));
+            initializeBoardCard();
+            openTaskDetailModal(task);
+
+            return task;
+        }
+    }
+    return null;
+}
