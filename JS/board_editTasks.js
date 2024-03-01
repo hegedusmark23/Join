@@ -38,8 +38,6 @@ function generateInitials(completeName) {
     return completeName.split(' ').map(part => part[0]).join('').toUpperCase();
 }
 
-
-
 /**
  * Extrahiert den Buchstaben und den lokalen Index aus einem globalen Index.
  * Dies wird verwendet, um einen bestimmten Kontakt in der verschachtelten Struktur von `letterContainer` zu lokalisieren.
@@ -88,57 +86,90 @@ function extractPriority() {
 }
 
 /**
- * Speichert die Änderungen eines Tasks nach der Bearbeitung.
- * @param {number} taskId - Die ID des zu speichernden Tasks.
+ * Extrahiert Formulardaten aus dem Bearbeitungsmodal.
+ * @returns Ein Objekt mit den extrahierten Daten aus dem Formular: Titel, Beschreibung, Fälligkeitsdatum, Kategorie, Priorität, zugewiesene Personen (Assignees) und Subtasks.
+ */
+function extractFormData() {
+    return {
+        title: document.getElementById('addtask-title') ? document.getElementById('addtask-title').value : '',
+        description: document.getElementById('description') ? document.getElementById('description').value : '',
+        dueDate: document.getElementById('dueDate') ? document.getElementById('dueDate').value : '',
+        category: document.getElementById('dropdown-categories') ? document.getElementById('dropdown-categories').textContent : '',
+        priority: extractPriority(), // Implementieren Sie diese Funktion entsprechend Ihrer Logik
+        assignTo: extractAssignees(),
+        subtask: extractSubtasks()
+    };
+}
+
+/**
+ * Extrahiert die zugewiesenen Personen (Assignees) aus dem Bearbeitungsmodal.
+ * @returns Ein Array von Objekten, jedes repräsentiert eine zugewiesene Person mit Namen, Initialen und Farbe.
+ */
+function extractAssignees() {
+    return Array.from(document.querySelectorAll('.dropdown-content-container.user-checked')).map(assigneeContainer => {
+        const name = assigneeContainer.querySelector('.dropdown-content-name').textContent;
+        const color = assigneeContainer.querySelector('.dropdown-content-circle').style.backgroundColor;
+        const initials = assigneeContainer.querySelector('#user-initials').textContent;
+        return { name, initials, color };
+    });
+}
+
+/**
+ * Extrahiert Subtasks aus dem Bearbeitungsmodal.
+ * @returns Ein Array von Objekten, jedes repräsentiert einen Subtask mit Text, ID und Abschlussstatus.
+ */
+function extractSubtasks() {
+    return Array.from(document.querySelectorAll('#subtasks-list-container ul li')).map(subtaskItem => {
+        const text = subtaskItem.querySelector('p').textContent;
+        const id = subtaskItem.dataset.subtaskId ? parseInt(subtaskItem.dataset.subtaskId) : Date.now();
+        const completed = subtaskItem.classList.contains('subtask-completed') ? 'done' : '';
+        return { id, text, completed };
+    });
+}
+
+/**
+ * Speichert die bearbeiteten Aufgabendetails und aktualisiert das UI entsprechend.
+ * @param {number} taskId Die ID der Aufgabe, die bearbeitet wird.
  */
 async function saveTaskEdit(taskId) {
     setTimeout(async () => {
+        const formData = extractFormData();
         const taskIndex = tasks.findIndex(task => task.id === parseInt(taskId));
         if (taskIndex === -1) {
             console.error('Aufgabe nicht gefunden.');
             return;
         }
-        const title = document.getElementById('addtask-title') ? document.getElementById('addtask-title').value : '';
-        const description = document.getElementById('description') ? document.getElementById('description').value : '';
-        const dueDate = document.getElementById('dueDate') ? document.getElementById('dueDate').value : '';
-        const category = document.getElementById('dropdown-categories') ? document.getElementById('dropdown-categories').textContent : '';
-        const priority = extractPriority(); // Implementieren Sie diese Funktion entsprechend Ihrer Logik
-        // Extrahieren von Assignees
-        const assignTo = Array.from(document.querySelectorAll('.dropdown-content-container.user-checked')).map(assigneeContainer => {
-            const name = assigneeContainer.querySelector('.dropdown-content-name').textContent;
-            const color = assigneeContainer.querySelector('.dropdown-content-circle').style.backgroundColor;
-            const initials = assigneeContainer.querySelector('#user-initials').textContent;
-            return { name, initials, color };
-        });
-        // Extrahieren von Subtasks
-        const subtask = Array.from(document.querySelectorAll('#subtasks-list-container ul li')).map(subtaskItem => {
-            const text = subtaskItem.querySelector('p').textContent;
-            const id = subtaskItem.dataset.subtaskId ? parseInt(subtaskItem.dataset.subtaskId) : Date.now();
-            const completed = subtaskItem.classList.contains('subtask-completed') ? 'done' : '';
-            return { id, text, completed };
-        });
-        // Aufgabe im tasks Array aktualisieren
-        tasks[taskIndex] = {
-            ...tasks[taskIndex],
-            title,
-            description,
-            dueDate,
-            category,
-            priority,
-            assignTo,
-            subtask
-        };
+        // Aktualisiere den Task im Array
+        updateTask(taskIndex, formData);
         try {
-            // Speichern der Aufgaben
-            await setItem('tasks', tasks);
-            clearEditModalContent();
-            reinitializeEventListenersForEditModal();
-            openTaskDetailModal(tasks[taskIndex]); // Öffnet die Detailansicht mit den aktualisierten Daten
-            await initializeBoardCard(); // Aktualisieren der Board-Karten
+            // Speichern der Aufgaben und UI aktualisieren
+            await saveTasksAndReloadUI(taskIndex);
         } catch (error) {
             console.error('Fehler beim Speichern der Aufgaben:', error);
         }
-    }, 100); // 1 Sekunde warten, um sicherzustellen, dass alle Elemente geladen sind
+    }, 100);
+}
+
+/**
+ * Aktualisiert eine Aufgabe im tasks Array basierend auf den übergebenen Formulardaten.
+ * @param {number} taskIndex Der Index der Aufgabe im tasks Array.
+ * @param {object} formData Die Daten, die aus dem Formular extrahiert wurden und mit denen der Task aktualisiert wird.
+ */
+function updateTask(taskIndex, formData) {
+    tasks[taskIndex] = { ...tasks[taskIndex], ...formData };
+}
+
+/**
+ * Speichert das aktualisierte tasks Array im Speicher und aktualisiert das UI.
+ * Ruft Funktionen auf, um das Bearbeitungsmodal zu schließen, Event-Listener neu zu initialisieren, die Detailansicht des aktualisierten Tasks zu öffnen und die Board-Karten zu aktualisieren.
+ * @param {number} taskIndex Der Index der aktualisierten Aufgabe im tasks Array.
+ */
+async function saveTasksAndReloadUI(taskIndex) {
+    await setItem('tasks', tasks);
+    clearEditModalContent();
+    reinitializeEventListenersForEditModal();
+    openTaskDetailModal(tasks[taskIndex]); // Öffnet die Detailansicht mit den aktualisierten Daten
+    await initializeBoardCard(); // Aktualisieren der Board-Karten
 }
 
 /**
@@ -153,4 +184,3 @@ function closeModalTaskEdit() {
         }, 500); // Wartezeit entspricht der Dauer der Animation
     }
 }
-
