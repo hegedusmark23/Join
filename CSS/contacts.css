@@ -995,6 +995,10 @@ h1.contact-view-title {
     padding: 31px 24px;
 }
 
+.logo-and-title-container {
+  margin-bottom: 32px;
+}
+
   .cross-icon-container {
     top: 24px;
   }
@@ -1009,7 +1013,7 @@ h1.contact-view-title {
   }
 
   .add-contact-title {
-    font-size: 32px;
+    font-size: 28px;
   }
 
   .add-contact-subtitle {

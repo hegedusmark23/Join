@@ -12,17 +12,27 @@ let badgeColor;
 let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 let truncedEmail;
 
-
+/**
+ *   Diese Funktion erstellt für jeden im Alphabet-Array enthaltenen Buchstaben eine Schlüssel-Wert-Eigenschaft im lettersContainer-Objekt, wobei jeder Schlüssel ein leeres Array ist
+ * @param {string} letter - der Parameter letter enthält den Buchstaben, der aus dem Alphabet-Array iteriert wird
+*/
 alphabet.forEach((letter) => {
     letterContainer[letter] = [];
 })
 
+
+/**
+ * Diese asynchrone Funktion schließt den Header und die Sidebar in die Seite addcontacts.html ein. Mit der Funktion loadItems werden dann alle zuvor im Remote Storage gespeicherten Kontakte übernommen und nach der Umkehrung von Text in Code wieder in den Json "lettersContainer" eingefügt. Schließlich iteriert die Funktion setLettersContainers() die Schlüssel des lettersContainer-Arrays in den Container "contact-list", um die Buchstaben A bis Z in der Kontaktliste anzuzeigen;
+ */
 async function renderContact() {
     includeHTML();
     await loadItems();
     await setLettersContainers();
 }
 
+/**
+ * Diese Funktion holt die Kontaktdaten aus dem Remote Storage und wandelt sie von Text in Code um, um sie dann in das Array letterContainer einzufügen
+ */
 async function loadItems() {
     try {
         const response = await getItem('contacts');
