@@ -78,6 +78,7 @@ function closeModal(modalId) {
             modalContent.classList.remove('modal-close'); // Bereitet den Inhalt für die nächste Öffnung vor
         }, 700); // Wartezeit entspricht der Dauer der Animation
     }
+    clearEditModalContent();
 }
 
 /**
@@ -228,9 +229,10 @@ function setupEditTaskListener() {
     document.addEventListener('click', function(event) {
         const editButton = event.target.closest('#edit-task');
         if (editButton) {  // Extrahieren der Task-ID
-            const taskHeaderElement = document.querySelector('.task-details-header');
+                        const taskHeaderElement = document.querySelector('.task-details-header');
             if (taskHeaderElement && taskHeaderElement.id) {
                 const taskId = taskHeaderElement.id.replace('task-', '');
+                console.log('Task ID gefunden:', taskId);
                 if (taskId) {
                     renderEditTask(taskId);
                     const saveButton = document.getElementById('save-task-edit');
