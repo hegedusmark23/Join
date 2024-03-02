@@ -42,6 +42,7 @@ async function initializeBoard() {
 
 async function initializeBoardCard() {
     let tasks = await fetchTasks();
+    console.log('initializeBoardCard aufgerufen mit Tasks:', tasks);
     let noTasksDiv1 = document.getElementById('board-card-background-1');
     let noTaskDiv2 = document.getElementById('board-card-background-2');
     let noTaskDiv3 = document.getElementById('board-card-background-3');
