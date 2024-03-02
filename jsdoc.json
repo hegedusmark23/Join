@@ -1,0 +1,10 @@
+{
+    "source": {
+        "include": ["JS", "models"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "exclude": ["node_modules"]
+    },
+    "opts": {
+        "destination": "docs"
+    }
+}

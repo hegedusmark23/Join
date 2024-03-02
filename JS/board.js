@@ -3,7 +3,6 @@ let inProgress;
 let awaitFeedback;
 let done;
 let currentDraggedElement;
-let background;
 
 /**
  * Abrufen der gespeicherten Tasks aus dem Remote-Storage.

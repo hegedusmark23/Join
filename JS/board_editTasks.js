@@ -30,6 +30,19 @@ function closeModalAddTaskBoard() {
 }
 
 /**
+ * Schließt das Modal zum Bearbeiten eines Tasks.
+ */
+function closeModalTaskEdit() {
+    const modalEdit = document.getElementById('task-detail-modal');
+    if (modalEdit) {
+        modalEdit.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
+        setTimeout(() => {
+            modalEdit.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
+        }, 500); // Wartezeit entspricht der Dauer der Animation
+    }
+}
+
+/**
  * Generiert Initialen aus dem vollständigen Namen.
  * @param {string} completeName - Vollständiger Name, aus dem die Initialen generiert werden sollen.
  * @return {string} Die generierten Initialen.
@@ -170,17 +183,4 @@ async function saveTasksAndReloadUI(taskIndex) {
     reinitializeEventListenersForEditModal();
     openTaskDetailModal(tasks[taskIndex]); // Öffnet die Detailansicht mit den aktualisierten Daten
     await initializeBoardCard(); // Aktualisieren der Board-Karten
-}
-
-/**
- * Schließt das Modal zum Bearbeiten eines Tasks.
- */
-function closeModalTaskEdit() {
-    const modalEdit = document.getElementById('task-detail-modal');
-    if (modalEdit) {
-        modalEdit.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
-        setTimeout(() => {
-            modalEdit.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-        }, 500); // Wartezeit entspricht der Dauer der Animation
-    }
 }

@@ -195,11 +195,9 @@ function setupSubtaskCompletionListener() {
  * Initialisiert den EventListener für den "Löschen"-Button, um den aktuellen Task zu löschen.
  */
 function setupDeleteTaskListener() {
-    console.log('Setup Delete Task Listener');
     const deleteButton = document.getElementById('delete-task-button');
     if (deleteButton) {
         deleteButton.addEventListener('click', deleteCurrentTask);
-        console.log('Delete-Listener hinzugefügt');
     } else {
         console.info('Delete-Button wurde nicht gefunden.');
     }
@@ -228,9 +226,10 @@ function setupEditTaskListener() {
     document.addEventListener('click', function(event) {
         const editButton = event.target.closest('#edit-task');
         if (editButton) {  // Extrahieren der Task-ID
-            const taskHeaderElement = document.querySelector('.task-details-header');
+                        const taskHeaderElement = document.querySelector('.task-details-header');
             if (taskHeaderElement && taskHeaderElement.id) {
                 const taskId = taskHeaderElement.id.replace('task-', '');
+                console.log('Task ID gefunden:', taskId);
                 if (taskId) {
                     renderEditTask(taskId);
                     const saveButton = document.getElementById('save-task-edit');

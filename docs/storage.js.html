@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: storage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: storage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const STORAGE_TOKEN = 'J1DF6T54G0IGAJIJ3AG9Z7W92UFJ0PRM1DJFQ500';
+const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
+
+/**
+ * Speichert ein Item im remoteStorage.
+ * @param {string} key - Der Schlüssel unter dem das Item gespeichert wird.
+ * @param {string} value - Der Wert des Items als String.
+ * @returns {Promise&lt;Object>} Eine Promise mit der Antwort vom Server.
+ */
+async function setItem(key, value) {
+    const payload = { key, value, token: STORAGE_TOKEN }
+    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) }).then(resp => resp.json());
+};
+
+/**
+ * Ruft ein Item vom remoteStorage ab.
+ * @param {string} key - Der Schlüssel des abzurufenden Items.
+ * @returns {Promise&lt;string>} Eine Promise mit dem Wert des Items als String.
+ */
+async function getItem(key) {
+    const url = `${STORAGE_URL}?key=${key}&amp;token=${STORAGE_TOKEN}`
+    return fetch(url).then(resp => resp.json()).then(resp => {
+        if (resp.data) {
+            return resp.data.value
+        } else {
+            return resp
+        }
+    });
+};
+
+/**
+ * Löscht bestimmte Tasks oder alle, falls keine spezifischen IDs übergeben werden.
+ * @param {number[]} [taskIds=[]] - Die IDs der zu löschenden Tasks.
+ */
+async function deleteTasks(taskIds = []) {
+    try {
+        let tasks = await getItem('tasks'); // Abrufen aller gespeicherten Tasks als String
+        
+        try {
+            tasks = JSON.parse(tasks); // Konvertieren des String zurück in ein Array
+        } catch (error) {
+            console.error('Fehler beim Parsen der Tasks:', error);
+            return; // Beendet die Funktion vorzeitig, wenn das Parsen fehlschlägt
+        }
+        if (!Array.isArray(tasks)) {
+            console.error('Nach dem Parsen sind die Tasks kein Array:', tasks);
+            return; // Sicherstellen, dass die Tasks ein Array sind
+        }
+        if (taskIds &amp;&amp; taskIds.length > 0) {
+            // Löschen spezifischer Tasks durch ihre IDs
+            tasks = tasks.filter(task => !taskIds.includes(task.id));
+        } else {
+            // Löschen aller Tasks, wenn keine IDs bereitgestellt werden
+            tasks = [];
+        }
+        await setItem('tasks', JSON.stringify(tasks)); // Aktualisieren des Speichers mit den verbleibenden/leeren Tasks
+        console.log('Task(s) erfolgreich gelöscht');
+    } catch (error) {
+        console.error('Fehler beim Löschen des/der Task(s):', error);
+    }
+}
+
+/**
+ * Fügt allen vorhandenen Tasks einen 'state' hinzu, falls dieser noch nicht vorhanden ist.
+ */
+async function addStateToExistingTasks() {
+  try {
+      let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
+      tasks = JSON.parse(tasks); // Versuch, den String zu parsen
+      if (!Array.isArray(tasks)) {
+          console.error('Die abgerufenen Daten sind kein Array:', tasks);
+          return; // Beendet die Funktion, wenn keine Array-Daten vorliegen
+      }
+      tasks = tasks.map(task => {
+          if (!task.state) { // Hinzufügen von 'state', falls nicht vorhanden
+              task.state = 'toDo';
+          }
+          return task;
+      });
+
+      await setItem('tasks', JSON.stringify(tasks)); // Speichern der aktualisierten Tasks
+      console.log('Alle vorhandenen Tasks wurden erfolgreich aktualisiert.');
+  } catch (error) {
+      console.error('Fehler beim Aktualisieren der vorhandenen Tasks:', error);
+  }
+}
+
+/**
+ * Ändert den 'state' aller vorhandenen Tasks oder fügt ihn hinzu, falls nicht vorhanden.
+ */
+async function changeAddStateTasks() {
+    try {
+        let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
+        if (typeof tasks === 'string') {
+            tasks = JSON.parse(tasks); // Versuch, den String zu parsen
+        }
+
+        if (!Array.isArray(tasks)) {
+            console.error('Die abgerufenen Daten sind kein Array:', tasks);
+            tasks = []; // Initialisiert tasks als leeres Array, falls die Daten nicht im Array-Format vorliegen
+        }
+  
+        const updatedTasks = tasks.map(task => {
+            if (!task.state) { // Hinzufügen von 'state', falls nicht vorhanden
+                return { ...task, state: 'toDo' };
+            }
+            return task;
+        });
+  
+        await setItem('tasks', JSON.stringify(updatedTasks)); // Speichern der aktualisierten Tasks
+        console.log('Alle vorhandenen Tasks wurden erfolgreich aktualisiert.');
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren der vorhandenen Tasks:', error);
+    }
+}
+
+/**
+ * Fügt allen vorhandenen Subtasks das Attribut 'completed' hinzu, falls dieses noch nicht vorhanden ist.
+ */
+async function addCompletedToExistingSubtasks() {
+    try {
+        let tasks = await getItem('tasks'); // Abrufen der vorhandenen Tasks
+        if (tasks) {
+            tasks = JSON.parse(tasks); // Versuch, den String zu parsen
+            if (Array.isArray(tasks)) {
+                tasks.forEach(task => {
+                    if (task.subtask &amp;&amp; Array.isArray(task.subtask)) {
+                        task.subtask.forEach(subtask => {
+                            if (subtask.completed === undefined) { // Prüfen, ob die Eigenschaft 'completed' fehlt
+                                subtask.completed = null; // Hinzufügen der 'completed' Eigenschaft mit dem Wert 'null'
+                            }
+                        });
+                    }
+                });
+                await setItem('tasks', JSON.stringify(tasks)); // Speichern der aktualisierten Tasks
+                console.log('Die Subtasks aller vorhandenen Tasks wurden erfolgreich aktualisiert.');
+            } else {
+                console.error('Die abgerufenen Daten sind kein Array:', tasks);
+            }
+        }
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren der Subtasks:', error);
+    }
+}
+
+/**
+ * Aktualisiert den Abschlussstatus einer spezifischen Subtask.
+ * @param {number} taskId - Die ID des übergeordneten Tasks.
+ * @param {number} subtaskId - Die ID der zu aktualisierenden Subtask.
+ * @param {string} completionStatus - Der neue Abschlussstatus ('done' oder null).
+ */
+async function updateSubtaskCompletion(taskId, subtaskId, completionStatus) {
+    try {
+        let tasks = await getItem('tasks');
+        if (tasks) {
+            tasks = JSON.parse(tasks);
+            let taskToUpdate = tasks.find(task => task.id === taskId); // Finde den spezifischen Task und Subtask
+            if (taskToUpdate) {
+                let subtaskToUpdate = taskToUpdate.subtask.find(subtask => subtask.id === subtaskId);
+                if (subtaskToUpdate) {
+                    // Setze die completed-Eigenschaft auf den gewünschten Status
+                    subtaskToUpdate.completed = completionStatus; // 'done' oder null
+                    // Speichere die aktualisierten Tasks zurück auf dem Server
+                    await setItem('tasks', JSON.stringify(tasks));
+                    console.log('Subtask erfolgreich aktualisiert.');
+                } else {
+                    console.error('Subtask nicht gefunden.');
+                }
+            } else {
+                console.error('Task nicht gefunden.');
+            }
+        }
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren der Subtask:', error);
+    }
+}
+
+/**
+ * Lädt die User-Daten vom remoteStorage und initialisiert das User-Objekt.
+ */
+async function loadUser() {
+    try {
+        const response = await getItem('user');
+        if (response) {
+            user = JSON.parse(response);
+        } else {
+            console.log('Keine User gefunden.');
+        }
+    } catch (e) {
+        console.error('Fehler beim Laden der User:', e);
+    }
+}
+
+loadUser()
+
+//! Funktionen die bei Bedarf aufgerufen werden können
+
+// deleteUser()
+// updateSubtaskCompletion(1707393834234, 1707393814989, 'done');
+// addStateToExistingTasks();
+// changeAddStateTasks()
+// addCompletedToExistingSubtasks();
+// deleteTasks();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 02 2024 09:45:31 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

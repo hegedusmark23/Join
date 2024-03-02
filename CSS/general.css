@@ -61,7 +61,6 @@ body {
   font-family: "Inter", sans-serif;
   height: 100%;
   margin: 0;
-
   background-color: #fcfcfc;
   overflow: hidden;
 }
@@ -763,16 +762,20 @@ a {
     padding: 10px 34px;
   }
 
-  .task-detail-description, .detail-assignees, .detail-subtasks, .task-detail, .detail-assignee-na {
+  .task-detail-description,
+  .detail-assignees,
+  .detail-subtasks,
+  .task-detail,
+  .detail-assignee-na {
     font-size: 15px;
-}
+  }
 
-.task-detail-headline {
-  font-size: 30px;
-}
+  .task-detail-headline {
+    font-size: 30px;
+  }
 
-.detail-subtask-name {
-  margin-left: 12px;
-  font-size: 12px;
-}
+  .detail-subtask-name {
+    margin-left: 12px;
+    font-size: 12px;
+  }
 }
