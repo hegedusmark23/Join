@@ -191,7 +191,6 @@ async function loadUser() {
     }
 }
 
-loadUser()
 
 //! Funktionen die bei Bedarf aufgerufen werden können
 
