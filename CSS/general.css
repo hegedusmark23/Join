@@ -165,7 +165,7 @@ a {
 }
 
 .legal-text-container {
-  padding: 50px 50px;
+  padding: 20px 50px 50px;
   max-width: 1300px;
 }
 
@@ -182,6 +182,7 @@ a {
 .legal-headline {
   font-size: 61px;
   font-weight: 800;
+  margin-block-start: 0px;
 }
 
 .red-urgent-icon {
