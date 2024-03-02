@@ -60,6 +60,9 @@ async function initializeBoardCard(filteredTasks = null) {
     setupTaskClickListeners();
 }
 
+/**
+ * Diese Funktion nimmt alle Banner mit der Meldung 'No Tasks Div' und speichert sie einer globalen Variablen zu;
+ */
 function getNoTaskDivs() {
     noTasksDiv = document.getElementById('board-card-background-1');
     noTaskDiv2 = document.getElementById('board-card-background-2');
@@ -67,6 +70,9 @@ function getNoTaskDivs() {
     noTaskDiv4 = document.getElementById('board-card-background-4');
 }
 
+/**
+ * Diese Funktion nimmt alle Tasks-Cards-Containers und speichert sie einer globalen Variablen zu;
+ */
 function getCardContainers() {
     toDoCardsContainer = document.getElementById('toDo');
     inProgressCardContainer = document.getElementById('in-progress');
@@ -74,7 +80,11 @@ function getCardContainers() {
     doneCardContainer = document.getElementById('done');
 }
 
-function filterTodos() {
+/**
+ * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'toDo' ab.
+ * Dann fügt es die Tasks in dem Container mit der ID "toDo" ein. 
+ */
+function filterTodos(tasks) {
     todos = tasks.filter(t => t['state'] == 'toDo');
     if (todos.length > 0) {
         noTasksDiv.style.display = 'none';
@@ -89,7 +99,11 @@ function filterTodos() {
     }
 }
 
-function filterInProgress() {
+/**
+ * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'in-progress' ab.
+ * Dann fügt es die Tasks in dem Container mit der ID "in-progress" ein. 
+ */
+function filterInProgress(tasks) {
     inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
     if (inProgress.length > 0) {
         noTaskDiv2.style.display = 'none';
@@ -104,7 +118,11 @@ function filterInProgress() {
     }
 }
 
-function filterAwaitFeedback() {
+/**
+ * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'await-feedback' ab. 
+ * Dann fügt es die Tasks in dem Container mit der ID "await-feedback" ein.
+ */
+function filterAwaitFeedback(tasks) {
     awaitFeedback = tasks.filter(awFe => awFe['state'] == 'await-feedback');
     if (awaitFeedback.length > 0) {
         noTaskDiv3.style.display = 'none';
@@ -119,7 +137,12 @@ function filterAwaitFeedback() {
     }
 }
 
-function filterDone() {
+/**
+ * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'done' ab. 
+ * Dann fügt es die Tasks in dem Container mit der ID "done" ein.
+ */
+
+function filterDone(tasks) {
     done = tasks.filter(d => d['state'] == 'done');
     if (done.length > 0) {
         noTaskDiv4.style.display = 'none';
