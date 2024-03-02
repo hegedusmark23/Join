@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: board.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: board.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let todos;
+let inProgress;
+let awaitFeedback;
+let done;
+let currentDraggedElement;
+
+/**
+ * Abrufen der gespeicherten Tasks aus dem Remote-Storage.
+ * @returns {Promise&lt;Array>} Eine Promise, die ein Array von Tasks zurückgibt.
+ */
+async function fetchTasks() {
+    try {
+        let tasks = await getItem('tasks');// Abrufen der Tasks als String
+        try {
+            tasks = JSON.parse(tasks); // Versuchen, den String zu parsen, um ein JavaScript-Array zu erhalten
+        } catch (error) {
+            console.error('Fehler beim Parsen der Tasks:', error);
+            return []; // Bei einem Fehler ein leeres Array zurückgeben
+        }
+        if (!Array.isArray(tasks)) {
+            console.error('Die abgerufenen Daten sind kein Array.');
+            return []; // Sicherstellen, dass das Ergebnis ein Array ist
+        }
+        return tasks;
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Tasks:', error);
+        return []; // Bei einem Fehler ein leeres Array zurückgeben
+    }
+}
+
+/**
+ * Initialisiert das Board, indem alle Karten neu geladen werden.
+ */
+async function initializeBoard() {
+    await initializeBoardCard()
+}
+
+/**
+ * Initialisiert das Board neu, indem alle Task-Karten basierend auf dem Filterzustand neu gerendert werden.
+ * @param {Array} [filteredTasks=null] - Optional. Array von gefilterten Tasks.
+ */
+
+async function initializeBoardCard() {
+    let tasks = await fetchTasks();
+    let noTasksDiv1 = document.getElementById('board-card-background-1');
+    let noTaskDiv2 = document.getElementById('board-card-background-2');
+    let noTaskDiv3 = document.getElementById('board-card-background-3');
+    let noTaskDiv4 = document.getElementById('board-card-background-4');
+    let toDoCardsContainer = document.getElementById('toDo');
+    let inProgressCardContainer = document.getElementById('in-progress');
+    let awaitFeedBackCardContainer = document.getElementById('await-feedback');
+    let doneCardContainer = document.getElementById('done');
+    todos = tasks.filter(t => t['state'] == 'toDo');
+    if (todos.length > 0) {
+        noTasksDiv1.style.display = 'none';
+    } else {
+        noTasksDiv1.style.display = 'flex';
+    }
+    toDoCardsContainer.innerHTML = '';
+    for (let i = 0; i &lt; todos.length; i++) {
+        let task = todos[i]
+        let completionDetails = updateSubtaskProgress(task);
+        toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+    inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
+    if (inProgress.length > 0) {
+        noTaskDiv2.style.display = 'none';
+    } else {
+        noTaskDiv2.style.display = 'flex';
+    }
+    inProgressCardContainer.innerHTML = '';
+    for (let i = 0; i &lt; inProgress.length; i++) {
+        let task = inProgress[i];
+        let completionDetails = updateSubtaskProgress(task);
+        inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+    awaitFeedback = tasks.filter(awFe => awFe['state'] == 'await-feedback');
+    if (awaitFeedback.length > 0) {
+        noTaskDiv3.style.display = 'none';
+    } else {
+        noTaskDiv3.style.display = 'flex';
+    }
+    awaitFeedBackCardContainer.innerHTML = '';
+    for (let i = 0; i &lt; awaitFeedback.length; i++) {
+        let task = awaitFeedback[i];
+        let completionDetails = updateSubtaskProgress(task);
+        awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+    done = tasks.filter(d => d['state'] == 'done');
+    if (done.length > 0) {
+        noTaskDiv4.style.display = 'none';
+    } else {
+        noTaskDiv4.style.display = 'flex';
+    }
+    doneCardContainer.innerHTML = '';
+    for (let i = 0; i &lt; done.length; i++) {
+        let task = done[i];
+        let completionDetails = updateSubtaskProgress(task);
+        doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+    setupTaskClickListeners();
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 02 2024 09:45:31 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: board_overview.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: board_overview.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Aktualisiert die Anzeige der Anzahl von To-Do-Tasks.
+ */
+function numberOfTodos() {
+    let toDos = document.getElementById('numberOfToDos');
+    toDos.innerHTML = `&lt;h1 class="tasks-number no-margin">${toDo.length}&lt;/h1>`;
+}
+
+/**
+ * Aktualisiert die Anzeige der Anzahl von abgeschlossenen Tasks.
+ */
+function numberOfDone() {
+    let dones = document.getElementById('numberOfDone');
+    dones.innerHTML = `&lt;h1 class="tasks-number no-margin">${done.length}&lt;/h1>`;
+}
+
+/**
+ * Filtert Tasks basierend auf ihrem Status.
+ * @param {Array} filteredTasks - Array von gefilterten Tasks.
+ * @param {string} status - Der Status, nach dem gefiltert werden soll.
+ * @returns {Promise&lt;Array>} Eine Promise, die ein Array von gefilterten Tasks zurückgibt.
+ */
+async function fetchAndFilterTasks(filteredTasks, status) {
+    let tasks = filteredTasks ? filteredTasks : await fetchTasks();
+    return tasks.filter(task => task['state'] === status);
+}
+
+/**
+ * Aktualisiert den Fortschritt der Subtasks für einen gegebenen Task.
+ * @param {Object} task - Der Task, dessen Subtask-Fortschritt aktualisiert werden soll.
+ * @returns {Object} Ein Objekt mit dem Prozentsatz des Fortschritts und einem Text, der den Fortschritt anzeigt.
+ */
+function updateSubtaskProgress(task) {
+    let totalSubtasks = task.subtask ? task.subtask.length : 0;// Prüfe zunächst, ob der Task Subtasks hat. Wenn ja, ermittle die Gesamtanzahl der Subtasks.
+    let completedSubtasks = task.subtask ? task.subtask.filter(subtask => subtask.completed === 'done').length : 0; // Ermittle die Anzahl der abgeschlossenen Subtasks.
+    let completionPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;// Berechne den Prozentsatz der abgeschlossenen Subtasks.
+    return {
+        completionPercentage,
+        subtaskText: totalSubtasks > 0 ? `${completedSubtasks}/${totalSubtasks} Subtasks` : 'No Subtasks'
+    };// Die Funktion gibt ein Objekt zurück, das zwei Eigenschaften enthält:
+}
+
+/**
+ * Bestimmt das Bild basierend auf der Priorität des Tasks.
+ * @param {Object} task - Das Task-Objekt, für das das Bild bestimmt wird.
+ * @returns {string|null} Der Dateiname des Bildes oder null, wenn keine Priorität gesetzt ist.
+ */
+function taskImage(task) {
+    if (task.prio === 'low') {
+        return 'prio_low.svg';
+    } else if (task.prio === 'medium') {
+        return 'prio_medium.svg';
+    } else if (task.prio === 'high') {
+        return 'prio_high.svg';
+    } else {
+        return null;// Kein Bild für 'N/A' oder null-Werte
+    }
+}
+
+/**
+ * Erzeugt den HTML-String für die Fußzeile der Zuweisungen (Assignees) in der Board-Karte.
+ * @param {Object} task - Das Task-Objekt, dessen Assignees gerendert werden sollen.
+ * @returns {string} HTML-String für die Fußzeile der Assignees.
+ */
+function createAssigneesFooter(task) {
+    let assigneesFooter = '';
+    if (task.assignTo &amp;&amp; task.assignTo.length > 0) {
+        task.assignTo.forEach(assignee => {
+            assigneesFooter += `&lt;div class="board-content-circle" style="background-color: ${assignee.color};">${assignee.initials}&lt;/div>`;
+        });
+    }
+    return assigneesFooter;
+}
+
+/**
+ * Bestimmt die Farbe der Kategorie-Label basierend auf der Kategorie des Tasks.
+ * @param {string} category - Die Kategorie des Tasks.
+ * @returns {string} Farbcode für das Kategorie-Label.
+ */
+function getLabelColor(category) {
+    const labelCol1 = '#0038ff';
+    const labelCol2 = '#1FD7C1';
+
+    return category === 'Technical Task' ? labelCol1 : labelCol2;
+}
+
+/**
+ * Erzeugt den HTML-String für die Subtask-Anzeige in der Board-Karte.
+ * @param {Object} task - Das Task-Objekt, dessen Subtasks gerendert werden sollen.
+ * @param {Object} completionDetails - Details zum Fortschritt der Subtasks.
+ * @returns {string} HTML-String für die Subtask-Anzeige.
+ */
+function createSubtaskContent(task, completionDetails) {
+    return (task.subtask &amp;&amp; task.subtask.length > 0) ?
+        /*html*/ `&lt;div class="board-card-progress">
+            &lt;div id="progress-bar-container" style="background-color: #F4F4F4; width: 120px; height: 8px; border-radius: 4px;">
+                &lt;div id="progress-bar" style="height: 8px; border-radius: 4px; background-color: #4589FF; width: ${completionDetails.completionPercentage}%;">&lt;/div>
+            &lt;/div>
+            &lt;div class="board-card-progress-text">${completionDetails.subtaskText}&lt;/div>
+        &lt;/div>` : '';
+}
+
+/**
+ * Erstellt den HTML-Content für eine Board-Karte basierend auf einem Task.
+ * @param {number} i - Index des Tasks im Array, dient als Teil der ID.
+ * @param {Object} task - Das Task-Objekt, für das der Inhalt erstellt wird.
+ * @param {Object} completionDetails - Details zum Fortschritt der Subtasks.
+ * @returns {string} HTML-String für die Board-Karte.
+ */
+function renderCardContent(i, task, completionDetails) {
+    let tasksImg = taskImage(task);
+    let imgHtml = tasksImg ? `&lt;div class="board-card-footer-prio">&lt;img src="./assets/icons/${tasksImg}" alt="Prio Symbol">&lt;/div>` : '';
+    let assigneesFooter = createAssigneesFooter(task);
+    let description = task.description ? task.description : "";
+    let subtaskContent = createSubtaskContent(task, completionDetails);
+    return /*html*/ `
+    &lt;div id="${task.state}-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier}, '${task.state}', ${i})">
+        &lt;div class="board-card" data-task-id="${task.id}">
+            &lt;div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}&lt;/div>
+            &lt;div class="board-card-title">${task.title}&lt;/div>
+            &lt;div class="board-card-description">${description}&lt;/div>
+            ${subtaskContent}
+            &lt;div class="board-card-footer">
+                &lt;div class="board-card-footer-assignees">${assigneesFooter}&lt;/div>
+                ${imgHtml}
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>`;
+}
+
+/**
+ * Wechselt den Abschlussstatus eines Subtasks.
+ * @param {number} taskId - Die ID des übergeordneten Tasks.
+ * @param {number} subtaskId - Die ID des Subtasks.
+ * @returns {Object|null} Das aktualisierte Task-Objekt oder null, falls nicht gefunden.
+ */
+async function toggleSubtaskCompleted(taskId, subtaskId) {
+    let task = tasks.find(task => task.id === taskId);
+    if (task) {
+        let subtask = task.subtask.find(subtask => subtask.id === subtaskId);
+        if (subtask) {
+            // Status umschalten
+            subtask.completed = subtask.completed === 'done' ? '' : 'done';
+            await setItem('tasks', JSON.stringify(tasks));
+            initializeBoardCard();
+            openTaskDetailModal(task);
+
+            return task;
+        }
+    }
+    return null;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 02 2024 09:45:31 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
