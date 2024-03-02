@@ -109,6 +109,7 @@ function renderEditTask(taskId) {
         console.error("Task nicht gefunden.");
         return;
     }
+    
     const assignedUsersHtml = generateAssignedUsersHtml(task.assignTo);
     const assigneesMarkup = generateAssigneesMarkup(task, letterContainer);
     const subtasksHtml = generateSubtasksHtml(task.subtask);
@@ -265,8 +266,28 @@ function renderEditTask(taskId) {
 
     const detailModalContainer = document.getElementById('task-details');
     if (detailModalContainer) {
-        detailModalContainer.innerHTML = modalContent;
-        renderAssignees();
-        setTimeout(() => { /* Logik für das Befüllen und Event-Handling */ }, 0);
+        detailModalContainer.innerHTML = modalContent; // Aktualisieren des Inhalts des Modals, ohne #assign-to zu befüllen
+        renderAssignees(); // Neuaufruf von renderAssignees(), um sicherzustellen, dass die Liste korrekt gerendert und Event-Listener zugeordnet sind
+        setTimeout(() => {
+            const assignToContainer = document.getElementById('assign-to');
+            if (assignToContainer) {
+                assignToContainer.innerHTML = assigneesMarkup;
+                document.querySelectorAll('.dropdown-content-container').forEach((container) => { // Binden der Event-Listener an alle Container und Überprüfung des geklickten Elements
+                    container.addEventListener('click', function(event) {
+                        event.stopPropagation(); 
+                        let targetElement = event.target; // Identifizieren des tatsächlichen Ziel-Elements, basierend auf der Klick-Aktion
+                        if (targetElement.tagName.toLowerCase() === 'svg' || targetElement.closest('.dropdown-content-checkbox')) { // Logik für Klick auf die Checkbox
+                        } else if (targetElement.tagName.toLowerCase() === 'a' || targetElement.closest('.dropdown-content-name')) { // Logik für Klick auf den Namen
+                        }
+                        const containerIndex = Array.from(assignToContainer.children).indexOf(container); // Extraktion des Buchstabens und des Indexes
+                        let { letter, index } = extractLetterFromIndex(containerIndex);
+                        toggleAssigneeStatus(letter, index);
+                    });
+                });
+            } else {
+                console.error('#assign-to wurde nach dem Einfügen des Modals nicht gefunden.');
+            }
+        }, 0); // Verzögerung sicherstellen, dass das DOM vollständig aktualisiert wurde
+        reinitializeEventListenersForEditModal()
     }
 }

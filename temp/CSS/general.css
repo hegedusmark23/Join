@@ -1,0 +1,778 @@
+/* *{
+  box-sizing: border-box;
+} */
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 100;
+  src: url("../assets/fonts/Inter-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 200;
+  src: url("../assets/fonts/Inter-ExtraLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 300;
+  src: url("../assets/fonts/Inter-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 400;
+  src: url("../assets/fonts/Inter-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 500;
+  src: url("../assets/fonts/Inter-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 600;
+  src: url("../assets/fonts/Inter-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 700;
+  src: url("../assets/fonts/Inter-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 800;
+  src: url("../assets/fonts/Inter-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 900;
+  src: url("../assets/fonts/Inter-Black.ttf") format("truetype");
+}
+
+html,
+body {
+  font-family: "Inter", sans-serif;
+  height: 100%;
+  margin: 0;
+
+  background-color: #fcfcfc;
+  overflow: hidden;
+}
+
+h3 {
+  font-weight: 600;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+ol {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
+.no-margin {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+.blue-btn {
+  background-color: #2a3647;
+  color: white;
+  padding: 12px 16px 12px 16px;
+  border-radius: 10px;
+  font-size: 21px;
+  border-width: 0px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.blue-btn:hover {
+  background-color: #29abe2;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* .blue-btn:active {
+  background-color: #091931;
+} */
+
+.transparent-btn {
+  background-color: transparent;
+  color: #2a3647;
+  font-weight: 700;
+  border: 1px #2a3647 solid;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 21px;
+  line-height: 25.2px;
+  cursor: pointer;
+}
+
+.blue-btn-normal:hover {
+  background-color: #29abe2;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.transparent-btn:hover {
+  color: #29abe2;
+  border: 1px #29abe2 solid;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.white-btn {
+  background-color: white;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 21px;
+  font-weight: 600;
+  color: #2a3647;
+  border: 1px solid #2a3647;
+  cursor: pointer;
+}
+
+.white-btn:hover {
+  color: #29abe2;
+  border: 1px solid #29abe2;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.arrow {
+  transition: transform 0.2s;
+  position: absolute;
+}
+
+.arrow:hover {
+  transform: scale(1.1);
+  background-color: rgb(228, 227, 227);
+  border-radius: 50%;
+}
+
+.legal-text-container {
+  padding: 50px 50px;
+  max-width: 1300px;
+}
+
+.legal-site-arrow {
+  position: fixed;
+  top: 225px;
+  right: 40px;
+}
+
+.blue-text {
+  color: #29abe2;
+}
+
+.legal-headline {
+  font-size: 61px;
+  font-weight: 800;
+}
+
+.red-urgent-icon {
+  background-color: #ff3d00;
+  width: 69px;
+  height: 69px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.menu-popup {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #2a3647;
+  border-radius: 20px 0px 20px 20px;
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  padding-inline: 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  height: 158px;
+  gap: 10px;
+  z-index: 1000;
+}
+
+ó .menu-popup {
+  flex-direction: column;
+  justify-content: center;
+  background-color: #2a3647;
+  border-radius: 20px 0px 20px 20px;
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  padding-inline: 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  height: 158px;
+  gap: 10px;
+}
+
+.popup-links {
+  font-size: 16px;
+  font-weight: 200px;
+  color: white;
+  text-decoration: none;
+}
+
+.popup-links-div {
+  padding: 10px;
+}
+
+.popup-links-div:hover {
+  background-color: #1a478641;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #fff;
+  color: #000;
+  padding: 12px 16px 12px 16px;
+  padding-right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  line-height: 24px;
+  position: relative;
+}
+
+.dropdown-ctrl {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  z-index: 4;
+  /* Stellt sicher, dass dies über den Pfeilen liegt */
+  pointer-events: auto;
+  /* Stellt sicher, dass dieses Element auf Events reagieren kann */
+}
+
+.arrowDown,
+.arrowUp {
+  pointer-events: none;
+  /* Lässt Click-Events durch die Pfeile hindurch */
+}
+
+.arrow-dropdown-down {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-image: url("../assets/img/arrow_drop_down.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.arrow-dropdown-up {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background-image: url("../assets/img/arrow_drop_down.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 3;
+  cursor: pointer;
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.icon-background-down {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.icon-background-up {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.dropdown-ctrl:hover .icon-background-down {
+  background-color: #d1d1d1;
+  opacity: 0.5;
+}
+
+.dropdown-ctrl:hover .icon-background-up {
+  background-color: #d2e3ff;
+  opacity: 0.5;
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 8px;
+}
+
+.dropdown-content a {
+  color: #000;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border-radius: 8px;
+}
+
+.dropdown-content a:hover {
+  background-color: #eeeeee;
+}
+
+#title-error-msg,
+#duedate-error-msg,
+#dropdown-categories-error-msg {
+  font-size: 12px;
+  color: #ff8190;
+  font-weight: 400;
+  line-height: 14.4px;
+}
+
+.input-area-custom {
+  position: relative;
+  display: inline-block;
+}
+
+.subtask-ctrl {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+}
+
+.subtask-ctrl:hover .icon-background-down {
+  background-color: #d1d1d1;
+  opacity: 0.5;
+}
+
+.cross-dropdown-down {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 11px;
+  height: 11px;
+  background-image: url("../assets/img/add.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 3;
+  cursor: pointer;
+}
+
+/* Anpassen des Scrollbalkens für Webkit-Browser wie Chrome, Safari */
+.dropdown-content-assign::-webkit-scrollbar {
+  width: 8px;
+  /* Breite des vertikalen Scrollbalkens */
+}
+
+.dropdown-content-assign::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Farbe des Scrollbalkenhintergrunds */
+}
+
+.dropdown-content-assign::-webkit-scrollbar-thumb {
+  background: #888;
+  /* Farbe des Scrollbalken-Griffs */
+}
+
+.dropdown-content-assign::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* Farbe des Scrollbalken-Griffs beim Hovern */
+}
+
+/* Standard-Scrollbalken-Stile für Firefox */
+.dropdown-content-assign {
+  scrollbar-width: thin;
+  /* 'thin', 'auto' oder ein spezifischer Wert */
+  scrollbar-color: #888 #f1f1f1;
+  /* Griff- und Hintergrundfarbe */
+}
+
+.message-animation {
+  position: absolute;
+  color: white;
+  padding: 0px 25px 0px 25px;
+  background-color: #2a3647;
+  border-radius: 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  animation: floathingMessage 0.7s linear;
+  animation-fill-mode: forwards;
+  /* Sorgt dafür, dass die Animation bei 100% stehen bleibt */
+}
+
+.message-animation-background {
+  position: absolute;
+  display: flex;
+  background-color: #00000067;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+}
+
+.message-animation-background.no-background {
+  background-color: transparent;
+}
+
+@keyframes floathingMessage {
+  0% {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 66%;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .dropbtn {
+    font-size: 18px;
+  }
+
+  .message-animation-background {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+  }
+}
+
+.toDo-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
+.in-progress-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
+.await-feedback-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
+.done-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
+.highlight {
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+}
+
+.add-task-mobile {
+  display: none;
+}
+
+.board-section-title-mobile {
+  display: none;
+}
+
+
+@media (max-width: 1000px) {
+  .board-header {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .board-sections {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .toDo-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .in-progress-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .await-feedback-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .done-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .board-card {
+    min-width: 220px;
+  }
+
+  .board-card {
+    z-index: 0;
+  }
+
+  #titleToHide0 {
+    display: none;
+  }
+
+  #titleToHide1 {
+    display: none;
+  }
+
+  #titleToHide2 {
+    display: none;
+  }
+
+  #titleToHide3 {
+    display: none;
+  }
+
+  .board-section-title-mobile {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 0px 10px 0px;
+  }
+
+  section#board-content {
+    padding: 10px 30px 10px 80px;
+    background-color: #f0f0f0;
+    flex: 1;
+    overflow-x: hidden;
+  }
+
+  .board-sections>div {
+    flex: 1;
+    max-width: 600px;
+    overflow-x: scroll;
+  }
+
+  .board-section-1::-webkit-scrollbar {
+    display: none;
+  }
+
+  .board-section-2::-webkit-scrollbar {
+    display: none;
+  }
+
+  .board-section-3::-webkit-scrollbar {
+    display: none;
+  }
+
+  .board-section-4::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+
+
+
+@media (max-width: 800px) {
+  .board-header {
+    padding: 100px 30px 15px 80px;
+  }
+
+  .board-header h1,
+  #addtask-content h1 {
+    font-size: 51px;
+    margin-block-start: 20px;
+    margin-block-end: 20px;
+  }
+
+  .board-add-task button {
+    display: none;
+  }
+
+  .add-task-mobile {
+    display: flex;
+  }
+
+  .board-header-left {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 485px) {
+  .board-header {
+    padding: 100px 30px 15px 40px;
+  }
+
+  section#board-content {
+    padding: 10px 30px 10px 40px;
+  }
+}
+
+@media (max-width: 430px) {
+  .board-header {
+    padding: 100px 30px 15px 20px;
+  }
+
+  section#board-content {
+    padding: 10px 30px 10px 20px;
+  }
+
+  .board-header h1,
+  #addtask-content h1 {
+    font-size: 41px;
+    margin-block-start: 15px;
+    margin-block-end: 15px;
+  }
+
+  .board-search-input input {
+    width: 290px;
+  }
+
+  .modal-content-tasks {
+    max-width: 299px;
+  }
+}
+
+@media (max-width: 375px) {
+  .board-header {
+    padding: 100px 30px 15px 20px;
+  }
+
+  section#board-content {
+    padding: 10px 30px 10px 20px;
+  }
+
+  .board-header h1,
+  #addtask-content h1 {
+    font-size: 38px;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+  }
+
+  .board-search-input input {
+    width: 240px;
+  }
+
+  .board-search-input input {
+    height: 40px;
+  }
+
+  .divider-img {
+    top: 4px;
+  }
+
+  .board-card {
+    min-width: 190px;
+  }
+
+  .modal-content-tasks {
+    max-width: 245px;
+    padding: 10px 34px;
+  }
+
+  .task-detail-headline {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 330px) {
+  .board-search-input input {
+    width: 187px;
+  }
+
+  .modal-content-tasks {
+    max-width: 220px;
+    padding: 10px 34px;
+  }
+
+  .task-detail-description, .detail-assignees, .detail-subtasks, .task-detail, .detail-assignee-na {
+    font-size: 15px;
+}
+
+.task-detail-headline {
+  font-size: 30px;
+}
+
+.detail-subtask-name {
+  margin-left: 12px;
+  font-size: 12px;
+}
+}

@@ -262,8 +262,6 @@ function backgroundAndTextOriginal(key, i) {
 }
 
 
-
-
 function hideEditContactOverlay(event) {
     document.getElementById('edit-contact-overlay').classList.add('d-none');
     doNotClose(event)
