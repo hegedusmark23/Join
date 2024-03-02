@@ -302,12 +302,11 @@ function initializeBoardIfNeeded() {
         initializeBoard();
     } else {
         // Logge eine Nachricht, falls wir uns nicht auf der Board-Seite befinden.
-        console.log('Nicht auf der Board-Seite, Initialisierung übersprungen.');
+        console.info('Nicht auf der Board-Seite, Initialisierung übersprungen.');
     }
 }
 
 function reinitializeEventListenersForEditModal() {
-    console.log('Funktionen werden aufgerufen!')
     checkInputFields();
     saveInputFields();
     handlePrioButtons();
@@ -324,7 +323,6 @@ function reinitializeEventListenersForEditModal() {
     setupDeleteTaskListener();
     initializeBoardIfNeeded();
     createTask();
-    //setupCreateTaskListener();
     setupOpenAddTaskModalListener();
     setupCloseAddTaskModalListener();
     setupEditTaskListener();
@@ -360,9 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funktionen spezifisch für die "Board"-Seite
     function initializeBoardPage() {
-        console.log('Initialisiere Board-Seite...');
         initializeBoardCard();
-        //setupCreateTaskListener();
         setupTaskClickListeners();
         setupCloseTaskDetailModalListener();
         setupOpenAddTaskModalListener();
