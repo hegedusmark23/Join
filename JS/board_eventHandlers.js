@@ -78,7 +78,6 @@ function closeModal(modalId) {
             modalContent.classList.remove('modal-close'); // Bereitet den Inhalt für die nächste Öffnung vor
         }, 700); // Wartezeit entspricht der Dauer der Animation
     }
-    clearEditModalContent();
 }
 
 /**
@@ -196,11 +195,9 @@ function setupSubtaskCompletionListener() {
  * Initialisiert den EventListener für den "Löschen"-Button, um den aktuellen Task zu löschen.
  */
 function setupDeleteTaskListener() {
-    console.log('Setup Delete Task Listener');
     const deleteButton = document.getElementById('delete-task-button');
     if (deleteButton) {
         deleteButton.addEventListener('click', deleteCurrentTask);
-        console.log('Delete-Listener hinzugefügt');
     } else {
         console.info('Delete-Button wurde nicht gefunden.');
     }
