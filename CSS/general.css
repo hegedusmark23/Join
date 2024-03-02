@@ -167,6 +167,7 @@ a {
 .legal-text-container {
   padding: 50px 50px;
   max-width: 1300px;
+  overflow: scroll !important;
 }
 
 .legal-site-arrow {
