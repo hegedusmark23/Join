@@ -5,7 +5,6 @@
  */
 document.querySelector('input[type="text"]').addEventListener('input', async function(e) {
     const searchTerm = e.target.value;
-    console.log('Suchbegriff: ', searchTerm)
     await searchTasks(searchTerm);
     // Icons umschalten
     const searchIcon = document.querySelector('.search-icon img[src*="search.svg"]');
@@ -36,7 +35,6 @@ document.querySelector('.search-icon img[src*="cross.svg"]').addEventListener('c
  */
 async function searchTasks(searchTerm) {
     let tasks = await fetchTasks();
-    console.log('Gefetchte Tasks:', tasks);
     if (searchTerm.trim() !== '') {
         tasks = tasks.filter(task =>
             (task.title && task.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
@@ -45,4 +43,3 @@ async function searchTasks(searchTerm) {
     }
     await initializeBoardCard(tasks); // initializeBoardCard mit gefilterten Tasks aufrufen
 }
-

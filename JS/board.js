@@ -40,9 +40,8 @@ async function initializeBoard() {
  * @param {Array} [filteredTasks=null] - Optional. Array von gefilterten Tasks.
  */
 
-async function initializeBoardCard() {
-    let tasks = await fetchTasks();
-    console.log('initializeBoardCard aufgerufen mit Tasks:', tasks);
+async function initializeBoardCard(filteredTasks = null) {
+    let tasks = filteredTasks ? filteredTasks : await fetchTasks();
     let noTasksDiv1 = document.getElementById('board-card-background-1');
     let noTaskDiv2 = document.getElementById('board-card-background-2');
     let noTaskDiv3 = document.getElementById('board-card-background-3');
