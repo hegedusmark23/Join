@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/board_dragdrop.js</title>
+    <title>JSDoc: Source: JS/main-content.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/board_dragdrop.js</h1>
+    <h1 class="page-title">Source: JS/main-content.js</h1>
 
     
 
@@ -27,75 +27,195 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>
+function generateLegalNoticeContent() {
+  let container = document.querySelector('section');
+  container.innerHTML = legalNoticeHTML();
+}
+
+function generatePrivacyPolicyContent() {
+  let container = document.querySelector('section');
+  container.innerHTML = privacyPolicyHTML();
+}
+
+function generateHelpContent() {
+  let container = document.querySelector('section');
+  container.innerHTML = helpHTML();
+}
+
 /**
- * Startet den Drag-Vorgang für ein Task-Element.
- * @param {number} id - Die ID des zu verschiebenden Tasks.
- * @param {string} state - Der aktuelle Zustand des Tasks.
- * @param {number} i - Der Index des Tasks im aktuellen Zustand.
+ * Changes the color of an icon on hover
 */
+function changePencilImgColor() {                
+  var image = document.getElementById("pencil-icon");
+  var button = document.getElementById("pencil-button");
+  button.addEventListener('mouseover', function () {
+    image.src = "./assets/img/pencil-blue.png"
+  })
+  button.addEventListener('mouseout', function () {
+    image.src = "./assets/img/pencil-white.png"
+  })
+}
+
+function changeCheckImgColor() {         
+  var image = document.getElementById("check-icon");
+  var button = document.getElementById("check-button");
+  button.addEventListener('mouseover', function () {
+    image.src = "./assets/img/check-blue.png"
+  })
+  button.addEventListener('mouseout', function () {
+    image.src = "./assets/img/check-white.png"
+  })
+}
+
 /**
- * Ermöglicht das Ablegen von Drag-Elementen.
- * @param {Event} ev - Das Drag-Event.
+ * Opens the animated Menu.
  */
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function startDragging(id, state, i) {
-    currentDraggedElement = id;
-    document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg'
-}
-
-
-/**
- * Verschiebt den aktuell gezogenen Task in einen neuen Zustand und aktualisiert die Ansicht.
- * @param {string} state - Der Zielzustand des Tasks.
-*/
-async function moveTo(state) {
-    tasks[currentDraggedElement]['state'] = state;
-    await setItem('tasks', JSON.stringify(tasks));
-    await initializeBoardCard();
+function showMenu() {
+  var x = document.getElementById("popup-menu");
+  var computedStyle = window.getComputedStyle(x);
+  if (computedStyle.display === "none" || x.style.display === "none") {
+    x.style.display = "flex";
+  } else {
+    x.style.display = "none";
+  }
 }
 
 
-/**
- * Versteckt den "Keine Tasks"-Hinweis für eine spezifische Spalte, wenn ein Task hinzugefügt wird.
- * @param {string} id - Die ID der Spalte, in der der Hinweis versteckt werden soll.
+function closeMenu() {
+  let menu = document.getElementById('popup-menu');
+  menu.style.display = "none";
+}
+
+/**  
+ * A messeage does appear after a succesfull registration.
  */
+function signUpMessage() {    
+  let message = document.getElementById('signup-message');
+  setTimeout(function () {
+    message.classList.remove('d-none');
+    message.classList.add('d-flex');
+  }, 500)
+}
+/**
+ * Redirects to the Login page after registration.
+ */
+function redirectToLogin() {   
+  setTimeout(function () {
+    window.location.href = '/landingpage.html'
+  }, 1500)
+}
 
-function hideNoTaskDiv(id) {
-    let background;
-    if (id == 'toDo') {
-        background = 'board-card-background-1';
-    } else if (id == 'in-progress') {
-        background = 'board-card-background-2';
-    } else if (id == 'await-feedback') {
-        background = 'board-card-background-3';
-    } else if (id == 'done') {
-        background = 'board-card-background-4'
+/**
+ * Daytime dependent Welcome message.
+ */
+function timeDynamicWelcome() {      
+  let welcome = document.getElementById('daytime')
+  let date = new Date();
+  let hour = date.getHours();
+  if (hour &lt; 12) {
+    welcome.innerHTML = 'Good Morning,';
+  } else if (hour &lt; 17) {
+    welcome.innerHTML = 'Good Afternoon,';
+  } else {
+    welcome.innerHTML = 'Good Evening,';
+  }
+}
+
+
+/**
+ * Reveals the password on the login page.
+ */
+function revealPassword() {         
+  var x = document.getElementById("password");
+  if (x.type === "password" &amp;&amp; x.value.length > 2) {
+    x.style.background = "url(/assets/img/visibility.png)";
+    x.type = "text";
+  } else {
+    x.style.background = "url(/assets/img/lock-icon.png)";
+    x.type = "password";
+  }
+  x.style.backgroundRepeat = "no-repeat";
+  x.style.backgroundPosition = "center";
+  x.style.backgroundPositionX = "calc(100% - 12px)";
+}
+
+
+function guestLogin() {
+  window.location.href = '/guest.index.html'
+}
+
+/**
+ * Marks the severe buttons, dependent on wich site the user currently on.
+ */
+function buttonFocus() {
+  let summaryNav = document.getElementById("summary-nav");
+  let addTaskNav = document.getElementById("addTask-nav");
+  let boardNav = document.getElementById("board-nav");
+  let contactsNav = document.getElementById("contacts-nav");
+  setTimeout(buttonFocus, 100);
+  if (window.location.href === "http://127.0.0.1:5500/index.html" &amp;&amp; summaryNav) {
+    summaryNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/addtask.html" &amp;&amp; addTaskNav) {
+    addTaskNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/board.html" &amp;&amp; boardNav) {
+    boardNav.style.backgroundColor = "#091931";
+  } if (window.location.href === "http://127.0.0.1:5500/addcontacts.html" &amp;&amp; contactsNav) {
+    contactsNav.style.backgroundColor = "#091931";
+  }
+}
+
+/**
+ * These funktions handle the number of tasks displayed on the Summary page.
+ */
+function numberOfAllTasks() {
+  let allTasks = document.getElementById('numberOfTasksInBoard');
+  allTasks.innerHTML = tasks.length;
+}
+
+
+function sortTasksByStateToDo() {
+  let toDo = document.getElementById('numberOfToDos');
+  let result = tasks.filter((task) => task.state.includes("toDo")).length;
+  toDo.innerHTML = result;
+}
+
+function sortTasksByStateInProgress() {
+  let inProgress = document.getElementById('numberOfTasksInProgress');
+  let result = tasks.filter((task) => task.state.includes("in-progress")).length;
+  inProgress.innerHTML = result;
+}
+
+function sortTasksByStateDone() {
+  let done = document.getElementById('numberOfDone');
+  let result = tasks.filter((task) => task.state.includes("done")).length;
+  done.innerHTML = result;
+}
+
+function sortTasksByStateAwaitingFeedback() {
+  let awaitingFeedback = document.getElementById('awaitingFeedback');
+  let result = tasks.filter((task) => task.state.includes("await-feedback")).length;
+  awaitingFeedback.innerHTML = result;
+}
+
+
+function sortTasksByPrioUrgent() {
+  let Urgent = document.getElementById('numberOfUrgent');
+  let urgentDate = document.getElementById('urgentDate');
+  let urgentTasks = tasks.filter((task) => task.prio === "urgent");
+  let shortestDueDateTask = urgentTasks.reduce((minTask, currentTask) => {
+    if (minTask.dueDate &amp;&amp; currentTask.dueDate) {
+      return minTask.dueDate &lt; currentTask.dueDate ? minTask : currentTask;
+    } else {
+      return currentTask.dueDate ? currentTask : minTask;
     }
-    document.getElementById(background).style.display = 'none'
+  }, urgentTasks[0]);
+  Urgent.innerHTML = urgentTasks.length;
+  urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
 }
 
-/**
- * Setzt den "Keine Tasks"-Hinweis für eine spezifische Spalte zurück, wenn die letzte Aufgabe daraus entfernt wird.
- * @param {string} id - Die ID der Spalte, für die der Hinweis zurückgesetzt werden soll.
- */
-function resetNoTaskDiv(id) {
-    let background;
-    if (id == 'toDo' &amp;&amp; todos.length == 0) {
-        background = 'board-card-background-1';
-    } else if (id == 'in-progress' &amp;&amp; inProgress.length == 0) {
-        background = 'board-card-background-2';
-    } else if (id == 'await-feedback' &amp;&amp; awaitFeedback.length == 0 ) {
-        background = 'board-card-background-3';
-    } else if (id == 'done' &amp;&amp; done.length == 0) {
-        background = 'board-card-background-4'
-    }
-    if(background){
-        document.getElementById(background).style.display = 'flex'
-    } else {}
-}</code></pre>
+
+  
+</code></pre>
         </article>
     </section>
 

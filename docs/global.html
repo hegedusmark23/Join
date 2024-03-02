@@ -192,6 +192,258 @@
     
 
     
+    <h4 class="name" id="addContacts"><span class="type-signature">(async) </span>addContacts<span class="signature">(completeName, emailAdress, phone, badgeColor, firstLetter, windowWidth)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese asynchrone Funktion erzeugt eine Instanz der Klasse Contact{}, der folgende Parameter zugewiesen werden: Kontaktname, E-Mail, Telefonnummer und Farbe des Kontaktabzeichens. Nachdem das neue Contact{}-Objekt erstellt wurde, wird es in das Json Array letterContainer eingefügt, und zwar in den Schlüssel, dessen Buchstabe dem Anfangsbuchstaben des neu erstellten Kontakts entsprichtDanach wird der neue Zustand des letterContainer-Arrays im Remote Storage gespeichertWenn die Bildschirmbreite weniger als 1050 px beträgt, das heisst wenn der Benutzer ein Handy oder ein Tablet verwendet, blenden Sie die Kontaktliste aus und zeigen Sie nur den Container mit dem neu erstellten Kontakt an. Andernfalls, wenn die Breite größer als 1050 px ist, wird der Kontakt im Container angezeigt, ohne dass HTML-Elemente ausgeblendet werden.Schließlich wird die Seite mit der Funktion renderContacts() erneut geladen, um das Json-Array letterContainer mit dem neuen Kontakt neu zu laden und auf der Seite anzuzeigen, alle Formulareingaben werden geleert und das Pop-up-Fenster "Add Contacts" wird ausgeblendet
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>completeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">vollständiger Kontaktname</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>emailAdress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Kontakt-E-Mail-Adresse</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Kontakt-Telefonnummer</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>badgeColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Farbe des Kontaktabzeichens</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>firstLetter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">globale Variable, die den Anfangsbuchstaben jedes neu erstellten Kontakts enthäl</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>windowWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">aktuelle Breite des Benutzerbildschirms</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="addStateToExistingTasks"><span class="type-signature">(async) </span>addStateToExistingTasks<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -469,7 +721,408 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line16">line 16</a>
+        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="backToContactList"><span class="type-signature"></span>backToContactList<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion ist nur für die mobile Version. Blendet die Kontaktansicht aus und zeigt nur die Kontaktliste an
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="buttonFocus"><span class="type-signature"></span>buttonFocus<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Marks the severe buttons, dependent on wich site the user currently on.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_main-content.js.html">JS/main-content.js</a>, <a href="JS_main-content.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="capitalisedName"><span class="type-signature"></span>capitalisedName<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Capitalises the first letters of the signed in user, and shows them on the user-button.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_register.js.html">JS/register.js</a>, <a href="JS_register.js.html#line121">line 121</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="capitalizeLetters"><span class="type-signature"></span>capitalizeLetters<span class="signature">(completeName)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion nimmt die beiden Initialen des vollständigen Namens des Kontakts
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>completeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Vollständiger Name des Kontakts</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -558,6 +1211,94 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="JS_storage.js.html">JS/storage.js</a>, <a href="JS_storage.js.html#line91">line 91</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="changePencilImgColor"><span class="type-signature"></span>changePencilImgColor<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Changes the color of an icon on hover
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_main-content.js.html">JS/main-content.js</a>, <a href="JS_main-content.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -2393,6 +3134,94 @@
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="emptyInputs"><span class="type-signature"></span>emptyInputs<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion nimmt alle die Inputsfelder nach Tag-Namen und leert sie
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5505,6 +6334,94 @@
     
 
     
+    <h4 class="name" id="getContact"><span class="type-signature">(async) </span>getContact<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion nimmt eine zufällige Farbe aus dem Array colors, nimmt die Daten (vollständiger Name, E-Mail und Telefonnummer) aus dem Kontaktformular und ruft schließlich die Funktion addContacts() auf;
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="getItem"><span class="type-signature">(async) </span>getItem<span class="signature">(key)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
     
 
@@ -5823,6 +6740,94 @@
     
 
     
+    <h4 class="name" id="getNamefromArray"><span class="type-signature"></span>getNamefromArray<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Filters out the name of the User.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_register.js.html">JS/register.js</a>, <a href="JS_register.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="hideNoTaskDiv"><span class="type-signature"></span>hideNoTaskDiv<span class="signature">(id)</span><span class="type-signature"></span></h4>
     
 
@@ -5924,7 +6929,144 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line34">line 34</a>
+        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="hidePopUpEditDelete"><span class="type-signature"></span>hidePopUpEditDelete<span class="signature">(event)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion ist nur für die mobile Version. Durch Klicken auf eine beliebige Stelle im Abschnitt „Kontaktansicht“ wird das Dropdown-Menü ausgeblendet
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line243">line 243</a>
     </li></ul></dd>
     
 
@@ -6518,6 +7660,94 @@
     
 
     
+    <h4 class="name" id="loadItems"><span class="type-signature">(async) </span>loadItems<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion holt die Kontaktdaten aus dem Remote Storage und wandelt sie von Text in Code um, um sie dann in das Array letterContainer einzufügen
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="loadUser"><span class="type-signature">(async) </span>loadUser<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -6571,6 +7801,270 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="JS_storage.js.html">JS/storage.js</a>, <a href="JS_storage.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="logOut"><span class="type-signature"></span>logOut<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Empties the arrays related to the current user, and redirects to the login page.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_register.js.html">JS/register.js</a>, <a href="JS_register.js.html#line76">line 76</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loginError"><span class="type-signature"></span>loginError<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Shows an error-message in case of wrong username or password.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_register.js.html">JS/register.js</a>, <a href="JS_register.js.html#line132">line 132</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="match"><span class="type-signature"></span>match<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks if the passwords are matching at the registration.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_register.js.html">JS/register.js</a>, <a href="JS_register.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -6707,7 +8201,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line24">line 24</a>
+        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="numberOfAllTasks"><span class="type-signature"></span>numberOfAllTasks<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    These funktions handle the number of tasks displayed on the Summary page.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_main-content.js.html">JS/main-content.js</a>, <a href="JS_main-content.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -7330,6 +8912,270 @@
     
 
     
+    <h4 class="name" id="redirectToLogin"><span class="type-signature"></span>redirectToLogin<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Redirects to the Login page after registration.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_main-content.js.html">JS/main-content.js</a>, <a href="JS_main-content.js.html#line74">line 74</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="rememberMe"><span class="type-signature"></span>rememberMe<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    The function behind the "Remember me" checkbox.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_register.js.html">JS/register.js</a>, <a href="JS_register.js.html#line142">line 142</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="removeBgColorOnPopUpClosed"><span class="type-signature"></span>removeBgColorOnPopUpClosed<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion entfernt die hellblaue Hintergrundfarbe nach 800 Millisekunden
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="renderCardContent"><span class="type-signature"></span>renderCardContent<span class="signature">(i, task, completionDetails)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
@@ -7535,6 +9381,94 @@
     
 
     
+    <h4 class="name" id="renderContact"><span class="type-signature">(async) </span>renderContact<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese asynchrone Funktion schließt den Header und die Sidebar in die Seite addcontacts.html ein. Mit der Funktion loadItems werden dann alle zuvor im Remote Storage gespeicherten Kontakte übernommen und nach der Umkehrung von Text in Code wieder in den Json "lettersContainer" eingefügt. Schließlich iteriert die Funktion setLettersContainers() die Schlüssel des lettersContainer-Arrays in den Container "contact-list", um die Buchstaben A bis Z in der Kontaktliste anzuzeigen;
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line27">line 27</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="renderEditTask"><span class="type-signature"></span>renderEditTask<span class="signature">(taskId)</span><span class="type-signature"></span></h4>
     
 
@@ -7672,6 +9606,94 @@
     
 
     
+    <h4 class="name" id="resetForm"><span class="type-signature"></span>resetForm<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resets the form after registration.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_register.js.html">JS/register.js</a>, <a href="JS_register.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="resetNoTaskDiv"><span class="type-signature"></span>resetNoTaskDiv<span class="signature">(id)</span><span class="type-signature"></span></h4>
     
 
@@ -7773,7 +9795,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line52">line 52</a>
+        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line56">line 56</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="revealPassword"><span class="type-signature"></span>revealPassword<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Reveals the password on the login page.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_main-content.js.html">JS/main-content.js</a>, <a href="JS_main-content.js.html#line100">line 100</a>
     </li></ul></dd>
     
 
@@ -8184,7 +10294,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS_search.js.html">JS/search.js</a>, <a href="JS_search.js.html#line36">line 36</a>
+        <a href="JS_search.js.html">JS/search.js</a>, <a href="JS_search.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setCurrentUser"><span class="type-signature">(async) </span>setCurrentUser<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets the current user after log in.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_register.js.html">JS/register.js</a>, <a href="JS_register.js.html#line86">line 86</a>
     </li></ul></dd>
     
 
@@ -8391,6 +10589,94 @@
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setLettersContainers"><span class="type-signature">(async) </span>setLettersContainers<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion durchläuft das Json-Array letterContainer und erstellt für jeden Schlüssel einen Container mit dem dem aktuellen Schlüssel zugeordneten Buchstabentitel. Die Schlüssel im Array sind nun Container, die den Kontakt mit dem ersten Buchstaben enthalten, der dem Containernamen entspricht
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9595,7 +11881,7 @@
     
 
     
-    <h4 class="name" id="startDragging"><span class="type-signature"></span>startDragging<span class="signature">(id, state, i)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="showAlreadyCreatedContactInTheView"><span class="type-signature">(async) </span>showAlreadyCreatedContactInTheView<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -9603,7 +11889,95 @@
 
 
 <div class="description">
-    Startet den Drag-Vorgang für ein Task-Element.
+    Diese Funktion zeigt den neu angelegten Kontakt in der Kontaktansicht an
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line259">line 259</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showContact"><span class="type-signature"></span>showContact<span class="signature">(key, i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion zeigt den ausgewählten Kontakt in der Contact-View
 </div>
 
 
@@ -9639,30 +12013,7 @@
 
         <tr>
             
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Die ID des zu verschiebenden Tasks.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>key</code></td>
             
 
             <td class="type">
@@ -9678,7 +12029,7 @@
 
             
 
-            <td class="description last">Der aktuelle Zustand des Tasks.</td>
+            <td class="description last">parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist</td>
         </tr>
 
     
@@ -9701,7 +12052,7 @@
 
             
 
-            <td class="description last">Der Index des Tasks im aktuellen Zustand.</td>
+            <td class="description last">Index jedes im Hauptcontainer enthaltenen Kontakts</td>
         </tr>
 
     
@@ -9742,7 +12093,1049 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS_board_dragdrop.js.html">JS/board_dragdrop.js</a>, <a href="JS_board_dragdrop.js.html#line7">line 7</a>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line174">line 174</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showContactDesktopVersion"><span class="type-signature"></span>showContactDesktopVersion<span class="signature">(key, i, name, email, phone, badgeColor)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion zeigt den ausgewählten Kontakt in der Desktop-Version an
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Index jedes im Hauptcontainer enthaltenen Kontakts</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Name des ausgewählten Kontakts</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">E-Mail des ausgewählten Kontakts</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Phone des ausgewählten Kontakts</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>badgeColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Farbe des Kontaktabzeichens des ausgewählten Kontakts</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line215">line 215</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showContactMobileVersion"><span class="type-signature"></span>showContactMobileVersion<span class="signature">(key, i, name, email, phone, badgeColor)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion zeigt den ausgewählten Kontakt in der mobilen Version an
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Index jedes im Hauptcontainer enthaltenen Kontakts</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Name des ausgewählten Kontakts</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">E-Mail des ausgewählten Kontakts</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Phone des ausgewählten Kontakts</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>badgeColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Farbe des Kontaktabzeichens des ausgewählten Kontakts</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line197">line 197</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showContactsInTheList"><span class="type-signature"></span>showContactsInTheList<span class="signature">(key)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    diese Funktion durchläuft das Array des aktuellen Schlüssels und zeigt im Sub-Container alle Kontakte mit dem dem Schlüssel entsprechenden Anfangsbuchstaben
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Schlüssel des letterContainer-Objekts, das einem Buchstaben entspricht</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line126">line 126</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showMenu"><span class="type-signature"></span>showMenu<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Opens the animated Menu.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_main-content.js.html">JS/main-content.js</a>, <a href="JS_main-content.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showPopUpEditDelete"><span class="type-signature"></span>showPopUpEditDelete<span class="signature">(event)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion ist nur für die mobile Version. Durch Klicken auf dem Button mit den Ellipsen Icon unten rechts erscheint ein kleines Dropdown-Menü mit zwei Optionen: Edit und Delete
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line233">line 233</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="signUpMessage"><span class="type-signature"></span>signUpMessage<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    A messeage does appear after a succesfull registration.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_main-content.js.html">JS/main-content.js</a>, <a href="JS_main-content.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="successfulContactAddedButton"><span class="type-signature"></span>successfulContactAddedButton<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion zeigt in der Übersetzung und einige Millisekunden nach der Erstellung eines neuen Kontakts ein kleines Banner an, das besagt, dass der Kontakt erfolgreich erstellt wurde
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line276">line 276</a>
     </li></ul></dd>
     
 
@@ -9940,6 +13333,94 @@
     
 
     
+    <h4 class="name" id="timeDynamicWelcome"><span class="type-signature"></span>timeDynamicWelcome<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Daytime dependent Welcome message.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_main-content.js.html">JS/main-content.js</a>, <a href="JS_main-content.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="toggleSubtaskCompleted"><span class="type-signature">(async) </span>toggleSubtaskCompleted<span class="signature">(taskId, subtaskId)</span><span class="type-signature"> &rarr; {Object|null}</span></h4>
     
 
@@ -10114,6 +13595,166 @@
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="truncEmailMobile"><span class="type-signature"></span>truncEmailMobile<span class="signature">(key, i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Diese Funktion prüft, ob die E-Mail-Adresse jedes iterierten Kontakts länger als 21 Zeichen ist. Wenn die Bildschirmbreite kleiner oder gleich 400 Pixel ist und die Länge der E-Mail größer als 21 ist, wird die E-Mail abgeschnitten und der E-Mail string werden drei Ellipsen hinzugefügt
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Index jedes im Hauptcontainer enthaltenen Kontakts</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS_contacts.js.html">JS/contacts.js</a>, <a href="JS_contacts.js.html#line147">line 147</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10774,13 +14415,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Task.html">Task</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Task.html">Task</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addContacts">addContacts</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#backToContactList">backToContactList</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#capitalisedName">capitalisedName</a></li><li><a href="global.html#capitalizeLetters">capitalizeLetters</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#changePencilImgColor">changePencilImgColor</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#emptyInputs">emptyInputs</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getContact">getContact</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#getNamefromArray">getNamefromArray</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#hidePopUpEditDelete">hidePopUpEditDelete</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#loadItems">loadItems</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#loginError">loginError</a></li><li><a href="global.html#match">match</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfAllTasks">numberOfAllTasks</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#redirectToLogin">redirectToLogin</a></li><li><a href="global.html#rememberMe">rememberMe</a></li><li><a href="global.html#removeBgColorOnPopUpClosed">removeBgColorOnPopUpClosed</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderContact">renderContact</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#revealPassword">revealPassword</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setCurrentUser">setCurrentUser</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setLettersContainers">setLettersContainers</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#showAlreadyCreatedContactInTheView">showAlreadyCreatedContactInTheView</a></li><li><a href="global.html#showContact">showContact</a></li><li><a href="global.html#showContactDesktopVersion">showContactDesktopVersion</a></li><li><a href="global.html#showContactMobileVersion">showContactMobileVersion</a></li><li><a href="global.html#showContactsInTheList">showContactsInTheList</a></li><li><a href="global.html#showMenu">showMenu</a></li><li><a href="global.html#showPopUpEditDelete">showPopUpEditDelete</a></li><li><a href="global.html#signUpMessage">signUpMessage</a></li><li><a href="global.html#successfulContactAddedButton">successfulContactAddedButton</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#timeDynamicWelcome">timeDynamicWelcome</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#truncEmailMobile">truncEmailMobile</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 02 2024 09:46:02 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 02 2024 19:21:51 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

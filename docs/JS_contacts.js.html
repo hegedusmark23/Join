@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: JS/contacts.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: JS/contacts.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+let letterContainer = {};
+let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Ü',];
+let colors = ['#9327FF', '#6E52FF', '#FC71FF', '#FFBB2B', '#1FD7C1', '#462F8A'];
+let firstLetter;
+let capitalizedLetters;
+let inputName;
+let inputEmail;
+let inputPhone;
+let badge;
+let badgeColor;
+let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+let truncedEmail;
+
+/**
+ *   Diese Funktion erstellt für jeden im Alphabet-Array enthaltenen Buchstaben eine Schlüssel-Wert-Eigenschaft im lettersContainer-Objekt, wobei jeder Schlüssel ein leeres Array ist
+ * @param {string} letter - der Parameter letter enthält den Buchstaben, der aus dem Alphabet-Array iteriert wird
+*/
+alphabet.forEach((letter) => {
+    letterContainer[letter] = [];
+})
+
+
+/**
+ * Diese asynchrone Funktion schließt den Header und die Sidebar in die Seite addcontacts.html ein. Mit der Funktion loadItems werden dann alle zuvor im Remote Storage gespeicherten Kontakte übernommen und nach der Umkehrung von Text in Code wieder in den Json "lettersContainer" eingefügt. Schließlich iteriert die Funktion setLettersContainers() die Schlüssel des lettersContainer-Arrays in den Container "contact-list", um die Buchstaben A bis Z in der Kontaktliste anzuzeigen;
+ */
+async function renderContact() {
+    includeHTML();
+    await loadItems();
+    await setLettersContainers();
+}
+
+/**
+ * Diese Funktion holt die Kontaktdaten aus dem Remote Storage und wandelt sie von Text in Code um, um sie dann in das Array letterContainer einzufügen
+ */
+async function loadItems() {
+    try {
+        const response = await getItem('contacts');
+        if (response) {
+            letterContainer = JSON.parse(response);
+            console.log('Kontakte geladen:', letterContainer);
+        } else {
+            console.log('Keine Kontakte gefunden.');
+        }
+    } catch (e) {
+        console.error('Fehler beim Laden der Kontakte:', e);
+    }
+}
+
+/**
+ * Diese Funktion nimmt eine zufällige Farbe aus dem Array colors, nimmt die Daten (vollständiger Name, E-Mail und Telefonnummer) aus dem Kontaktformular und ruft schließlich die Funktion addContacts() auf;
+ */
+async function getContact() {
+    let color = Math.floor(Math.random() * colors.length);
+    let completeName = document.getElementById('name').value;
+    let emailAdress = document.getElementById('email').value;
+    let phone = document.getElementById('phone').value;
+    badgeColor = colors[color]
+    firstLetter = completeName.charAt(0).toUpperCase();
+    addContacts(completeName, emailAdress, phone, badgeColor);
+}
+
+/**
+ * Diese asynchrone Funktion erzeugt eine Instanz der Klasse Contact{}, der folgende Parameter zugewiesen werden: Kontaktname, E-Mail, Telefonnummer und Farbe des Kontaktabzeichens. 
+ * Nachdem das neue Contact{}-Objekt erstellt wurde, wird es in das Json Array letterContainer eingefügt, und zwar in den Schlüssel, dessen Buchstabe dem Anfangsbuchstaben des neu erstellten Kontakts entspricht
+ * Danach wird der neue Zustand des letterContainer-Arrays im Remote Storage gespeichert
+ * Wenn die Bildschirmbreite weniger als 1050 px beträgt, das heisst wenn der Benutzer ein Handy oder ein Tablet verwendet, blenden Sie die Kontaktliste aus und zeigen Sie nur den Container mit dem neu erstellten Kontakt an. 
+ * Andernfalls, wenn die Breite größer als 1050 px ist, wird der Kontakt im Container angezeigt, ohne dass HTML-Elemente ausgeblendet werden.
+ * Schließlich wird die Seite mit der Funktion renderContacts() erneut geladen, um das Json-Array letterContainer mit dem neuen Kontakt neu zu laden und auf der Seite anzuzeigen, alle Formulareingaben werden geleert und das Pop-up-Fenster "Add Contacts" wird ausgeblendet
+ * @param {string} completeName - vollständiger Kontaktname
+ * @param {string} emailAdress - Kontakt-E-Mail-Adresse
+ * @param {string} phone - Kontakt-Telefonnummer
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens
+ * @param {string} firstLetter - globale Variable, die den Anfangsbuchstaben jedes neu erstellten Kontakts enthäl
+ * @param {number} windowWidth - aktuelle Breite des Benutzerbildschirms
+ */
+
+async function addContacts(completeName, emailAdress, phone, badgeColor) {
+    let contact = new Contact(completeName, emailAdress, phone, badgeColor);
+    if (alphabet.includes(firstLetter)) {
+        letterContainer[firstLetter].push(contact);
+        await setItem('contacts', JSON.stringify(letterContainer));
+    }
+    if (windowWidth &lt;= 1050) {
+        document.getElementById('contact-book').classList.add('d-none');
+        document.getElementById('contact-view-section').classList.remove('mobile-d-none');
+        await showAlreadyCreatedContactInTheView();
+    } else {
+        await showAlreadyCreatedContactInTheView();
+    }
+    await renderContact();
+    emptyInputs();
+    hideAddContactOverlay();
+}
+
+/**
+ * Diese Funktion nimmt alle die Inputsfelder nach Tag-Namen und leert sie
+ */
+function emptyInputs() {
+    let inputs = document.getElementsByTagName("input");
+    for (let i = 0; i &lt; inputs.length; i++) {
+        let input = inputs[i]
+        input.value = '';
+    }
+}
+
+/**
+ * Diese Funktion durchläuft das Json-Array letterContainer und erstellt für jeden Schlüssel einen Container mit dem dem aktuellen Schlüssel zugeordneten Buchstabentitel. Die Schlüssel im Array sind nun Container, die den Kontakt mit dem ersten Buchstaben enthalten, der dem Containernamen entspricht
+ */
+async function setLettersContainers() {
+    let contactList = document.getElementById('contacts-list');
+    contactList.innerHTML = '';
+    for (let key in letterContainer) {
+        if (letterContainer.hasOwnProperty(key)) {
+            contactList.innerHTML += setLetterContainersHTML(key);
+        }
+        showContactsInTheList(key);
+    }
+}
+
+/**
+ * diese Funktion durchläuft das Array des aktuellen Schlüssels und zeigt im Sub-Container alle Kontakte mit dem dem Schlüssel entsprechenden Anfangsbuchstaben
+ * @param {string} key - Schlüssel des letterContainer-Objekts, das einem Buchstaben entspricht
+ */
+
+function showContactsInTheList(key) {
+    let cont = document.getElementById(`cont${key}`);
+    cont.innerHTML = '';
+    let contacts = letterContainer[key];
+    for (let i = 0; i &lt; contacts.length; i++) {
+        let contact = contacts[i];
+        let name = contact.completeName;
+        let email = contact.email;
+        badgeColor = contact.badgeColor;
+        capitalizeLetters(name);
+        cont.innerHTML += getShowContactInTheListHTML(i, key, name, email);
+        truncEmailMobile(key, i)
+    }
+}
+
+/**
+ * Diese Funktion prüft, ob die E-Mail-Adresse jedes iterierten Kontakts länger als 21 Zeichen ist. Wenn die Bildschirmbreite kleiner oder gleich 400 Pixel ist und die Länge der E-Mail größer als 21 ist, wird die E-Mail abgeschnitten und der E-Mail string werden drei Ellipsen hinzugefügt
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
+
+function truncEmailMobile(key, i) {
+    let email = document.getElementById(`contact-list-email${key}${i}`)
+    let emailText = email.innerText;
+    if (emailText.length > 21 &amp;&amp; windowWidth &lt;= 400) {
+        let truncedEmail = emailText.slice(0, 21);
+        email.innerText = truncedEmail + '...'
+    }
+}
+
+/**
+ * Diese Funktion nimmt die beiden Initialen des vollständigen Namens des Kontakts
+ * @param {string} completeName - Vollständiger Name des Kontakts
+ */
+function capitalizeLetters(completeName) {
+    let name = completeName.split(" "); // mettere sempre uno spazio in mezzo quando si vuol creare due stringe intere separate
+    let words = name.map((word) => {
+        return word.charAt(0);
+    });
+    capitalizedLetters = words.join("");
+
+}
+
+/**
+ * Diese Funktion zeigt den ausgewählten Kontakt in der Contact-View
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
+function showContact(key, i) {
+    let name = letterContainer[key][i]['completeName'];
+    let email = letterContainer[key][i]['email'];
+    let phone = letterContainer[key][i]['phone'];
+    badgeColor = letterContainer[key][i]['badgeColor'];
+    capitalizeLetters(name);
+    if (windowWidth &lt;= 1050) {
+        showContactMobileVersion(key, i, name, email, phone, badgeColor);
+    } else {
+        showContactDesktopVersion(key, i, name, email, phone, badgeColor);
+    }
+
+}
+
+/**
+ * Diese Funktion zeigt den ausgewählten Kontakt in der mobilen Version an
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+ * @param {string} name - Name des ausgewählten Kontakts
+ * @param {string} email - E-Mail des ausgewählten Kontakts
+ * @param {string} phone - Phone des ausgewählten Kontakts
+ * @param {string} badgeColor Farbe des Kontaktabzeichens des ausgewählten Kontakts
+ */
+function showContactMobileVersion(key, i, name, email, phone, badgeColor) {
+    let contactViewContainer = document.getElementById('contact-view-container');
+    document.getElementById('contact-book').classList.add('d-none')
+    document.getElementById('contact-view-section').classList.remove('mobile-d-none');
+    contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone, badgeColor);
+    contactViewContainer.classList.remove('translateX');
+}
+
+
+/**
+* Diese Funktion zeigt den ausgewählten Kontakt in der Desktop-Version an
+* @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+* @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+* @param {string} name - Name des ausgewählten Kontakts
+* @param {string} email - E-Mail des ausgewählten Kontakts
+* @param {string} phone - Phone des ausgewählten Kontakts
+* @param {string} badgeColor Farbe des Kontaktabzeichens des ausgewählten Kontakts
+*/
+function showContactDesktopVersion(key, i, name, email, phone, badgeColor) {
+    let contactViewContainer = document.getElementById('contact-view-container')
+    contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone, badgeColor);
+    contactViewContainer.classList.remove('translateX')
+}
+
+/**
+ * Diese Funktion ist nur für die mobile Version. Blendet die Kontaktansicht aus und zeigt nur die Kontaktliste an
+ */
+function backToContactList() {
+    document.getElementById('contact-view-section').classList.add('mobile-d-none');
+    document.getElementById('contact-book').classList.remove('d-none')
+}
+
+/**
+ * Diese Funktion ist nur für die mobile Version. Durch Klicken auf dem Button mit den Ellipsen Icon unten rechts erscheint ein kleines Dropdown-Menü mit zwei Optionen: Edit und Delete
+ * @param {object} event 
+ */
+function showPopUpEditDelete(event) {
+    document.getElementById('contact-view-icons-container').classList.remove('translateXPopUpEditDelete');
+    document.getElementById('three-vertical-dots-container').style.backgroundColor = '#29ABE2';
+    event.stopPropagation();
+}
+
+/**
+ * Diese Funktion ist nur für die mobile Version. Durch Klicken auf eine beliebige Stelle im Abschnitt „Kontaktansicht“ wird das Dropdown-Menü ausgeblendet
+ * @param {object} event 
+ */
+function hidePopUpEditDelete(event) {
+    document.getElementById('contact-view-icons-container').classList.add('translateXPopUpEditDelete');
+    setTimeout(removeBgColorOnPopUpClosed, 800);
+    event.stopPropagation();
+}
+
+/**
+ * Diese Funktion entfernt die hellblaue Hintergrundfarbe nach 800 Millisekunden
+ */
+function removeBgColorOnPopUpClosed() {
+    document.getElementById('three-vertical-dots-container').style.backgroundColor = '#2A3647';
+}
+
+/**
+ * Diese Funktion zeigt den neu angelegten Kontakt in der Kontaktansicht an
+ */
+async function showAlreadyCreatedContactInTheView() {
+    let key = firstLetter;
+    let i = letterContainer[key].length - 1;
+    let contactViewContainer = document.getElementById('contact-view-container');
+    contactViewContainer.classList.remove('translateX');
+    let name = letterContainer[key][i]['completeName'];
+    let email = letterContainer[key][i]['email'];
+    let phone = letterContainer[key][i]['phone'];
+    badgeColor = letterContainer[key][i]['badgeColor']
+    capitalizeLetters(name);
+    contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor);
+    successfulContactAddedButton();
+}
+
+/**
+ * Diese Funktion zeigt in der Übersetzung und einige Millisekunden nach der Erstellung eines neuen Kontakts ein kleines Banner an, das besagt, dass der Kontakt erfolgreich erstellt wurde
+ */
+function successfulContactAddedButton() {
+    let successButton = document.getElementById('successfulButton');
+    setTimeout(()=> {
+        if (windowWidth &lt;= 420) {
+            successButton.classList.remove('translateSuccButtonMobile')
+        } else {
+            successButton.classList.remove('translateSuccButton');
+        }
+    }, 700)
+
+    setTimeout(hideSuccessfulContactAddedButton, 2000);
+}
+
+function hideSuccessfulContactAddedButton() {
+    let successButton = document.getElementById('successfulButton');
+    if (windowWidth &lt;= 420) {
+        successButton.classList.add('translateSuccButtonMobile')
+    } else {
+        successButton.classList.add('translateSuccButton');
+    }
+}
+
+function showEditContactOverlay(key, i) {
+    let name = letterContainer[key][i]['completeName'];
+    let email = letterContainer[key][i]['email'];
+    let phone = letterContainer[key][i]['phone'];
+    badgeColor = letterContainer[key][i]['badgeColor'];
+    capitalizeLetters(name);
+    let editContactOverlay = document.getElementById('edit-contact-overlay');
+    editContactOverlay.classList.remove('d-none');
+    editContactOverlay.innerHTML = editContactOverlayHTML(key, i,);
+    getTheInputs(key, i);
+    displayTheContactDataInTheInputs(name, email, phone, badgeColor);
+    translateContactDialogPopUpInside(`${key}`, `${i}`)
+}
+
+function translateContactDialogPopUpInside(key, i) {
+    if (windowWidth > 1050) {
+        setTimeout(() => {
+            document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
+        }, 10);
+    } else {
+        setTimeout(() => {
+            document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp-Mobile');
+        }, 10)
+    }
+}
+
+function hideEditContactOverlay(key, i, event) {
+    if (windowWidth > 1050) {
+        document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
+        setTimeout(() => {
+            document.getElementById('edit-contact-overlay').classList.add('d-none');
+        }, 500)
+    } else {
+        document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp-Mobile');
+        setTimeout(() => {
+            document.getElementById('edit-contact-overlay').classList.add('d-none');
+        }, 200);
+    }
+    doNotClose(event)
+}
+
+function getTheInputs(key, i) {
+    inputName = document.getElementById(`input-name${key}${i}`);
+    inputEmail = document.getElementById(`input-email${key}${i}`);
+    inputPhone = document.getElementById(`input-phone${key}${i}`);
+    badge = document.getElementById(`edit-contact-badge-container${key}${i}`)
+}
+
+function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
+    inputName.value = name;
+    inputEmail.value = email;
+    inputPhone.value = phone;
+    badge.style.backgroundColor = badgeColor
+}
+
+async function saveNewContact(key, i) {
+    let contactViewContainer = document.getElementById('contact-view-container');
+    contactViewContainer.classList.remove('translateX');
+    letterContainer[key][i]['completeName'] = inputName.value;
+    letterContainer[key][i]['email'] = inputEmail.value;
+    letterContainer[key][i]['phone'] = inputPhone.value;
+    letterContainer[key][i]['badgeColor'] = badgeColor;
+    capitalizeLetters(inputName.value);
+    await setItem('contacts', JSON.stringify(letterContainer)); // salviamo all'interno del remote storage il nuovo contatto modificato, in modo che sia visibile nella lista quando andremo ad iterare sul JSON, e quando chiameremo getItem;
+    contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, inputName.value, inputEmail.value, inputPhone.value, badgeColor);
+    document.getElementById('edit-contact-overlay').classList.add('d-none');
+    await renderContact();
+}
+
+async function deleteContact(key, i) {
+    letterContainer[key].splice(i, 1);
+    if (windowWidth &lt;= 1050) {
+        backToContactList();
+    } else {
+        document.getElementById('contact-view-container').innerHTML = '';
+    }
+    await setItem('contacts', JSON.stringify(letterContainer));
+    renderContact();
+    hideEditContactOverlay();
+}
+
+function backgroundBlackAndWhiteText(key, i) {
+    document.getElementById(`under-container${key}${i}`).classList.add('black-container');
+    document.getElementById(`contact-list-name${key}${i}`).style.color = '#fff';
+    document.getElementById(`contact-list-email${key}${i}`).style.color = '#fff';
+}
+
+function backgroundAndTextOriginal(key, i) {
+    document.getElementById(`under-container${key}${i}`).classList.remove('black-container');
+    document.getElementById(`contact-list-name${key}${i}`).style.color = '#000';
+    document.getElementById(`contact-list-email${key}${i}`).style.color = '#29ABE2'
+}
+
+
+function showAddContactOverlay() {
+    if (windowWidth > 1050) {
+        document.getElementById('add-contact-overlay').classList.remove('d-none');
+        setTimeout(() => {
+            document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp');
+        }, 10)
+    } else {
+        document.getElementById('add-contact-overlay').classList.remove('d-none');
+        setTimeout(() => {
+            document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp-Mobile');
+        }, 100)
+        document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#29ABE2'
+    }
+}
+
+function hideAddContactOverlay() {
+    if (windowWidth > 1050) {
+        document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
+        setTimeout(() => {
+            document.getElementById('add-contact-overlay').classList.add('d-none');
+        }, 200)
+    } else {
+        document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp-Mobile');
+        setTimeout(() => {
+            document.getElementById('add-contact-overlay').classList.add('d-none');
+        }, 100)
+        setTimeout(originalBgColorOfAddContactBtnMobile, 800);
+    }
+    doNotClose(event)
+}
+
+
+
+function originalBgColorOfAddContactBtnMobile() {
+    document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#2A3647'
+}
+
+function doNotClose(event) {
+    event.stopPropagation()
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadItems().then(() => {
+        renderAssignees();
+    });
+});
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Task.html">Task</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addContacts">addContacts</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#backToContactList">backToContactList</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#capitalisedName">capitalisedName</a></li><li><a href="global.html#capitalizeLetters">capitalizeLetters</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#changePencilImgColor">changePencilImgColor</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#emptyInputs">emptyInputs</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getContact">getContact</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#getNamefromArray">getNamefromArray</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#hidePopUpEditDelete">hidePopUpEditDelete</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#loadItems">loadItems</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#loginError">loginError</a></li><li><a href="global.html#match">match</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfAllTasks">numberOfAllTasks</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#redirectToLogin">redirectToLogin</a></li><li><a href="global.html#rememberMe">rememberMe</a></li><li><a href="global.html#removeBgColorOnPopUpClosed">removeBgColorOnPopUpClosed</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderContact">renderContact</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#revealPassword">revealPassword</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setCurrentUser">setCurrentUser</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setLettersContainers">setLettersContainers</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#showAlreadyCreatedContactInTheView">showAlreadyCreatedContactInTheView</a></li><li><a href="global.html#showContact">showContact</a></li><li><a href="global.html#showContactDesktopVersion">showContactDesktopVersion</a></li><li><a href="global.html#showContactMobileVersion">showContactMobileVersion</a></li><li><a href="global.html#showContactsInTheList">showContactsInTheList</a></li><li><a href="global.html#showMenu">showMenu</a></li><li><a href="global.html#showPopUpEditDelete">showPopUpEditDelete</a></li><li><a href="global.html#signUpMessage">signUpMessage</a></li><li><a href="global.html#successfulContactAddedButton">successfulContactAddedButton</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#timeDynamicWelcome">timeDynamicWelcome</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#truncEmailMobile">truncEmailMobile</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 02 2024 19:21:51 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

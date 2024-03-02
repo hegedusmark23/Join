@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/board_dragdrop.js</title>
+    <title>JSDoc: Source: JS/register.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/board_dragdrop.js</h1>
+    <h1 class="page-title">Source: JS/register.js</h1>
 
     
 
@@ -26,76 +26,173 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
+            <pre class="prettyprint source linenums"><code>let users = [];
+let currentUser = []
+let Name = []
+
+async function loadUsers() {
+  try {
+    users = JSON.parse(await getItem('users'));
+  } catch (e) {
+    console.error('Loading error:', e);
+  }
+}
+
+
+async function register() {
+  let Name = document.getElementById('name');
+  let email = document.getElementById('email');
+  let password = document.getElementById('password');
+  let register_button = document.getElementById('register_button');
+  register_button.disabled = true;
+  users.push({
+    name: Name.value,
+    email: email.value,
+    password: password.value,
+  });
+  await setItem('users', JSON.stringify(users));
+  resetForm();
+  signUpMessage();
+  redirectToLogin();
+}
+
 /**
- * Startet den Drag-Vorgang für ein Task-Element.
- * @param {number} id - Die ID des zu verschiebenden Tasks.
- * @param {string} state - Der aktuelle Zustand des Tasks.
- * @param {number} i - Der Index des Tasks im aktuellen Zustand.
-*/
-/**
- * Ermöglicht das Ablegen von Drag-Elementen.
- * @param {Event} ev - Das Drag-Event.
+ * Resets the form after registration.
  */
-function allowDrop(event) {
-    event.preventDefault();
+function resetForm() {     
+  let Name = document.getElementById('name');
+  Name.value = '';
+  email.value = '';
+  password.value = '';
+  confirm_password.value = '';
+  register_button.disabled = false;
 }
-
-function startDragging(id, state, i) {
-    currentDraggedElement = id;
-    document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg'
-}
-
 
 /**
- * Verschiebt den aktuell gezogenen Task in einen neuen Zustand und aktualisiert die Ansicht.
- * @param {string} state - Der Zielzustand des Tasks.
-*/
-async function moveTo(state) {
-    tasks[currentDraggedElement]['state'] = state;
-    await setItem('tasks', JSON.stringify(tasks));
-    await initializeBoardCard();
-}
-
-
-/**
- * Versteckt den "Keine Tasks"-Hinweis für eine spezifische Spalte, wenn ein Task hinzugefügt wird.
- * @param {string} id - Die ID der Spalte, in der der Hinweis versteckt werden soll.
+ * Checks if the passwords are matching at the registration.
  */
-
-function hideNoTaskDiv(id) {
-    let background;
-    if (id == 'toDo') {
-        background = 'board-card-background-1';
-    } else if (id == 'in-progress') {
-        background = 'board-card-background-2';
-    } else if (id == 'await-feedback') {
-        background = 'board-card-background-3';
-    } else if (id == 'done') {
-        background = 'board-card-background-4'
+function match() {      
+  var password = document.getElementById("password")
+    , confirm_password = document.getElementById("confirm_password");
+  function validatePassword() {
+    if (password.value != confirm_password.value) {
+      confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      confirm_password.setCustomValidity('');
     }
-    document.getElementById(background).style.display = 'none'
+  }
+  password.onchange = validatePassword;
+  confirm_password.onkeyup = validatePassword;
+}
+
+
+async function login() {
+  let email = document.getElementById('email');
+  let password = document.getElementById('password');
+  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
+  if (user) {
+    await setItem('user', JSON.stringify(user));
+    window.location.href = '/index.html';
+  } else {
+    loginError();
+  }
 }
 
 /**
- * Setzt den "Keine Tasks"-Hinweis für eine spezifische Spalte zurück, wenn die letzte Aufgabe daraus entfernt wird.
- * @param {string} id - Die ID der Spalte, für die der Hinweis zurückgesetzt werden soll.
+ * Empties the arrays related to the current user, and redirects to the login page.
  */
-function resetNoTaskDiv(id) {
-    let background;
-    if (id == 'toDo' &amp;&amp; todos.length == 0) {
-        background = 'board-card-background-1';
-    } else if (id == 'in-progress' &amp;&amp; inProgress.length == 0) {
-        background = 'board-card-background-2';
-    } else if (id == 'await-feedback' &amp;&amp; awaitFeedback.length == 0 ) {
-        background = 'board-card-background-3';
-    } else if (id == 'done' &amp;&amp; done.length == 0) {
-        background = 'board-card-background-4'
+function logOut() {  
+  Name = [];
+  currentUser = [];
+  deleteUser();
+  window.location.href = '/landingpage.html';
+}
+
+/**
+ * Sets the current user after log in.
+ */
+async function setCurrentUser() {   
+  const userData = await getItem('user');
+  let message = document.getElementById('welcome-message');
+  try {
+    const jsonUserData = JSON.parse(userData);
+    currentUser.push(jsonUserData);
+    message.innerHTML = currentUser[0]['name'];
+    capitalisedName();
+  } catch (error) {
+    console.error("Es ist ein fehler aufgetreten.", error);
+  }
+}
+
+async function setCurrentUserName() { 
+  const userData = await getItem('user');
+  try {
+    const jsonUserData = JSON.parse(userData);
+    currentUser.push(jsonUserData);
+    capitalisedName();
+  } catch (error) {
+    console.error("Es ist ein fehler aufgetreten.", error);
+  }
+}
+
+/**
+ * Filters out the name of the User.
+ */
+function getNamefromArray() {
+  let message = document.getElementById('welcome-message');
+  message.innerHTML = currentUser[0]['name'];
+}
+
+/**
+ * Capitalises the first letters of the signed in user, and shows them on the user-button.
+ */
+function capitalisedName() {    
+  let capitalisedName = document.getElementById('user-name-capitalized');
+  Name.push(currentUser[0]['name']);
+  parts = Name[0].split(" ");
+  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
+  capitalisedName.innerHTML = neededStr
+}
+
+/**
+ * Shows an error-message in case of wrong username or password.
+ */
+function loginError() {       
+  let message = document.getElementById('login-error-message');
+  message.classList.remove('d-none');
+  message.classList.add('d-flex');
+
+}
+
+/**
+ * The function behind the "Remember me" checkbox.
+ */
+function rememberMe() {   
+  var rememberMeCheckbox = document.getElementById('remember');
+  var usernameInput = document.getElementById('email');
+  var passwordInput = document.getElementById('password');
+  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
+    rememberMeCheckbox.checked = true;
+    usernameInput.value = localStorage.usrname;
+    passwordInput.value = localStorage.pass;
+  } else {
+    rememberMeCheckbox.checked = false;
+    usernameInput.value = '';
+    passwordInput.value = '';
+  }
+  rememberMeCheckbox.addEventListener('click', function () {
+    if (rememberMeCheckbox.checked) {
+      localStorage.usrname = usernameInput.value;
+      localStorage.pass = passwordInput.value;
+      localStorage.chkbx = rememberMeCheckbox.checked;
+    } else {
+      localStorage.usrname = '';
+      localStorage.pass = '';
+      localStorage.chkbx = '';
     }
-    if(background){
-        document.getElementById(background).style.display = 'flex'
-    } else {}
-}</code></pre>
+  });
+};
+</code></pre>
         </article>
     </section>
 
