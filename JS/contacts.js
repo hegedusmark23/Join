@@ -1,4 +1,3 @@
-
 let letterContainer = {};
 let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Ü',];
 let colors = ['#9327FF', '#6E52FF', '#FC71FF', '#FFBB2B', '#1FD7C1', '#462F8A'];
@@ -202,7 +201,6 @@ function showContactMobileVersion(key, i, name, email, phone, badgeColor) {
     contactViewContainer.classList.remove('translateX');
 }
 
-
 /**
 * Diese Funktion zeigt den ausgewählten Kontakt in der Desktop-Version an
 * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
@@ -358,7 +356,7 @@ async function saveNewContact(key, i) {
     letterContainer[key][i]['phone'] = inputPhone.value;
     letterContainer[key][i]['badgeColor'] = badgeColor;
     capitalizeLetters(inputName.value);
-    await setItem('contacts', JSON.stringify(letterContainer)); // salviamo all'interno del remote storage il nuovo contatto modificato, in modo che sia visibile nella lista quando andremo ad iterare sul JSON, e quando chiameremo getItem;
+    await setItem('contacts', JSON.stringify(letterContainer)); 
     contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, inputName.value, inputEmail.value, inputPhone.value, badgeColor);
     document.getElementById('edit-contact-overlay').classList.add('d-none');
     await renderContact();
