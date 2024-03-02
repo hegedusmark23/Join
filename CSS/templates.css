@@ -851,6 +851,7 @@ input#subtask-edit-input {
   font-size: 16px;
   height: 48px;
   box-shadow: 0px 0px 4px 0px #00000029;
+  text-align: center;
 }
 
 .board-card {

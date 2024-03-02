@@ -273,7 +273,7 @@ async function showAlreadyCreatedContactInTheView() {
  */
 function successfulContactAddedButton() {
     let successButton = document.getElementById('successfulButton');
-    setTimeout(()=> {
+    setTimeout(() => {
         if (windowWidth <= 420) {
             successButton.classList.remove('translateSuccButtonMobile')
         } else {
@@ -284,6 +284,10 @@ function successfulContactAddedButton() {
     setTimeout(hideSuccessfulContactAddedButton, 2000);
 }
 
+/**
+ * diese Funktion verschiebt das Banner mit der Nachricht, dass der Kontakt erfolgreich erstellt wurde, wieder aus dem Viewport
+ */
+
 function hideSuccessfulContactAddedButton() {
     let successButton = document.getElementById('successfulButton');
     if (windowWidth <= 420) {
@@ -293,6 +297,11 @@ function hideSuccessfulContactAddedButton() {
     }
 }
 
+/**
+ * Diese Funktion zeigt das Pop-up-Fenster zum Bearbeiten oder Löschen des Kontakts an
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
 function showEditContactOverlay(key, i) {
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
@@ -307,6 +316,31 @@ function showEditContactOverlay(key, i) {
     translateContactDialogPopUpInside(`${key}`, `${i}`)
 }
 
+/**
+ * Diese Funktion ruft den Wert der Eingabe im Pop-up-Fenster "Edit Contact" ab
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
+function getTheInputs(key, i) {
+    inputName = document.getElementById(`input-name${key}${i}`);
+    inputEmail = document.getElementById(`input-email${key}${i}`);
+    inputPhone = document.getElementById(`input-phone${key}${i}`);
+    badge = document.getElementById(`edit-contact-badge-container${key}${i}`)
+}
+
+function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
+    inputName.value = name;
+    inputEmail.value = email;
+    inputPhone.value = phone;
+    badge.style.backgroundColor = badgeColor
+}
+
+/**
+ * Diese Funktion verschiebt das Pop-up von außerhalb des Dialogs nach innen und erzeugt eine Animation
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
+
 function translateContactDialogPopUpInside(key, i) {
     if (windowWidth > 1050) {
         setTimeout(() => {
@@ -318,6 +352,12 @@ function translateContactDialogPopUpInside(key, i) {
         }, 10)
     }
 }
+
+/**
+ * Diese Funktion verschiebt das Popup-Fenster von innerhalb des Dialogs nach außerhalb und blendet es aus
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
 
 function hideEditContactOverlay(key, i, event) {
     if (windowWidth > 1050) {
@@ -334,20 +374,11 @@ function hideEditContactOverlay(key, i, event) {
     doNotClose(event)
 }
 
-function getTheInputs(key, i) {
-    inputName = document.getElementById(`input-name${key}${i}`);
-    inputEmail = document.getElementById(`input-email${key}${i}`);
-    inputPhone = document.getElementById(`input-phone${key}${i}`);
-    badge = document.getElementById(`edit-contact-badge-container${key}${i}`)
-}
-
-function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
-    inputName.value = name;
-    inputEmail.value = email;
-    inputPhone.value = phone;
-    badge.style.backgroundColor = badgeColor
-}
-
+/**
+ * Diese Funktion speichert die neuen Daten, die im Formular "Edit Contact" eingegeben wurden und erstellt einen neuen Kontakt mit diesen neuen Daten
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
 async function saveNewContact(key, i) {
     let contactViewContainer = document.getElementById('contact-view-container');
     contactViewContainer.classList.remove('translateX');
@@ -356,12 +387,17 @@ async function saveNewContact(key, i) {
     letterContainer[key][i]['phone'] = inputPhone.value;
     letterContainer[key][i]['badgeColor'] = badgeColor;
     capitalizeLetters(inputName.value);
-    await setItem('contacts', JSON.stringify(letterContainer)); 
+    await setItem('contacts', JSON.stringify(letterContainer));
     contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, inputName.value, inputEmail.value, inputPhone.value, badgeColor);
     document.getElementById('edit-contact-overlay').classList.add('d-none');
     await renderContact();
 }
 
+/**
+ * Diese Funktion löscht den ausgewählten Kontakt durch Anklicken. Wenn die Bildschirmbreite 1050 Pixel oder weniger beträgt, blendet sie den Contact-View-Container aus und kehrt zur Kontaktliste zurück, ansonsten leert sie den Contact-View-Container
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
 async function deleteContact(key, i) {
     letterContainer[key].splice(i, 1);
     if (windowWidth <= 1050) {
