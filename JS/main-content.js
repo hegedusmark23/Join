@@ -14,8 +14,10 @@ function generateHelpContent() {
   container.innerHTML = helpHTML();
 }
 
-
-function changePencilImgColor() {                //Changes the color of an icon on hover
+/**
+ * Changes the color of an icon on hover
+*/
+function changePencilImgColor() {                
   var image = document.getElementById("pencil-icon");
   var button = document.getElementById("pencil-button");
   button.addEventListener('mouseover', function () {
@@ -26,7 +28,7 @@ function changePencilImgColor() {                //Changes the color of an icon 
   })
 }
 
-function changeCheckImgColor() {         //Changes the color of an icon on hover
+function changeCheckImgColor() {         
   var image = document.getElementById("check-icon");
   var button = document.getElementById("check-button");
   button.addEventListener('mouseover', function () {
@@ -37,7 +39,9 @@ function changeCheckImgColor() {         //Changes the color of an icon on hover
   })
 }
 
-
+/**
+ * Opens the animated Menu.
+ */
 function showMenu() {
   var x = document.getElementById("popup-menu");
   var computedStyle = window.getComputedStyle(x);
@@ -48,27 +52,35 @@ function showMenu() {
   }
 }
 
+
 function closeMenu() {
   let menu = document.getElementById('popup-menu');
   menu.style.display = "none";
 }
 
-function signUpMessage() {    // A messeage does appear after a succesfull registration.
+/**  
+ * A messeage does appear after a succesfull registration.
+ */
+function signUpMessage() {    
   let message = document.getElementById('signup-message');
   setTimeout(function () {
     message.classList.remove('d-none');
     message.classList.add('d-flex');
   }, 500)
 }
-
-function redirectToLogin() {   // Redirects to the Login page after registration.
+/**
+ * Redirects to the Login page after registration.
+ */
+function redirectToLogin() {   
   setTimeout(function () {
     window.location.href = '/landingpage.html'
   }, 1500)
 }
 
-
-function timeDynamicWelcome() {      //Daytime dependant Welcome message.
+/**
+ * Daytime dependent Welcome message.
+ */
+function timeDynamicWelcome() {      
   let welcome = document.getElementById('daytime')
   let date = new Date();
   let hour = date.getHours();
@@ -82,8 +94,10 @@ function timeDynamicWelcome() {      //Daytime dependant Welcome message.
 }
 
 
-
-function revealPassword() {         //Reveals the password on the login page.
+/**
+ * Reveals the password on the login page.
+ */
+function revealPassword() {         
   var x = document.getElementById("password");
   if (x.type === "password" && x.value.length > 2) {
     x.style.background = "url(/assets/img/visibility.png)";
@@ -99,7 +113,6 @@ function revealPassword() {         //Reveals the password on the login page.
 
 
 function guestLogin() {
-  // window.location.href = '/guest.index.html'
   window.location.href = '/guest.index.html'
 }
 

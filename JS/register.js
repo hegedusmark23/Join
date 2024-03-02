@@ -23,7 +23,6 @@ async function register() {
     password: password.value,
   });
   await setItem('users', JSON.stringify(users));
-  await setItem('contacts', JSON.stringify(letterContainer));
   resetForm();
   signUpMessage();
   redirectToLogin();
