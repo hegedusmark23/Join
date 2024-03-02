@@ -116,7 +116,9 @@ function guestLogin() {
   window.location.href = '/guest.index.html'
 }
 
-
+/**
+ * Marks the severe buttons, dependent on wich site the user currently on.
+ */
 function buttonFocus() {
   let summaryNav = document.getElementById("summary-nav");
   let addTaskNav = document.getElementById("addTask-nav");
@@ -134,6 +136,9 @@ function buttonFocus() {
   }
 }
 
+/**
+ * These funktions handle the number of tasks displayed on the Summary page.
+ */
 function numberOfAllTasks() {
   let allTasks = document.getElementById('numberOfTasksInBoard');
   allTasks.innerHTML = tasks.length;
