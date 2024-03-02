@@ -29,13 +29,13 @@ function getShowContactInTheListHTML(i, key, name, email) {
 // row 127 in contacts.js
 function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor) {
   return /*html*/ `
-      <div id="contact-view-name-container${key}${i}" class="contact-view-name-container">
+      <div onclick="hidePopUpEditDelete(event)" id="contact-view-name-container${key}${i}" class="contact-view-name-container">
           <div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container" style="background:${badgeColor}">
             <span class="contact-view-badge">${capitalizedLetters}</span>
           </div>
           <div class="contact-view-edit-delete-container">
               <h2 id="contact-view-name${key}${i}" class="contact-view-name">${name}</h2>
-              <div class="contact-view-icons-container">
+              <div id="contact-view-icons-container" class="contact-view-icons-container">
                 <span onclick="showEditContactOverlay('${key}', ${i})" id="contact-view-edit-container${key}${i}" class="contact-view-edit-container">
                   <img src="./assets/icons/pen.svg" alt="">Edit
                 </span> 
@@ -56,11 +56,12 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
               <span class="contact-view-phone">${phone}</span>
           </div>
       </div>
-      <div class="successfulButtonContainer">
-         <span id="successfulButton" class="successfulButton translateSuccButton transformSuccButtonMobile">
-           Contact successfully created
-         </span>
-      </div>
+    </div>
+    <div class="successfulButtonContainer">
+       <span id="successfulButton" class="successfulButton translateSuccButton translateSuccButtonMobile">
+         Contact successfully created
+       </span>
+    </div>
       `
 
 }

@@ -47,6 +47,9 @@ async function loadItems() {
     }
 }
 
+/**
+ * Diese Funktion nimmt eine zufällige Farbe aus dem Array colors, nimmt die Daten (vollständiger Name, E-Mail und Telefonnummer) aus dem Kontaktformular und ruft schließlich die Funktion addContacts() auf;
+ */
 async function getContact() {
     let color = Math.floor(Math.random() * colors.length);
     let completeName = document.getElementById('name').value;
@@ -56,6 +59,21 @@ async function getContact() {
     firstLetter = completeName.charAt(0).toUpperCase();
     addContacts(completeName, emailAdress, phone, badgeColor);
 }
+
+/**
+ * Diese asynchrone Funktion erzeugt eine Instanz der Klasse Contact{}, der folgende Parameter zugewiesen werden: Kontaktname, E-Mail, Telefonnummer und Farbe des Kontaktabzeichens. 
+ * Nachdem das neue Contact{}-Objekt erstellt wurde, wird es in das Json Array letterContainer eingefügt, und zwar in den Schlüssel, dessen Buchstabe dem Anfangsbuchstaben des neu erstellten Kontakts entspricht
+ * Danach wird der neue Zustand des letterContainer-Arrays im Remote Storage gespeichert
+ * Wenn die Bildschirmbreite weniger als 1050 px beträgt, das heisst wenn der Benutzer ein Handy oder ein Tablet verwendet, blenden Sie die Kontaktliste aus und zeigen Sie nur den Container mit dem neu erstellten Kontakt an. 
+ * Andernfalls, wenn die Breite größer als 1050 px ist, wird der Kontakt im Container angezeigt, ohne dass HTML-Elemente ausgeblendet werden.
+ * Schließlich wird die Seite mit der Funktion renderContacts() erneut geladen, um das Json-Array letterContainer mit dem neuen Kontakt neu zu laden und auf der Seite anzuzeigen, alle Formulareingaben werden geleert und das Pop-up-Fenster "Add Contacts" wird ausgeblendet
+ * @param {string} completeName - vollständiger Kontaktname
+ * @param {string} emailAdress - Kontakt-E-Mail-Adresse
+ * @param {string} phone - Kontakt-Telefonnummer
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens
+ * @param {string} firstLetter - globale Variable, die den Anfangsbuchstaben jedes neu erstellten Kontakts enthäl
+ * @param {number} windowWidth - aktuelle Breite des Benutzerbildschirms
+ */
 
 async function addContacts(completeName, emailAdress, phone, badgeColor) {
     let contact = new Contact(completeName, emailAdress, phone, badgeColor);
@@ -75,6 +93,9 @@ async function addContacts(completeName, emailAdress, phone, badgeColor) {
     hideAddContactOverlay();
 }
 
+/**
+ * Diese Funktion nimmt alle die Inputsfelder nach Tag-Namen und leert sie
+ */
 function emptyInputs() {
     let inputs = document.getElementsByTagName("input");
     for (let i = 0; i < inputs.length; i++) {
@@ -83,6 +104,9 @@ function emptyInputs() {
     }
 }
 
+/**
+ * Diese Funktion durchläuft das Json-Array letterContainer und erstellt für jeden Schlüssel einen Container mit dem dem aktuellen Schlüssel zugeordneten Buchstabentitel. Die Schlüssel im Array sind nun Container, die den Kontakt mit dem ersten Buchstaben enthalten, der dem Containernamen entspricht
+ */
 async function setLettersContainers() {
     let contactList = document.getElementById('contacts-list');
     contactList.innerHTML = '';
@@ -93,6 +117,11 @@ async function setLettersContainers() {
         showContactsInTheList(key);
     }
 }
+
+/**
+ * diese Funktion durchläuft das Array des aktuellen Schlüssels und zeigt im Sub-Container alle Kontakte mit dem dem Schlüssel entsprechenden Anfangsbuchstaben
+ * @param {string} key - Schlüssel des letterContainer-Objekts, das einem Buchstaben entspricht
+ */
 
 function showContactsInTheList(key) {
     let cont = document.getElementById(`cont${key}`);
@@ -109,6 +138,12 @@ function showContactsInTheList(key) {
     }
 }
 
+/**
+ * Diese Funktion prüft, ob die E-Mail-Adresse jedes iterierten Kontakts länger als 21 Zeichen ist. Wenn die Bildschirmbreite kleiner oder gleich 400 Pixel ist und die Länge der E-Mail größer als 21 ist, wird die E-Mail abgeschnitten und der E-Mail string werden drei Ellipsen hinzugefügt
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
+
 function truncEmailMobile(key, i) {
     let email = document.getElementById(`contact-list-email${key}${i}`)
     let emailText = email.innerText;
@@ -118,6 +153,10 @@ function truncEmailMobile(key, i) {
     }
 }
 
+/**
+ * Diese Funktion nimmt die beiden Initialen des vollständigen Namens des Kontakts
+ * @param {string} completeName - Vollständiger Name des Kontakts
+ */
 function capitalizeLetters(completeName) {
     let name = completeName.split(" "); // mettere sempre uno spazio in mezzo quando si vuol creare due stringe intere separate
     let words = name.map((word) => {
@@ -127,6 +166,11 @@ function capitalizeLetters(completeName) {
 
 }
 
+/**
+ * Diese Funktion zeigt den ausgewählten Kontakt in der Contact-View
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
 function showContact(key, i) {
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
@@ -141,6 +185,15 @@ function showContact(key, i) {
 
 }
 
+/**
+ * Diese Funktion zeigt den ausgewählten Kontakt in der mobilen Version an
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+ * @param {string} name - Name des ausgewählten Kontakts
+ * @param {string} email - E-Mail des ausgewählten Kontakts
+ * @param {string} phone - Phone des ausgewählten Kontakts
+ * @param {string} badgeColor Farbe des Kontaktabzeichens des ausgewählten Kontakts
+ */
 function showContactMobileVersion(key, i, name, email, phone, badgeColor) {
     let contactViewContainer = document.getElementById('contact-view-container');
     document.getElementById('contact-book').classList.add('d-none')
@@ -149,34 +202,60 @@ function showContactMobileVersion(key, i, name, email, phone, badgeColor) {
     contactViewContainer.classList.remove('translateX');
 }
 
+
+/**
+* Diese Funktion zeigt den ausgewählten Kontakt in der Desktop-Version an
+* @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+* @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+* @param {string} name - Name des ausgewählten Kontakts
+* @param {string} email - E-Mail des ausgewählten Kontakts
+* @param {string} phone - Phone des ausgewählten Kontakts
+* @param {string} badgeColor Farbe des Kontaktabzeichens des ausgewählten Kontakts
+*/
 function showContactDesktopVersion(key, i, name, email, phone, badgeColor) {
     let contactViewContainer = document.getElementById('contact-view-container')
     contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone, badgeColor);
     contactViewContainer.classList.remove('translateX')
 }
 
+/**
+ * Diese Funktion ist nur für die mobile Version. Blendet die Kontaktansicht aus und zeigt nur die Kontaktliste an
+ */
 function backToContactList() {
     document.getElementById('contact-view-section').classList.add('mobile-d-none');
     document.getElementById('contact-book').classList.remove('d-none')
 }
 
+/**
+ * Diese Funktion ist nur für die mobile Version. Durch Klicken auf dem Button mit den Ellipsen Icon unten rechts erscheint ein kleines Dropdown-Menü mit zwei Optionen: Edit und Delete
+ * @param {object} event 
+ */
 function showPopUpEditDelete(event) {
     document.getElementById('contact-view-icons-container').classList.remove('translateXPopUpEditDelete');
     document.getElementById('three-vertical-dots-container').style.backgroundColor = '#29ABE2';
     event.stopPropagation();
 }
 
+/**
+ * Diese Funktion ist nur für die mobile Version. Durch Klicken auf eine beliebige Stelle im Abschnitt „Kontaktansicht“ wird das Dropdown-Menü ausgeblendet
+ * @param {object} event 
+ */
 function hidePopUpEditDelete(event) {
     document.getElementById('contact-view-icons-container').classList.add('translateXPopUpEditDelete');
     setTimeout(removeBgColorOnPopUpClosed, 800);
     event.stopPropagation();
 }
 
+/**
+ * Diese Funktion entfernt die hellblaue Hintergrundfarbe nach 800 Millisekunden
+ */
 function removeBgColorOnPopUpClosed() {
     document.getElementById('three-vertical-dots-container').style.backgroundColor = '#2A3647';
 }
 
-
+/**
+ * Diese Funktion zeigt den neu angelegten Kontakt in der Kontaktansicht an
+ */
 async function showAlreadyCreatedContactInTheView() {
     let key = firstLetter;
     let i = letterContainer[key].length - 1;
@@ -188,18 +267,22 @@ async function showAlreadyCreatedContactInTheView() {
     badgeColor = letterContainer[key][i]['badgeColor']
     capitalizeLetters(name);
     contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor);
-    successfulContactAddedButton()
+    successfulContactAddedButton();
 }
 
-async function successfulContactAddedButton() {
-    setTimeout(() => {
-        let successButton = document.getElementById('successfulButton');
+/**
+ * Diese Funktion zeigt in der Übersetzung und einige Millisekunden nach der Erstellung eines neuen Kontakts ein kleines Banner an, das besagt, dass der Kontakt erfolgreich erstellt wurde
+ */
+function successfulContactAddedButton() {
+    let successButton = document.getElementById('successfulButton');
+    setTimeout(()=> {
         if (windowWidth <= 420) {
             successButton.classList.remove('translateSuccButtonMobile')
         } else {
             successButton.classList.remove('translateSuccButton');
         }
-    }, 2000);
+    }, 700)
+
     setTimeout(hideSuccessfulContactAddedButton, 2000);
 }
 
@@ -353,7 +436,4 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAssignees();
     });
 });
-
-
-
 
