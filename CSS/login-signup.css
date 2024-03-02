@@ -194,7 +194,7 @@ form {
     50% {
         height: 270px;
         left: 50%;
-        bottom: 50%;
+        bottom: 0%;
         -webkit-transform: translate3d(-50%, 0, 0);
     }
 
