@@ -356,19 +356,12 @@
     padding: 0;
   }
 
-<<<<<<< HEAD
     .welcome-section {
         justify-content: center;
         align-items: center;
         flex-direction: column;
         padding: 0;
     }
-=======
-  .summary-main-content {
-    align-items: center;
-    justify-content: center;
-  }
->>>>>>> a1321d59bc3a4dbc9e8112ba070ad36ede06a637
 
   .summary-headline {
     align-items: baseline;
@@ -470,7 +463,6 @@
     animation: invisVisMobile 1s linear;
   }
 
-<<<<<<< HEAD
     .summary-headline {
         padding: 20px 0px;
     }
@@ -478,11 +470,6 @@
     .tasks-headline-container {
         animation: invisVisMobile 1s linear;
     }
-=======
-  .navbar {
-    animation: invisVisMobile 1s linear;
-  }
->>>>>>> a1321d59bc3a4dbc9e8112ba070ad36ede06a637
 
   .header {
     animation: invisVisMobile 1s linear;
@@ -498,11 +485,7 @@
     .user-name-text {
       font-size: 25px;
     }
-<<<<<<< HEAD
     */
-=======
-  }
->>>>>>> a1321d59bc3a4dbc9e8112ba070ad36ede06a637
 }
 
 @media (max-width: 375px) {
