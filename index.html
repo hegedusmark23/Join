@@ -7,126 +7,53 @@
     <title>Join</title>
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
-    <link rel="stylesheet" href="./CSS/summary.css">
-    <link rel="stylesheet" href="./CSS/contacts.css">
+    <link rel="stylesheet" href="./CSS/login-signup.css">
     <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
-<body onload=" init(); setCurrentUser();">
-    <main class="index-contents">
-        <header id="header" w3-include-html="./assets/templates/header.html"></header>
-        <aside id="navbar" class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <div class="content-container">
-            <menu id="popup-menu" class="menu-popup">
-                <div class="popup-links-div"><a class="popup-links"
-                        onclick="closeMenu(); generatePrivacyPolicyContent();">Legal Notice</a></div>
-                <div class="popup-links-div"><a class="popup-links"
-                        onclick="closeMenu(); generateLegalNoticeContent();">Privacy Policy</a></div>
-                <div onclick="logOut()" class="popup-links-div"><a class="popup-links">Log
-                        out</a></div>
-            </menu>
-            <section class="main-content" onclick="closeMenu()" id="main-content">
-                <div class="summary-container">
-                    <div class="summary-main-content">
-                        <div id="tasks-headline-container" class="tasks-headline-container">
-                            <div class="summary-headline">
-                                <h1 class="summary-headline-bold">Join 360</h1>
-                                <div class="vert-blue-line"></div>
-                                <p class="summary-headline-normal">Key Metrics at a Glance</p>
-                                <div class="blue-line-mobile"></div>
-                            </div>
-                            <div class="tasks-summary-section">
-
-                                <a href="/board.html">
-                                    <div class="task-container-mid">
-                                        <div id="pencil-button" onmouseover="changePencilImgColor()"
-                                            class="summary-task-display-mid">
-                                            <div class="summary-icon-circle"><img id="pencil-icon"
-                                                    src="./assets/img/pencil-white.png" alt="">
-                                            </div>
-                                            <div class="text-center">
-                                                <h1 id="numberOfToDos" class="tasks-number no-margin">0</h1>
-                                                <span class="summary-text">To-do</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="/board.html">
-                                    <div id="check-button" onmouseover="changeCheckImgColor()"
-                                        class="summary-task-display-mid">
-                                        <div class="summary-icon-circle"><img id="check-icon"
-                                                src="./assets/img/check-white.png" alt=""></div>
-                                        <div class="text-center">
-                                            <h1 id="numberOfDone" class="tasks-number no-margin">0</h1>
-                                            <span class="summary-text">Done</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                            </div>
-
-                            <a href="/board.html">
-                                <div class="summary-task-display-long">
-                                    <div class="urgency-div">
-                                        <div class="red-urgent-icon"><img src="./assets/img/doube-arrows-up.png" alt="">
-                                        </div>
-                                        <div class="text-center">
-                                            <h1 id="numberOfUrgent" class="tasks-number no-margin">0</h1>
-                                            <span class="summary-text">Urgent</span>
-                                        </div>
-                                    </div>
-                                    <div class="gray-vert-line"></div>
-                                    <div class="deadline-div">
-                                        <h3 id="urgentDate">No urgent task</h3>
-                                        <span>Upcoming Deadline</span>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="small-task-container">
-                                <a href="/board.html">
-                                    <div class="summary-task-display-small">
-                                        <h1 id="numberOfTasksInBoard" class="tasks-number no-margin">0</h1>
-                                        <span class="summary-text-bigger">Tasks in Board</span>
-                                    </div>
-                                </a>
-
-                                <a href="/board.html">
-                                    <div class="summary-task-display-small">
-                                        <h1 id="numberOfTasksInProgress" class="tasks-number no-margin">0</h1>
-                                        <span class="summary-text-bigger">Tasks In Progress</span>
-                                    </div>
-                                </a>
-
-                                <a href="/board.html">
-                                    <div class="summary-task-display-small">
-                                        <h1 id="awaitingFeedback" class="tasks-number no-margin">0</h1>
-                                        <span class="summary-text-bigger">Awaiting Feedback</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="welcome-section" class="welcome-section">
-                        <h1 id="daytime" class="daytime-text no-margin">Sample Daytime,</h1><br>
-                        <h1 id="welcome-message" class="user-name-text no-margin">Guest User</h1>
-                    </div>
-                </div>
+<body onload="initRegister(); rememberMe();">
+    <header>
+        <img class="animated-logo" src="./assets/img/logo-big.png" alt="">
+        <div class="sign-up-btn o0 invis-visible-animation">
+            <p class="notUser-text">Not a Join user?</p>
+            <a href="/signup.html"><button class="blue-btn">Sign up</button></a>
         </div>
-        </section>
+    </header>
+
+    <main>
+        <div class="login-container o0 invis-visible-animation">
+            <h1 class="login-headline">Log in</h1>
+            <div class="blue-line"></div>
+            <form onsubmit="login();return false;">
+                <input id="email" autocomplete="email" required class="login-input email-input" placeholder="Email"
+                    type="email">
+                <input onclick="revealPassword()" id="password" autocomplete="current-password" required minlength="2"
+                    class="login-input password-input password-input-image" placeholder="Password" type="password" style="background: url(/assets/img/lock-icon.png) no-repeat right 7px 7px">
+                <p id="login-error-message" class="login-error-message d-none">You have entered an invalid username or password.</p>
+                <div class="checkbox-div">
+                    <input type="checkbox" name="Remember me" id="remember">
+                    <p class="remember-text">Remember me</p>
+                </div>
+                <div class="buttons-div">
+                    <button class="blue-btn">Log in</button>
+                    <a onclick="guestLogin()" class="white-btn">Guest Log in</a>
+                </div>
+            </form>
+        </div>
+        <div class="sign-up-btn-mobile o0 invis-visible-animation">
+            <p class="notUser-text">Not a Join user?</p>
+            <a href="/signup.html"><button class="blue-btn-normal">Sign up</button></a>
+        </div>
+        <div class="legal-links-container o0 invis-visible-animation">
+            <a class="legal-links" href="/privacypolicy-nouser.html">Privacy Policy</a>
+            <a class="legal-links" href="/legalnotice-nouser.html">Legal Notice</a>
         </div>
     </main>
-    <script src="./JS/w3include.js"></script>
-    <script src="./JS/html-templates.js"></script>
+
     <script src="./JS/storage.js"></script>
-    <script src="./JS/register.js"></script>
-    <script src="./JS/board.js"></script>
-    <script src="./JS/addtask.js"></script>
-    <script src="./JS/main-content.js"></script>
     <script src="./JS/script.js"></script>
-
-
+    <script src="./JS/register.js"></script>
+    <script src="./JS/main-content.js"></script>
 </body>
 
 </html>

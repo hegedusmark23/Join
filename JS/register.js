@@ -105,7 +105,7 @@ async function login() {
   let user = users.find(u => u.email == email.value && u.password == password.value);
   if (user) {
     await setItem('user', JSON.stringify(user));
-    window.location.href = '/index.html';
+    window.location.href = '/summary.html';
   } else {
     loginError();
   }
@@ -117,7 +117,7 @@ async function login() {
 function logOut() {  
   Name = [];
   currentUser = [];
-  window.location.href = '/landingpage.html';
+  window.location.href = '/index.html';
 }
 
 /*async function logOut() {
