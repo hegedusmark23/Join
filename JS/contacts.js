@@ -486,9 +486,5 @@ function doNotClose(event) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadItems().then(() => {
-        renderAssignees();
-    });
-});
+
 
