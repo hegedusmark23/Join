@@ -76,10 +76,8 @@ async function getContact() {
 
 async function addContacts(completeName, emailAdress, phone, badgeColor) {
     let contact = new Contact(completeName, emailAdress, phone, badgeColor);
-    if (alphabet.includes(firstLetter)) {
-        letterContainer[firstLetter].push(contact);
-        await setItem('contacts', JSON.stringify(letterContainer));
-    }
+    letterContainer[firstLetter].push(contact);
+    await setItem('contacts', JSON.stringify(letterContainer));
     if (windowWidth <= 1050) {
         document.getElementById('contact-book').classList.add('d-none');
         document.getElementById('contact-view-section').classList.remove('mobile-d-none');
@@ -439,6 +437,7 @@ function backgroundAndTextOriginal(key, i) {
 function showAddContactOverlay() {
     if (windowWidth > 1050) {
         document.getElementById('add-contact-overlay').classList.remove('d-none');
+        document.getElementById('add-new-contact-btn').style.backgroundColor = '#29ABE2'
         setTimeout(() => {
             document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp');
         }, 10)
@@ -454,11 +453,12 @@ function showAddContactOverlay() {
 /**
  * Diese Funktion blendet das Pop-up-Fenster mit dem Formular zum Anlegen eines neuen Kontakts aus
  */
-function hideAddContactOverlay() {
+function hideAddContactOverlay(event) {
     if (windowWidth > 1050) {
         document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
         setTimeout(() => {
             document.getElementById('add-contact-overlay').classList.add('d-none');
+            document.getElementById('add-new-contact-btn').style.backgroundColor = '#2A3647'
         }, 200)
     } else {
         document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp-Mobile');
@@ -467,7 +467,7 @@ function hideAddContactOverlay() {
         }, 100)
         setTimeout(originalBgColorOfAddContactBtnMobile, 800);
     }
-    doNotClose(event)
+    event.stopPropagation();
 }
 
 /**

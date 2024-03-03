@@ -239,6 +239,44 @@
   opacity: 0;
 }
 
+.welcomMessageAnimationInvis{
+    animation-name: invisVisMobile;
+    animation-duration: 1.25s;
+    animation-timing-function: linear;
+}
+
+@keyframes welcomeMessageMobile {
+    0% {
+      display: flex;
+    }
+    
+    50% {
+      
+    }
+
+    100% {
+      display: none;  
+    }
+  }
+
+@keyframes invisVisMobile {
+    0% {
+        opacity: 0;
+    }
+
+    50%{
+        opacity: 0;
+    }
+
+    90%{
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 @media (max-width: 1650px) {
   .welcome-section {
     padding: 20px;
@@ -310,11 +348,6 @@
     padding: 0;
   }
 
-  .summary-main-content {
-    align-items: center;
-    justify-content: center;
-  }
-
   .summary-headline {
     align-items: baseline;
     padding: 50px 0px;
@@ -346,6 +379,13 @@
   .legal-text-container {
     padding: 0px 20px 100px;
     max-width: 1300px;
+  }
+
+  .daytime-text {
+    font-size: 30px;
+  }
+  .user-name-text {
+    font-size: 35px;
   }
 
   .legal-headline {
@@ -410,29 +450,6 @@
 @media (max-width: 430px) {
   .summary-headline {
     padding: 20px 0px;
-  }
-  .tasks-headline-container {
-    animation: invisVisMobile 1s linear;
-  }
-
-  .navbar {
-    animation: invisVisMobile 1s linear;
-  }
-
-  .header {
-    animation: invisVisMobile 1s linear;
-  }
-
-  .welcome-section {
-    position: absolute !important;
-    top: 45%;
-    animation: welcomeMessageMobile 0.9s linear;
-    .daytime-text {
-      font-size: 20px;
-    }
-    .user-name-text {
-      font-size: 25px;
-    }
   }
 }
 

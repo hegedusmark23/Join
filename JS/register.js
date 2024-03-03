@@ -105,7 +105,7 @@ async function login() {
   let user = users.find(u => u.email == email.value && u.password == password.value);
   if (user) {
     await setItem('user', JSON.stringify(user));
-    window.location.href = '/index.html';
+    window.location.href = '/summary.html';
   } else {
     loginError();
   }
@@ -117,9 +117,36 @@ async function login() {
 function logOut() {  
   Name = [];
   currentUser = [];
-  deleteUser();
-  window.location.href = '/landingpage.html';
+  window.location.href = '/index.html';
 }
+
+/*async function logOut() {
+  try {
+    // Elküldjük a kijelentkezési kérést a szervernek
+    const response = await fetch('/logout', {
+      method: 'POST', // vagy más HTTP módszer, amit a szerver támogat
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'logout',
+        // bármilyen további adatot elküldhetsz a szervernek a kijelentkezéssel kapcsolatban
+      }),
+    });
+
+    if (response.ok) {
+      // Sikeres kijelentkezés esetén töröljük a helyi felhasználói adatokat
+      await removeItem('user');
+      
+      // Átirányítjuk a felhasználót
+      window.location.href = '/landingpage.html';
+    } else {
+      console.error('Hiba történt a kijelentkezés során', response.statusText);
+    }
+  } catch (error) {
+    console.error('Hiba történt a kijelentkezés során', error);
+  }
+}*/
 
 /**
  * Legt den aktuellen Benutzer nach dem Login fest.
@@ -132,6 +159,7 @@ async function setCurrentUser() {
     currentUser.push(jsonUserData);
     message.innerHTML = currentUser[0]['name'];
     capitalisedName();
+    console.log(getItem('user'));
   } catch (error) {
     console.error("Es ist ein fehler aufgetreten.", error);
   }

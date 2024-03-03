@@ -25,7 +25,7 @@ function generateHelpContent() {
 /**
  * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
  */
-function changePencilImgColor() {                
+function changePencilImgColor() {
   var image = document.getElementById("pencil-icon");
   var button = document.getElementById("pencil-button");
   button.addEventListener('mouseover', function () {
@@ -39,7 +39,7 @@ function changePencilImgColor() {
 /**
  * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
  */
-function changeCheckImgColor() {         
+function changeCheckImgColor() {
   var image = document.getElementById("check-icon");
   var button = document.getElementById("check-button");
   button.addEventListener('mouseover', function () {
@@ -74,7 +74,7 @@ function closeMenu() {
 /**
  * Zeigt eine Nachricht nach erfolgreicher Registrierung an.
  */
-function signUpMessage() {    
+function signUpMessage() {
   let message = document.getElementById('signup-message');
   setTimeout(function () {
     message.classList.remove('d-none');
@@ -85,7 +85,7 @@ function signUpMessage() {
 /**
  * Leitet nach der Registrierung zur Login-Seite um.
  */
-function redirectToLogin() {   
+function redirectToLogin() {
   setTimeout(function () {
     window.location.href = '/landingpage.html'
   }, 1500)
@@ -94,7 +94,7 @@ function redirectToLogin() {
 /**
  * Generiert eine tageszeitabhängige Willkommensnachricht.
  */
-function timeDynamicWelcome() {      
+function timeDynamicWelcome() {
   let welcome = document.getElementById('daytime')
   let date = new Date();
   let hour = date.getHours();
@@ -111,7 +111,7 @@ function timeDynamicWelcome() {
 /**
  * Zeigt das Passwort auf der Login-Seite.
  */
-function revealPassword() {         
+function revealPassword() {
   var x = document.getElementById("password");
   if (x.type === "password" && x.value.length > 2) {
     x.style.background = "url(/assets/img/visibility.png)";
@@ -213,3 +213,22 @@ function sortTasksByPrioUrgent() {
   Urgent.innerHTML = urgentTasks.length;
   urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
 }
+
+/**
+ * Loads an animation below a specific window size.
+ */
+function mobileWelcomeAnimation() {
+  if (window.innerWidth < 485) {
+    document.getElementById('tasks-headline-container').classList.add("welcomMessageAnimationInvis");
+    document.getElementById('navbar').classList.add("welcomMessageAnimationInvis");
+    document.getElementById('header').classList.add("welcomMessageAnimationInvis");
+    document.getElementById('welcome-section').style.display = "flex";
+    document.getElementById('welcome-section').style.position = "absolute";
+    document.getElementById('welcome-section').style.top = "45%";
+    setTimeout(() => {
+      document.getElementById('welcome-section').style.display = "none";
+    }, 900);
+  }
+}
+
+
