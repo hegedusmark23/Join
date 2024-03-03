@@ -1,7 +1,7 @@
 /**
- * Erstellt HTML-Inhalt für Buchstaben-Container.
- * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
- * @returns {string} HTML-String des Containers.
+ * Diese Funktion gibt die HTML-Struktur des Hauptcontainers jedes Kontakts zurück, wobei der Containername der Schlüssel des JSON letterContainers ist und die darin enthaltenen Kontakte den gleichen Anfangsbuchstaben wie der enthaltende Schlüssel haben.
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @returns {string}  die HTML-Struktur für die Erstellung des Kontakt-Containers für jeden Buchstabe
  */
 function setLetterContainersHTML(key) {
   return /*html*/ `
@@ -16,13 +16,14 @@ function setLetterContainersHTML(key) {
 
 }
 
+
 /**
- * Füllt die Liste der Container mit Kontakten.
- * @param {number} i - Index des Kontakts in der Liste.
- * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
- * @param {string} name - Name des Kontakts.
- * @param {string} email - E-Mail-Adresse des Kontakts.
- * @returns {string} HTML-String des Kontakts.
+ * Diese Funktion zeigt die Werte (Kontakte) an, die sich in den einzelnen Schlüsseln befinden. Füllen Sie die Liste der Container mit Kontakten
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {string} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @returns {string} die HTML-Struktur des untergeordneten Containers
  */
 function getShowContactInTheListHTML(i, key, name, email) {
   return /*html*/ `
@@ -37,15 +38,15 @@ function getShowContactInTheListHTML(i, key, name, email) {
 }
 
 /**
- * Zeigt einen bereits erstellten Kontakt in der Ansicht.
- * @param {number} i - Index des Kontakts in der Liste.
- * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
- * @param {string} capitalizedLetters - Initialen des Kontakts.
- * @param {string} name - Name des Kontakts.
- * @param {string} email - E-Mail-Adresse des Kontakts.
- * @param {string} phone - Telefonnummer des Kontakts.
- * @param {string} badgeColor - Farbe des Badges.
- * @returns {string} HTML-String der Kontaktansicht.
+ * Anzeige des bereits erstellten Kontakts in der Contatc-View, wenn der Benutzer auf dem Button "Add Contact" klickt
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist  
+ * @param {string} capitalizedLetters - die Initialen des vollständigen Namens des Kontakts
+ * @param {string} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @param {string} phone -telefonnummer des Kontakts
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur der in der Contact-View den neu erstellten Kontakt anzeigt
  */
 function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor) {
   return /*html*/ `
@@ -87,14 +88,14 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
 }
 
 /**
- * Erstellt den Container für die Kontaktansicht.
- * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
- * @param {number} i - Index des Kontakts in der Liste.
- * @param {string} name - Name des Kontakts.
- * @param {string} email - E-Mail-Adresse des Kontakts.
- * @param {string} phone - Telefonnummer des Kontakts.
- * @param {string} badgeColor - Farbe des Badges.
- * @returns {string} HTML-String des Kontaktansicht-Containers.
+ * Diese Funktion zeigt in der Kontakt-Ansicht einen aus der Kontaktliste ausgewählten Kontakt an
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+ * @param {*} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @param {string} phone -telefonnummer des Kontakts
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur der in der Contact-View angezeigten Kontaktdaten
  */
 function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
   return /*html*/ `
@@ -145,11 +146,11 @@ function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
 }
 
 /**
- * Zeigt das Overlay zum Bearbeiten eines Kontakts an.
- * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
- * @param {number} i - Index des Kontakts in der Liste.
- * @param {string} badgeColor - Farbe des Badges.
- * @returns {string} HTML-String des Bearbeitungs-Overlays.
+ * Diese Funktion zeigt das Pop-up "Edit Contact" an, um die Einstellungen eines Kontakts zu ändern oder ihn zu löschen
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur, die den Dialog und das Pop-up des Bereichs "Edit Contact" zeigt 
  */
 function editContactOverlayHTML(key, i, badgeColor) {
   return /*html*/ `

@@ -396,7 +396,7 @@ async function saveNewContact(key, i) {
 /**
  * Diese Funktion löscht den ausgewählten Kontakt durch Anklicken. Wenn die Bildschirmbreite 1050 Pixel oder weniger beträgt, blendet sie den Contact-View-Container aus und kehrt zur Kontaktliste zurück, ansonsten leert sie den Contact-View-Container
  * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
  */
 async function deleteContact(key, i) {
     letterContainer[key].splice(i, 1);
