@@ -1,7 +1,7 @@
 //! Prio Buttons
 
 /**
- * Initialisiert Event-Listener für Prioritäts-Buttons.
+ * Initializes event listeners for priority buttons.
  */
 function handlePrioButtons() {
     const prioButtons = document.querySelectorAll('.addtask-buttons');
@@ -15,8 +15,8 @@ function handlePrioButtons() {
 }
 
 /**
- * Gibt die Farbkodierungen für verschiedene Prioritäten zurück.
- * @returns {Object} Ein Objekt mit Farbwerten für jede Priorität.
+ * Returns the color codings for different priorities.
+ * @returns {Object} An object with color values ​​for each priority.
  */
 function getPrioColors() {
     return {
@@ -27,10 +27,10 @@ function getPrioColors() {
 }
 
 /**
- * Verarbeitet Klick-Events auf Prioritäts-Buttons.
- * @param {Event} event - Das Klick-Event.
- * @param {NodeListOf<Element>} prioButtons - Liste aller Prioritäts-Buttons.
- * @param {Object} colors - Farben für jede Priorität.
+ * Handles click events on priority buttons.
+ * @param {Event} event - The click event.
+ * @param {NodeListOf<Element>} prioButtons - List of all priority buttons.
+ * @param {Object} colors - Colors for each priority.
  */
 function handlePrioButtonClick(event, prioButtons, colors) {
     const button = event.target;
@@ -40,25 +40,25 @@ function handlePrioButtonClick(event, prioButtons, colors) {
 }
 
 /**
- * Wechselt den Aktivzustand des angeklickten Buttons und aktualisiert die Priorität.
- * @param {Element} button - Der angeklickte Button.
- * @param {NodeListOf<Element>} prioButtons - Liste aller Prioritäts-Buttons.
- * @param {Object} colors - Farben für jede Priorität.
- * @param {string} priority - Die Priorität, die dem Button entspricht.
+ * Changes the active state of the clicked button and updates the priority.
+ * @param {Element} button - The clicked button
+ * @param {NodeListOf<Element>} prioButtons - List of all priority buttons.
+ * @param {Object} colors - Colors for each priority.
+ * @param {string} priority - The priority that corresponds to the button.
  */
 function toggleButtonActiveState(button, prioButtons, colors, priority) {
     if (button.classList.contains('is-active')) {
         deactivateButtons(prioButtons);
-        prio = null; // Setze die globale Variable 'prio' zurück
+        prio = null; // Reset the global variable 'prio'
     } else {
         activateButton(button, prioButtons, colors[priority]);
-        prio = priority; // Aktualisiere die globale Variable 'prio'
+        prio = priority; // Update global variable 'prio'
     }
 }
 
 /**
- * Deaktiviert alle Prioritäts-Buttons.
- * @param {NodeListOf<Element>} buttons - Liste der Buttons.
+ * Disables all priority buttons.
+ * @param {NodeListOf<Element>} buttons - List of buttons.
  */
 function deactivateButtons(buttons) {
     buttons.forEach(btn => {
@@ -68,10 +68,10 @@ function deactivateButtons(buttons) {
 }
 
 /**
- * Aktiviert einen spezifischen Button und setzt die Farbe basierend auf der Priorität.
- * @param {Element} button - Der zu aktivierende Button.
- * @param {NodeListOf<Element>} buttons - Liste aller Buttons, um sie zu deaktivieren.
- * @param {string} color - Die Farbe, die dem Button zugewiesen werden soll.
+ * Activates a specific button and sets the color based on priority.
+ * @param {Element} button - The button to activate.
+ * @param {NodeListOf<Element>} buttons - List of all buttons to deactivate them.
+ * @param {string} color - The color to be assigned to the button.
  */
 function activateButton(button, buttons, color) {
     deactivateButtons(buttons);
@@ -82,12 +82,12 @@ function activateButton(button, buttons, color) {
 //! Subtasks
 
 /**
- * Initialisiert das Verhalten des Eingabefeldes für Subtasks.
+ * Initializes the behavior of the input field for subtasks.
  * 
- * Diese Funktion fügt Event-Listener zum Subtask-Eingabefeld und dem Clear-Button hinzu.
- * Bei Fokussierung des Eingabefeldes werden bestimmte Icons angezeigt und beim Klicken des Clear-Buttons
- * wird das Feld geleert und die Icons zurückgesetzt. Die Funktion überprüft auch, ob alle relevanten
- * Elemente im DOM vorhanden sind.
+ * This function adds event listeners to the subtask input field and the clear button.
+ * When the input field is focused, certain icons are displayed and when the clear button is clicked
+ * the field is emptied and the icons are reset. The function also checks whether all relevant
+ * Elements exist in the DOM.
  */
 function inputSubtask() {
     let inputField = document.getElementById('subtask');
@@ -95,17 +95,17 @@ function inputSubtask() {
     let iconsBefore = document.querySelector('.subtask-icons-before');
     let iconsAfter = document.querySelector('.subtask-icons-after');
     if (inputField && clearButton && iconsBefore && iconsAfter) {
-        inputField.addEventListener('focus', () => { // Event-Listener für den Fokus auf das Inputfeld
+        inputField.addEventListener('focus', () => { // Event listener for focus on the input field
             iconsBefore.style.display = 'none';
             iconsAfter.style.display = 'flex';
         });
-        clearButton.addEventListener('click', () => {  // Event-Listener für das Clear-Button
+        clearButton.addEventListener('click', () => {  // Event listener for the clear button
             inputField.value = '';
             setTimeout(() => {
                 iconsBefore.style.display = 'block';
                 iconsAfter.style.display = 'none';
                 inputField.blur();
-            }, 10); // Kleine Verzögerung von 10 Millisekunden
+            }, 10); // Small delay of 10 milliseconds
         });
     } else {
         console.info('Eines oder mehrere Subtask-bezogene Elemente wurden nicht im DOM gefunden.');
@@ -113,20 +113,20 @@ function inputSubtask() {
 }
 
 /**
- * Fügt einem Subtask hinzu und initialisiert das Verhalten des "Add"-Buttons und des Eingabefeldes.
- * 
- * Diese Funktion fügt Event-Listener zum "Add"-Button und zum Subtask-Eingabefeld hinzu. Beim Klicken des
- * "Add"-Buttons oder beim Drücken der Return-Taste im Eingabefeld wird eine neue Subtask hinzugefügt.
- * Die Funktion überprüft auch, ob der "Add"-Button und das Eingabefeld im DOM vorhanden sind.
+ * Adds to a subtask and initializes the behavior of the "Add" button and the input field.
+ *
+ * This function adds event listeners to the "Add" button and the subtask input field. When clicking the
+ * "Add" buttons or when pressing the return key in the input field a new subtask is added.
+ * The function also checks whether the "Add" button and input field exist in the DOM.
  */
 function addSubTask() {
     let addButton = document.querySelector('.second-img-container');
     let inputField = document.getElementById('subtask');
     if (addButton && inputField) {
-        addButton.addEventListener('click', renderSubtask); // Event-Listener für den "Add"-Button
-        inputField.addEventListener('keypress', (event) => { // Event-Listener für das Drücken der Return-Taste im Eingabefeld
+        addButton.addEventListener('click', renderSubtask); // Event listener for the "Add" button
+        inputField.addEventListener('keypress', (event) => { // Event listener for pressing the return key in the input field
             if (event.keyCode === 13 || event.which === 13) {
-                event.preventDefault(); // Verhindert das standardmäßige Verhalten der Return-Taste
+                event.preventDefault(); // Prevents the default behavior of the Return key
                 renderSubtask();
             }
         });
@@ -136,8 +136,8 @@ function addSubTask() {
 }
 
 /**
- * Verarbeitet die Eingabe eines Subtasks, erstellt ein neues Subtask-Objekt,
- * fügt es zur Liste hinzu und stellt es im DOM dar.
+ * Processes subtask input, creates a new subtask object,
+ * adds it to the list and displays it in the DOM.
  */
 function renderSubtask() {
     let inputField = document.getElementById('subtask');
@@ -147,26 +147,26 @@ function renderSubtask() {
         subtasks.push(newSubtask);
         addSubtaskToDOM(newSubtask);
     }
-    inputField.value = ''; // Leeren des Inputfeldes
-    setTimeout(resetSubtaskField, 0); // Verzögertes Zurücksetzen des Inputfeldes und der Icons
+    inputField.value = ''; // Empty the input field
+    setTimeout(resetSubtaskField, 0); // Delayed reset of the input field and icons
 }
 
 /**
- * Erstellt ein Subtask-Objekt mit einer eindeutigen ID und dem eingegebenen Text.
- * @param {string} text - Der Text des neuen Subtasks.
- * @returns {Object} Das erstellte Subtask-Objekt.
+ * Creates a Subtask object with a unique ID and the entered text.
+ * @param {string} text - The text of the new subtask.
+ * @returns {Object} The subtask object created.
  */
 function createSubtaskObject(text) {
     return {
-        id: Date.now(), // Erzeugt eine einfache eindeutige ID
+        id: Date.now(), // Generates a simple unique ID
         text: text,
-        completed: null // Initialzustand: nicht abgeschlossen
+        completed: null // Initial state: not completed
     };
 }
 
 /**
- * Fügt ein Subtask-Objekt zum DOM hinzu.
- * @param {Object} subtask - Das Subtask-Objekt, das hinzugefügt werden soll.
+ * Adds a Subtask object to the DOM.
+ * @param {Object} subtask - The subtask object to add.
  */
 function addSubtaskToDOM(subtask) {
     let listContainer = document.getElementById('subtasks-list-container').querySelector('ul');
@@ -186,7 +186,7 @@ function addSubtaskToDOM(subtask) {
 }
 
 /**
- * Setzt das Eingabefeld für Subtasks und die dazugehörigen Icons zurück.
+ * Resets the input field for subtasks and the associated icons.
  */
 function resetSubtaskField() {
     let inputField = document.getElementById('subtask');
@@ -199,8 +199,8 @@ function resetSubtaskField() {
 }
 
 /**
- * Aktiviert den Bearbeitungsmodus für einen spezifischen Subtask.
- * @param {HTMLElement} liElement - Das Listenelement, das den Subtask repräsentiert.
+ * Enables edit mode for a specific subtask.
+ * @param {HTMLElement} liElement - The list element that represents the subtask.
  */
 function editSubtask(liElement) {
     let subtaskText = liElement.querySelector('p').textContent;
@@ -218,8 +218,8 @@ function editSubtask(liElement) {
 }
 
 /**
- * Speichert die Änderungen an einem Subtask und aktualisiert die Darstellung.
- * @param {HTMLElement} liElement - Das Listenelement, das den Subtask repräsentiert.
+ * Saves the changes to a subtask and updates the display.
+ * @param {HTMLElement} liElement - The list element that represents the subtask.
  */
 function saveSubtask(liElement) {
     let inputElement = liElement.querySelector('input.input-subtask');
@@ -243,7 +243,7 @@ function saveSubtask(liElement) {
 }
 
 /**
- * Initialisiert Event-Listener für Subtask-Aktionen wie Löschen, Bearbeiten und Speichern.
+ * Initializes event listeners for subtask actions such as delete, edit, and save.
  */
 function setupEventListenersSubtasks() {
     let listContainer = getSubtaskListContainer();
@@ -256,8 +256,8 @@ function setupEventListenersSubtasks() {
 }
 
 /**
- * Ermittelt und gibt das Container-Element für Subtasks zurück.
- * @returns {HTMLElement | null} Das UL-Element, das die Subtasks enthält, oder null, wenn es nicht gefunden wurde.
+ * Gets and returns the container element for subtasks.
+ * @returns {HTMLElement | null} The UL element containing the subtasks, or null if not found.
  */
 function getSubtaskListContainer() {
     let listContainerElement = document.getElementById('subtasks-list-container');
@@ -274,8 +274,8 @@ function getSubtaskListContainer() {
 }
 
 /**
- * Fügt einen Event-Listener für das Löschen von Subtasks hinzu.
- * @param {HTMLElement} listContainer - Der Container, der die Subtask-Listenelemente enthält.
+ * Adds an event listener for deleting subtasks.
+ * @param {HTMLElement} listContainer - The container that contains the subtask list elements.
  */
 function setupDeleteSubtaskListener(listContainer) {
     listContainer.addEventListener('click', function(event) {
@@ -286,8 +286,8 @@ function setupDeleteSubtaskListener(listContainer) {
 }
 
 /**
- * Fügt einen Event-Listener für das Bearbeiten von Subtasks hinzu.
- * @param {HTMLElement} listContainer - Der Container, der die Subtask-Listenelemente enthält.
+ * Adds an event listener for editing subtasks.
+ * @param {HTMLElement} listContainer - The container that contains the subtask list elements.
  */
 function setupEditSubtaskListener(listContainer) {
     listContainer.addEventListener('click', function(event) {
@@ -299,7 +299,7 @@ function setupEditSubtaskListener(listContainer) {
 }
 
 /**
- * Fügt einen Event-Listener für das Speichern von Subtasks hinzu.
+ * Fügt einen Event-Listener für das Bearbeiten von Subtasks hinzu.
  * @param {HTMLElement} listContainer - Der Container, der die Subtask-Listenelemente enthält.
  */
 function setupSaveSubtaskListener(listContainer) {
@@ -312,7 +312,7 @@ function setupSaveSubtaskListener(listContainer) {
 }
 
 /**
- * Fügt einen Event-Listener hinzu, um Subtasks durch Doppelklicken zu bearbeiten.
+ * Fügt einen Event-Listener für das Bearbeiten von Subtasks hinzu.
  * @param {HTMLElement} listContainer - Der Container, der die Subtask-Listenelemente enthält.
  */
 function setupDoubleClickToEditListener(listContainer) {
@@ -325,8 +325,8 @@ function setupDoubleClickToEditListener(listContainer) {
 }
 
 /**
- * Behandelt das Löschen eines Subtasks.
- * @param {Event} event - Das Click-Event, das die Löschaktion ausgelöst hat.
+ * Handles deleting a subtask.
+ * Fügt einen Event-Listener für das Bearbeiten von Subtasks hinzu.
  * @param {HTMLElement} listContainer - Der Container, der die Subtask-Listenelemente enthält.
  */
 function deleteSubtask(event, listContainer) {

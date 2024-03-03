@@ -141,13 +141,13 @@ function buttonFocus() {
   let boardNav = document.getElementById("board-nav");
   let contactsNav = document.getElementById("contacts-nav");
   setTimeout(buttonFocus, 100);
-  if (window.location.href === "http://127.0.0.1:5500/index.html" && summaryNav) {
+  if (window.location.href === "https://gruppe-870.developerakademie.net/summary.html" && summaryNav) {
     summaryNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/addtask.html" && addTaskNav) {
+  } if (window.location.href === "https://gruppe-870.developerakademie.net/addtask.html" && addTaskNav) {
     addTaskNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/board.html" && boardNav) {
+  } if (window.location.href === "https://gruppe-870.developerakademie.net/board.html" && boardNav) {
     boardNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/addcontacts.html" && contactsNav) {
+  } if (window.location.href === "https://gruppe-870.developerakademie.net/addcontacts.html" && contactsNav) {
     contactsNav.style.backgroundColor = "#091931";
   }
 }
