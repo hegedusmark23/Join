@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/script.js</title>
+    <title>JSDoc: Source: JS/w3include.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/script.js</h1>
+    <h1 class="page-title">Source: JS/w3include.js</h1>
 
     
 
@@ -26,173 +26,45 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** 
- * @global
- * @desc Der Titel der Aufgabe, die hinzugefügt wird. `null`, bis eine Eingabe erfolgt.
- * @type {string|null}
+            <pre class="prettyprint source linenums"><code>/**
+ * Lädt HTML-Inhalte in Elemente, die das Attribut "w3-include-html" haben.
+ * 
+ * Diese Funktion durchläuft alle Elemente des Dokuments und sucht nach dem 
+ * "w3-include-html"-Attribut, das den Pfad zu einer HTML-Datei angibt. Für jedes gefundene 
+ * Element wird ein XMLHttpRequest initiiert, um den angegebenen HTML-Inhalt zu laden.
+ * Nach dem Laden wird der Inhalt des Ziel-Elements durch die geladene HTML ersetzt.
+ * Im Falle eines Fehlers (z.B. wenn die Seite nicht gefunden wird), wird eine Fehlermeldung
+ * im Element angezeigt. Nach dem Laden des Inhalts wird das "w3-include-html"-Attribut entfernt,
+ * und die Funktion wird rekursiv aufgerufen, um sicherzustellen, dass alle Elemente bearbeitet werden,
+ * die während des Ladens eines HTML-Inhalts hinzugefügt wurden.
  */
-let title = null;
-
-/** 
- * @global
- * @desc Die Beschreibung der Aufgabe. `null`, bis eine Eingabe erfolgt.
- * @type {string|null}
- */
-let description = null;
-
-/** 
- * @global
- * @desc Das Fälligkeitsdatum der Aufgabe. `null`, bis eine Eingabe erfolgt.
- * @type {string|null}
- */
-let dueDate = null;
-
-/** 
- * @global
- * @desc Die Priorität der Aufgabe. `null`, bis eine Auswahl erfolgt.
- * @type {string|null}
- */
-let prio = null;
-
-/** 
- * @global
- * @desc Eine Liste von Subtasks der Aufgabe. Leer, bis Subtasks hinzugefügt werden.
- * @type {Array&lt;Object>}
- */
-let subtasks = [];
-
-/** 
- * @global
- * @desc Eine Liste der dem Task zugewiesenen Personen. Leer, bis Zuweisungen erfolgen.
- * @type {Array&lt;Object>}
- */
-let assignedTo = [];
-
-/** 
- * @global
- * @desc Die Kategorie der Aufgabe. `null`, bis eine Auswahl erfolgt.
- * @type {string|null}
- */
-let category = null;
-
-/** 
- * @global
- * @desc Ein Zähler zur Erstellung eindeutiger Identifikatoren für neue Aufgaben.
- * @type {number}
- */
-let identifier = 0;
-
-/** 
- * @global
- * @desc Eine Liste aller Aufgaben. Leer, bis Aufgaben hinzugefügt werden.
- * @type {Array&lt;Object>}
- */
-let tasks = [];
-
-/**
- * Initialisiert die Hauptfunktionen der Anwendung.
- * Lädt dynamische HTML-Inhalte, begrüßt den Benutzer basierend auf der Tageszeit,
- * fokussiert den Hauptbutton und sortiert die Aufgaben in verschiedene Kategorien.
- * Die Sortierung erfolgt mit einer Verzögerung, um sicherzustellen, dass alle
- * Daten geladen wurden.
- */
-async function init(){
-    await includeHTML(); // Lädt dynamische HTML-Komponenten
-    timeDynamicWelcome(); // Zeigt eine begrüßende Nachricht basierend auf der Tageszeit
-    buttonFocus(); // Setzt den Fokus auf den Hauptbutton der Seite
-
-    // Verzögert die Ausführung der Sortierfunktionen, um das Laden der Daten abzuwarten
-    setTimeout(() => {
-        sortTasksByStateToDo();
-        sortTasksByStateInProgress();
-        numberOfAllTasks(); // Aktualisiert die Anzeige der Gesamtanzahl der Aufgaben
-        sortTasksByStateAwaitingFeedback();
-        sortTasksByStateDone();
-        sortTasksByPrioUrgent(); // Sortiert die Aufgaben nach Dringlichkeit
-    }, 250);
+function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  // Holt alle Elemente des Dokuments
+  z = document.getElementsByTagName("*");
+  for (i = 0; i &lt; z.length; i++) {
+      elmnt = z[i];
+      // Liest den Wert des "w3-include-html"-Attributs
+      file = elmnt.getAttribute("w3-include-html");
+      if (file) {
+          // Initialisiert eine HTTP-Anfrage, um den HTML-Inhalt zu laden
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+              if (this.readyState == 4) { // Wenn die Anfrage abgeschlossen ist
+                  if (this.status == 200) {elmnt.innerHTML = this.responseText;} // Bei Erfolg den Inhalt ersetzen
+                  if (this.status == 404) {elmnt.innerHTML = "Page not found.";} // Bei Fehlschlag eine Fehlermeldung anzeigen
+                  // Entfernt das Attribut, um Doppelverarbeitung zu vermeiden
+                  elmnt.removeAttribute("w3-include-html");
+                  includeHTML(); // Rekursiver Aufruf, um weitere Inhalte zu laden
+              }
+          };
+          xhttp.open("GET", file, true);
+          xhttp.send(); // Sendet die Anfrage
+          return; // Beendet die Funktion nach dem Starten der Anfrage
+      }
+  }
 }
-
-/**
- * Initialisiert die Registrierungsfunktion der Anwendung.
- * Lädt vorhandene Benutzerdaten beim Start der Registrierungsseite.
- */
-async function initRegister(){
-    await loadUsers(); // Lädt vorhandene Benutzer aus dem Speicher
-}
-
-async function showTasks() {
-    console.log('Das sind die Tasks in meinem Array: ', tasks);
-}
-
-function reinitializeEventListenersForEditModal() {
-    checkInputFields();
-    saveInputFields();
-    handlePrioButtons();
-    inputSubtask();
-    addSubTask();
-    setupEventListenersSubtasks();
-    renderAssignees();
-    setupAssigneeGlobalClickListener();
-    setupAssigneeDropdownToggleListener();
-    initCategoryDropdown();
-    setupCategoryDropdownEventListeners();
-    setupModalCloseDelegationEdit();
-    setupDeleteTaskListener();
-    initializeBoardIfNeeded();
-    createTask();
-    setupOpenAddTaskModalListener();
-    setupCloseAddTaskModalListener();
-    setupEditTaskListener();
-    setupModalCloseDelegationAddAtskBoard();
-    setupSaveTaskEditListener();
-
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialisierungen, die auf allen Seiten durchgeführt werden sollten
-        checkInputFields();
-        saveInputFields();
-        loadTasks();
-        createTask();
-        // Funktionen, die sowohl auf der "Add Task"-Seite als auch auf der "Board"-Seite benötigt werden
-        handlePrioButtons();
-        inputSubtask();
-        addSubTask();
-        setupEventListenersSubtasks();
-        renderAssignees();
-        setupAssigneeGlobalClickListener();
-        setupAssigneeDropdownToggleListener();
-        initCategoryDropdown();
-        setupCategoryDropdownEventListeners();
-    // Hilfsfunktion, um zu überprüfen, "Board"-Seite aktiv
-    function isBoardPage() {
-        return document.getElementById('board-card-background-1') !== null;
-  
-    }
-    // Funktionen spezifisch für die "Board"-Seite
-    function initializeBoardPage() {
-        initializeBoardCard();
-        setupTaskClickListeners();
-        setupCloseTaskDetailModalListener();
-        setupOpenAddTaskModalListener();
-        setupCloseAddTaskModalListener();
-        setupModalCloseDelegation();
-        setupEditTaskListener();
-        setupModalCloseDelegationEdit();
-        setupModalCloseDelegationAddAtskBoard();
-        setupDeleteTaskListener();
-        setupSaveTaskEditListener();
-        setupModalEventListeners();
-        setupTaskStateListeners();
-    }
-
-    // Bedingte Initialisierung basierend auf der aktuellen Seite
-    if (isBoardPage()) {
-        initializeBoardPage();
-    } else {
-        console.log('Nicht auf der Board-Seite, spezifische Board-Initialisierungen werden übersprungen.');
-    }
-});</code></pre>
+</code></pre>
         </article>
     </section>
 

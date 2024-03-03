@@ -1,22 +1,30 @@
-
+/**
+ * Generiert den Inhalt für den rechtlichen Hinweis.
+ */
 function generateLegalNoticeContent() {
   let container = document.querySelector('section');
   container.innerHTML = legalNoticeHTML();
 }
 
+/**
+ * Generiert den Inhalt für die Datenschutzrichtlinie.
+ */
 function generatePrivacyPolicyContent() {
   let container = document.querySelector('section');
   container.innerHTML = privacyPolicyHTML();
 }
 
+/**
+ * Generiert den Inhalt für die Hilfeseite.
+ */
 function generateHelpContent() {
   let container = document.querySelector('section');
   container.innerHTML = helpHTML();
 }
 
 /**
- * Changes the color of an icon on hover
-*/
+ * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
+ */
 function changePencilImgColor() {                
   var image = document.getElementById("pencil-icon");
   var button = document.getElementById("pencil-button");
@@ -28,6 +36,9 @@ function changePencilImgColor() {
   })
 }
 
+/**
+ * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
+ */
 function changeCheckImgColor() {         
   var image = document.getElementById("check-icon");
   var button = document.getElementById("check-button");
@@ -40,7 +51,7 @@ function changeCheckImgColor() {
 }
 
 /**
- * Opens the animated Menu.
+ * Öffnet das animierte Menü.
  */
 function showMenu() {
   var x = document.getElementById("popup-menu");
@@ -52,14 +63,16 @@ function showMenu() {
   }
 }
 
-
+/**
+ * Schließt das Menü.
+ */
 function closeMenu() {
   let menu = document.getElementById('popup-menu');
   menu.style.display = "none";
 }
 
-/**  
- * A messeage does appear after a succesfull registration.
+/**
+ * Zeigt eine Nachricht nach erfolgreicher Registrierung an.
  */
 function signUpMessage() {    
   let message = document.getElementById('signup-message');
@@ -68,8 +81,9 @@ function signUpMessage() {
     message.classList.add('d-flex');
   }, 500)
 }
+
 /**
- * Redirects to the Login page after registration.
+ * Leitet nach der Registrierung zur Login-Seite um.
  */
 function redirectToLogin() {   
   setTimeout(function () {
@@ -78,7 +92,7 @@ function redirectToLogin() {
 }
 
 /**
- * Daytime dependent Welcome message.
+ * Generiert eine tageszeitabhängige Willkommensnachricht.
  */
 function timeDynamicWelcome() {      
   let welcome = document.getElementById('daytime')
@@ -95,7 +109,7 @@ function timeDynamicWelcome() {
 
 
 /**
- * Reveals the password on the login page.
+ * Zeigt das Passwort auf der Login-Seite.
  */
 function revealPassword() {         
   var x = document.getElementById("password");
@@ -111,13 +125,15 @@ function revealPassword() {
   x.style.backgroundPositionX = "calc(100% - 12px)";
 }
 
-
+/**
+ * Führt den Gast-Login durch.
+ */
 function guestLogin() {
   window.location.href = '/guest.index.html'
 }
 
 /**
- * Marks the severe buttons, dependent on wich site the user currently on.
+ * Markiert die Navigationsbuttons abhängig von der aktuellen Seite.
  */
 function buttonFocus() {
   let summaryNav = document.getElementById("summary-nav");
@@ -137,39 +153,52 @@ function buttonFocus() {
 }
 
 /**
- * These funktions handle the number of tasks displayed on the Summary page.
+ * Zählt die Gesamtanzahl der Aufgaben auf der Zusammenfassungsseite.
  */
 function numberOfAllTasks() {
   let allTasks = document.getElementById('numberOfTasksInBoard');
   allTasks.innerHTML = tasks.length;
 }
 
-
+/**
+ * Sortiert die Aufgaben nach dem Status "ToDo".
+ */
 function sortTasksByStateToDo() {
   let toDo = document.getElementById('numberOfToDos');
   let result = tasks.filter((task) => task.state.includes("toDo")).length;
   toDo.innerHTML = result;
 }
 
+/**
+ * Sortiert die Aufgaben nach dem Status "In Progress".
+ */
 function sortTasksByStateInProgress() {
   let inProgress = document.getElementById('numberOfTasksInProgress');
   let result = tasks.filter((task) => task.state.includes("in-progress")).length;
   inProgress.innerHTML = result;
 }
 
+/**
+ * Sortiert die Aufgaben nach dem Status "Done".
+ */
 function sortTasksByStateDone() {
   let done = document.getElementById('numberOfDone');
   let result = tasks.filter((task) => task.state.includes("done")).length;
   done.innerHTML = result;
 }
 
+/**
+ * Sortiert die Aufgaben nach dem Status "Awaiting Feedback".
+ */
 function sortTasksByStateAwaitingFeedback() {
   let awaitingFeedback = document.getElementById('awaitingFeedback');
   let result = tasks.filter((task) => task.state.includes("await-feedback")).length;
   awaitingFeedback.innerHTML = result;
 }
 
-
+/**
+ * Sortiert die Aufgaben nach der Priorität "Urgent".
+ */
 function sortTasksByPrioUrgent() {
   let Urgent = document.getElementById('numberOfUrgent');
   let urgentDate = document.getElementById('urgentDate');

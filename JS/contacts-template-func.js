@@ -1,4 +1,8 @@
-// creates a list of containers, where the title of each container is a letter
+/**
+ * Diese Funktion gibt die HTML-Struktur des Hauptcontainers jedes Kontakts zurück, wobei der Containername der Schlüssel des JSON letterContainers ist und die darin enthaltenen Kontakte den gleichen Anfangsbuchstaben wie der enthaltende Schlüssel haben.
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @returns {string}  die HTML-Struktur für die Erstellung des Kontakt-Containers für jeden Buchstabe
+ */
 function setLetterContainersHTML(key) {
   return /*html*/ `
       <div id="letter-container${key}" class="letter-container">
@@ -12,7 +16,15 @@ function setLetterContainersHTML(key) {
 
 }
 
-// Display the values (contacts) that are inside each Keys. Fill the list of containers with contacts
+
+/**
+ * Diese Funktion zeigt die Werte (Kontakte) an, die sich in den einzelnen Schlüsseln befinden. Füllen Sie die Liste der Container mit Kontakten
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {string} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @returns {string} die HTML-Struktur des untergeordneten Containers
+ */
 function getShowContactInTheListHTML(i, key, name, email) {
   return /*html*/ `
       <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContact('${key}', ${i})" id="under-container${key}${i}" class="under-container">
@@ -25,8 +37,17 @@ function getShowContactInTheListHTML(i, key, name, email) {
   `
 }
 
-// Show the already created contact in the view when the user clicks on "Create Contact" button
-// row 127 in contacts.js
+/**
+ * Anzeige des bereits erstellten Kontakts in der Contatc-View, wenn der Benutzer auf dem Button "Add Contact" klickt
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist  
+ * @param {string} capitalizedLetters - die Initialen des vollständigen Namens des Kontakts
+ * @param {string} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @param {string} phone -telefonnummer des Kontakts
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur der in der Contact-View den neu erstellten Kontakt anzeigt
+ */
 function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor) {
   return /*html*/ `
       <div onclick="hidePopUpEditDelete(event)" id="contact-view-name-container${key}${i}" class="contact-view-name-container">
@@ -66,6 +87,16 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
 
 }
 
+/**
+ * Diese Funktion zeigt in der Kontakt-Ansicht einen aus der Kontaktliste ausgewählten Kontakt an
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+ * @param {*} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @param {string} phone -telefonnummer des Kontakts
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur der in der Contact-View angezeigten Kontaktdaten
+ */
 function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
   return /*html*/ `
     <div id="contact-view-name-container${key}${i}" class="contact-view-name-container">
@@ -114,7 +145,13 @@ function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
     `
 }
 
-// Show the "Edit Contact" pop-up to change the settings of a contact or delete it;
+/**
+ * Diese Funktion zeigt das Pop-up "Edit Contact" an, um die Einstellungen eines Kontakts zu ändern oder ihn zu löschen
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur, die den Dialog und das Pop-up des Bereichs "Edit Contact" zeigt 
+ */
 function editContactOverlayHTML(key, i, badgeColor) {
   return /*html*/ `
     <div onclick="doNotClose(event)" id="contact-dialog${key}${i}" class="contact-dialog translateContactDialogPopUp translateContactDialogPopUp-Mobile">

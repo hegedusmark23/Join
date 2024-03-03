@@ -1,7 +1,38 @@
+/**
+ * @global
+ * @desc Array, das alle Benutzerobjekte speichert. Jedes Benutzerobjekt enthält Name, E-Mail und Passwort.
+ * @type {Array<Object>}
+ */
 let users = [];
-let currentUser = []
-let Name = []
 
+/**
+ * @global
+ * @desc Speichert Informationen zum derzeit eingeloggten Benutzer.
+ * @type {Array}
+ */
+let currentUser = [];
+
+/**
+ * @global
+ * @desc Wird verwendet, um auf das Namenseingabefeld des Registrierungsformulars zu verweisen.
+ * @type {HTMLInputElement}
+ */
+let Name = [];
+
+/**
+ * Lädt die Benutzerliste aus dem Speicher und aktualisiert die globale Variable `users`.
+ * 
+ * Diese asynchrone Funktion versucht, eine gespeicherte Liste von Benutzern zu laden, indem sie
+ * auf einen Speichermechanismus zugreift. Die geladenen
+ * Daten werden dann verwendet, um die globale Variable `users` zu aktualisieren. Im Falle eines
+ * Fehlers beim Laden der Daten wird eine Fehlermeldung in der Konsole ausgegeben.
+ * 
+ * @async
+ * @function loadUsers
+ * @returns {Promise<void>} Eine Promise, die erfüllt wird, wenn die Benutzer geladen und die
+ * globale Variable `users` aktualisiert wurde. Gibt nichts zurück, aber fängt mögliche Fehler ab
+ * und zeigt diese in der Konsole an.
+ */
 async function loadUsers() {
   try {
     users = JSON.parse(await getItem('users'));
@@ -10,7 +41,15 @@ async function loadUsers() {
   }
 }
 
-
+/**
+ * Führt die Benutzerregistrierung durch das Erfassen der Formulardaten und das Speichern der Benutzerdaten aus.
+ * Nach erfolgreicher Registrierung werden das Formular zurückgesetzt und der Benutzer zur Anmeldeseite weitergeleitet.
+ * 
+ * @async
+ * @function register
+ * @description Registriert einen neuen Benutzer mit den eingegebenen Daten aus dem Registrierungsformular.
+ * Deaktiviert den Registrierungsbutton während des Registrierungsvorgangs, um Mehrfachregistrierungen zu vermeiden.
+ */
 async function register() {
   let Name = document.getElementById('name');
   let email = document.getElementById('email');
@@ -29,7 +68,7 @@ async function register() {
 }
 
 /**
- * Resets the form after registration.
+ * Setzt das Registrierungsformular nach der Registrierung zurück.
  */
 function resetForm() {     
   let Name = document.getElementById('name');
@@ -41,7 +80,7 @@ function resetForm() {
 }
 
 /**
- * Checks if the passwords are matching at the registration.
+ * Überprüft, ob die Passwörter bei der Registrierung übereinstimmen.
  */
 function match() {      
   var password = document.getElementById("password")
@@ -57,7 +96,9 @@ function match() {
   confirm_password.onkeyup = validatePassword;
 }
 
-
+/**
+ * Führt den Login-Prozess durch.
+ */
 async function login() {
   let email = document.getElementById('email');
   let password = document.getElementById('password');
@@ -71,7 +112,7 @@ async function login() {
 }
 
 /**
- * Empties the arrays related to the current user, and redirects to the login page.
+ * Leert die Arrays, die den aktuellen Benutzer betreffen, und leitet zur Login-Seite um.
  */
 function logOut() {  
   Name = [];
@@ -81,7 +122,7 @@ function logOut() {
 }
 
 /**
- * Sets the current user after log in.
+ * Legt den aktuellen Benutzer nach dem Login fest.
  */
 async function setCurrentUser() {   
   const userData = await getItem('user');
@@ -96,6 +137,9 @@ async function setCurrentUser() {
   }
 }
 
+/**
+ * Legt den Namen des aktuellen Benutzers fest.
+ */
 async function setCurrentUserName() { 
   const userData = await getItem('user');
   try {
@@ -108,7 +152,7 @@ async function setCurrentUserName() {
 }
 
 /**
- * Filters out the name of the User.
+ * Filtert den Namen des Benutzers heraus.
  */
 function getNamefromArray() {
   let message = document.getElementById('welcome-message');
@@ -116,7 +160,7 @@ function getNamefromArray() {
 }
 
 /**
- * Capitalises the first letters of the signed in user, and shows them on the user-button.
+ * Setzt den ersten Buchstaben des angemeldeten Benutzers groß und zeigt sie auf dem Benutzer-Button an.
  */
 function capitalisedName() {    
   let capitalisedName = document.getElementById('user-name-capitalized');
@@ -127,7 +171,7 @@ function capitalisedName() {
 }
 
 /**
- * Shows an error-message in case of wrong username or password.
+ * Zeigt eine Fehlermeldung an, falls Benutzername oder Passwort falsch sind.
  */
 function loginError() {       
   let message = document.getElementById('login-error-message');
@@ -137,7 +181,7 @@ function loginError() {
 }
 
 /**
- * The function behind the "Remember me" checkbox.
+ * Funktion hinter der Checkbox "Angemeldet bleiben".
  */
 function rememberMe() {   
   var rememberMeCheckbox = document.getElementById('remember');

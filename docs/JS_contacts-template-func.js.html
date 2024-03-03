@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/script.js</title>
+    <title>JSDoc: Source: JS/contacts-template-func.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/script.js</h1>
+    <h1 class="page-title">Source: JS/contacts-template-func.js</h1>
 
     
 
@@ -26,173 +26,210 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** 
- * @global
- * @desc Der Titel der Aufgabe, die hinzugefügt wird. `null`, bis eine Eingabe erfolgt.
- * @type {string|null}
+            <pre class="prettyprint source linenums"><code>/**
+ * Diese Funktion gibt die HTML-Struktur des Hauptcontainers jedes Kontakts zurück, wobei der Containername der Schlüssel des JSON letterContainers ist und die darin enthaltenen Kontakte den gleichen Anfangsbuchstaben wie der enthaltende Schlüssel haben.
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @returns {string}  die HTML-Struktur für die Erstellung des Kontakt-Containers für jeden Buchstabe
  */
-let title = null;
+function setLetterContainersHTML(key) {
+  return /*html*/ `
+      &lt;div id="letter-container${key}" class="letter-container">
+          &lt;h2 class="contact-letter">${key}&lt;/h2>
+          &lt;div class="contact-list-separator-bar-container">
+              &lt;span class="contact-list-separator-bar">&lt;/span>
+          &lt;/div>
+          &lt;div id="cont${key}" class="cont">&lt;/div>
+      &lt;/div>
+      `
 
-/** 
- * @global
- * @desc Die Beschreibung der Aufgabe. `null`, bis eine Eingabe erfolgt.
- * @type {string|null}
- */
-let description = null;
+}
 
-/** 
- * @global
- * @desc Das Fälligkeitsdatum der Aufgabe. `null`, bis eine Eingabe erfolgt.
- * @type {string|null}
- */
-let dueDate = null;
-
-/** 
- * @global
- * @desc Die Priorität der Aufgabe. `null`, bis eine Auswahl erfolgt.
- * @type {string|null}
- */
-let prio = null;
-
-/** 
- * @global
- * @desc Eine Liste von Subtasks der Aufgabe. Leer, bis Subtasks hinzugefügt werden.
- * @type {Array&lt;Object>}
- */
-let subtasks = [];
-
-/** 
- * @global
- * @desc Eine Liste der dem Task zugewiesenen Personen. Leer, bis Zuweisungen erfolgen.
- * @type {Array&lt;Object>}
- */
-let assignedTo = [];
-
-/** 
- * @global
- * @desc Die Kategorie der Aufgabe. `null`, bis eine Auswahl erfolgt.
- * @type {string|null}
- */
-let category = null;
-
-/** 
- * @global
- * @desc Ein Zähler zur Erstellung eindeutiger Identifikatoren für neue Aufgaben.
- * @type {number}
- */
-let identifier = 0;
-
-/** 
- * @global
- * @desc Eine Liste aller Aufgaben. Leer, bis Aufgaben hinzugefügt werden.
- * @type {Array&lt;Object>}
- */
-let tasks = [];
 
 /**
- * Initialisiert die Hauptfunktionen der Anwendung.
- * Lädt dynamische HTML-Inhalte, begrüßt den Benutzer basierend auf der Tageszeit,
- * fokussiert den Hauptbutton und sortiert die Aufgaben in verschiedene Kategorien.
- * Die Sortierung erfolgt mit einer Verzögerung, um sicherzustellen, dass alle
- * Daten geladen wurden.
+ * Diese Funktion zeigt die Werte (Kontakte) an, die sich in den einzelnen Schlüsseln befinden. Füllen Sie die Liste der Container mit Kontakten
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {string} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @returns {string} die HTML-Struktur des untergeordneten Containers
  */
-async function init(){
-    await includeHTML(); // Lädt dynamische HTML-Komponenten
-    timeDynamicWelcome(); // Zeigt eine begrüßende Nachricht basierend auf der Tageszeit
-    buttonFocus(); // Setzt den Fokus auf den Hauptbutton der Seite
-
-    // Verzögert die Ausführung der Sortierfunktionen, um das Laden der Daten abzuwarten
-    setTimeout(() => {
-        sortTasksByStateToDo();
-        sortTasksByStateInProgress();
-        numberOfAllTasks(); // Aktualisiert die Anzeige der Gesamtanzahl der Aufgaben
-        sortTasksByStateAwaitingFeedback();
-        sortTasksByStateDone();
-        sortTasksByPrioUrgent(); // Sortiert die Aufgaben nach Dringlichkeit
-    }, 250);
+function getShowContactInTheListHTML(i, key, name, email) {
+  return /*html*/ `
+      &lt;div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContact('${key}', ${i})" id="under-container${key}${i}" class="under-container">
+          &lt;div class="contact-badge-bg-container">&lt;div id="contact-badge${key}${i}" class="contact-badge" style="background:${badgeColor}">&lt;span class="firstLetters">${capitalizedLetters}&lt;/span>&lt;/div>&lt;/div>
+           &lt;div id="name-and-email-container${i}" class="contact-list-name-and-email-container">
+             &lt;span id="contact-list-name${key}${i}" class="contact-list-name">${name}&lt;/span>
+             &lt;span id="contact-list-email${key}${i}" class="contact-list-email">${email}&lt;/span>
+           &lt;/div>
+      &lt;/div>
+  `
 }
 
 /**
- * Initialisiert die Registrierungsfunktion der Anwendung.
- * Lädt vorhandene Benutzerdaten beim Start der Registrierungsseite.
+ * Anzeige des bereits erstellten Kontakts in der Contatc-View, wenn der Benutzer auf dem Button "Add Contact" klickt
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist  
+ * @param {string} capitalizedLetters - die Initialen des vollständigen Namens des Kontakts
+ * @param {string} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @param {string} phone -telefonnummer des Kontakts
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur der in der Contact-View den neu erstellten Kontakt anzeigt
  */
-async function initRegister(){
-    await loadUsers(); // Lädt vorhandene Benutzer aus dem Speicher
+function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor) {
+  return /*html*/ `
+      &lt;div onclick="hidePopUpEditDelete(event)" id="contact-view-name-container${key}${i}" class="contact-view-name-container">
+          &lt;div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container" style="background:${badgeColor}">
+            &lt;span class="contact-view-badge">${capitalizedLetters}&lt;/span>
+          &lt;/div>
+          &lt;div class="contact-view-edit-delete-container">
+              &lt;h2 id="contact-view-name${key}${i}" class="contact-view-name">${name}&lt;/h2>
+              &lt;div id="contact-view-icons-container" class="contact-view-icons-container">
+                &lt;span onclick="showEditContactOverlay('${key}', ${i})" id="contact-view-edit-container${key}${i}" class="contact-view-edit-container">
+                  &lt;img src="./assets/icons/pen.svg" alt="">Edit
+                &lt;/span> 
+                &lt;span onclick="deleteContact('${key}', ${i})" id="contact-view-delete-container${key}${i}" class="contact-view-delete-container">
+                  &lt;img src="./assets/icons/trashbin.svg" alt="">Delete
+                &lt;/span>
+              &lt;/div>
+          &lt;/div>
+      &lt;/div>
+      &lt;h3 class="contact-information-title">Contact Information&lt;/h3>
+      &lt;div class="contact-view-information-container">
+          &lt;div class="contact-view-email-container">
+              &lt;h3>Email&lt;/h3>
+             &lt;a class="contact-view-email">${email}&lt;/a>
+          &lt;/div>
+          &lt;div class="contact-view-phone-container">
+              &lt;h3>Phone&lt;/h3>
+              &lt;span class="contact-view-phone">${phone}&lt;/span>
+          &lt;/div>
+      &lt;/div>
+    &lt;/div>
+    &lt;div class="successfulButtonContainer">
+       &lt;span id="successfulButton" class="successfulButton translateSuccButton translateSuccButtonMobile">
+         Contact successfully created
+       &lt;/span>
+    &lt;/div>
+      `
+
 }
 
-async function showTasks() {
-    console.log('Das sind die Tasks in meinem Array: ', tasks);
+/**
+ * Diese Funktion zeigt in der Kontakt-Ansicht einen aus der Kontaktliste ausgewählten Kontakt an
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+ * @param {*} name - name des Kontakts
+ * @param {string} email - email des Kontakts
+ * @param {string} phone -telefonnummer des Kontakts
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur der in der Contact-View angezeigten Kontaktdaten
+ */
+function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
+  return /*html*/ `
+    &lt;div id="contact-view-name-container${key}${i}" class="contact-view-name-container">
+        &lt;div id="contact-view-badge-container${key}${i}" class="contact-view-badge-container" style="background:${badgeColor}">
+          &lt;span class="contact-view-badge">${capitalizedLetters}&lt;/span>
+        &lt;/div>
+        &lt;div class="contact-view-edit-delete-container">
+            &lt;h2 id="contact-view-name${key}${i}" class="contact-view-name">${name}&lt;/h2>
+            &lt;div id="contact-view-icons-container" class="contact-view-icons-container translateXPopUpEditDelete">
+              &lt;span onclick="showEditContactOverlay('${key}', ${i})" id="contact-view-edit-container${key}${i}" class="contact-view-edit-container">
+              &lt;svg class="pencil-edit" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+               &lt;mask id="mask0_145734_3876" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+               &lt;rect width="24" height="24" fill="#D9D9D9"/>
+               &lt;/mask>
+               &lt;g mask="url(#mask0_145734_3876)">
+               &lt;path d="M5 19H6.4L15.025 10.375L13.625 8.975L5 17.6V19ZM19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3042 2.75 17.8625 2.75C18.4208 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.57083 21.275 6.1125C21.2917 6.65417 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z" fill="#2A3647"/>
+               &lt;/g>
+              &lt;/svg>
+              &lt;p class="edit">Edit&lt;/p>
+              &lt;/span> 
+              &lt;span onclick="deleteContact('${key}', ${i})" id="contact-view-delete-container${key}${i}" class="contact-view-delete-container">
+              &lt;svg class="trashbin-edit" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                &lt;mask id="mask0_145734_4140" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                &lt;rect width="24" height="24" fill="#D9D9D9"/>
+                &lt;/mask>
+                &lt;g mask="url(#mask0_145734_4140)">
+                &lt;path d="M7 21C6.45 21 5.97917 20.8042 5.5875 20.4125C5.19583 20.0208 5 19.55 5 19V6C4.71667 6 4.47917 5.90417 4.2875 5.7125C4.09583 5.52083 4 5.28333 4 5C4 4.71667 4.09583 4.47917 4.2875 4.2875C4.47917 4.09583 4.71667 4 5 4H9C9 3.71667 9.09583 3.47917 9.2875 3.2875C9.47917 3.09583 9.71667 3 10 3H14C14.2833 3 14.5208 3.09583 14.7125 3.2875C14.9042 3.47917 15 3.71667 15 4H19C19.2833 4 19.5208 4.09583 19.7125 4.2875C19.9042 4.47917 20 4.71667 20 5C20 5.28333 19.9042 5.52083 19.7125 5.7125C19.5208 5.90417 19.2833 6 19 6V19C19 19.55 18.8042 20.0208 18.4125 20.4125C18.0208 20.8042 17.55 21 17 21H7ZM7 6V19H17V6H7ZM9 16C9 16.2833 9.09583 16.5208 9.2875 16.7125C9.47917 16.9042 9.71667 17 10 17C10.2833 17 10.5208 16.9042 10.7125 16.7125C10.9042 16.5208 11 16.2833 11 16V9C11 8.71667 10.9042 8.47917 10.7125 8.2875C10.5208 8.09583 10.2833 8 10 8C9.71667 8 9.47917 8.09583 9.2875 8.2875C9.09583 8.47917 9 8.71667 9 9V16ZM13 16C13 16.2833 13.0958 16.5208 13.2875 16.7125C13.4792 16.9042 13.7167 17 14 17C14.2833 17 14.5208 16.9042 14.7125 16.7125C14.9042 16.5208 15 16.2833 15 16V9C15 8.71667 14.9042 8.47917 14.7125 8.2875C14.5208 8.09583 14.2833 8 14 8C13.7167 8 13.4792 8.09583 13.2875 8.2875C13.0958 8.47917 13 8.71667 13 9V16Z" fill="#2A3647"/>
+                &lt;/g>
+              &lt;/svg>
+              &lt;p class="delete">Delete&lt;/p>
+              &lt;/span>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    &lt;h3 class="contact-information-title">Contact Information&lt;/h3>
+    &lt;div id="contact-view-information-container${key}${i}" class="contact-view-information-container">
+        &lt;div class="contact-view-email-container">
+            &lt;h3 class="contact-view-email-title">Email&lt;/h3>
+           &lt;a href="mailto:${email}" id="contact-view-email${key}${i}"  class="contact-view-email">${email}&lt;/a>
+        &lt;/div>
+        &lt;div class="contact-view-phone-container">
+            &lt;h3 class="contact-view-phone-title">Phone&lt;/h3>
+            &lt;a href="tel:${phone}" id="contact-view-phone${key}${i}" class="contact-view-phone">${phone}&lt;/a>
+        &lt;/div>
+    &lt;/div>
+    `
 }
 
-function reinitializeEventListenersForEditModal() {
-    checkInputFields();
-    saveInputFields();
-    handlePrioButtons();
-    inputSubtask();
-    addSubTask();
-    setupEventListenersSubtasks();
-    renderAssignees();
-    setupAssigneeGlobalClickListener();
-    setupAssigneeDropdownToggleListener();
-    initCategoryDropdown();
-    setupCategoryDropdownEventListeners();
-    setupModalCloseDelegationEdit();
-    setupDeleteTaskListener();
-    initializeBoardIfNeeded();
-    createTask();
-    setupOpenAddTaskModalListener();
-    setupCloseAddTaskModalListener();
-    setupEditTaskListener();
-    setupModalCloseDelegationAddAtskBoard();
-    setupSaveTaskEditListener();
-
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialisierungen, die auf allen Seiten durchgeführt werden sollten
-        checkInputFields();
-        saveInputFields();
-        loadTasks();
-        createTask();
-        // Funktionen, die sowohl auf der "Add Task"-Seite als auch auf der "Board"-Seite benötigt werden
-        handlePrioButtons();
-        inputSubtask();
-        addSubTask();
-        setupEventListenersSubtasks();
-        renderAssignees();
-        setupAssigneeGlobalClickListener();
-        setupAssigneeDropdownToggleListener();
-        initCategoryDropdown();
-        setupCategoryDropdownEventListeners();
-    // Hilfsfunktion, um zu überprüfen, "Board"-Seite aktiv
-    function isBoardPage() {
-        return document.getElementById('board-card-background-1') !== null;
+/**
+ * Diese Funktion zeigt das Pop-up "Edit Contact" an, um die Einstellungen eines Kontakts zu ändern oder ihn zu löschen
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
+ * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
+ * @param {string} badgeColor - Farbe des Kontaktabzeichens 
+ * @returns {string} die HTML-Struktur, die den Dialog und das Pop-up des Bereichs "Edit Contact" zeigt 
+ */
+function editContactOverlayHTML(key, i, badgeColor) {
+  return /*html*/ `
+    &lt;div onclick="doNotClose(event)" id="contact-dialog${key}${i}" class="contact-dialog translateContactDialogPopUp translateContactDialogPopUp-Mobile">
+            &lt;div class="contacts-left-container">
+                &lt;div class="logo-and-title-container">
+                    &lt;span>&lt;img class="contact-dialog-logo mobile-d-none" src="./assets/img/logo-small-white.png" alt="">&lt;/span>
+                    &lt;h2 class="edit-contact-title">Edit Contact&lt;/h2>
+                    &lt;span class="border-bar">&lt;/span>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="contact-right-container">
+            &lt;div class="mobile-badge-container">
+            &lt;div id="edit-contact-badge-container${key}${i}" class="edit-contact-badge-container" style="background:${badgeColor}">
+                    &lt;span class="initialsLetters">${capitalizedLetters}&lt;/span>
+                &lt;/div>
+            &lt;/div>
+              &lt;form onsubmit="saveNewContact('${key}', ${i}); return false" class="input-and-btn-container">
+                    &lt;span onclick="hideEditContactOverlay('${key}', ${i}, event)" class="cross-icon-container"> 
+                      &lt;svg class="cross-icon" width="24" height="25" viewBox="0 0 24 25" fill=""
+                                xmlns="http://www.w3.org/2000/svg">
+                                &lt;path
+                                    d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z"
+                                    stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      &lt;/svg>
+                    &lt;/span>
+                    &lt;div class="inputs-container">
+                        &lt;input required id="input-name${key}${i}" class="input-name" type="text" id="name" placeholder="Name and Lastname">
+                        &lt;input required id="input-email${key}${i}" class="input-email" type="email" id="email" placeholder="E-Mail Address">
+                        &lt;input required id="input-phone${key}${i}" class="input-phone" type="text" id="phone" placeholder="Phone">
+                    &lt;/div>
+                    &lt;div class="contact-btn-container">
+                        &lt;button class="edit-contact-btn1" onclick="deleteContact('${key}', ${i})">Delete
+                            &lt;svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill=""
+                                xmlns="http://www.w3.org/2000/svg">
+                                &lt;path
+                                    d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z"
+                                    stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            &lt;/svg>
   
-    }
-    // Funktionen spezifisch für die "Board"-Seite
-    function initializeBoardPage() {
-        initializeBoardCard();
-        setupTaskClickListeners();
-        setupCloseTaskDetailModalListener();
-        setupOpenAddTaskModalListener();
-        setupCloseAddTaskModalListener();
-        setupModalCloseDelegation();
-        setupEditTaskListener();
-        setupModalCloseDelegationEdit();
-        setupModalCloseDelegationAddAtskBoard();
-        setupDeleteTaskListener();
-        setupSaveTaskEditListener();
-        setupModalEventListeners();
-        setupTaskStateListeners();
-    }
-
-    // Bedingte Initialisierung basierend auf der aktuellen Seite
-    if (isBoardPage()) {
-        initializeBoardPage();
-    } else {
-        console.log('Nicht auf der Board-Seite, spezifische Board-Initialisierungen werden übersprungen.');
-    }
-});</code></pre>
+                        &lt;/button>
+                        &lt;button class="add-contact-btn2">Save&lt;img
+                                class="check-icon-btn2" src="./assets/icons/check.svg" alt="">
+                        &lt;/button>
+                    &lt;/div>
+              &lt;/form>
+            &lt;/div>
+        &lt;/div>
+    `;
+}
+</code></pre>
         </article>
     </section>
 

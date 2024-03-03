@@ -60,7 +60,7 @@ body {
   font-weight: 700;
 }
 
-.add-new-contact-btn:hover{
+.add-new-contact-btn:hover {
   background-color: #29abe2;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
@@ -203,7 +203,6 @@ h1.contact-view-title {
 .contact-view-delete-container:hover .delete {
   color: #29abe2;
 }
-
 
 .contact-view-delete-container {
   display: flex;
@@ -365,7 +364,6 @@ h1.contact-view-title {
   color: #29abe2;
 }
 
-/*---------------------------------- add contacts from dialog --------------------------------------------*/
 .contact-bg-dialog {
   height: 100vh;
   position: fixed;
@@ -390,7 +388,7 @@ h1.contact-view-title {
   border-radius: 20px;
   cursor: pointer;
   position: relative;
-  transition: all 0.5s cubic-bezier(.215, .61, .355, 1);
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .contacts-left-container {
@@ -626,7 +624,6 @@ h1.contact-view-title {
   object-fit: contain;
 }
 
-/*-----------------contact list---------------*/
 .contact {
   display: flex;
   align-items: center;
@@ -658,8 +655,6 @@ h1.contact-view-title {
   display: flex;
   flex-direction: column;
 }
-
-/* Edit Contacts Pop-up Style */
 .edit-contact-badge-container {
   width: 120px;
   height: 120px;
@@ -1086,7 +1081,7 @@ h1.contact-view-title {
     overflow-y: hidden;
   }
 
-  .successfulButton{
+  .successfulButton {
     margin-top: 0;
     width: 100%;
     height: 50px;

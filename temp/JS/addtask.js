@@ -307,7 +307,6 @@ function initializeBoardIfNeeded() {
 }
 
 function reinitializeEventListenersForEditModal() {
-    console.log('Funktionen werden aufgerufen!')
     checkInputFields();
     saveInputFields();
     handlePrioButtons();
@@ -319,18 +318,14 @@ function reinitializeEventListenersForEditModal() {
     setupAssigneeDropdownToggleListener();
     initCategoryDropdown();
     setupCategoryDropdownEventListeners();
-    setupModalCloseDelegationEdit();
-    setupModalCloseDelegationAddAtskBoard();
     setupDeleteTaskListener();
     initializeBoardIfNeeded();
     createTask();
-    //setupCreateTaskListener();
     setupOpenAddTaskModalListener();
     setupCloseAddTaskModalListener();
     setupEditTaskListener();
     setupModalCloseDelegationEdit();
     setupModalCloseDelegationAddAtskBoard();
-    setupDeleteTaskListener();
     setupSaveTaskEditListener();
 }
 
@@ -352,7 +347,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initCategoryDropdown();
         setupCategoryDropdownEventListeners();
 
-
     // Hilfsfunktion, um zu überprüfen, ob wir uns auf der "Board"-Seite befinden
     function isBoardPage() {
         return document.getElementById('board-card-background-1') !== null;
@@ -361,9 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funktionen spezifisch für die "Board"-Seite
     function initializeBoardPage() {
-        console.log('Initialisiere Board-Seite...');
         initializeBoardCard();
-        //setupCreateTaskListener();
         setupTaskClickListeners();
         setupCloseTaskDetailModalListener();
         setupOpenAddTaskModalListener();
@@ -385,4 +377,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Nicht auf der Board-Seite, spezifische Board-Initialisierungen werden übersprungen.');
     }
 });
-
