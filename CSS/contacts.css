@@ -9,6 +9,8 @@ body {
 .contact-section {
   display: flex;
   flex: 1;
+  height: 100vh;
+  overflow-y: hidden;
 }
 
 .contact-book {
@@ -655,6 +657,7 @@ h1.contact-view-title {
   display: flex;
   flex-direction: column;
 }
+
 .edit-contact-badge-container {
   width: 120px;
   height: 120px;
@@ -813,7 +816,7 @@ h1.contact-view-title {
 }
 
 @media (max-width: 1050px) {
-  .translateContactDialogPopUp-Mobile {
+  .translateContactDialogPopUp {
     transform: translateY(300%);
   }
 

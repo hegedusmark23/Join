@@ -348,15 +348,9 @@ function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
  */
 
 function translateContactDialogPopUpInside(key, i) {
-    if (windowWidth > 1050) {
-        setTimeout(() => {
-            document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
-        }, 10);
-    } else {
-        setTimeout(() => {
-            document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp-Mobile');
-        }, 10)
-    }
+    setTimeout(() => {
+        document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
+    }, 10);
 }
 
 /**
@@ -366,17 +360,10 @@ function translateContactDialogPopUpInside(key, i) {
  */
 
 function hideEditContactOverlay(key, i, event) {
-    if (windowWidth > 1050) {
-        document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
-        setTimeout(() => {
-            document.getElementById(`edit-contact-overlay${key}${i}`).classList.add('d-none');
-        }, 500)
-    } else {
-        document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp-Mobile');
-        setTimeout(() => {
-            document.getElementById(`edit-contact-overlay${key}${i}`).classList.add('d-none');
-        }, 200);
-    }
+    document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
+    setTimeout(() => {
+        document.getElementById(`edit-contact-overlay${key}${i}`).classList.add('d-none');
+    }, 500);
     doNotClose(event)
 }
 
