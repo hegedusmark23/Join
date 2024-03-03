@@ -318,8 +318,6 @@ function reinitializeEventListenersForEditModal() {
     setupAssigneeDropdownToggleListener();
     initCategoryDropdown();
     setupCategoryDropdownEventListeners();
-    setupModalCloseDelegationEdit();
-    setupModalCloseDelegationAddAtskBoard();
     setupDeleteTaskListener();
     initializeBoardIfNeeded();
     createTask();
@@ -328,7 +326,6 @@ function reinitializeEventListenersForEditModal() {
     setupEditTaskListener();
     setupModalCloseDelegationEdit();
     setupModalCloseDelegationAddAtskBoard();
-    setupDeleteTaskListener();
     setupSaveTaskEditListener();
 }
 

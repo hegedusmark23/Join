@@ -186,7 +186,7 @@
 .nav-text {
   font-size: 16px;
   font-weight: 400;
-  color: #CDCDCD;
+  color: #cdcdcd;
 }
 
 .board-text {
@@ -236,9 +236,6 @@ select:focus {
   outline: none;
 }
 
-/* Add Task Template */
-
-/* !!! Label --> Könnte man auslagern!!!*/
 #addtask-content label {
   display: flex;
   flex-direction: column;
@@ -268,7 +265,6 @@ section#addtask-content {
   color: #000;
 }
 
-/* !!! Input --> Könnte man auslagern!!!*/
 #addtask-content input,
 textarea,
 button,
@@ -381,7 +377,6 @@ textarea {
   display: flex;
   flex-direction: column;
   flex: 1;
-  /* Jede Sektion nimmt gleich viel Platz ein */
   gap: 24px;
 }
 
@@ -473,7 +468,6 @@ textarea {
 
 .wrapper-flex-container {
   min-height: 240px;
-  /* 200px für subtasks-container + 40px für addtask-actions */
   display: flex;
   flex-direction: column;
   position: relative;
@@ -505,9 +499,7 @@ textarea {
 
 #subtasks-list-container ul {
   list-style: none;
-  /* Entfernt standardmäßige Bullet Points */
   padding-left: 0;
-  /* Entfernt das Standard-Padding */
 }
 
 #subtasks-list-container .input-subtask {
@@ -519,7 +511,6 @@ textarea {
   align-items: center;
   margin-bottom: 5px;
   position: relative;
-  /* Für Pseudo-Elemente */
   padding: 5px 0px 5px 0px;
   cursor: pointer;
   min-height: 25px;
@@ -528,20 +519,15 @@ textarea {
 
 #subtasks-list-container li::before {
   content: "•";
-  /* Eigener Bullet Point */
   color: black;
-  /* Farbe des Bullet Points */
   margin-right: 10px;
-  /* Abstand zwischen Bullet Point und Text */
   font-size: larger;
   padding-left: 24px;
-  /* Abstand Bullet Points zum Container */
   min-height: 25px;
 }
 
 .edit-mode::before {
   content: none !important;
-  /* Verbirgt den Bullet Point im Bearbeitungsmodus */
 }
 
 #subtasks-list-container li:hover {
@@ -591,7 +577,6 @@ textarea {
 
 .input-subtask {
   flex-grow: 1 !important;
-  /* Nimmt den verfügbaren Platz ein */
   min-height: 25px !important;
   font-size: 16px !important;
   line-height: 19.2px !important;
@@ -600,7 +585,6 @@ textarea {
   border-bottom: 1px solid #29abe2 !important;
   width: 100% !important;
   z-index: 2 !important;
-  /* Höher als Icons, um im Normalzustand sichtbar zu sein */
 }
 
 .input-subtask:focus {
@@ -744,8 +728,6 @@ input#subtask-edit-input {
   height: 70px;
   padding: 20px;
 }
-
-/*Board Template */
 
 .board-header {
   display: flex;
@@ -961,7 +943,7 @@ input#subtask-edit-input {
 }
 
 .modal {
-  display: none; /* Initial versteckt */
+  display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -1053,23 +1035,18 @@ input#subtask-edit-input {
   transition: transform 0.5s ease-in, opacity 0.5s ease-in;
 }
 
-/* Anpassen der Breite des Scrollbalkens */
 #task-details-container::-webkit-scrollbar {
   width: 5px;
-  /* oder jede andere gewünschte Breite */
 }
 
-/* Anpassen des Hintergrunds des Scrollbalken-Tracks (die Leiste, auf der der Scrollbalken sitzt) */
 #task-details-container::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
-/* Anpassen des Aussehens des Scrollbalken-Griffs (der bewegliche Teil des Scrollbalkens) */
 #task-details-container::-webkit-scrollbar-thumb {
   background: #dfdede;
 }
 
-/* Ändern der Farbe des Scrollbalken-Griffs beim Hover */
 #task-details-container::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
 }
@@ -1103,7 +1080,7 @@ input#subtask-edit-input {
 
 #task-details-container {
   flex-grow: 1;
-  overflow-y: auto; /* Ermöglicht Scrollen, falls nötig */
+  overflow-y: auto;
   width: 100%;
   padding-right: 10px;
 }
@@ -1227,20 +1204,16 @@ input#subtask-edit-input {
 .details-footer-hover:hover .detail-footer-text,
 .details-footer-hover:hover .custom-svg path {
   color: #29abe2;
-  /* Textfarbe */
   fill: #29abe2;
-  /* SVG Füllfarbe */
 }
 
 .custom-svg path {
   fill: #2a3647;
   transition: fill 0.2s;
-  /* Weiche Übergänge für die SVG-Füllfarbe */
 }
 
 .detail-footer-text {
   transition: color 0.2s;
-  /* Weiche Übergänge für die Textfarbe */
 }
 
 .form-wrapper {
@@ -1410,22 +1383,17 @@ input#subtask-edit-input {
     min-height: 250px;
   }
 
-  /* Versteckt den Scrollbalken in Webkit-Browsern, behält aber die Scrollfunktionalität bei */
   .subtasks-container::-webkit-scrollbar {
     display: none;
   }
 
-  /* Für den Fall, dass Sie möchten, dass der gesamte Bereich scrollbar ist, ohne sichtbaren Scrollbalken */
   .scrollable-area {
     -ms-overflow-style: none;
-    /* IE und Edge */
     scrollbar-width: none;
-    /* Firefox */
   }
 
   .scrollable-area::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari und Opera */
   }
 }
 
