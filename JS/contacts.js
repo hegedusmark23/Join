@@ -410,19 +410,32 @@ async function deleteContact(key, i) {
     hideEditContactOverlay();
 }
 
+
+/**
+ * Wenn der Kontaktcontainer in Focus ist, wird der Hintergrund schwarz und der Text weiß.
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
 function backgroundBlackAndWhiteText(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.add('black-container');
     document.getElementById(`contact-list-name${key}${i}`).style.color = '#fff';
     document.getElementById(`contact-list-email${key}${i}`).style.color = '#fff';
 }
 
+/**
+ * Wenn der Kontaktcontainer den Fokus verliert, kehrt der Container zu seinen ursprünglichen Farben zurück
+ * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
+ * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ */
 function backgroundAndTextOriginal(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.remove('black-container');
     document.getElementById(`contact-list-name${key}${i}`).style.color = '#000';
     document.getElementById(`contact-list-email${key}${i}`).style.color = '#29ABE2'
 }
 
-
+/**
+ * Diese Funktion zeigt das Pop-up-Fenster mit dem Formular zum Anlegen eines neuen Kontakts an
+ */
 function showAddContactOverlay() {
     if (windowWidth > 1050) {
         document.getElementById('add-contact-overlay').classList.remove('d-none');
@@ -438,6 +451,9 @@ function showAddContactOverlay() {
     }
 }
 
+/**
+ * Diese Funktion blendet das Pop-up-Fenster mit dem Formular zum Anlegen eines neuen Kontakts aus
+ */
 function hideAddContactOverlay() {
     if (windowWidth > 1050) {
         document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
@@ -454,12 +470,17 @@ function hideAddContactOverlay() {
     doNotClose(event)
 }
 
-
-
+/**
+ * Diese Funktion stellt die ursprüngliche Farbe der Schaltfläche nach 800 Millisekunden ein, wenn das Pop-up-Fenster "Kontakt hinzufügen" ausgeblendet ist
+ */
 function originalBgColorOfAddContactBtnMobile() {
     document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#2A3647'
 }
 
+/**
+ * Mit dieser Funktion wird die Weiterleitung von Ereignissen auf übergeordnete oder untergeordnete Container aufgehoben
+ * @param {object} event 
+ */
 function doNotClose(event) {
     event.stopPropagation()
 }
