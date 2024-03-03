@@ -459,14 +459,12 @@
   .summary-headline {
     padding: 20px 0px;
   }
+
+  /*
   .tasks-headline-container {
     animation: invisVisMobile 1s linear;
   }
-
-    .summary-headline {
-        padding: 20px 0px;
-    }
-    /*
+    
     .tasks-headline-container {
         animation: invisVisMobile 1s linear;
     }

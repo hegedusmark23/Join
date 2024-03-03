@@ -217,7 +217,7 @@ function sortTasksByPrioUrgent() {
 function hideWelcomeMessageMobile(){
   if (window.innerWidth < 800) {
     document.getElementById('welcome-section').classList.add("d-none")
-}
+} 
 }
 
   function mobileWelcomeAnimation(){

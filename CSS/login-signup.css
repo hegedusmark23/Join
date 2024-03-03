@@ -203,7 +203,7 @@ form {
 }
 
 .invis-visible-animation {
-  animation: invisVis 1s 500ms forwards;
+  animation: invisVis 1s forwards;
 }
 
 .o0 {
