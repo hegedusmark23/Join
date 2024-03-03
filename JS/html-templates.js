@@ -1,3 +1,7 @@
+/**
+ * Gibt das HTML für den rechtlichen Hinweis zurück.
+ * @returns {string} HTML-String für die Seite des rechtlichen Hinweises.
+ */
 function legalNoticeHTML() {
     return /*html*/`
         <a class="legal-site-arrow" href="/index.html"><img class="arrow" src="/assets/img/arrow-left-blue.png" alt=""></a>
@@ -29,6 +33,10 @@ function legalNoticeHTML() {
 `;
 }
 
+/**
+ * Gibt das HTML für die Datenschutzerklärung zurück.
+ * @returns {string} HTML-String für die Datenschutzerklärungsseite.
+ */
 function privacyPolicyHTML() {
     return /*html*/`
         <a class="legal-site-arrow" href="/index.html"><img class="arrow"
@@ -117,6 +125,10 @@ function privacyPolicyHTML() {
     `;
 }
 
+/**
+ * Gibt das HTML für die Hilfeseite zurück.
+ * @returns {string} HTML-String für die Hilfeseite.
+ */
 function helpHTML() {
     return /*html*/`
     <a class="legal-site-arrow" href="/index.html"><img class="arrow"

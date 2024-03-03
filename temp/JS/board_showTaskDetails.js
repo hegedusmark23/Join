@@ -61,36 +61,6 @@ function generatePriorityHtml(task) {
 }
 
 /**
- * Erzeugt HTML-Strings für Subtasks.
- * @param {Object} task - Das Task-Objekt, zu dem die Subtasks gehören.
- * @param {Array} subtasks - Die Subtasks des Tasks.
- * @returns {string} Der generierte HTML-String für die Subtasks.
- */
-function generateSubtasksHtml(task, subtasks) {
-    if (!subtasks || subtasks.length === 0) {
-        return ''; // Kein HTML, wenn keine Subtasks vorhanden sind
-    }
-    return subtasks.map(subtask => `
-        <div id="subtask-container" class="dropdown-content-container details-subtasks">    
-            <div onclick="toggleSubtaskCompleted(${task.id}, ${subtask.id})" class="dropdown-content-binding details-subtasks-content" data-task-id="${task.id}" data-subtask-id="${subtask.id}">
-                <div class="dropdown-content-checkbox">
-                    ${subtask.completed === 'done' ? `
-                        <svg class="checkbox-checked-active" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#2A3647" stroke-width="2" stroke-linecap="round"></path>
-                            <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>` : `
-                        <svg class="checkbox-unchecked-normal" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
-                        </svg>
-                    `}
-                </div>
-                <div class="detail-subtask-name">${subtask.text}</div>
-            </div>
-        </div>
-    `).join('');
-}
-
-/**
  * Generiert das HTML für die Darstellung von Assignees.
  * Falls keine Assignees vorhanden sind, wird ein Platzhalter angezeigt.
  * 
@@ -170,6 +140,36 @@ function generateDetailFooter() {
             </div>
      </div>
     `;
+}
+
+/**
+ * Erzeugt HTML-Strings für Subtasks.
+ * @param {Object} task - Das Task-Objekt, zu dem die Subtasks gehören.
+ * @param {Array} subtasks - Die Subtasks des Tasks.
+ * @returns {string} Der generierte HTML-String für die Subtasks.
+ */
+function generateSubtasksHtml(task, subtasks) {
+    if (!subtasks || subtasks.length === 0) {
+        return ''; // Kein HTML, wenn keine Subtasks vorhanden sind
+    }
+    return subtasks.map(subtask => `
+        <div id="subtask-container" class="dropdown-content-container details-subtasks">    
+            <div onclick="toggleSubtaskCompleted(${task.id}, ${subtask.id})" class="dropdown-content-binding details-subtasks-content" data-task-id="${task.id}" data-subtask-id="${subtask.id}">
+                <div class="dropdown-content-checkbox">
+                    ${subtask.completed === 'done' ? `
+                        <svg class="checkbox-checked-active" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#2A3647" stroke-width="2" stroke-linecap="round"></path>
+                            <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>` : `
+                        <svg class="checkbox-unchecked-normal" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
+                        </svg>
+                    `}
+                </div>
+                <div class="detail-subtask-name">${subtask.text}</div>
+            </div>
+        </div>
+    `).join('');
 }
 
 /**
