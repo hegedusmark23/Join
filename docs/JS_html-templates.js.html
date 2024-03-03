@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/main-content.js</title>
+    <title>JSDoc: Source: JS/html-templates.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/main-content.js</h1>
+    <h1 class="page-title">Source: JS/html-templates.js</h1>
 
     
 
@@ -27,220 +27,236 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Generiert den Inhalt für den rechtlichen Hinweis.
+ * Gibt das HTML für den rechtlichen Hinweis zurück.
+ * @returns {string} HTML-String für die Seite des rechtlichen Hinweises.
  */
-function generateLegalNoticeContent() {
-  let container = document.querySelector('section');
-  container.innerHTML = legalNoticeHTML();
+function legalNoticeHTML() {
+    return /*html*/`
+        &lt;a class="legal-site-arrow" href="/index.html">&lt;img class="arrow" src="/assets/img/arrow-left-blue.png" alt="">&lt;/a>
+            &lt;div id="summary-content">
+                &lt;div class="legal-text-container">
+                    &lt;div>
+                        &lt;h1 class="legal-headline">Privacy Policy&lt;/h1>
+                        
+                    &lt;/div>
+                    &lt;div>
+                        &lt;h2>Subtitle&lt;/h2>
+                        &lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio felis, iaculis ut massa
+                        eget, ornare lacinia urna. In dignissim justo eu velit sagittis, in scelerisque nulla convallis.
+                        Vestibulum eros lorem, sollicitudin eget eros non, varius aliquam mauris. Sed turpis ipsum,
+                        condimentum quis nulla at, lobortis facilisis ipsum. Nunc erat justo, hendrerit vel enim vitae,
+                        feugiat mattis dui. In auctor dignissim luctus. Mauris ornare ipsum at ultrices eleifend. Praesent
+                        tempus congue magna. Quisque libero erat, pharetra a neque et, imperdiet semper justo.&lt;/p>
+                        &lt;h2>Subtitle&lt;/h2>
+                        &lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio felis, iaculis ut massa
+                        eget, ornare lacinia urna. In dignissim justo eu velit sagittis, in scelerisque nulla convallis.
+                        Vestibulum eros lorem, sollicitudin eget eros non, varius aliquam mauris. Sed turpis ipsum,
+                        condimentum quis nulla at, lobortis facilisis ipsum. Nunc erat justo, hendrerit vel enim vitae,
+                        feugiat mattis dui. In auctor dignissim luctus. Mauris ornare ipsum at ultrices eleifend. Praesent
+                        tempus congue magna. Quisque libero erat, pharetra a neque et, imperdiet semper justo.&lt;/p>
+    
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+`;
 }
 
 /**
- * Generiert den Inhalt für die Datenschutzrichtlinie.
+ * Gibt das HTML für die Datenschutzerklärung zurück.
+ * @returns {string} HTML-String für die Datenschutzerklärungsseite.
  */
-function generatePrivacyPolicyContent() {
-  let container = document.querySelector('section');
-  container.innerHTML = privacyPolicyHTML();
+function privacyPolicyHTML() {
+    return /*html*/`
+        &lt;a class="legal-site-arrow" href="/index.html">&lt;img class="arrow"
+                    src="/assets/img/arrow-left-blue.png" alt="">&lt;/a>
+            &lt;div id="summary-content">
+                &lt;div class="legal-text-container">
+                    &lt;div>
+                        &lt;h1 class="legal-headline">Legal Notice&lt;/h1>
+
+                    &lt;/div>
+                    &lt;div>
+                        &lt;h2>Imprint&lt;/h2>
+                        &lt;li>[Student Names List]&lt;/li>
+                        &lt;li>[Address of the JOIN operator - e.g. one of the students]&lt;/li>
+                        &lt;li>[Postcode and city]&lt;/li>
+                        &lt;h2>Exploring the Board&lt;/h2>
+                        Email: [Email]
+                        &lt;h2>Acceptance of terms&lt;/h2>
+                        &lt;p>By accessing and using &lt;span class="blue-text">Join&lt;/span> (Product), you acknowledge and
+                            agree to the following terms and
+                            conditions, and any policies, guidelines, or amendments thereto that may be presented to you
+                            from time to time. We, the listed students, may update or change the terms and conditions
+                            from time to time without notice.&lt;/p>
+                        &lt;h2>Scope and ownership of the product&lt;/h2>
+                        &lt;p>&lt;span class="blue-text">Join&lt;/span> has been developed as part of a student group project in
+                            a web development bootcamp at the
+                            &lt;span class="blue-text">Developer Akademie GmbH&lt;/span>. It has an educational purpose and is
+                            not intended for extensive
+                            personal &amp; business usage. As such, we cannot guarantee consistent availability,
+                            reliability,
+                            accuracy, or any other aspect of quality regarding this Product.
+                        &lt;/p>
+                        &lt;br>
+                        &lt;p>The design of &lt;span class="blue-text">Join&lt;/span> is owned by the &lt;span
+                                class="blue-text">Developer Akademie GmbH&lt;/span>. Unauthorized use, reproduction,
+                            modification, distribution, or replication of the design is strictly prohibited.&lt;/p>
+                        &lt;h2>Proprietary rights&lt;/h2>
+                        &lt;p>Aside from the design owned by &lt;span class="blue-text">Developer Akademie GmbH&lt;/span>, we,
+                            the listed students, retain all
+                            proprietary rights in &lt;span class="blue-text">Join&lt;/span>, including any associated
+                            copyrighted material, trademarks, and
+                            other
+                            proprietary information.&lt;/p>
+                        &lt;h2>Use of the product&lt;/h2>
+                        &lt;p>&lt;span class="blue-text">Join&lt;/span> is intended to be used for lawful purposes only, in
+                            accordance with all applicable laws
+                            and
+                            regulations. Any use of &lt;span class="blue-text">Join&lt;/span> for illegal activities, or to
+                            harass, harm, threaten, or
+                            intimidate
+                            another person, is strictly prohibited. You are solely responsible for your interactions
+                            with
+                            other users of &lt;span class="blue-text">Join&lt;/span>.&lt;/p>
+                        &lt;h2>Disclaimer of warranties and limitation of liability&lt;/h2>
+                        &lt;p>&lt;span class="blue-text">Join&lt;/span> is provided "as is" without warranty of any kind, whether
+                            express or implied, including
+                            but
+                            not limited to the implied warranties of merchantability, fitness for a particular purpose,
+                            and
+                            non-infringement. In no event will we, the listed students, or the &lt;span
+                                class="blue-text">Developer Akademie&lt;/span>, be
+                            liable
+                            for any direct, indirect, incidental, special, consequential or exemplary damages, including
+                            but
+                            not limited to, damages for loss of profits, goodwill, use, data, or other intangible
+                            losses,
+                            even if we have been advised of the possibility of such damages, arising out of or in
+                            connection
+                            with the use or performance of &lt;span class="blue-text">Join&lt;/span>.&lt;/p>
+                        &lt;h2>Indemnity&lt;/h2>
+                        &lt;p>You agree to indemnify, defend and hold harmless us, the listed students, the &lt;span
+                                class="blue-text">Developer
+                                Akademie&lt;/span>, and our affiliates, partners, officers, directors, agents, and
+                            employees, from and
+                            against any claim, demand, loss, damage, cost, or liability (including reasonable legal
+                            fees)
+                            arising out of or relating to your use of &lt;span class="blue-text">Join&lt;/span> and/or your
+                            breach of this Legal Notice.&lt;/p>
+                        &lt;br>
+                        &lt;p>For any questions or notices, please contact us at [Contact Email].&lt;/p>
+                        &lt;br>
+                        &lt;p>Date: July 26, 2023&lt;/p>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+    `;
 }
 
 /**
- * Generiert den Inhalt für die Hilfeseite.
+ * Gibt das HTML für die Hilfeseite zurück.
+ * @returns {string} HTML-String für die Hilfeseite.
  */
-function generateHelpContent() {
-  let container = document.querySelector('section');
-  container.innerHTML = helpHTML();
+function helpHTML() {
+    return /*html*/`
+    &lt;a class="legal-site-arrow" href="/index.html">&lt;img class="arrow"
+    src="/assets/img/arrow-left-blue.png" alt="">&lt;/a>
+&lt;div id="summary-content">
+&lt;div class="legal-text-container">
+    &lt;div>
+        &lt;h1 class="legal-headline">Help&lt;/h1>
+
+    &lt;/div>
+    &lt;div>
+        Welcome to the help page for &lt;span class="blue-text">Join&lt;/span>, your guide to using our kanban
+        project management tool. Here,
+        we'll provide an overview of what &lt;span class="blue-text">Join&lt;/span> is, how it can benefit
+        you, and how to use it.
+        &lt;h2>What is Join?&lt;/h2>
+        &lt;p>&lt;span class="blue-text">Join&lt;/span> is a kanban-based project management tool designed and
+            built by a group of dedicated
+            students as part of their web development bootcamp at the Developer Akademie.&lt;/p>
+        &lt;br>
+        &lt;p>Kanban, a Japanese term meaning "billboard", is a highly effective method to visualize work,
+            limit work-in-progress, and maximize efficiency (or flow). &lt;span
+                class="blue-text">Join&lt;/span> leverages the principles of
+            kanban to help users manage their tasks and projects in an intuitive, visual interface.&lt;/p>
+        &lt;br>
+        &lt;p>It is important to note that Join is designed as an educational exercise and is not intended
+            for
+            extensive business usage. While we strive to ensure the best possible user experience, we
+            cannot
+            guarantee consistent availability, reliability, accuracy, or other aspects of quality
+            regarding
+            &lt;span class="blue-text">Join&lt;/span>.
+        &lt;/p>
+        &lt;h2>How to use it&lt;/h2>
+        &lt;p>Here is a step-by-step guide on how to use &lt;span class="blue-text">Join&lt;/span>:&lt;/p>
+
+
+
+        &lt;ol type="1">
+            &lt;li>
+                &lt;h3>Exploring the Board&lt;/h3>
+                When you log in to Join, you'll find a default board. This board represents your project
+                and
+                contains four default lists: "To Do", "In Progress", “Await feedback” and "Done".
+            &lt;/li>
+
+
+            &lt;li>
+                &lt;h3>Creating Contacts&lt;/h3>
+                In Join, you can add contacts to collaborate on your projects. Go to the "Contacts"
+                section,
+                click on "New contact", and fill in the required information. Once added, these contacts
+                can
+                be
+                assigned tasks and they can interact with the tasks on the board.
+            &lt;/li>
+
+            &lt;li>
+                &lt;h3>Adding Cards&lt;/h3>
+                Now that you've added your contacts, you can start adding cards. Cards represent
+                individual
+                tasks. Click the "+" button under the appropriate list to create a new card. Fill in the
+                task
+                details in the card, like task name, description, due date, assignees, etc.
+            &lt;/li>
+            &lt;li>
+                &lt;h3>Moving Cards&lt;/h3>
+                As the task moves from one stage to another, you can reflect that on the board by
+                dragging and
+                dropping the card from one list to another.
+            &lt;/li>
+            &lt;li>
+                &lt;h3>Deleting Cards&lt;/h3>
+                Once a task is completed, you can either move it to the "Done" list or delete it.
+                Deleting a
+                card will permanently remove it from the board. Please exercise caution when deleting
+                cards, as
+                this action is irreversible.
+            &lt;/li>
+        &lt;/ol>
+        &lt;p>Remember that using &lt;span class="blue-text">Join&lt;/span> effectively requires consistent
+            updates from you and your team to
+            ensure the board reflects the current state of your project.&lt;/p>
+        &lt;br>
+        &lt;p>Have more questions about &lt;span class="blue-text">Join&lt;/span>? Feel free to contact us at
+            [Your Contact Email]. We're here to
+            help you!&lt;/p>
+
+        &lt;h2>Enjoy using Join!&lt;/h2>
+
+    &lt;/div>
+&lt;/div>
+&lt;/div>
+    `;
 }
 
-/**
- * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
- */
-function changePencilImgColor() {                
-  var image = document.getElementById("pencil-icon");
-  var button = document.getElementById("pencil-button");
-  button.addEventListener('mouseover', function () {
-    image.src = "./assets/img/pencil-blue.png"
-  })
-  button.addEventListener('mouseout', function () {
-    image.src = "./assets/img/pencil-white.png"
-  })
-}
-
-/**
- * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
- */
-function changeCheckImgColor() {         
-  var image = document.getElementById("check-icon");
-  var button = document.getElementById("check-button");
-  button.addEventListener('mouseover', function () {
-    image.src = "./assets/img/check-blue.png"
-  })
-  button.addEventListener('mouseout', function () {
-    image.src = "./assets/img/check-white.png"
-  })
-}
-
-/**
- * Öffnet das animierte Menü.
- */
-function showMenu() {
-  var x = document.getElementById("popup-menu");
-  var computedStyle = window.getComputedStyle(x);
-  if (computedStyle.display === "none" || x.style.display === "none") {
-    x.style.display = "flex";
-  } else {
-    x.style.display = "none";
-  }
-}
-
-/**
- * Schließt das Menü.
- */
-function closeMenu() {
-  let menu = document.getElementById('popup-menu');
-  menu.style.display = "none";
-}
-
-/**
- * Zeigt eine Nachricht nach erfolgreicher Registrierung an.
- */
-function signUpMessage() {    
-  let message = document.getElementById('signup-message');
-  setTimeout(function () {
-    message.classList.remove('d-none');
-    message.classList.add('d-flex');
-  }, 500)
-}
-
-/**
- * Leitet nach der Registrierung zur Login-Seite um.
- */
-function redirectToLogin() {   
-  setTimeout(function () {
-    window.location.href = '/landingpage.html'
-  }, 1500)
-}
-
-/**
- * Generiert eine tageszeitabhängige Willkommensnachricht.
- */
-function timeDynamicWelcome() {      
-  let welcome = document.getElementById('daytime')
-  let date = new Date();
-  let hour = date.getHours();
-  if (hour &lt; 12) {
-    welcome.innerHTML = 'Good Morning,';
-  } else if (hour &lt; 17) {
-    welcome.innerHTML = 'Good Afternoon,';
-  } else {
-    welcome.innerHTML = 'Good Evening,';
-  }
-}
 
 
-/**
- * Zeigt das Passwort auf der Login-Seite.
- */
-function revealPassword() {         
-  var x = document.getElementById("password");
-  if (x.type === "password" &amp;&amp; x.value.length > 2) {
-    x.style.background = "url(/assets/img/visibility.png)";
-    x.type = "text";
-  } else {
-    x.style.background = "url(/assets/img/lock-icon.png)";
-    x.type = "password";
-  }
-  x.style.backgroundRepeat = "no-repeat";
-  x.style.backgroundPosition = "center";
-  x.style.backgroundPositionX = "calc(100% - 12px)";
-}
 
-/**
- * Führt den Gast-Login durch.
- */
-function guestLogin() {
-  window.location.href = '/guest.index.html'
-}
-
-/**
- * Markiert die Navigationsbuttons abhängig von der aktuellen Seite.
- */
-function buttonFocus() {
-  let summaryNav = document.getElementById("summary-nav");
-  let addTaskNav = document.getElementById("addTask-nav");
-  let boardNav = document.getElementById("board-nav");
-  let contactsNav = document.getElementById("contacts-nav");
-  setTimeout(buttonFocus, 100);
-  if (window.location.href === "http://127.0.0.1:5500/index.html" &amp;&amp; summaryNav) {
-    summaryNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/addtask.html" &amp;&amp; addTaskNav) {
-    addTaskNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/board.html" &amp;&amp; boardNav) {
-    boardNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/addcontacts.html" &amp;&amp; contactsNav) {
-    contactsNav.style.backgroundColor = "#091931";
-  }
-}
-
-/**
- * Zählt die Gesamtanzahl der Aufgaben auf der Zusammenfassungsseite.
- */
-function numberOfAllTasks() {
-  let allTasks = document.getElementById('numberOfTasksInBoard');
-  allTasks.innerHTML = tasks.length;
-}
-
-/**
- * Sortiert die Aufgaben nach dem Status "ToDo".
- */
-function sortTasksByStateToDo() {
-  let toDo = document.getElementById('numberOfToDos');
-  let result = tasks.filter((task) => task.state.includes("toDo")).length;
-  toDo.innerHTML = result;
-}
-
-/**
- * Sortiert die Aufgaben nach dem Status "In Progress".
- */
-function sortTasksByStateInProgress() {
-  let inProgress = document.getElementById('numberOfTasksInProgress');
-  let result = tasks.filter((task) => task.state.includes("in-progress")).length;
-  inProgress.innerHTML = result;
-}
-
-/**
- * Sortiert die Aufgaben nach dem Status "Done".
- */
-function sortTasksByStateDone() {
-  let done = document.getElementById('numberOfDone');
-  let result = tasks.filter((task) => task.state.includes("done")).length;
-  done.innerHTML = result;
-}
-
-/**
- * Sortiert die Aufgaben nach dem Status "Awaiting Feedback".
- */
-function sortTasksByStateAwaitingFeedback() {
-  let awaitingFeedback = document.getElementById('awaitingFeedback');
-  let result = tasks.filter((task) => task.state.includes("await-feedback")).length;
-  awaitingFeedback.innerHTML = result;
-}
-
-/**
- * Sortiert die Aufgaben nach der Priorität "Urgent".
- */
-function sortTasksByPrioUrgent() {
-  let Urgent = document.getElementById('numberOfUrgent');
-  let urgentDate = document.getElementById('urgentDate');
-  let urgentTasks = tasks.filter((task) => task.prio === "urgent");
-  let shortestDueDateTask = urgentTasks.reduce((minTask, currentTask) => {
-    if (minTask.dueDate &amp;&amp; currentTask.dueDate) {
-      return minTask.dueDate &lt; currentTask.dueDate ? minTask : currentTask;
-    } else {
-      return currentTask.dueDate ? currentTask : minTask;
-    }
-  }, urgentTasks[0]);
-  Urgent.innerHTML = urgentTasks.length;
-  urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
-}</code></pre>
+</code></pre>
         </article>
     </section>
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/main-content.js</title>
+    <title>JSDoc: Source: JS/w3include.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/main-content.js</h1>
+    <h1 class="page-title">Source: JS/w3include.js</h1>
 
     
 
@@ -27,220 +27,44 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Generiert den Inhalt für den rechtlichen Hinweis.
+ * Lädt HTML-Inhalte in Elemente, die das Attribut "w3-include-html" haben.
+ * 
+ * Diese Funktion durchläuft alle Elemente des Dokuments und sucht nach dem 
+ * "w3-include-html"-Attribut, das den Pfad zu einer HTML-Datei angibt. Für jedes gefundene 
+ * Element wird ein XMLHttpRequest initiiert, um den angegebenen HTML-Inhalt zu laden.
+ * Nach dem Laden wird der Inhalt des Ziel-Elements durch die geladene HTML ersetzt.
+ * Im Falle eines Fehlers (z.B. wenn die Seite nicht gefunden wird), wird eine Fehlermeldung
+ * im Element angezeigt. Nach dem Laden des Inhalts wird das "w3-include-html"-Attribut entfernt,
+ * und die Funktion wird rekursiv aufgerufen, um sicherzustellen, dass alle Elemente bearbeitet werden,
+ * die während des Ladens eines HTML-Inhalts hinzugefügt wurden.
  */
-function generateLegalNoticeContent() {
-  let container = document.querySelector('section');
-  container.innerHTML = legalNoticeHTML();
-}
-
-/**
- * Generiert den Inhalt für die Datenschutzrichtlinie.
- */
-function generatePrivacyPolicyContent() {
-  let container = document.querySelector('section');
-  container.innerHTML = privacyPolicyHTML();
-}
-
-/**
- * Generiert den Inhalt für die Hilfeseite.
- */
-function generateHelpContent() {
-  let container = document.querySelector('section');
-  container.innerHTML = helpHTML();
-}
-
-/**
- * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
- */
-function changePencilImgColor() {                
-  var image = document.getElementById("pencil-icon");
-  var button = document.getElementById("pencil-button");
-  button.addEventListener('mouseover', function () {
-    image.src = "./assets/img/pencil-blue.png"
-  })
-  button.addEventListener('mouseout', function () {
-    image.src = "./assets/img/pencil-white.png"
-  })
-}
-
-/**
- * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
- */
-function changeCheckImgColor() {         
-  var image = document.getElementById("check-icon");
-  var button = document.getElementById("check-button");
-  button.addEventListener('mouseover', function () {
-    image.src = "./assets/img/check-blue.png"
-  })
-  button.addEventListener('mouseout', function () {
-    image.src = "./assets/img/check-white.png"
-  })
-}
-
-/**
- * Öffnet das animierte Menü.
- */
-function showMenu() {
-  var x = document.getElementById("popup-menu");
-  var computedStyle = window.getComputedStyle(x);
-  if (computedStyle.display === "none" || x.style.display === "none") {
-    x.style.display = "flex";
-  } else {
-    x.style.display = "none";
+function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  // Holt alle Elemente des Dokuments
+  z = document.getElementsByTagName("*");
+  for (i = 0; i &lt; z.length; i++) {
+      elmnt = z[i];
+      // Liest den Wert des "w3-include-html"-Attributs
+      file = elmnt.getAttribute("w3-include-html");
+      if (file) {
+          // Initialisiert eine HTTP-Anfrage, um den HTML-Inhalt zu laden
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+              if (this.readyState == 4) { // Wenn die Anfrage abgeschlossen ist
+                  if (this.status == 200) {elmnt.innerHTML = this.responseText;} // Bei Erfolg den Inhalt ersetzen
+                  if (this.status == 404) {elmnt.innerHTML = "Page not found.";} // Bei Fehlschlag eine Fehlermeldung anzeigen
+                  // Entfernt das Attribut, um Doppelverarbeitung zu vermeiden
+                  elmnt.removeAttribute("w3-include-html");
+                  includeHTML(); // Rekursiver Aufruf, um weitere Inhalte zu laden
+              }
+          };
+          xhttp.open("GET", file, true);
+          xhttp.send(); // Sendet die Anfrage
+          return; // Beendet die Funktion nach dem Starten der Anfrage
+      }
   }
 }
-
-/**
- * Schließt das Menü.
- */
-function closeMenu() {
-  let menu = document.getElementById('popup-menu');
-  menu.style.display = "none";
-}
-
-/**
- * Zeigt eine Nachricht nach erfolgreicher Registrierung an.
- */
-function signUpMessage() {    
-  let message = document.getElementById('signup-message');
-  setTimeout(function () {
-    message.classList.remove('d-none');
-    message.classList.add('d-flex');
-  }, 500)
-}
-
-/**
- * Leitet nach der Registrierung zur Login-Seite um.
- */
-function redirectToLogin() {   
-  setTimeout(function () {
-    window.location.href = '/landingpage.html'
-  }, 1500)
-}
-
-/**
- * Generiert eine tageszeitabhängige Willkommensnachricht.
- */
-function timeDynamicWelcome() {      
-  let welcome = document.getElementById('daytime')
-  let date = new Date();
-  let hour = date.getHours();
-  if (hour &lt; 12) {
-    welcome.innerHTML = 'Good Morning,';
-  } else if (hour &lt; 17) {
-    welcome.innerHTML = 'Good Afternoon,';
-  } else {
-    welcome.innerHTML = 'Good Evening,';
-  }
-}
-
-
-/**
- * Zeigt das Passwort auf der Login-Seite.
- */
-function revealPassword() {         
-  var x = document.getElementById("password");
-  if (x.type === "password" &amp;&amp; x.value.length > 2) {
-    x.style.background = "url(/assets/img/visibility.png)";
-    x.type = "text";
-  } else {
-    x.style.background = "url(/assets/img/lock-icon.png)";
-    x.type = "password";
-  }
-  x.style.backgroundRepeat = "no-repeat";
-  x.style.backgroundPosition = "center";
-  x.style.backgroundPositionX = "calc(100% - 12px)";
-}
-
-/**
- * Führt den Gast-Login durch.
- */
-function guestLogin() {
-  window.location.href = '/guest.index.html'
-}
-
-/**
- * Markiert die Navigationsbuttons abhängig von der aktuellen Seite.
- */
-function buttonFocus() {
-  let summaryNav = document.getElementById("summary-nav");
-  let addTaskNav = document.getElementById("addTask-nav");
-  let boardNav = document.getElementById("board-nav");
-  let contactsNav = document.getElementById("contacts-nav");
-  setTimeout(buttonFocus, 100);
-  if (window.location.href === "http://127.0.0.1:5500/index.html" &amp;&amp; summaryNav) {
-    summaryNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/addtask.html" &amp;&amp; addTaskNav) {
-    addTaskNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/board.html" &amp;&amp; boardNav) {
-    boardNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/addcontacts.html" &amp;&amp; contactsNav) {
-    contactsNav.style.backgroundColor = "#091931";
-  }
-}
-
-/**
- * Zählt die Gesamtanzahl der Aufgaben auf der Zusammenfassungsseite.
- */
-function numberOfAllTasks() {
-  let allTasks = document.getElementById('numberOfTasksInBoard');
-  allTasks.innerHTML = tasks.length;
-}
-
-/**
- * Sortiert die Aufgaben nach dem Status "ToDo".
- */
-function sortTasksByStateToDo() {
-  let toDo = document.getElementById('numberOfToDos');
-  let result = tasks.filter((task) => task.state.includes("toDo")).length;
-  toDo.innerHTML = result;
-}
-
-/**
- * Sortiert die Aufgaben nach dem Status "In Progress".
- */
-function sortTasksByStateInProgress() {
-  let inProgress = document.getElementById('numberOfTasksInProgress');
-  let result = tasks.filter((task) => task.state.includes("in-progress")).length;
-  inProgress.innerHTML = result;
-}
-
-/**
- * Sortiert die Aufgaben nach dem Status "Done".
- */
-function sortTasksByStateDone() {
-  let done = document.getElementById('numberOfDone');
-  let result = tasks.filter((task) => task.state.includes("done")).length;
-  done.innerHTML = result;
-}
-
-/**
- * Sortiert die Aufgaben nach dem Status "Awaiting Feedback".
- */
-function sortTasksByStateAwaitingFeedback() {
-  let awaitingFeedback = document.getElementById('awaitingFeedback');
-  let result = tasks.filter((task) => task.state.includes("await-feedback")).length;
-  awaitingFeedback.innerHTML = result;
-}
-
-/**
- * Sortiert die Aufgaben nach der Priorität "Urgent".
- */
-function sortTasksByPrioUrgent() {
-  let Urgent = document.getElementById('numberOfUrgent');
-  let urgentDate = document.getElementById('urgentDate');
-  let urgentTasks = tasks.filter((task) => task.prio === "urgent");
-  let shortestDueDateTask = urgentTasks.reduce((minTask, currentTask) => {
-    if (minTask.dueDate &amp;&amp; currentTask.dueDate) {
-      return minTask.dueDate &lt; currentTask.dueDate ? minTask : currentTask;
-    } else {
-      return currentTask.dueDate ? currentTask : minTask;
-    }
-  }, urgentTasks[0]);
-  Urgent.innerHTML = urgentTasks.length;
-  urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
-}</code></pre>
+</code></pre>
         </article>
     </section>
 
