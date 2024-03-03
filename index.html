@@ -12,10 +12,10 @@
     <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
-<body onload="init(); setCurrentUser();">
+<body onload="mobileWelcomeAnimation(); init(); setCurrentUser(); ">
     <main class="index-contents">
-        <header w3-include-html="./assets/templates/header.html"></header>
-        <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
+        <header id="header" w3-include-html="./assets/templates/header.html"></header>
+        <aside id="navbar" class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
@@ -28,7 +28,7 @@
             <section class="main-content" onclick="closeMenu()" id="main-content">
                 <div class="summary-container">
                     <div class="summary-main-content">
-                        <div class="tasks-headline-container">
+                        <div id="tasks-headline-container" class="tasks-headline-container">
                             <div class="summary-headline">
                                 <h1 class="summary-headline-bold">Join 360</h1>
                                 <div class="vert-blue-line"></div>
@@ -108,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="welcome-section">
+                    <div id="welcome-section" class="welcome-section">
                         <h1 id="daytime" class="daytime-text no-margin">Sample Daytime,</h1><br>
                         <h1 id="welcome-message" class="user-name-text no-margin">Guest User</h1>
                     </div>

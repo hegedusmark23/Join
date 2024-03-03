@@ -185,5 +185,18 @@ function sortTasksByPrioUrgent() {
   urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
 }
 
+function hideWelcomeMessageMobile(){
+  if (window.innerWidth < 800) {
+    document.getElementById('welcome-section').classList.add("d-none")
+}
+}
 
-  
+  function mobileWelcomeAnimation(){
+    if (window.innerWidth < 485) {
+      document.getElementById('tasks-headline-container').classList.add("welcomMessageAnimationInvis");
+      document.getElementById('navbar').classList.add("welcomMessageAnimationInvis");
+      document.getElementById('header').classList.add("welcomMessageAnimationInvis");
+      document.getElementById('welcome-section').classList.add("welcomMessageAnimation");
+      document.getElementById('welcome-section').classList.add("d-none")
+    }
+  }

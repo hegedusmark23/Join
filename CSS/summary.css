@@ -249,7 +249,21 @@
 .o0 {
     opacity: 0;
 }
-/*
+
+.welcomMessageAnimationInvis{
+    animation-name: invisVisMobile;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+}
+
+.welcomMessageAnimation{
+    animation-name: welcomeMessageMobile;
+    animation-duration: 0.9s;
+    animation-timing-function: linear;
+    position: absolute !important;
+    top: 45%;
+}
+
 @keyframes welcomeMessageMobile {
     0% {
       display: flex;
@@ -280,7 +294,7 @@
     100% {
         opacity: 1;
     }
-}*/
+}
 
 @media (max-width: 1650px) {
 
@@ -349,7 +363,6 @@
 @media (max-width: 800px) {
 
     .welcome-section {
-        display: none;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -487,6 +500,7 @@
     .summary-headline {
         padding: 20px 0px;
     }
+    /*
     .tasks-headline-container {
         animation: invisVisMobile 1s linear;
     }
@@ -512,7 +526,7 @@
             font-size: 25px;
         }
     }
-    
+    */
 }
 
 @media (max-width: 375px) {
