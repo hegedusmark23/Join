@@ -682,7 +682,7 @@ h1.contact-view-title {
 
 @media (max-width: 1250px) {
   .contact-book {
-    padding: 100px 12px;
+    padding: 32px 12px;
   }
 
   .add-new-contact-btn {
@@ -699,7 +699,7 @@ h1.contact-view-title {
   }
 
   .contact-view-section {
-    padding: 92px 12px;
+    padding: 32px 12px;
   }
 
   .contact-view-title-container {
@@ -849,7 +849,6 @@ h1.contact-view-title {
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    width: 135px;
     height: auto;
     background: #fff;
     padding: 16px;

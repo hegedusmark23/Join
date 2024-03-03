@@ -13,7 +13,7 @@
 </head>
 
 <body onload="buttonFocus(); renderContact(); setCurrentUserName();">
-    <main class="add-contacts-contents">
+    <main id="add-contacts-contents" class="add-contacts-contents">
         <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="content-container">
@@ -105,10 +105,6 @@
                             </form>
                         </div>
                     </div>
-                </div>
-
-                <!-- edit Contact Overlay -->
-                <div onclick="hideEditContactOverlay(event)" id="edit-contact-overlay" class="contact-bg-dialog d-none">
                 </div>
             </section>
         </div>

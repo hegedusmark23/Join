@@ -15,7 +15,7 @@ function allowDrop(event) {
 
 function startDragging(id, state, i) {
     currentDraggedElement = id;
-    document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg'
+    document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg';
 }
 
 
@@ -59,12 +59,12 @@ function resetNoTaskDiv(id) {
         background = 'board-card-background-1';
     } else if (id == 'in-progress' && inProgress.length == 0) {
         background = 'board-card-background-2';
-    } else if (id == 'await-feedback' && awaitFeedback.length == 0 ) {
+    } else if (id == 'await-feedback' && awaitFeedback.length == 0) {
         background = 'board-card-background-3';
     } else if (id == 'done' && done.length == 0) {
         background = 'board-card-background-4'
     }
-    if(background){
+    if (background) {
         document.getElementById(background).style.display = 'flex'
-    } else {}
+    } else { }
 }
