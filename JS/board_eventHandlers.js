@@ -86,6 +86,7 @@ function closeModal(modalId) {
 function setupTaskStateListeners() {
     const stateMappings = [     // Array mit den IDs der Buttons und den entsprechenden States
         { buttonId: 'addtask-todo', taskState: 'toDo' },
+        { buttonId: 'open-modal-button', taskState: 'toDo' },
         { buttonId: 'addtask-in-progress', taskState: 'in-progress' },
         { buttonId: 'addtask-await-feedback', taskState: 'await-feedback' }
     ];

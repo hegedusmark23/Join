@@ -85,7 +85,7 @@ function getCardContainers() {
  * Dann fügt es die Tasks in dem Container mit der ID "toDo" ein. 
  */
 function filterTodos(tasks) {
-    todos = tasks.filter(t => t['state'] == 'toDo');
+    todos = tasks.filter(t => t['state'] == 'toDo').sort((a, b) => a.position - b.position);
     if (todos.length > 0) {
         noTasksDiv.style.display = 'none';
     } else {

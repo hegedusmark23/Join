@@ -14,8 +14,11 @@ function allowDrop(event) {
 }
 
 function startDragging(id, state, i) {
-    currentDraggedElement = id;
-    document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg'
+    currentDraggedElement = id;  // Bestehender Code
+    document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg';  // Bestehender Code
+    
+    // Speichere zusätzliche Informationen für das spätere Abrufen
+    event.dataTransfer.setData("application/my-app", JSON.stringify({id, state, initialPosition: i}));
 }
 
 
@@ -23,10 +26,29 @@ function startDragging(id, state, i) {
  * Verschiebt den aktuell gezogenen Task in einen neuen Zustand und aktualisiert die Ansicht.
  * @param {string} state - Der Zielzustand des Tasks.
 */
-async function moveTo(state) {
+async function moveTo(event, state) {
+    event.preventDefault();  // Verhindern des Standardsverhaltens
+    
+    // Die Transferdaten aus dem Event abrufen
+    const transferData = JSON.parse(event.dataTransfer.getData("application/my-app"));
+    const movedTask = tasks.find(task => task.id === transferData.id);
+
+    if(movedTask) {
+        movedTask.state = state;  // Zustand aktualisieren wie bisher
+
+        // Hier die Sortierlogik einführen:
+        // Zur Vereinfachung erhöhen wir einfach die 'position' aller anderen Tasks in der Zielkategorie um 1
+        // Die detaillierte Implementierung hängt von deiner Anwendungslogik ab
+        tasks.filter(task => task.state === state).forEach(task => task.position++);
+        
+        // Und setzten die Position des verschobenen Tasks auf 0 (an den Anfang)
+        movedTask.position = 0;
+
+    
     tasks[currentDraggedElement]['state'] = state;
     await setItem('tasks', JSON.stringify(tasks));
     await initializeBoardCard();
+}
 }
 
 

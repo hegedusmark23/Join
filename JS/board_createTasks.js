@@ -256,6 +256,12 @@ async function createTaskModal() {
         return;
     }
     const taskState = document.getElementById('taskState').value;
+
+    let sameStateTasks = tasks.filter(task => task.state === taskState);
+
+    // Die Position des neuen Tasks wird als Länge des Arrays genommen, um sicherzustellen, dass er am Ende eingereiht wird.
+    let newPosition = sameStateTasks.length;
+
     let newTask = new Task(
         Date.now(), // Eindeutige ID
         title,
@@ -265,7 +271,8 @@ async function createTaskModal() {
         prio,
         new Date().toISOString(), // Erstellungsdatum
         STORAGE_TOKEN,
-        identifier
+        identifier,
+        newPosition
     );
     // Hinzufügen von Kategorie und Subtasks
     newTask.category = category;

@@ -2,7 +2,8 @@
  * Klasse zur Repräsentation eines Tasks.
  */
 class Task {
-    identifier;    
+    identifier; 
+    position;   
     
     /**
      * Konstruktor der Task-Klasse.
@@ -30,6 +31,7 @@ class Task {
         this.category = []
         this.subtask = []
         this.state = 'toDo';
+        this.position = id;
     }
 
 /**
