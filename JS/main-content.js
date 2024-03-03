@@ -214,26 +214,21 @@ function sortTasksByPrioUrgent() {
   urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
 }
 
-function hideWelcomeMessageMobile() {
-  if (window.innerWidth < 800) {
-    document.getElementById('welcome-section').classList.add("d-none")
-  } if (window.innerWidth > 800){
-    document.getElementById('welcome-section').classList.add("d-flex")
-  }
-}
-
+/**
+ * Loads an animation below a specific window size.
+ */
 function mobileWelcomeAnimation() {
   if (window.innerWidth < 485) {
     document.getElementById('tasks-headline-container').classList.add("welcomMessageAnimationInvis");
     document.getElementById('navbar').classList.add("welcomMessageAnimationInvis");
     document.getElementById('header').classList.add("welcomMessageAnimationInvis");
-    //document.getElementById('daytime').style.font-size = "30px";
-    //document.getElementById('welcome-message').style.font-size = "30px";
     document.getElementById('welcome-section').style.display = "flex";
     document.getElementById('welcome-section').style.position = "absolute";
     document.getElementById('welcome-section').style.top = "45%";
     setTimeout(() => {
-    document.getElementById('welcome-section').style.display = "none";
-  }, 900);
+      document.getElementById('welcome-section').style.display = "none";
+    }, 900);
   }
 }
+
+

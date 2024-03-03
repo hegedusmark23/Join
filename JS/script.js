@@ -73,7 +73,6 @@ async function init(){
     await includeHTML(); // Lädt dynamische HTML-Komponenten
     timeDynamicWelcome(); // Zeigt eine begrüßende Nachricht basierend auf der Tageszeit
     buttonFocus(); // Setzt den Fokus auf den Hauptbutton der Seite
-    hideWelcomeMessageMobile();
     // Verzögert die Ausführung der Sortierfunktionen, um das Laden der Daten abzuwarten
     setTimeout(() => {
         sortTasksByStateToDo();
