@@ -131,12 +131,10 @@ function validateInputElements() {
  */
 function checkInputFields() {
     if (!validateInputElements()) return;
-
     const title = document.getElementById('addtask-title');
     const dueDate = document.getElementById('dueDate');
     const titleErrorMsg = document.getElementById('title-error-msg');
     const dueDateErrorMsg = document.getElementById('duedate-error-msg');
-
     addFocusAndBlurListeners(title, titleErrorMsg);
     addFocusAndBlurListeners(dueDate, dueDateErrorMsg);
 }
@@ -256,26 +254,29 @@ function createNewTaskInstance() {
  */
 function validateTaskForm() {
     let isValid = true;
-
-    // Funktion zum Überprüfen eines einzelnen Feldes
-    function validateField(inputId, errorMsgId) {
-        const input = document.getElementById(inputId);
-        const errorMsg = document.getElementById(errorMsgId);
-        if (input && errorMsg) {
-            if (input.value.trim() === "") {
-                errorMsg.style.visibility = 'visible';
-                isValid = false;
-            } else {
-                errorMsg.style.visibility = 'hidden';
-            }
-        }
+    // Titel validieren
+    const titleInput = document.getElementById('addtask-title');
+    if (titleInput.value.trim() === "") {
+        document.getElementById('title-error-msg').style.visibility = 'visible';
+        isValid = false;
+    } else {
+        document.getElementById('title-error-msg').style.visibility = 'hidden';
     }
-
-    // Überprüfe die einzelnen Felder
-    validateField('addtask-title', 'title-error-msg');
-    validateField('dueDate', 'duedate-error-msg');
-    validateField('dropdown-categories', 'dropdown-categories-error-msg'); // Beispiel, benötigt Anpassung je nach Implementierung
-
+    // Fälligkeitsdatum validieren
+    const dueDateInput = document.getElementById('dueDate');
+    if (dueDateInput.value.trim() === "") {
+        document.getElementById('duedate-error-msg').style.visibility = 'visible';
+        isValid = false;
+    } else {
+        document.getElementById('duedate-error-msg').style.visibility = 'hidden';
+    }
+    // Kategorie validieren
+    if (!category) { // Nehmen an, dass 'category' global oder irgendwo gesetzt wird
+        document.getElementById('dropdown-categories-error-msg').style.visibility = 'visible';
+        isValid = false;
+    } else {
+        document.getElementById('dropdown-categories-error-msg').style.visibility = 'hidden';
+    }
     return isValid;
 }
 
