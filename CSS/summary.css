@@ -249,7 +249,7 @@
 .o0 {
     opacity: 0;
 }
-
+/*
 @keyframes welcomeMessageMobile {
     0% {
       display: flex;
@@ -280,7 +280,7 @@
     100% {
         opacity: 1;
     }
-}
+}*/
 
 @media (max-width: 1650px) {
 
@@ -393,7 +393,7 @@
 @media (max-width: 485px) {
 
     .legal-text-container {
-        padding: 0px 20px;
+        padding: 0px 20px 100px;
         max-width: 1300px;
       }
 
@@ -454,7 +454,7 @@
     .tasks-headline-container {
         gap: 10px;
     }
-
+/*
     .tasks-headline-container {
         animation: invisVisMobile 1s linear;
     }
@@ -479,7 +479,7 @@
         .user-name-text {
             font-size: 35px;
         }
-    }
+    }*/
 }
 
 @media (max-width: 430px) {

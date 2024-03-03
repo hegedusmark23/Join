@@ -62,7 +62,6 @@ body {
   height: 100%;
   margin: 0;
   background-color: #fcfcfc;
-  overflow: hidden;
 }
 
 h3 {
@@ -549,6 +548,15 @@ a {
 
 .board-section-title-mobile {
   display: none;
+}
+
+.board-page{
+  overflow: hidden;
+}
+
+.legal-text-container-noUser{
+  padding: 120px 50px 50px;
+  max-width: 1300px;
 }
 
 
