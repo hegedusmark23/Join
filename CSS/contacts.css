@@ -60,6 +60,11 @@ body {
   font-weight: 700;
 }
 
+.add-new-contact-btn:hover{
+  background-color: #29abe2;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
 h1.contact-view-title {
   font-weight: 800;
   font-size: 61px;
@@ -326,6 +331,10 @@ h1.contact-view-title {
   transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
+.under-container:hover {
+  background-color: #00000031;
+}
+
 .black-container {
   background: #2a3647;
 }
@@ -377,7 +386,7 @@ h1.contact-view-title {
   height: 592px;
   width: 1212px;
   display: flex;
-  border: 1px solid #fff;
+  border: 1px solid #ffffff00;
   border-radius: 20px;
   cursor: pointer;
   position: relative;

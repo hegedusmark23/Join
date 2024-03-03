@@ -3,6 +3,15 @@ let inProgress;
 let awaitFeedback;
 let done;
 let currentDraggedElement;
+let noTasksDiv;
+let noTaskDiv2;
+let noTaskDiv3;
+let noTaskDiv4;
+let toDoCardsContainer;
+let inProgressCardContainer;
+let awaitFeedBackCardContainer;
+let doneCardContainer;
+
 
 /**
  * Abrufen der gespeicherten Tasks aus dem Remote-Storage.
@@ -42,19 +51,45 @@ async function initializeBoard() {
 
 async function initializeBoardCard(filteredTasks = null) {
     let tasks = filteredTasks ? filteredTasks : await fetchTasks();
-    let noTasksDiv1 = document.getElementById('board-card-background-1');
-    let noTaskDiv2 = document.getElementById('board-card-background-2');
-    let noTaskDiv3 = document.getElementById('board-card-background-3');
-    let noTaskDiv4 = document.getElementById('board-card-background-4');
-    let toDoCardsContainer = document.getElementById('toDo');
-    let inProgressCardContainer = document.getElementById('in-progress');
-    let awaitFeedBackCardContainer = document.getElementById('await-feedback');
-    let doneCardContainer = document.getElementById('done');
+    getNoTaskDivs();
+    getCardContainers();
+    filterTodos(tasks);
+    filterInProgress(tasks)
+    filterAwaitFeedback(tasks);
+    filterDone(tasks);
+    setupTaskClickListeners();
+}
+
+/**
+ * Diese Funktion nimmt alle Banner mit der Meldung 'No Tasks Div' und speichert sie einer globalen Variablen zu;
+ */
+function getNoTaskDivs() {
+    noTasksDiv = document.getElementById('board-card-background-1');
+    noTaskDiv2 = document.getElementById('board-card-background-2');
+    noTaskDiv3 = document.getElementById('board-card-background-3');
+    noTaskDiv4 = document.getElementById('board-card-background-4');
+}
+
+/**
+ * Diese Funktion nimmt alle Tasks-Cards-Containers und speichert sie einer globalen Variablen zu;
+ */
+function getCardContainers() {
+    toDoCardsContainer = document.getElementById('toDo');
+    inProgressCardContainer = document.getElementById('in-progress');
+    awaitFeedBackCardContainer = document.getElementById('await-feedback');
+    doneCardContainer = document.getElementById('done');
+}
+
+/**
+ * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'toDo' ab.
+ * Dann fügt es die Tasks in dem Container mit der ID "toDo" ein. 
+ */
+function filterTodos(tasks) {
     todos = tasks.filter(t => t['state'] == 'toDo');
     if (todos.length > 0) {
-        noTasksDiv1.style.display = 'none';
+        noTasksDiv.style.display = 'none';
     } else {
-        noTasksDiv1.style.display = 'flex';
+        noTasksDiv.style.display = 'flex';
     }
     toDoCardsContainer.innerHTML = '';
     for (let i = 0; i < todos.length; i++) {
@@ -62,6 +97,13 @@ async function initializeBoardCard(filteredTasks = null) {
         let completionDetails = updateSubtaskProgress(task);
         toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
     }
+}
+
+/**
+ * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'in-progress' ab.
+ * Dann fügt es die Tasks in dem Container mit der ID "in-progress" ein. 
+ */
+function filterInProgress(tasks) {
     inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
     if (inProgress.length > 0) {
         noTaskDiv2.style.display = 'none';
@@ -74,6 +116,13 @@ async function initializeBoardCard(filteredTasks = null) {
         let completionDetails = updateSubtaskProgress(task);
         inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
     }
+}
+
+/**
+ * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'await-feedback' ab. 
+ * Dann fügt es die Tasks in dem Container mit der ID "await-feedback" ein.
+ */
+function filterAwaitFeedback(tasks) {
     awaitFeedback = tasks.filter(awFe => awFe['state'] == 'await-feedback');
     if (awaitFeedback.length > 0) {
         noTaskDiv3.style.display = 'none';
@@ -86,6 +135,14 @@ async function initializeBoardCard(filteredTasks = null) {
         let completionDetails = updateSubtaskProgress(task);
         awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
     }
+}
+
+/**
+ * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'done' ab. 
+ * Dann fügt es die Tasks in dem Container mit der ID "done" ein.
+ */
+
+function filterDone(tasks) {
     done = tasks.filter(d => d['state'] == 'done');
     if (done.length > 0) {
         noTaskDiv4.style.display = 'none';
@@ -98,5 +155,4 @@ async function initializeBoardCard(filteredTasks = null) {
         let completionDetails = updateSubtaskProgress(task);
         doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
     }
-    setupTaskClickListeners();
 }
