@@ -167,8 +167,26 @@ async function saveTaskEdit(taskId) {
  * Aktualisiert eine Aufgabe im tasks Array basierend auf den übergebenen Formulardaten.
  * @param {number} taskIndex Der Index der Aufgabe im tasks Array.
  * @param {object} formData Die Daten, die aus dem Formular extrahiert wurden und mit denen der Task aktualisiert wird.
+ * if (formData.assignTo.length === 0 && tasks[taskIndex].assignTo && tasks[taskIndex].assignTo.length > 0) -->
+ * Wenn keine neuen Assignees gewählt wurden, aber im aktuellen Task Assignees vorhanden sind,
+ * entferne die assignTo-Eigenschaft aus formData, damit die existierenden Assignees nicht 
+ * überschrieben werden
+ * tasks[taskIndex] = { ...tasks[taskIndex], ...formData } -->
+ * Aktualisiere den Task im Array.
+ * Wenn formData.assignTo existiert, wird es normal aktualisiert.
+ * Wenn formData.assignTo zuvor entfernt wurde, bleiben die existierenden Assignees erhalten.
  */
 function updateTask(taskIndex, formData) {
+    // Überprüfen, ob das extractAssignees Array leer ist
+    if (formData.assignTo.length === 0 && tasks[taskIndex].assignTo && tasks[taskIndex].assignTo.length > 0) {
+        // Wenn keine neuen Assignees gewählt wurden, aber im aktuellen Task Assignees vorhanden sind,
+        // entferne die assignTo-Eigenschaft aus formData, damit die existierenden Assignees nicht überschrieben werden
+        delete formData.assignTo;
+    }
+    
+    // Aktualisiere den Task im Array
+    // Wenn formData.assignTo existiert, wird es normal aktualisiert.
+    // Wenn formData.assignTo zuvor entfernt wurde, bleiben die existierenden Assignees erhalten.
     tasks[taskIndex] = { ...tasks[taskIndex], ...formData };
 }
 

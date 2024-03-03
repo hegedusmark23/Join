@@ -495,7 +495,7 @@ h1.contact-view-title {
 }
 
 .input-name {
-  background: url(/assets/img/person-icon.png) no-repeat scroll 7px 7px;
+  background: url(../assets/img/person-icon.png) no-repeat scroll 7px 7px;
   background-position: center;
   background-position-x: calc(100% - 12px);
   height: 30px;
@@ -507,7 +507,7 @@ h1.contact-view-title {
 }
 
 .input-email {
-  background: url(/assets/img/mail-icon.png) no-repeat scroll 7px 7px;
+  background: url(../assets/img/mail-icon.png) no-repeat scroll 7px 7px;
   background-position: center;
   background-position-x: calc(100% - 12px);
   height: 30px;
@@ -519,7 +519,7 @@ h1.contact-view-title {
 }
 
 .input-phone {
-  background: url(/assets/img/phone-icon.png) no-repeat scroll 7px 7px;
+  background: url(../assets/img/phone-icon.png) no-repeat scroll 7px 7px;
   background-position: center;
   background-position-x: calc(100% - 12px);
   height: 30px;

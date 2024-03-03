@@ -15,13 +15,13 @@
     <main class="board-contents">
         <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <div class="content-container">
+        <section class="content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generateLegalNoticeContent(); closeMenu();">Privacy Policy</a></div>
-                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log
+                <div onclick="logOut()" class="popup-links-div"><a class="popup-links">Log
                         out</a></div>
             </menu>
             <div id="addtask-modal" class="modal">
@@ -158,7 +158,7 @@
                     <p>Task added to board</p>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
     <script src="./JS/script.js"></script>
     <script src="./JS/board_eventHandlers.js"></script>

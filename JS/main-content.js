@@ -25,7 +25,7 @@ function generateHelpContent() {
 /**
  * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
  */
-function changePencilImgColor() {                
+function changePencilImgColor() {
   var image = document.getElementById("pencil-icon");
   var button = document.getElementById("pencil-button");
   button.addEventListener('mouseover', function () {
@@ -39,7 +39,7 @@ function changePencilImgColor() {
 /**
  * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
  */
-function changeCheckImgColor() {         
+function changeCheckImgColor() {
   var image = document.getElementById("check-icon");
   var button = document.getElementById("check-button");
   button.addEventListener('mouseover', function () {
@@ -74,7 +74,7 @@ function closeMenu() {
 /**
  * Zeigt eine Nachricht nach erfolgreicher Registrierung an.
  */
-function signUpMessage() {    
+function signUpMessage() {
   let message = document.getElementById('signup-message');
   setTimeout(function () {
     message.classList.remove('d-none');
@@ -85,7 +85,7 @@ function signUpMessage() {
 /**
  * Leitet nach der Registrierung zur Login-Seite um.
  */
-function redirectToLogin() {   
+function redirectToLogin() {
   setTimeout(function () {
     window.location.href = '/landingpage.html'
   }, 1500)
@@ -94,7 +94,7 @@ function redirectToLogin() {
 /**
  * Generiert eine tageszeitabhängige Willkommensnachricht.
  */
-function timeDynamicWelcome() {      
+function timeDynamicWelcome() {
   let welcome = document.getElementById('daytime')
   let date = new Date();
   let hour = date.getHours();
@@ -111,7 +111,7 @@ function timeDynamicWelcome() {
 /**
  * Zeigt das Passwort auf der Login-Seite.
  */
-function revealPassword() {         
+function revealPassword() {
   var x = document.getElementById("password");
   if (x.type === "password" && x.value.length > 2) {
     x.style.background = "url(/assets/img/visibility.png)";
@@ -141,13 +141,13 @@ function buttonFocus() {
   let boardNav = document.getElementById("board-nav");
   let contactsNav = document.getElementById("contacts-nav");
   setTimeout(buttonFocus, 100);
-  if (window.location.href === "http://127.0.0.1:5500/index.html" && summaryNav) {
+  if (window.location.href === "https://gruppe-870.developerakademie.net/summary.html" && summaryNav) {
     summaryNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/addtask.html" && addTaskNav) {
+  } if (window.location.href === "https://gruppe-870.developerakademie.net/addtask.html" && addTaskNav) {
     addTaskNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/board.html" && boardNav) {
+  } if (window.location.href === "https://gruppe-870.developerakademie.net/board.html" && boardNav) {
     boardNav.style.backgroundColor = "#091931";
-  } if (window.location.href === "http://127.0.0.1:5500/addcontacts.html" && contactsNav) {
+  } if (window.location.href === "https://gruppe-870.developerakademie.net/addcontacts.html" && contactsNav) {
     contactsNav.style.backgroundColor = "#091931";
   }
 }
@@ -214,18 +214,21 @@ function sortTasksByPrioUrgent() {
   urgentDate.innerHTML = shortestDueDateTask ? shortestDueDateTask.dueDate : "No urgent task.";
 }
 
-function hideWelcomeMessageMobile(){
-  if (window.innerWidth < 800) {
-    document.getElementById('welcome-section').classList.add("d-none")
-} 
+/**
+ * Loads an animation below a specific window size.
+ */
+function mobileWelcomeAnimation() {
+  if (window.innerWidth < 485) {
+    document.getElementById('tasks-headline-container').classList.add("welcomMessageAnimationInvis");
+    document.getElementById('navbar').classList.add("welcomMessageAnimationInvis");
+    document.getElementById('header').classList.add("welcomMessageAnimationInvis");
+    document.getElementById('welcome-section').style.display = "flex";
+    document.getElementById('welcome-section').style.position = "absolute";
+    document.getElementById('welcome-section').style.top = "45%";
+    setTimeout(() => {
+      document.getElementById('welcome-section').style.display = "none";
+    }, 900);
+  }
 }
 
-  function mobileWelcomeAnimation(){
-    if (window.innerWidth < 485) {
-      document.getElementById('tasks-headline-container').classList.add("welcomMessageAnimationInvis");
-      document.getElementById('navbar').classList.add("welcomMessageAnimationInvis");
-      document.getElementById('header').classList.add("welcomMessageAnimationInvis");
-      document.getElementById('welcome-section').classList.add("welcomMessageAnimation");
-      document.getElementById('welcome-section').classList.add("d-none")
-    }
-  }
+

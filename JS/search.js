@@ -6,7 +6,6 @@
 document.querySelector('input[type="text"]').addEventListener('input', async function(e) {
     const searchTerm = e.target.value;
     await searchTasks(searchTerm);
-    // Icons umschalten
     const searchIcon = document.querySelector('.search-icon img[src*="search.svg"]');
     const crossIcon = document.querySelector('.search-icon img[src*="cross.svg"]');
     if (searchTerm.trim() === '') {

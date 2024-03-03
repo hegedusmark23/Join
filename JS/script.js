@@ -69,10 +69,10 @@ let tasks = [];
  * Daten geladen wurden.
  */
 async function init(){
+    mobileWelcomeAnimation();
     await includeHTML(); // Lädt dynamische HTML-Komponenten
     timeDynamicWelcome(); // Zeigt eine begrüßende Nachricht basierend auf der Tageszeit
     buttonFocus(); // Setzt den Fokus auf den Hauptbutton der Seite
-    hideWelcomeMessageMobile();
     // Verzögert die Ausführung der Sortierfunktionen, um das Laden der Daten abzuwarten
     setTimeout(() => {
         sortTasksByStateToDo();
@@ -127,15 +127,17 @@ document.addEventListener('DOMContentLoaded', () => {
         loadTasks();
         createTask();
         // Funktionen, die sowohl auf der "Add Task"-Seite als auch auf der "Board"-Seite benötigt werden
-        handlePrioButtons();
-        inputSubtask();
-        addSubTask();
-        setupEventListenersSubtasks();
-        renderAssignees();
-        setupAssigneeGlobalClickListener();
-        setupAssigneeDropdownToggleListener();
-        initCategoryDropdown();
-        setupCategoryDropdownEventListeners();
+      if (window.location.href === "http://127.0.0.1:5500/addtask.html") {
+          handlePrioButtons();
+          inputSubtask();
+          addSubTask();
+          setupEventListenersSubtasks();
+          renderAssignees();
+          setupAssigneeGlobalClickListener();
+          setupAssigneeDropdownToggleListener();
+          initCategoryDropdown();
+          setupCategoryDropdownEventListeners();
+      }
     // Hilfsfunktion, um zu überprüfen, "Board"-Seite aktiv
     function isBoardPage() {
         return document.getElementById('board-card-background-1') !== null;
