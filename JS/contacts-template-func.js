@@ -1,4 +1,8 @@
-// creates a list of containers, where the title of each container is a letter
+/**
+ * Erstellt HTML-Inhalt für Buchstaben-Container.
+ * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
+ * @returns {string} HTML-String des Containers.
+ */
 function setLetterContainersHTML(key) {
   return /*html*/ `
       <div id="letter-container${key}" class="letter-container">
@@ -12,7 +16,14 @@ function setLetterContainersHTML(key) {
 
 }
 
-// Display the values (contacts) that are inside each Keys. Fill the list of containers with contacts
+/**
+ * Füllt die Liste der Container mit Kontakten.
+ * @param {number} i - Index des Kontakts in der Liste.
+ * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
+ * @param {string} name - Name des Kontakts.
+ * @param {string} email - E-Mail-Adresse des Kontakts.
+ * @returns {string} HTML-String des Kontakts.
+ */
 function getShowContactInTheListHTML(i, key, name, email) {
   return /*html*/ `
       <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContact('${key}', ${i})" id="under-container${key}${i}" class="under-container">
@@ -25,8 +36,17 @@ function getShowContactInTheListHTML(i, key, name, email) {
   `
 }
 
-// Show the already created contact in the view when the user clicks on "Create Contact" button
-// row 127 in contacts.js
+/**
+ * Zeigt einen bereits erstellten Kontakt in der Ansicht.
+ * @param {number} i - Index des Kontakts in der Liste.
+ * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
+ * @param {string} capitalizedLetters - Initialen des Kontakts.
+ * @param {string} name - Name des Kontakts.
+ * @param {string} email - E-Mail-Adresse des Kontakts.
+ * @param {string} phone - Telefonnummer des Kontakts.
+ * @param {string} badgeColor - Farbe des Badges.
+ * @returns {string} HTML-String der Kontaktansicht.
+ */
 function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor) {
   return /*html*/ `
       <div onclick="hidePopUpEditDelete(event)" id="contact-view-name-container${key}${i}" class="contact-view-name-container">
@@ -66,6 +86,16 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
 
 }
 
+/**
+ * Erstellt den Container für die Kontaktansicht.
+ * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
+ * @param {number} i - Index des Kontakts in der Liste.
+ * @param {string} name - Name des Kontakts.
+ * @param {string} email - E-Mail-Adresse des Kontakts.
+ * @param {string} phone - Telefonnummer des Kontakts.
+ * @param {string} badgeColor - Farbe des Badges.
+ * @returns {string} HTML-String des Kontaktansicht-Containers.
+ */
 function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
   return /*html*/ `
     <div id="contact-view-name-container${key}${i}" class="contact-view-name-container">
@@ -114,7 +144,13 @@ function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
     `
 }
 
-// Show the "Edit Contact" pop-up to change the settings of a contact or delete it;
+/**
+ * Zeigt das Overlay zum Bearbeiten eines Kontakts an.
+ * @param {string} key - Der Buchstabe, der als Überschrift für den Container dient.
+ * @param {number} i - Index des Kontakts in der Liste.
+ * @param {string} badgeColor - Farbe des Badges.
+ * @returns {string} HTML-String des Bearbeitungs-Overlays.
+ */
 function editContactOverlayHTML(key, i, badgeColor) {
   return /*html*/ `
     <div onclick="doNotClose(event)" id="contact-dialog${key}${i}" class="contact-dialog translateContactDialogPopUp translateContactDialogPopUp-Mobile">
