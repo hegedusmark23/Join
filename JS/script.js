@@ -62,19 +62,6 @@ let identifier = 0;
 let tasks = [];
 
 /**
- * Repräsentiert die aktuell ausgewählte oder zu bearbeitende Aufgabe.
- * @type {Task}
- */
-let currentTask = new Task();
-
-/**
- * Gibt an, ob ein Dropdown-Menü angeklickt wurde, um seinen Zustand zu steuern.
- * @type {boolean}
- */
-let dropdownClicked = false;
-
-
-/**
  * Initialisiert die Hauptfunktionen der Anwendung.
  * Lädt dynamische HTML-Inhalte, begrüßt den Benutzer basierend auf der Tageszeit,
  * fokussiert den Hauptbutton und sortiert die Aufgaben in verschiedene Kategorien.

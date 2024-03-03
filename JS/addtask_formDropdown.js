@@ -1,3 +1,15 @@
+/**
+ * Repräsentiert die aktuell ausgewählte oder zu bearbeitende Aufgabe.
+ * @type {Task}
+ */
+let currentTask = new Task();
+
+/**
+ * Gibt an, ob ein Dropdown-Menü angeklickt wurde, um seinen Zustand zu steuern.
+ * @type {boolean}
+ */
+let dropdownClicked = false;
+
 //! Assignee DropDown
 
 /**
