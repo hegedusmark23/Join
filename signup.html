@@ -31,11 +31,11 @@
             <form id="register" onsubmit="register(); return false;">
                 <input id="name" autocomplete="additional-name" required minlength="2" class="login-input name-input"
                     placeholder="Name" type="text">
-                <input id="email" required minlength="2" class="login-input email-input" placeholder="Email"
+                <input id="email" autocomplete="on" required minlength="2" class="login-input email-input" placeholder="Email"
                     type="email">
-                <input onclick="revealPassword(this)" id="password" required minlength="2"
+                <input onclick="revealPassword(this)" autocomplete="on" id="password" required minlength="2"
                     class="login-input password-input" placeholder="Password" type="password">
-                <input onclick="revealPassword(this)" id="confirm_password" required minlength="2"
+                <input onclick="revealPassword(this)" autocomplete="on" id="confirm_password" required minlength="2"
                     class="login-input password-input" placeholder="Confirm password" type="password">
                 <div class="checkbox-div">
                     <input required type="checkbox" name="accept privacypolicy" id="policy-check">

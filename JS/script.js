@@ -68,7 +68,7 @@ let tasks = [];
  * Sorting occurs with a delay to ensure all
  * Data has been loaded.
  */
-async function init(){
+async function init() {
     mobileWelcomeAnimation();
     await includeHTML(); // Loads dynamic HTML components
     timeDynamicWelcome(); // Displays a welcoming message based on the time of day
@@ -88,7 +88,7 @@ async function init(){
  * Initializes the application's registration function.
  * Loads existing user data when starting the registration page.
  */
-async function initRegister(){
+async function initRegister() {
     await loadUsers(); // Loads existing users from storage
 }
 
@@ -122,16 +122,18 @@ function reinitializeEventListenersForEditModal() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initializations that should be performed on all pages
+    if ((window.location.href === "http://127.0.0.1:5500/addtask.html") || (window.location.href === "http://127.0.0.1:5500/addtask.html")){
         checkInputFields();
         saveInputFields();
+        }
         loadTasks();
         createTask();
-
-        //Functions needed on both the "Add Task" page and the "Board" page
-      if (window.location.href === "http://127.0.0.1:5500/addtask.html") {
+        
+    //Functions needed on both the "Add Task" page and the "Board" page
+    if (window.location.href === "http://127.0.0.1:5500/addtask.html") {
         loadItems().then(() => {
             renderAssignees();
-        });    
+        });
         handlePrioButtons();
         inputSubtask();
         addSubTask();
@@ -141,11 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
         initCategoryDropdown();
         setupCategoryDropdownEventListeners();
         setupAssigneeGlobalClickListener();
-      }
+    }
     // Auxiliary function to check "Board" page active
     function isBoardPage() {
         return document.getElementById('board-card-background-1') !== null;
-  
+
     }
     // Functions specific to the "Board" page
     function initializeBoardPage() {

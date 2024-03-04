@@ -14,39 +14,39 @@ let doneCardContainer;
 
 
 /**
- * Abrufen der gespeicherten Tasks aus dem Remote-Storage.
- * @returns {Promise<Array>} Eine Promise, die ein Array von Tasks zurückgibt.
+ * Retrieve the saved tasks from remote storage.
+ * @returns {Promise<Array>} A Promise that returns an array of tasks.
  */
 async function fetchTasks() {
     try {
-        let tasks = await getItem('tasks');// Abrufen der Tasks als String
+        let tasks = await getItem('tasks');// Retrieve the tasks as a string
         try {
-            tasks = JSON.parse(tasks); // Versuchen, den String zu parsen, um ein JavaScript-Array zu erhalten
+            tasks = JSON.parse(tasks); // Trying to parse the string to get a JavaScript array
         } catch (error) {
             console.error('Fehler beim Parsen der Tasks:', error);
-            return []; // Bei einem Fehler ein leeres Array zurückgeben
+            return []; // Return an empty array on error
         }
         if (!Array.isArray(tasks)) {
             console.error('Die abgerufenen Daten sind kein Array.');
-            return []; // Sicherstellen, dass das Ergebnis ein Array ist
+            return []; // Make sure the result is an array
         }
         return tasks;
     } catch (error) {
         console.error('Fehler beim Abrufen der Tasks:', error);
-        return []; // Bei einem Fehler ein leeres Array zurückgeben
+        return []; // Return an empty array on error
     }
 }
 
 /**
- * Initialisiert das Board, indem alle Karten neu geladen werden.
+ * Initializes the board by reloading all cards.
  */
 async function initializeBoard() {
     await initializeBoardCard()
 }
 
 /**
- * Initialisiert das Board neu, indem alle Task-Karten basierend auf dem Filterzustand neu gerendert werden.
- * @param {Array} [filteredTasks=null] - Optional. Array von gefilterten Tasks.
+ * Reinitializes the board by re-rendering all task cards based on filter state.
+ * @param {Array} [filteredTasks=null] - Optional. Array of filtered tasks.
  */
 
 async function initializeBoardCard(filteredTasks = null) {
@@ -61,7 +61,7 @@ async function initializeBoardCard(filteredTasks = null) {
 }
 
 /**
- * Diese Funktion nimmt alle Banner mit der Meldung 'No Tasks Div' und speichert sie einer globalen Variablen zu;
+ * This function takes all banners with the message 'No Tasks Div' and saves them to a global variable;
  */
 function getNoTaskDivs() {
     noTasksDiv = document.getElementById('board-card-background-1');
@@ -71,7 +71,7 @@ function getNoTaskDivs() {
 }
 
 /**
- * Diese Funktion nimmt alle Tasks-Cards-Containers und speichert sie einer globalen Variablen zu;
+ * This function takes all Tasks Cards containers and saves them to a global variable;
  */
 function getCardContainers() {
     toDoCardsContainer = document.getElementById('toDo');
@@ -81,8 +81,8 @@ function getCardContainers() {
 }
 
 /**
- * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'toDo' ab.
- * Dann fügt es die Tasks in dem Container mit der ID "toDo" ein. 
+ * This function filters the elements of the Tasks array and retrieves only the elements with the status 'toDo'.
+ * Then it inserts the tasks into the container with ID "toDo".
  */
 async function filterTodos(tasks) {
     todos = tasks.filter(t => t['state'] == 'toDo');
@@ -100,8 +100,8 @@ async function filterTodos(tasks) {
 }
 
 /**
- * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'in-progress' ab.
- * Dann fügt es die Tasks in dem Container mit der ID "in-progress" ein. 
+ * This function filters the elements of the Tasks array and retrieves only the elements with the status 'in-progress'.
+ * Then it inserts the tasks into the container with ID "in-progress".
  */
 async function filterInProgress(tasks) {
     inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
@@ -119,8 +119,8 @@ async function filterInProgress(tasks) {
 }
 
 /**
- * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'await-feedback' ab. 
- * Dann fügt es die Tasks in dem Container mit der ID "await-feedback" ein.
+ * This function filters the elements of the Tasks array and retrieves only the elements with the await-feedback status.
+ * Then it puts the tasks in the container with ID "await-feedback".
  */
 async function filterAwaitFeedback(tasks) {
     awaitFeedback = tasks.filter(awFe => awFe['state'] == 'await-feedback');
@@ -138,8 +138,8 @@ async function filterAwaitFeedback(tasks) {
 }
 
 /**
- * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'done' ab. 
- * Dann fügt es die Tasks in dem Container mit der ID "done" ein.
+ * This function filters the elements of the Tasks array and retrieves only the elements with the status 'done'.
+ * Then it inserts the tasks into the container with the ID "done".
  */
 
 async function filterDone(tasks) {

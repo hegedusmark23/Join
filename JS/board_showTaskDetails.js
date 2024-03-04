@@ -1,41 +1,41 @@
 /**
- * Öffnet das Modal zur Anzeige der Task-Details.
- * @param {Object} task - Das Task-Objekt, dessen Details angezeigt werden sollen.
+ * Opens the modal to display the task details.
+ * @param {Object} task - The task object whose details to display.
  */
 function openTaskDetailModal(task) {
     const modal = document.getElementById('task-detail-modal');
     const detailsContainer = document.getElementById('task-details');
     detailsContainer.innerHTML = detailModalContent(task);
-    modal.style.display = 'flex'; // Modal zuerst anzeigen
-    setTimeout(() => { // Kurze Verzögerung, bevor die Klasse hinzugefügt wird, um die Transition zu ermöglichen
+    modal.style.display = 'flex'; // Show modal first
+    setTimeout(() => { // Short delay before class is added to allow transition
         modal.classList.add('modal-open');
     }, 10);
     setupDeleteTaskListener();
 }
 
 /**
- * Aktualisiert die Task-Details im Modal und bindet den Event Listener für Subtasks.
- * @param {Object} task - Das Task-Objekt, das im Detailmodal angezeigt wird.
+ * Updates the task details in the modal and binds the event listener for subtasks.
+ * @param {Object} task - The task object displayed in the details modal.
  */
 function updateTaskDetailsAndBindListener(task) {
     const detailsContainer = document.getElementById('task-details');
     detailsContainer.innerHTML = detailModalContent(task);
-    addSubtaskEventListener(); // Binden des Event Listeners, nachdem der Inhalt eingefügt wurde
+    addSubtaskEventListener(); // Bind the event listener after the content is inserted
 }
 
 /**
- * Generiert HTML für die Beschreibungsanzeige eines Tasks.
- * @param {Object} task - Das Task-Objekt.
- * @returns {string} HTML-String für die Beschreibungsanzeige.
+ * Generates HTML for the description display of a task.
+ * @param {Object} task - The task object.
+ * @returns {string} HTML string for description display.
  */
 function generateDescriptionHtml(task) {
     return `<div class="task-detail-description">${task.description || 'Description: N/A'}</div>`;
 }
 
 /**
- * Generiert HTML für die Fälligkeitsdatum-Anzeige eines Tasks.
- * @param {Object} task - Das Task-Objekt.
- * @returns {string} HTML-String für die Fälligkeitsdatum-Anzeige.
+ * Generates HTML for displaying a task's due date.
+ * @param {Object} task - The task object.
+ * @returns {string} HTML string for due date display.
  */
 function generateDueDateHtml(task) {
     return `
@@ -46,9 +46,9 @@ function generateDueDateHtml(task) {
 }
 
 /**
- * Generiert HTML für die Prioritätsanzeige eines Tasks.
- * @param {Object} task - Das Task-Objekt.
- * @returns {string} HTML-String für die Prioritätsanzeige.
+ * Generates HTML for the priority display of a task.
+ * @param {Object} task - The task object.
+ * @returns {string} HTML string for priority display.
  */
 function generatePriorityHtml(task) {
     const imageFileName = taskImage(task);
@@ -62,16 +62,16 @@ function generatePriorityHtml(task) {
 }
 
 /**
- * Generiert das HTML für die Darstellung von Assignees.
- * Falls keine Assignees vorhanden sind, wird ein Platzhalter angezeigt.
- * 
- * @param {Object[]} assignees - Array von Assignee-Objekten mit Farbe und Initialen.
- * @returns {string} HTML-String mit den Darstellungen der Assignees oder einem Platzhalter.
+ * Generates the HTML for displaying assignees.
+ * If there are no assignees, a placeholder is displayed.
+ *
+ * @param {Object[]} assignees - Array of assignee objects with color and initials.
+ * @returns {string} HTML string with the representations of the assignees or a placeholder.
  */
 function generateAssigneesHtml(assignees) {
-    if (!assignees || assignees.length === 0) { // Prüft, ob das Array leer oder nicht definiert ist und gibt einen Platzhalter zurück
+    if (!assignees || assignees.length === 0) { // Checks whether the array is empty or undefined and returns a placeholder
         return '<div class="detail-assignee-na">N/A</div>';
-    } // Erstellt für jeden Assignee einen HTML-String und fügt sie zusammen
+    } // Creates an HTML string for each assignee and puts them together
     return assignees.map(assignee => `
         <div class="dropdown-content-binding">
             <div class="dropdown-content-circle" style="background-color:${assignee.color};">
@@ -85,10 +85,10 @@ function generateAssigneesHtml(assignees) {
 }
 
 /**
- * Erstellt den Kopfbereich der Detailansicht eines Tasks.
- * 
- * @param {Object} task - Task-Objekt mit Informationen wie ID und Kategorie.
- * @returns {string} HTML-String für den Kopfbereich der Detailansicht.
+ * Creates the header area of ​​the detailed view of a task.
+ *
+ * @param {Object} task - Task object with information such as ID and category.
+ * @returns {string} HTML string for the header area of ​​the detailed view.
  */
 function generateDetailHeader(task) {
     return `
@@ -107,9 +107,9 @@ function generateDetailHeader(task) {
 }
 
 /**
- * Generiert den Fußbereich der Detailansicht eines Tasks.
- * 
- * @returns {string} HTML-String für den Fußbereich der Detailansicht.
+ * Generates the footer area of ​​the detailed view of a task.
+ *
+ * @returns {string} HTML string for the footer area of ​​the detailed view.
  */
 function generateDetailFooter() {
     return `
@@ -144,14 +144,14 @@ function generateDetailFooter() {
 }
 
 /**
- * Erzeugt HTML-Strings für Subtasks.
- * @param {Object} task - Das Task-Objekt, zu dem die Subtasks gehören.
- * @param {Array} subtasks - Die Subtasks des Tasks.
- * @returns {string} Der generierte HTML-String für die Subtasks.
+ * Generates HTML strings for subtasks.
+ * @param {Object} task - The task object to which the subtasks belong.
+ * @param {Array} subtasks - The subtasks of the task.
+ * @returns {string} The generated HTML string for the subtasks.
  */
 function generateSubtasksHtml(task, subtasks) {
     if (!subtasks || subtasks.length === 0) {
-        return ''; // Kein HTML, wenn keine Subtasks vorhanden sind
+        return ''; // No HTML if there are no subtasks
     }
     return subtasks.map(subtask => `
         <div id="subtask-container" class="dropdown-content-container details-subtasks">    
@@ -174,13 +174,13 @@ function generateSubtasksHtml(task, subtasks) {
 }
 
 /**
- * Rendert den Inhalt der Detailansicht für einen spezifischen Task.
- * @param {Object} task - Das Task-Objekt mit allen relevanten Daten.
- * @returns {string} - HTML-String, der den detaillierten Inhalt des Tasks darstellt.
+ * Renders the contents of the detail view for a specific task.
+ * @param {Object} task - The task object with all relevant data.
+ * @returns {string} - HTML string representing the detailed content of the task.
  */
 function detailModalContent(task) {
-    let assigneesHtml = generateAssigneesHtml(task.assignTo);  // Bereitet HTML für Assignees vor, zeigt "N/A", wenn keine vorhanden sind
-    let subtasksHtml = generateSubtasksHtml(task, task.subtask);  // Bereitet HTML für Subtasks vor, zeigt nichts, wenn keine vorhanden sind
+    let assigneesHtml = generateAssigneesHtml(task.assignTo);  // Prepares HTML for assignees, shows "N/A" if none exist
+    let subtasksHtml = generateSubtasksHtml(task, task.subtask);  // Prepares HTML for subtasks, shows nothing if none exist
     return `
     ${generateDetailHeader(task)}
         <div class="task-details-main-content">
@@ -197,7 +197,7 @@ function detailModalContent(task) {
 }
 
 /**
- * Löscht den aktuellen Task und aktualisiert die Ansicht.
+ * Deletes the current task and refreshes the view.
  */
 function deleteCurrentTask() {
     const taskHeaderElement = document.querySelector('.task-details-header');
