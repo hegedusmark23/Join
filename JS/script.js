@@ -126,20 +126,21 @@ document.addEventListener('DOMContentLoaded', () => {
         saveInputFields();
         loadTasks();
         createTask();
-        loadItems().then(() => {
-            renderAssignees();
-        });
-        setupAssigneeGlobalClickListener();
+
         // Funktionen, die sowohl auf der "Add Task"-Seite als auch auf der "Board"-Seite benötigt werden
       if (window.location.href === "http://127.0.0.1:5500/addtask.html") {
-          handlePrioButtons();
-          inputSubtask();
-          addSubTask();
-          setupEventListenersSubtasks();
-          renderAssignees();
-          setupAssigneeDropdownToggleListener();
-          initCategoryDropdown();
-          setupCategoryDropdownEventListeners();
+        loadItems().then(() => {
+            renderAssignees();
+        });    
+        handlePrioButtons();
+        inputSubtask();
+        addSubTask();
+        setupEventListenersSubtasks();
+        renderAssignees();
+        setupAssigneeDropdownToggleListener();
+        initCategoryDropdown();
+        setupCategoryDropdownEventListeners();
+        setupAssigneeGlobalClickListener();
       }
     // Hilfsfunktion, um zu überprüfen, "Board"-Seite aktiv
     function isBoardPage() {
