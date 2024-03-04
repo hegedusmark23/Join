@@ -9,7 +9,6 @@
   flex-direction: row;
   align-items: center;
   gap: 30px;
-  padding: 10px 50px;
 }
 
 .small-task-container {
@@ -50,7 +49,6 @@
   max-width: 580px;
   align-items: center;
   justify-content: center;
-  padding: 0 40px;
 }
 
 .welcome-section {
@@ -237,6 +235,13 @@
 
 .o0 {
   opacity: 0;
+}
+
+.tasks-summary-container{
+  display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }
 
 .welcomMessageAnimationInvis{

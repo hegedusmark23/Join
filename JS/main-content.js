@@ -1,5 +1,5 @@
 /**
- * Generiert den Inhalt für den rechtlichen Hinweis.
+ * Generates the content for the legal notice.
  */
 function generateLegalNoticeContent() {
   let container = document.querySelector('section');
@@ -7,7 +7,7 @@ function generateLegalNoticeContent() {
 }
 
 /**
- * Generiert den Inhalt für die Datenschutzrichtlinie.
+ * Generates the content for the privacy policy.
  */
 function generatePrivacyPolicyContent() {
   let container = document.querySelector('section');
@@ -15,7 +15,7 @@ function generatePrivacyPolicyContent() {
 }
 
 /**
- * Generiert den Inhalt für die Hilfeseite.
+ * Generates the content for the help page.
  */
 function generateHelpContent() {
   let container = document.querySelector('section');
@@ -23,7 +23,7 @@ function generateHelpContent() {
 }
 
 /**
- * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
+ * Changes the color of an icon when hovering over it with the mouse.
  */
 function changePencilImgColor() {
   var image = document.getElementById("pencil-icon");
@@ -37,7 +37,7 @@ function changePencilImgColor() {
 }
 
 /**
- * Ändert die Farbe eines Icons beim Überfahren mit der Maus.
+ * Changes the color of an icon when hovering over it with the mouse.
  */
 function changeCheckImgColor() {
   var image = document.getElementById("check-icon");
@@ -51,7 +51,7 @@ function changeCheckImgColor() {
 }
 
 /**
- * Öffnet das animierte Menü.
+ * Opens the animated menu.
  */
 function showMenu() {
   var x = document.getElementById("popup-menu");
@@ -64,7 +64,7 @@ function showMenu() {
 }
 
 /**
- * Schließt das Menü.
+ * Closes the menu.
  */
 function closeMenu() {
   let menu = document.getElementById('popup-menu');
@@ -72,7 +72,7 @@ function closeMenu() {
 }
 
 /**
- * Zeigt eine Nachricht nach erfolgreicher Registrierung an.
+ * Displays a message after successful registration.
  */
 function signUpMessage() {
   let message = document.getElementById('signup-message');
@@ -83,7 +83,7 @@ function signUpMessage() {
 }
 
 /**
- * Leitet nach der Registrierung zur Login-Seite um.
+ * Redirects to the login page after registration.
  */
 function redirectToLogin() {
   setTimeout(function () {
@@ -92,7 +92,7 @@ function redirectToLogin() {
 }
 
 /**
- * Generiert eine tageszeitabhängige Willkommensnachricht.
+ * Generates a time-of-day welcome message.
  */
 function timeDynamicWelcome() {
   let welcome = document.getElementById('daytime')
@@ -109,7 +109,7 @@ function timeDynamicWelcome() {
 
 
 /**
- * Zeigt das Passwort auf der Login-Seite.
+ * Shows the password on the login page.
  */
 function revealPassword() {
   var x = document.getElementById("password");
@@ -126,14 +126,14 @@ function revealPassword() {
 }
 
 /**
- * Führt den Gast-Login durch.
+ * Performs guest login.
  */
 function guestLogin() {
   window.location.href = '/guest.index.html'
 }
 
 /**
- * Markiert die Navigationsbuttons abhängig von der aktuellen Seite.
+ * Marks the navigation buttons depending on the current page.
  */
 function buttonFocus() {
   let summaryNav = document.getElementById("summary-nav");
@@ -153,7 +153,7 @@ function buttonFocus() {
 }
 
 /**
- * Zählt die Gesamtanzahl der Aufgaben auf der Zusammenfassungsseite.
+ * Counts the total number of tasks on the summary page.
  */
 function numberOfAllTasks() {
   let allTasks = document.getElementById('numberOfTasksInBoard');
@@ -161,7 +161,7 @@ function numberOfAllTasks() {
 }
 
 /**
- * Sortiert die Aufgaben nach dem Status "ToDo".
+ * Sorts the tasks according to “ToDo” status.
  */
 function sortTasksByStateToDo() {
   let toDo = document.getElementById('numberOfToDos');
@@ -170,7 +170,7 @@ function sortTasksByStateToDo() {
 }
 
 /**
- * Sortiert die Aufgaben nach dem Status "In Progress".
+ * Sorts tasks by In Progress status.
  */
 function sortTasksByStateInProgress() {
   let inProgress = document.getElementById('numberOfTasksInProgress');
@@ -179,7 +179,7 @@ function sortTasksByStateInProgress() {
 }
 
 /**
- * Sortiert die Aufgaben nach dem Status "Done".
+ * Sorts the tasks by “Done” status.
  */
 function sortTasksByStateDone() {
   let done = document.getElementById('numberOfDone');
@@ -188,7 +188,7 @@ function sortTasksByStateDone() {
 }
 
 /**
- * Sortiert die Aufgaben nach dem Status "Awaiting Feedback".
+ * Sorts tasks by Awaiting Feedback status.
  */
 function sortTasksByStateAwaitingFeedback() {
   let awaitingFeedback = document.getElementById('awaitingFeedback');
@@ -197,7 +197,7 @@ function sortTasksByStateAwaitingFeedback() {
 }
 
 /**
- * Sortiert die Aufgaben nach der Priorität "Urgent".
+ * Sorts tasks by Urgent priority.
  */
 function sortTasksByPrioUrgent() {
   let Urgent = document.getElementById('numberOfUrgent');
