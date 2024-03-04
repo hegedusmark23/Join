@@ -27,13 +27,13 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Repräsentiert die aktuell ausgewählte oder zu bearbeitende Aufgabe.
+ * Represents the currently selected or to-be-edited task.
  * @type {Task}
  */
-let currentTask = new Task();
+let currentTask = new Task;
 
 /**
- * Gibt an, ob ein Dropdown-Menü angeklickt wurde, um seinen Zustand zu steuern.
+ * Indicates whether a drop-down menu was clicked to control its state.
  * @type {boolean}
  */
 let dropdownClicked = false;
@@ -41,46 +41,54 @@ let dropdownClicked = false;
 //! Assignee DropDown
 
 /**
- * Schaltet das Dropdown-Menü für Zuweisungen um und steuert die Anzeige der Pfeil-Icons.
+ * Toggles the assignment drop-down menu and controls the display of arrow icons.
  */
-function toggleAssigneeDropdown() {
+function toggleAssigneeDropdown(shouldOpen) {
     let dropdownContent = document.getElementById('assign-to');
-    let isDropdownOpen = dropdownContent.style.display === 'block';
-    dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
+    if (!dropdownContent) {
+        console.error('Element #assign-to wurde nicht gefunden.');
+        return; // Frühzeitige Rückkehr, wenn das Element nicht existiert
+    }
 
-    // Pfeil-Icons umschalten
-    let arrowsDown = document.querySelectorAll('.arrowDown');
-    let arrowsUp = document.querySelectorAll('.arrowUp');
-    arrowsDown.forEach(arrow => arrow.style.display = isDropdownOpen ? 'block' : 'none');
-    arrowsUp.forEach(arrow => arrow.style.display = isDropdownOpen ? 'none' : 'block');
+    // Entscheidet basierend auf dem übergebenen Parameter, ob das Dropdown geöffnet oder geschlossen werden soll
+    if (shouldOpen === false) {
+        dropdownContent.style.display = 'none';
+    } else {
+        // Wenn kein Parameter übergeben wurde, toggle den aktuellen Zustand
+        let isDropdownOpen = dropdownContent.style.display === 'block';
+        dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
+    }
 }
 
 /**
- * Aktualisiert den Zuweisungsstatus eines Benutzers und die Anzeige der ausgewählten Benutzer.
- * @param {Object} user - Das Benutzerobjekt, dessen Zuweisungsstatus aktualisiert werden soll.
+ * Updates a user's assignment status and the display of selected users.
+ * @param {Object} user - The user object whose assignment status is to be updated.
  */
 function updateAssignee(user) {
     if (user.added) {
-        if (!assignedTo.includes(user.name)) { // Benutzer hinzufügen, wenn er noch nicht im Array ist
+        if (!assignedTo.includes(user.name)) { // Add user if not already in array
             assignedTo.push(user.name);
         }
     } else {
-        assignedTo = assignedTo.filter(name => name !== user.name); // Benutzer entfernen, wenn er im Array ist
+        assignedTo = assignedTo.filter(name => name !== user.name); // Remove user if he is in the array
     }
     updateSelectedAssigneesDisplay();
 }
 
 /**
- * Fügt dem Dropdown-Button einen Event-Listener hinzu, um das Dropdown-Menü für Zuweisungen zu steuern.
- * Schließt das Dropdown-Menü, wenn außerhalb des Dropdown-Bereichs geklickt wird.
+ * Adds an event listener to the dropdown button to control the assignment dropdown menu.
+ * Closes the dropdown menu when clicked outside the dropdown area.
  */
 function setupAssigneeGlobalClickListener() {
+    // Prüfen, ob die Dropdown-Elemente existieren
     const dropdownContent = document.getElementById('assign-to');
     const dropdownButton = document.getElementById('dropdown-assignees');
+
     if (!dropdownContent || !dropdownButton) {
         console.info('Dropdown-Elemente wurden nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn die Elemente nicht existieren
     }
+
     document.addEventListener('click', function(event) {
         let isClickInsideDropdown = dropdownButton.contains(event.target) || dropdownContent.contains(event.target);
 
@@ -91,12 +99,12 @@ function setupAssigneeGlobalClickListener() {
 }
 
 /**
- * Aktualisiert den 'added'-Status eines Benutzers im letterContainer und assignedTo Array.
- * @param {string|object} letter - Der Buchstabe des Kontakts oder ein Objekt mit letter und index.
- * @param {number} index - Der Index des Kontakts im letterContainer.
+ * Updates a user's 'added' status in the letterContainer and assignedTo array.
+ * @param {string|object} letter - The contact's letter or an object with letter and index.
+ * @param {number} index - The index of the contact in the letterContainer.
  */
 function updateAssigneeStatus(letter, index) {
-    if (typeof letter === 'object' &amp;&amp; letter !== null) { // Überprüfung, ob der erste Parameter ein Objekt ist
+    if (typeof letter === 'object' &amp;&amp; letter !== null) { // Checking whether the first parameter is an object
         index = letter.index;
         letter = letter.letter;
     }
@@ -107,8 +115,8 @@ function updateAssigneeStatus(letter, index) {
 }
 
 /**
- * Fügt den Kontakt dem assignedTo Array hinzu oder entfernt ihn.
- * @param {Object} contact - Das Kontaktobjekt.
+ * Adds or removes the contact from the assignedTo array.
+ * @param {Object} contact - The contact object.
  */
 function updateAssignedTo(contact) {
     const foundIndex = assignedTo.findIndex(c => c.name === contact.completeName);
@@ -128,90 +136,25 @@ function updateAssignedTo(contact) {
 }
 
 /**
- * Hauptfunktion zum Umschalten des 'added'-Status eines Benutzers und Neu-Rendern der Anzeige.
- * @param {string|object} letter - Der Buchstabe des Kontakts oder ein Objekt mit letter und index.
- * @param {number} index - Der Index des Kontakts im letterContainer.
+ * Main function to toggle a user's 'added' status and re-render the display.
+ * @param {string|object} letter - The contact's letter or an object with letter and index.
+ * @param {number} index - The index of the contact in the letterContainer.
  */
 function toggleAssigneeStatus(letter, index) {
-    updateAssigneeStatus(letter, index); // Aktualisiert den 'added'-Status
-    updateSelectedAssigneesDisplay(); // Aktualisiert die Anzeige der ausgewählten Benutzer
-    renderAssignees(); // Rendert die Benutzerliste im Dropdown neu
+    updateAssigneeStatus(letter, index); // Updates 'added' status
+    updateSelectedAssigneesDisplay(); // Updates the display of selected users
+    renderAssignees(); // Re-renders the user list in the dropdown
 }
 
 /**
- * Generiert die Initialen aus dem vollständigen Namen eines Benutzers.
- * @param {string} completeName - Der vollständige Name des Benutzers.
- * @returns {string} Die Initialen des Benutzers in Großbuchstaben.
+ * Generates the initials from a user's full name.
+ * @param {string} completeName - The user's full name.
+ * @returns {string} The user's initials in capital letters.
  */
 function generateInitials(completeName) {
     const nameParts = completeName.split(' ');
     const initials = nameParts.map(part => part[0]).join('');
     return initials.toUpperCase();
-}
-
-/**
- * Löscht den aktuellen Inhalt des Dropdown-Menüs.
- * @param {HTMLElement} dropdownContent - Das Element des Dropdown-Menüs.
- */
-function clearDropdownContent(dropdownContent) {
-    dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
-}
-
-/**
- * Generiert das SVG-Element für die Checkbox basierend auf dem Status `isAdded`.
- * @param {boolean} isAdded - Gibt an, ob der Kontakt hinzugefügt wurde oder nicht.
- * @returns {string} SVG-Element als Zeichenkette.
- */
-function generateCheckboxSVG(isAdded) {
-    return isAdded ? 
-        `&lt;svg id="checkbox-checked-active" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            &lt;path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#fff" stroke-width="2" stroke-linecap="round">&lt;/path>
-            &lt;path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">&lt;/path>
-        &lt;/svg>` : 
-        `&lt;svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            &lt;rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2">&lt;/rect>
-        &lt;/svg>`;
-}
-
-/**
- * Erstellt das innere HTML für den Benutzer-Container einschließlich des Checkbox-SVGs.
- * @param {Object} contact - Kontaktobjekt mit Informationen zum Kontakt.
- * @param {number} index - Index des Kontakts in der Liste.
- * @param {string} initials - Initialen des Kontakts.
- * @param {string} checkboxSVG - SVG-Element als Zeichenkette für die Checkbox.
- * @returns {string} HTML-Zeichenkette für den Benutzer-Container.
- */
-function createUserContainerHTML(contact, index, initials, checkboxSVG) {
-    return `
-        &lt;div class="dropdown-content-binding">
-            &lt;div class="dropdown-content-circle" style="background-color:${contact.badgeColor};">
-                &lt;p id="user-initials">${initials}&lt;/p>
-            &lt;/div>
-            &lt;div class="dropdown-content-name">
-                &lt;a id="user-name" href="#" data-value="option${index + 1}">${contact.completeName}&lt;/a>
-            &lt;/div>
-        &lt;/div>
-        &lt;div class="dropdown-content-checkbox">${checkboxSVG}&lt;/div>
-    `;
-}
-
-/**
- * Erstellt und konfiguriert den Container für einen Benutzer.
- * @param {Object} contact - Kontaktobjekt mit Informationen zum Kontakt.
- * @param {number} index - Index des Kontakts in der Liste.
- * @param {string} letter - Der Anfangsbuchstabe des Namens des Kontakts, dient als Schlüssel im `letterContainer`.
- * @returns {HTMLElement} Das Benutzer-Container-Element.
- */
-function createUserContainer(contact, index, letter) {
-    const initials = generateInitials(contact.completeName);
-    const checkboxSVG = generateCheckboxSVG(contact.added);
-    let userContainer = document.createElement('div');
-    userContainer.className = 'dropdown-content-container' + (contact.added ? ' user-checked' : '');
-    userContainer.innerHTML = createUserContainerHTML(contact, index, initials, checkboxSVG);
-    userContainer.addEventListener('click', function() {
-        toggleAssigneeStatus(letter, index);
-    });
-    return userContainer;
 }
 
 /**
@@ -221,38 +164,70 @@ function renderAssignees() {
     let dropdownContent = document.getElementById('assign-to');
     if (!dropdownContent) {
         console.info('Dropdown-Container für Assignees wurde nicht im DOM gefunden.');
-        return;
+        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
     }
-    clearDropdownContent(dropdownContent);
+
+    dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
+
     Object.keys(letterContainer).forEach(letter => {
         letterContainer[letter].forEach((contact, index) => {
-            let userContainer = createUserContainer(contact, index, letter);
+            const initials = generateInitials(contact.completeName); // Initialen generieren
+            let userContainer = document.createElement('div');
+            userContainer.className = 'dropdown-content-container' + (contact.added ? ' user-checked' : '');
+
+            // Erstellung des Checkbox SVG basierend auf dem 'added' Zustand
+            const checkboxSVG = contact.added ? 
+                `&lt;svg id="checkbox-checked-active" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    &lt;path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#fff" stroke-width="2" stroke-linecap="round">&lt;/path>
+                    &lt;path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">&lt;/path>
+                &lt;/svg>` : 
+                `&lt;svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    &lt;rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2">&lt;/rect>
+                &lt;/svg>`;
+
+            userContainer.innerHTML = `
+                &lt;div class="dropdown-content-binding">
+                    &lt;div class="dropdown-content-circle" style="background-color:${contact.badgeColor};">
+                        &lt;p id="user-initials">${initials}&lt;/p>
+                    &lt;/div>
+                    &lt;div class="dropdown-content-name">
+                        &lt;a id="user-name" href="#" data-value="option${index + 1}">${contact.completeName}&lt;/a>
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="dropdown-content-checkbox">${checkboxSVG}&lt;/div>
+            `;
+
+            // Event-Listener für den Klick hinzufügen
+            userContainer.addEventListener('click', function() {
+                toggleAssigneeStatus(letter, index, contact);
+            });
+
             dropdownContent.appendChild(userContainer);
         });
     });
 }
 
 /**
- * Richtet einen Event-Listener für den Dropdown-Button ein, um das Dropdown-Menü zu steuern.
+ * Sets up an event listener for the dropdown button to control the dropdown menu.
  */
 function setupAssigneeDropdownToggleListener() {
     let dropdownButton = document.getElementById('dropdown-assignees');
     if (!dropdownButton) {
         console.info('Dropdown-Button für Assignees wurde nicht im DOM gefunden.');
-        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
+        return; // Terminates the function early if the element does not exist
     }
     dropdownButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Verhindert das Schließen des Dropdowns beim Klicken auf den Button
+        event.stopPropagation(); // Prevents the dropdown from closing when the button is clicked
         toggleAssigneeDropdown();
     });
 }
 
 /**
- * Aktualisiert die Anzeige der aktuell ausgewählten Benutzer.
+ * Updates the display of currently selected users.
  */
 function updateSelectedAssigneesDisplay() {
     let selectedAssigneesDiv = document.getElementById('selected-assignees');
-    selectedAssigneesDiv.innerHTML = ''; // Löscht den aktuellen Inhalt
+    selectedAssigneesDiv.innerHTML = ''; // Deletes the current content
     Object.values(letterContainer).forEach(contacts => {
         contacts.forEach(contact => {
             if (contact.added) {
@@ -271,13 +246,13 @@ function updateSelectedAssigneesDisplay() {
 //! Category DropDown
 
 /**
- * Initialisiert das Dropdown-Menü für Kategorien und fügt Kategorieoptionen hinzu.
+ * Initializes the category drop-down menu and adds category options.
  */
 function initCategoryDropdown() {
     let dropdownContent = document.getElementById('category');
     if (!dropdownContent) {
         console.info('Dropdown-Container für Kategorien wurde nicht im DOM gefunden.');
-        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
+        return; // Terminates the function early if the element does not exist
     }
     let categories = ['Technical Task', 'User Story'];
     categories.forEach((category) => {
@@ -293,19 +268,19 @@ function initCategoryDropdown() {
 }
 
 /**
- * Wählt eine Kategorie aus und aktualisiert den Text des Dropdown-Buttons.
- * @param {string} categoryName - Der Name der ausgewählten Kategorie.
+ * Selects a category and updates the dropdown button text.
+ * @param {string} categoryName - The name of the selected category.
  */
 function selectCategoryItem(categoryName) {
     let dropdownButton = document.getElementById('dropdown-categories');
     dropdownButton.textContent = categoryName;
     toggleCategoryDropdown();
-    category = categoryName; // Speichert die ausgewählte Kategorie
-    validateCategorySelection(); // Validiert die Auswahl
+    category = categoryName; // Saves the selected category
+    validateCategorySelection(); // Validates the selection
 }
 
 /**
- * Schaltet das Kategorie-Dropdown-Menü um und steuert die Anzeige der Pfeil-Icons.
+ * Toggles the category dropdown menu and controls the display of arrow icons.
  */
 function toggleCategoryDropdown() {
     let dropdownContent = document.getElementById('category');
@@ -318,7 +293,7 @@ function toggleCategoryDropdown() {
 }
 
 /**
- * Richtet Event-Listener für das Kategorie-Dropdown-Menü ein.
+ * Sets up event listeners for the category dropdown menu.
  */
 function setupCategoryDropdownEventListeners() {
     const dropdownCategoriesButton = document.getElementById('dropdown-categories');
@@ -335,7 +310,7 @@ function setupCategoryDropdownEventListeners() {
 }
 
 /**
- * Validiert die Auswahl einer Kategorie und zeigt gegebenenfalls eine Fehlermeldung an.
+ * Validates the selection of a category and displays an error message if necessary.
  */
 function validateCategorySelection() {
     let errorMsg = document.getElementById('dropdown-categories-error-msg');
@@ -347,8 +322,8 @@ function validateCategorySelection() {
 }
 
 /**
- * Schaltet die Pfeil-Icons und den Hintergrund beim Öffnen und Schließen des Kategorie-Dropdowns um.
- * @param {boolean} isOpen - Gibt an, ob das Dropdown-Menü geöffnet ist.
+ * Toggles the arrow icons and background when opening and closing the category dropdown.
+ * @param {boolean} isOpen - Indicates whether the drop-down menu is open.
  */
 function toggleCategoryDropdownArrows(isOpen) {
     const arrowsDown = document.querySelectorAll('.arrowDown');
@@ -365,13 +340,13 @@ function toggleCategoryDropdownArrows(isOpen) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Task.html">Task</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Name">Name</a></li><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addContacts">addContacts</a></li><li><a href="global.html#addFocusAndBlurListeners">addFocusAndBlurListeners</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubTask">addSubTask</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#addSubtaskToDOM">addSubtaskToDOM</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#assignedTo">assignedTo</a></li><li><a href="global.html#backToContactList">backToContactList</a></li><li><a href="global.html#backgroundAndTextOriginal">backgroundAndTextOriginal</a></li><li><a href="global.html#backgroundBlackAndWhiteText">backgroundBlackAndWhiteText</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#capitalisedName">capitalisedName</a></li><li><a href="global.html#capitalizeLetters">capitalizeLetters</a></li><li><a href="global.html#category">category</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#changeCheckImgColor">changeCheckImgColor</a></li><li><a href="global.html#changePencilImgColor">changePencilImgColor</a></li><li><a href="global.html#checkIfBoardPage">checkIfBoardPage</a></li><li><a href="global.html#checkInputFields">checkInputFields</a></li><li><a href="global.html#clearAllInputs">clearAllInputs</a></li><li><a href="global.html#clearDropdownContent">clearDropdownContent</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeMenu">closeMenu</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#contactViewContainerHTML">contactViewContainerHTML</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createNewTaskInstance">createNewTaskInstance</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createSubtaskObject">createSubtaskObject</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#createUserContainer">createUserContainer</a></li><li><a href="global.html#createUserContainerHTML">createUserContainerHTML</a></li><li><a href="global.html#currentTask">currentTask</a></li><li><a href="global.html#currentUser">currentUser</a></li><li><a href="global.html#deactivateButtons">deactivateButtons</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#description">description</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#displayNoTasksDiv">displayNoTasksDiv</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#dropdownClicked">dropdownClicked</a></li><li><a href="global.html#dueDate">dueDate</a></li><li><a href="global.html#editContactOverlayHTML">editContactOverlayHTML</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#emptyInputs">emptyInputs</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#filterAwaitFeedback">filterAwaitFeedback</a></li><li><a href="global.html#filterDone">filterDone</a></li><li><a href="global.html#filterInProgress">filterInProgress</a></li><li><a href="global.html#filterTodos">filterTodos</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateHelpContent">generateHelpContent</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generateLegalNoticeContent">generateLegalNoticeContent</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generatePrivacyPolicyContent">generatePrivacyPolicyContent</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getCardContainers">getCardContainers</a></li><li><a href="global.html#getContact">getContact</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#getNamefromArray">getNamefromArray</a></li><li><a href="global.html#getNoTaskDivs">getNoTaskDivs</a></li><li><a href="global.html#getPrioColors">getPrioColors</a></li><li><a href="global.html#getShowContactInTheListHTML">getShowContactInTheListHTML</a></li><li><a href="global.html#getSubtaskListContainer">getSubtaskListContainer</a></li><li><a href="global.html#getTheInputs">getTheInputs</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#handlePrioButtonClick">handlePrioButtonClick</a></li><li><a href="global.html#handlePrioButtons">handlePrioButtons</a></li><li><a href="global.html#helpHTML">helpHTML</a></li><li><a href="global.html#hideAddContactOverlay">hideAddContactOverlay</a></li><li><a href="global.html#hideEditContactOverlay">hideEditContactOverlay</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#hidePopUpEditDelete">hidePopUpEditDelete</a></li><li><a href="global.html#hideSuccessfulContactAddedButton">hideSuccessfulContactAddedButton</a></li><li><a href="global.html#identifier">identifier</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initCategoryDropdown">initCategoryDropdown</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#initializeBoardIfNeeded">initializeBoardIfNeeded</a></li><li><a href="global.html#inputSubtask">inputSubtask</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#legalNoticeHTML">legalNoticeHTML</a></li><li><a href="global.html#loadItems">loadItems</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#loginError">loginError</a></li><li><a href="global.html#match">match</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfAllTasks">numberOfAllTasks</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#originalBgColorOfAddContactBtnMobile">originalBgColorOfAddContactBtnMobile</a></li><li><a href="global.html#populateTaskContainer">populateTaskContainer</a></li><li><a href="global.html#prio">prio</a></li><li><a href="global.html#privacyPolicyHTML">privacyPolicyHTML</a></li><li><a href="global.html#processTasksForStatus">processTasksForStatus</a></li><li><a href="global.html#redirectToLogin">redirectToLogin</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#rememberMe">rememberMe</a></li><li><a href="global.html#removeBgColorOnPopUpClosed">removeBgColorOnPopUpClosed</a></li><li><a href="global.html#renderAssignees">renderAssignees</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderContact">renderContact</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#renderSubtask">renderSubtask</a></li><li><a href="global.html#resetAssigneeSelection">resetAssigneeSelection</a></li><li><a href="global.html#resetAssigneesAndSubtasks">resetAssigneesAndSubtasks</a></li><li><a href="global.html#resetDropdowns">resetDropdowns</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetGlobalVariables">resetGlobalVariables</a></li><li><a href="global.html#resetInputFields">resetInputFields</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#resetSubtaskField">resetSubtaskField</a></li><li><a href="global.html#resetUIElements">resetUIElements</a></li><li><a href="global.html#revealPassword">revealPassword</a></li><li><a href="global.html#saveInputFields">saveInputFields</a></li><li><a href="global.html#saveNewContact">saveNewContact</a></li><li><a href="global.html#saveSubtask">saveSubtask</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectCategoryItem">selectCategoryItem</a></li><li><a href="global.html#setCurrentUser">setCurrentUser</a></li><li><a href="global.html#setCurrentUserName">setCurrentUserName</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setLetterContainersHTML">setLetterContainersHTML</a></li><li><a href="global.html#setLettersContainers">setLettersContainers</a></li><li><a href="global.html#setupAssigneeDropdownToggleListener">setupAssigneeDropdownToggleListener</a></li><li><a href="global.html#setupAssigneeGlobalClickListener">setupAssigneeGlobalClickListener</a></li><li><a href="global.html#setupCategoryDropdownEventListeners">setupCategoryDropdownEventListeners</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteSubtaskListener">setupDeleteSubtaskListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupDoubleClickToEditListener">setupDoubleClickToEditListener</a></li><li><a href="global.html#setupEditSubtaskListener">setupEditSubtaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupEventListenersSubtasks">setupEventListenersSubtasks</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveSubtaskListener">setupSaveSubtaskListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#showAddContactOverlay">showAddContactOverlay</a></li><li><a href="global.html#showAlreadyCreatedContactInTheView">showAlreadyCreatedContactInTheView</a></li><li><a href="global.html#showAlreadyCreatedContactInTheViewHTML">showAlreadyCreatedContactInTheViewHTML</a></li><li><a href="global.html#showContact">showContact</a></li><li><a href="global.html#showContactDesktopVersion">showContactDesktopVersion</a></li><li><a href="global.html#showContactMobileVersion">showContactMobileVersion</a></li><li><a href="global.html#showContactsInTheList">showContactsInTheList</a></li><li><a href="global.html#showEditContactOverlay">showEditContactOverlay</a></li><li><a href="global.html#showMenu">showMenu</a></li><li><a href="global.html#showPopUpEditDelete">showPopUpEditDelete</a></li><li><a href="global.html#showTaskAddedMessage">showTaskAddedMessage</a></li><li><a href="global.html#signUpMessage">signUpMessage</a></li><li><a href="global.html#sortTasksByPrioUrgent">sortTasksByPrioUrgent</a></li><li><a href="global.html#sortTasksByStateAwaitingFeedback">sortTasksByStateAwaitingFeedback</a></li><li><a href="global.html#sortTasksByStateDone">sortTasksByStateDone</a></li><li><a href="global.html#sortTasksByStateInProgress">sortTasksByStateInProgress</a></li><li><a href="global.html#sortTasksByStateToDo">sortTasksByStateToDo</a></li><li><a href="global.html#subtasks">subtasks</a></li><li><a href="global.html#successfulContactAddedButton">successfulContactAddedButton</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#timeDynamicWelcome">timeDynamicWelcome</a></li><li><a href="global.html#title">title</a></li><li><a href="global.html#toggleAssigneeDropdown">toggleAssigneeDropdown</a></li><li><a href="global.html#toggleAssigneeStatus">toggleAssigneeStatus</a></li><li><a href="global.html#toggleButtonActiveState">toggleButtonActiveState</a></li><li><a href="global.html#toggleCategoryDropdown">toggleCategoryDropdown</a></li><li><a href="global.html#toggleCategoryDropdownArrows">toggleCategoryDropdownArrows</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#translateContactDialogPopUpInside">translateContactDialogPopUpInside</a></li><li><a href="global.html#truncEmailMobile">truncEmailMobile</a></li><li><a href="global.html#updateAssignedTo">updateAssignedTo</a></li><li><a href="global.html#updateAssignee">updateAssignee</a></li><li><a href="global.html#updateAssigneeStatus">updateAssigneeStatus</a></li><li><a href="global.html#updateSelectedAssigneesDisplay">updateSelectedAssigneesDisplay</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li><li><a href="global.html#users">users</a></li><li><a href="global.html#validateCategorySelection">validateCategorySelection</a></li><li><a href="global.html#validateInputElements">validateInputElements</a></li><li><a href="global.html#validateTaskForm">validateTaskForm</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Task.html">Task</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Name">Name</a></li><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addContacts">addContacts</a></li><li><a href="global.html#addFocusAndBlurListeners">addFocusAndBlurListeners</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubTask">addSubTask</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#addSubtaskToDOM">addSubtaskToDOM</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#assignedTo">assignedTo</a></li><li><a href="global.html#backToContactList">backToContactList</a></li><li><a href="global.html#backgroundAndTextOriginal">backgroundAndTextOriginal</a></li><li><a href="global.html#backgroundBlackAndWhiteText">backgroundBlackAndWhiteText</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#capitalisedName">capitalisedName</a></li><li><a href="global.html#capitalizeLetters">capitalizeLetters</a></li><li><a href="global.html#category">category</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#changeCheckImgColor">changeCheckImgColor</a></li><li><a href="global.html#changePencilImgColor">changePencilImgColor</a></li><li><a href="global.html#checkIfBoardPage">checkIfBoardPage</a></li><li><a href="global.html#checkInputFields">checkInputFields</a></li><li><a href="global.html#clearAllInputs">clearAllInputs</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeGeneratedContent">closeGeneratedContent</a></li><li><a href="global.html#closeMenu">closeMenu</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#contactViewContainerHTML">contactViewContainerHTML</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createNewTaskInstance">createNewTaskInstance</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createSubtaskObject">createSubtaskObject</a></li><li><a href="global.html#createSubtasksHtml">createSubtasksHtml</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#currentTask">currentTask</a></li><li><a href="global.html#currentUser">currentUser</a></li><li><a href="global.html#deactivateButtons">deactivateButtons</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#description">description</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#displayNoTasksDiv">displayNoTasksDiv</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#dropdownClicked">dropdownClicked</a></li><li><a href="global.html#dueDate">dueDate</a></li><li><a href="global.html#editContactOverlayHTML">editContactOverlayHTML</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#emptyInputs">emptyInputs</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#filterAwaitFeedback">filterAwaitFeedback</a></li><li><a href="global.html#filterDone">filterDone</a></li><li><a href="global.html#filterInProgress">filterInProgress</a></li><li><a href="global.html#filterTodos">filterTodos</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateHelpContent">generateHelpContent</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generateLegalNoticeContent">generateLegalNoticeContent</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generatePrivacyPolicyContent">generatePrivacyPolicyContent</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getCardContainers">getCardContainers</a></li><li><a href="global.html#getContact">getContact</a></li><li><a href="global.html#getCurrentURL">getCurrentURL</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#getNamefromArray">getNamefromArray</a></li><li><a href="global.html#getNoTaskDivs">getNoTaskDivs</a></li><li><a href="global.html#getPrioColors">getPrioColors</a></li><li><a href="global.html#getShowContactInTheListHTML">getShowContactInTheListHTML</a></li><li><a href="global.html#getSubtaskListContainer">getSubtaskListContainer</a></li><li><a href="global.html#getTheInputs">getTheInputs</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#handlePrioButtonClick">handlePrioButtonClick</a></li><li><a href="global.html#handlePrioButtons">handlePrioButtons</a></li><li><a href="global.html#helpHTML">helpHTML</a></li><li><a href="global.html#hideAddContactOverlay">hideAddContactOverlay</a></li><li><a href="global.html#hideEditContactOverlay">hideEditContactOverlay</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#hidePopUpEditDelete">hidePopUpEditDelete</a></li><li><a href="global.html#hideSuccessfulContactAddedButton">hideSuccessfulContactAddedButton</a></li><li><a href="global.html#identifier">identifier</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initCategoryDropdown">initCategoryDropdown</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#initializeBoardIfNeeded">initializeBoardIfNeeded</a></li><li><a href="global.html#inputSubtask">inputSubtask</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#legalNoticeHTML">legalNoticeHTML</a></li><li><a href="global.html#loadItems">loadItems</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#loginError">loginError</a></li><li><a href="global.html#match">match</a></li><li><a href="global.html#mobileWelcomeAnimation">mobileWelcomeAnimation</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfAllTasks">numberOfAllTasks</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#originalBgColorOfAddContactBtnMobile">originalBgColorOfAddContactBtnMobile</a></li><li><a href="global.html#populateTaskContainer">populateTaskContainer</a></li><li><a href="global.html#prio">prio</a></li><li><a href="global.html#privacyPolicyHTML">privacyPolicyHTML</a></li><li><a href="global.html#processTasksForStatus">processTasksForStatus</a></li><li><a href="global.html#redirectToLogin">redirectToLogin</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#rememberMe">rememberMe</a></li><li><a href="global.html#removeBgColorOnPopUpClosed">removeBgColorOnPopUpClosed</a></li><li><a href="global.html#renderAssignees">renderAssignees</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderContact">renderContact</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#renderSubtask">renderSubtask</a></li><li><a href="global.html#resetAssigneeSelection">resetAssigneeSelection</a></li><li><a href="global.html#resetAssigneesAndSubtasks">resetAssigneesAndSubtasks</a></li><li><a href="global.html#resetDropdowns">resetDropdowns</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetGlobalVariables">resetGlobalVariables</a></li><li><a href="global.html#resetInputFields">resetInputFields</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#resetSubtaskField">resetSubtaskField</a></li><li><a href="global.html#resetUIElements">resetUIElements</a></li><li><a href="global.html#revealPassword">revealPassword</a></li><li><a href="global.html#saveInputFields">saveInputFields</a></li><li><a href="global.html#saveNewContact">saveNewContact</a></li><li><a href="global.html#saveSubtask">saveSubtask</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectCategoryItem">selectCategoryItem</a></li><li><a href="global.html#setCurrentUser">setCurrentUser</a></li><li><a href="global.html#setCurrentUserName">setCurrentUserName</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setLetterContainersHTML">setLetterContainersHTML</a></li><li><a href="global.html#setLettersContainers">setLettersContainers</a></li><li><a href="global.html#setupAssigneeDropdownToggleListener">setupAssigneeDropdownToggleListener</a></li><li><a href="global.html#setupAssigneeGlobalClickListener">setupAssigneeGlobalClickListener</a></li><li><a href="global.html#setupCategoryDropdownEventListeners">setupCategoryDropdownEventListeners</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteSubtaskListener">setupDeleteSubtaskListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupDoubleClickToEditListener">setupDoubleClickToEditListener</a></li><li><a href="global.html#setupEditSubtaskListener">setupEditSubtaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupEventListenersSubtasks">setupEventListenersSubtasks</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveSubtaskListener">setupSaveSubtaskListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#showAddContactOverlay">showAddContactOverlay</a></li><li><a href="global.html#showAlreadyCreatedContactInTheView">showAlreadyCreatedContactInTheView</a></li><li><a href="global.html#showAlreadyCreatedContactInTheViewHTML">showAlreadyCreatedContactInTheViewHTML</a></li><li><a href="global.html#showContact">showContact</a></li><li><a href="global.html#showContactsInTheList">showContactsInTheList</a></li><li><a href="global.html#showEditContactOverlay">showEditContactOverlay</a></li><li><a href="global.html#showMenu">showMenu</a></li><li><a href="global.html#showPopUpEditDelete">showPopUpEditDelete</a></li><li><a href="global.html#showTaskAddedMessage">showTaskAddedMessage</a></li><li><a href="global.html#signUpMessage">signUpMessage</a></li><li><a href="global.html#sortTasksByPrioUrgent">sortTasksByPrioUrgent</a></li><li><a href="global.html#sortTasksByStateAwaitingFeedback">sortTasksByStateAwaitingFeedback</a></li><li><a href="global.html#sortTasksByStateDone">sortTasksByStateDone</a></li><li><a href="global.html#sortTasksByStateInProgress">sortTasksByStateInProgress</a></li><li><a href="global.html#sortTasksByStateToDo">sortTasksByStateToDo</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#subtasks">subtasks</a></li><li><a href="global.html#successfulContactAddedButton">successfulContactAddedButton</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#timeDynamicWelcome">timeDynamicWelcome</a></li><li><a href="global.html#title">title</a></li><li><a href="global.html#toggleAssigneeDropdown">toggleAssigneeDropdown</a></li><li><a href="global.html#toggleAssigneeStatus">toggleAssigneeStatus</a></li><li><a href="global.html#toggleButtonActiveState">toggleButtonActiveState</a></li><li><a href="global.html#toggleCategoryDropdown">toggleCategoryDropdown</a></li><li><a href="global.html#toggleCategoryDropdownArrows">toggleCategoryDropdownArrows</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#translateContactDialogPopUpInside">translateContactDialogPopUpInside</a></li><li><a href="global.html#truncEmailMobile">truncEmailMobile</a></li><li><a href="global.html#updateAssignedTo">updateAssignedTo</a></li><li><a href="global.html#updateAssignee">updateAssignee</a></li><li><a href="global.html#updateAssigneeStatus">updateAssigneeStatus</a></li><li><a href="global.html#updateSelectedAssigneesDisplay">updateSelectedAssigneesDisplay</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li><li><a href="global.html#users">users</a></li><li><a href="global.html#validateCategorySelection">validateCategorySelection</a></li><li><a href="global.html#validateInputElements">validateInputElements</a></li><li><a href="global.html#validateTaskForm">validateTaskForm</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 03 2024 13:43:00 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 04 2024 19:23:53 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

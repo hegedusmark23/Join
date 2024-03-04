@@ -115,7 +115,6 @@ function checkAndSetPriority(prioButtons) {
     return priority;
 }
 
-
 /**
  * Rendert das Bearbeitungsformular für einen Task.
  * @param {number} taskId - Die ID des Tasks, der bearbeitet werden soll.
@@ -310,19 +309,6 @@ function renderEditTask(taskId) {
             }
         }, 0); // Verzögerung sicherstellen, dass das DOM vollständig aktualisiert wurde
         reinitializeEventListenersForEditModal()
-    }
-}
-
-async function prepareTaskForEditing(taskId) {
-    let tasks = await fetchTasks(); // Abrufen der Tasks
-
-    // Finden des spezifischen Task-Objekts, das bearbeitet werden soll
-    let taskToEdit = tasks.find(task => task.id === taskId);
-
-    if (taskToEdit) {
-        renderEditTask(taskToEdit); // Hier wird das gefundene Task-Objekt verwendet
-    } else {
-        console.error('Task nicht gefunden.');
     }
 }
 
