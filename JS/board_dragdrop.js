@@ -49,8 +49,10 @@ function hideNoTaskDiv(id) {
         hideDivAndSetBorder4();
     }
     if (backgroundToHide && boardSectionToSet) {
-        document.getElementById(backgroundToHide).style.display = 'none';
-        document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.3)';
+        setTimeout(() => {
+            document.getElementById(backgroundToHide).style.display = 'none';
+            document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.3)';
+        }, 10)
     } else { }
 }
 
@@ -89,16 +91,14 @@ function resetNoTaskDiv(id) {
     } else if (id == 'done' && done.length == 0) {
         resetDivAndHideBorder4()
     }
-    if (backgroundToReset && boardSectionToHide) {
-        addStyle();
+    if (backgroundToReset) {
+        setTimeout(addStyle, 50) // ho aggiunto un ritardo per evitare sovrapposizione tra le funzioni hideNoTaskDiv() e resetNoTaskDiv();
     } else { }
 }
 
 function addStyle() {
-    setTimeout(() => {
-        document.getElementById(backgroundToReset).style.display = 'flex';
-        document.getElementById(boardSectionToHide).style.border = 'none'
-    }, 10)
+    document.getElementById(backgroundToReset).style.display = 'flex';
+    document.getElementById(boardSectionToHide).style.border = 'none'
 }
 
 function resetDivAndHideBorder1() {
