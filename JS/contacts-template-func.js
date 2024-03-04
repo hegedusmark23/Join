@@ -1,7 +1,7 @@
 /**
- * Diese Funktion gibt die HTML-Struktur des Hauptcontainers jedes Kontakts zurück, wobei der Containername der Schlüssel des JSON letterContainers ist und die darin enthaltenen Kontakte den gleichen Anfangsbuchstaben wie der enthaltende Schlüssel haben.
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @returns {string}  die HTML-Struktur für die Erstellung des Kontakt-Containers für jeden Buchstabe
+ * This function returns the HTML structure of the main container of each contact, where the container name is the key of the JSON letterContainer and the contacts contained therein have the same initial letter as the containing key
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 function setLetterContainersHTML(key) {
   return /*html*/ `
@@ -18,12 +18,12 @@ function setLetterContainersHTML(key) {
 
 
 /**
- * Diese Funktion zeigt die Werte (Kontakte) an, die sich in den einzelnen Schlüsseln befinden. Füllen Sie die Liste der Container mit Kontakten
- * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
- * @param {string} name - name des Kontakts
- * @param {string} email - email des Kontakts
- * @returns {string} die HTML-Struktur des untergeordneten Containers
+ * This function displays the values (contacts) that are in the individual keys. Fill the list of containers with contacts
+ * @param {number} i - Index of each contact contained in the main container
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {string} name - Contact's name
+ * @param {string} email - Contact's E-Mail
+ * @returns {string} - the HTML structure of the subordinate container
  */
 function getShowContactInTheListHTML(i, key, name, email) {
   return /*html*/ `
@@ -38,15 +38,15 @@ function getShowContactInTheListHTML(i, key, name, email) {
 }
 
 /**
- * Anzeige des bereits erstellten Kontakts in der Contatc-View, wenn der Benutzer auf dem Button "Add Contact" klickt
- * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist  
- * @param {string} capitalizedLetters - die Initialen des vollständigen Namens des Kontakts
- * @param {string} name - name des Kontakts
- * @param {string} email - email des Kontakts
- * @param {string} phone -telefonnummer des Kontakts
- * @param {string} badgeColor - Farbe des Kontaktabzeichens 
- * @returns {string} die HTML-Struktur der in der Contact-View den neu erstellten Kontakt anzeigt
+ * Display of the already created contact in the contact view when the user clicks on the "Add Contact" button
+ * @param {number} i - Index of each contact contained in the main container
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained 
+ * @param {string} capitalizedLetters - the initials of the Contact's full name
+ * @param {string} name - Contact's name
+ * @param {string} email - Contact's E-Mail
+ * @param {string} phone - Contact's phone number
+ * @param {string} badgeColor - Contact's badge color
+ * @returns {string} the HTML structure that displays the newly created contact in the contact view
  */
 function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name, email, phone, badgeColor) {
   return /*html*/ `
@@ -89,13 +89,13 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
 
 /**
  * Diese Funktion zeigt in der Kontakt-Ansicht einen aus der Kontaktliste ausgewählten Kontakt an
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
- * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
- * @param {*} name - name des Kontakts
- * @param {string} email - email des Kontakts
- * @param {string} phone -telefonnummer des Kontakts
- * @param {string} badgeColor - Farbe des Kontaktabzeichens 
- * @returns {string} die HTML-Struktur der in der Contact-View angezeigten Kontaktdaten
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained 
+ * @param {number} i - Index of each contact contained in the main container
+ * @param {string} name - Contact's name
+ * @param {string} email - Contact's E-Mail
+ * @param {string} phone - Contact's phone number
+ * @param {string} badgeColor - Contact's badge color 
+ * @returns {string} the HTML structure of the contact data displayed in the contact view
  */
 function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
   return /*html*/ `
@@ -170,11 +170,11 @@ function contactViewContainerHTML(key, i, name, email, phone, badgeColor) {
 }
 
 /**
- * Diese Funktion zeigt das Pop-up "Edit Contact" an, um die Einstellungen eines Kontakts zu ändern oder ihn zu löschen
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist 
- * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
- * @param {string} badgeColor - Farbe des Kontaktabzeichens 
- * @returns {string} die HTML-Struktur, die den Dialog und das Pop-up des Bereichs "Edit Contact" zeigt 
+ * This function displays the "Edit Contact" pop-up to change the settings of a contact or delete it
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained 
+ * @param {number} i - Index of each contact contained in the main container
+ * @param {string} badgeColor - Contact's badge color 
+ * @returns {string} - the HTML structure that shows the dialog and the pop-up of the "Edit Contact" area 
  */
 function editContactOverlayHTML(key, i, badgeColor) {
   return /*html*/ `
