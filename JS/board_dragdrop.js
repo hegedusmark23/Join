@@ -3,19 +3,25 @@ let boardSectionToSet;
 let backgroundToReset;
 let boardSectionToHide;
 /**
- * Startet den Drag-Vorgang für ein Task-Element.
- * @param {number} id - Die ID des zu verschiebenden Tasks.
- * @param {string} state - Der aktuelle Zustand des Tasks.
- * @param {number} i - Der Index des Tasks im aktuellen Zustand.
+ * Starts the drag process for a task element.
+ * @param {number} id - The ID of the task to be moved.
+ * @param {string} state - The current status of the task.
+ * @param {number} i - The index of the task in its current state.
 */
 /**
- * Ermöglicht das Ablegen von Drag-Elementen.
- * @param {Event} ev - Das Drag-Event.
+ * Enables drag elements to be dropped.
+ * @param {Event} ev - The Drag-Event.
  */
 function allowDrop(event) {
     event.preventDefault();
 }
 
+/**
+ * this function is activated when the task begins to be dragged
+ * @param {*} id - identifier of each task that is dragged
+ * @param {*} state - indicates the state of the current dragged task
+ * @param {*} i - index indicating the current position of the task within the current container
+ */
 function startDragging(id, state, i) {
     currentDraggedElement = id;
     document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg';
@@ -23,8 +29,8 @@ function startDragging(id, state, i) {
 
 
 /**
- * Verschiebt den aktuell gezogenen Task in einen neuen Zustand und aktualisiert die Ansicht.
- * @param {string} state - Der Zielzustand des Tasks.
+ * Moves the currently dragged task to a new state and updates the view.
+ * @param {string} state - The target state of the task.
 */
 async function moveTo(state) {
     tasks[currentDraggedElement]['state'] = state;
@@ -34,8 +40,8 @@ async function moveTo(state) {
 
 
 /**
- * Versteckt den "Keine Tasks"-Hinweis für eine spezifische Spalte, wenn ein Task hinzugefügt wird.
- * @param {string} id - Die ID der Spalte, in der der Hinweis versteckt werden soll.
+ * Hides the "No tasks" hint for a specific column when a task is added.
+ * @param {string} id - The ID of the column in which the note is to be hidden.
  */
 
 function hideNoTaskDiv(id) {
@@ -78,8 +84,8 @@ function hideDivAndSetBorder4() {
 
 
 /**
- * Setzt den "Keine Tasks"-Hinweis für eine spezifische Spalte zurück, wenn die letzte Aufgabe daraus entfernt wird.
- * @param {string} id - Die ID der Spalte, für die der Hinweis zurückgesetzt werden soll.
+ * Resets the "No tasks" hint for a specific column when the last task is removed from it.
+ * @param {string} id - The ID of the column for which the note is to be reset.
  */
 function resetNoTaskDiv(id) {
     if (id == 'toDo' && todos.length == 0) {
@@ -92,7 +98,7 @@ function resetNoTaskDiv(id) {
         resetDivAndHideBorder4()
     }
     if (backgroundToReset) {
-        setTimeout(addStyle, 50) // ho aggiunto un ritardo per evitare sovrapposizione tra le funzioni hideNoTaskDiv() e resetNoTaskDiv();
+        setTimeout(addStyle, 50) // I added a delay to avoid overlap between the hideNoTaskDiv() and resetNoTaskDiv() functions;
     } else { }
 }
 
