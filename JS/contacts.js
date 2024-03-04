@@ -279,7 +279,7 @@ function successfulContactAddedButton() {
         }
     }, 700)
 
-    setTimeout(hideSuccessfulContactAddedButton, 2000);
+    setTimeout(hideSuccessfulContactAddedButton, 3000);
 }
 
 /**
@@ -301,17 +301,25 @@ function hideSuccessfulContactAddedButton() {
  * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
  */
 function showEditContactOverlay(key, i) {
+    createEditDialogContainer(key, i)
     let name = letterContainer[key][i]['completeName'];
     let email = letterContainer[key][i]['email'];
     let phone = letterContainer[key][i]['phone'];
     badgeColor = letterContainer[key][i]['badgeColor'];
     capitalizeLetters(name);
-    let editContactOverlay = document.getElementById('edit-contact-overlay');
+    let editContactOverlay = document.getElementById(`edit-contact-overlay${key}${i}`);
     editContactOverlay.classList.remove('d-none');
     editContactOverlay.innerHTML = editContactOverlayHTML(key, i,);
     getTheInputs(key, i);
     displayTheContactDataInTheInputs(name, email, phone, badgeColor);
     translateContactDialogPopUpInside(`${key}`, `${i}`)
+}
+
+function createEditDialogContainer(key, i) {
+    let mainContainer = document.getElementById('add-contacts-contents');
+    mainContainer.innerHTML += /*html*/ `
+    <div onclick="hideEditContactOverlay('${key}',${i}, event)" id="edit-contact-overlay${key}${i}" class="contact-bg-dialog d-none"></div>
+    `
 }
 
 /**
@@ -340,15 +348,9 @@ function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
  */
 
 function translateContactDialogPopUpInside(key, i) {
-    if (windowWidth > 1050) {
-        setTimeout(() => {
-            document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
-        }, 10);
-    } else {
-        setTimeout(() => {
-            document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp-Mobile');
-        }, 10)
-    }
+    setTimeout(() => {
+        document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
+    }, 10);
 }
 
 /**
@@ -358,17 +360,10 @@ function translateContactDialogPopUpInside(key, i) {
  */
 
 function hideEditContactOverlay(key, i, event) {
-    if (windowWidth > 1050) {
-        document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
-        setTimeout(() => {
-            document.getElementById('edit-contact-overlay').classList.add('d-none');
-        }, 500)
-    } else {
-        document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp-Mobile');
-        setTimeout(() => {
-            document.getElementById('edit-contact-overlay').classList.add('d-none');
-        }, 200);
-    }
+    document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
+    setTimeout(() => {
+        document.getElementById(`edit-contact-overlay${key}${i}`).classList.add('d-none');
+    }, 500);
     doNotClose(event)
 }
 

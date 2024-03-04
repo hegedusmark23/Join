@@ -15,7 +15,7 @@
     <main class="board-contents">
         <header w3-include-html="./assets/templates/header.html"></header>
         <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
-        <div class="content-container">
+        <section class="content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
@@ -111,15 +111,16 @@
             </div>
             <section id="board-content">
                 <div class="board-sections">
-                    <div class="board-section-1">
+                    <div id="board-section-1" class="board-section-1">
                         <div class="board-section-cards">
                             <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
                         </div>
-                        <div id="toDo" class="toDo-container" ondrop="moveTo('toDo')"
+                        <div id="toDo" class="toDo-container" ondrop="moveTo('toDo')" ;
                             ondragover="allowDrop(event);hideNoTaskDiv('toDo')" ; ondragleave="resetNoTaskDiv('toDo')">
                         </div>
                     </div>
-                    <div class="board-section-2">
+
+                    <div id="board-section-2"  class="board-section-2">
                         <div class="board-section-cards">
                             <div id="board-card-background-2" class="board-card-bg">No tasks In progress</div>
                         </div>
@@ -128,18 +129,21 @@
                             ondragleave="resetNoTaskDiv('in-progress')">
 
                         </div>
+
                     </div>
-                    <div class="board-section-3">
+                    <div id="board-section-3"  class="board-section-3">
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
-                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')" ;
+                        <div id="await-feedback" class="await-feedback-container"
+                            ondrop="moveTo('await-feedback')" ;
                             ondragover="allowDrop(event); hideNoTaskDiv('await-feedback')" ;
                             ondragleave="resetNoTaskDiv('await-feedback')">
 
                         </div>
+
                     </div>
-                    <div class="board-section-4">
+                    <div id="board-section-4" class="board-section-4">
                         <div class="board-section-cards">
                             <div id="board-card-background-4" class="board-card-bg">No tasks Done</div>
                         </div>
@@ -154,7 +158,7 @@
                     <p>Task added to board</p>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
     <script src="./JS/script.js"></script>
     <script src="./JS/board_eventHandlers.js"></script>

@@ -1,11 +1,11 @@
 /**
- * Repräsentiert die aktuell ausgewählte oder zu bearbeitende Aufgabe.
+ * Represents the currently selected or to-be-edited task.
  * @type {Task}
  */
 let currentTask = new Task;
 
 /**
- * Gibt an, ob ein Dropdown-Menü angeklickt wurde, um seinen Zustand zu steuern.
+ * Indicates whether a drop-down menu was clicked to control its state.
  * @type {boolean}
  */
 let dropdownClicked = false;
@@ -13,7 +13,7 @@ let dropdownClicked = false;
 //! Assignee DropDown
 
 /**
- * Schaltet das Dropdown-Menü für Zuweisungen um und steuert die Anzeige der Pfeil-Icons.
+ * Toggles the assignment drop-down menu and controls the display of arrow icons.
  */
 function toggleAssigneeDropdown() {
     let dropdownContent = document.getElementById('assign-to');
@@ -28,23 +28,23 @@ function toggleAssigneeDropdown() {
 }
 
 /**
- * Aktualisiert den Zuweisungsstatus eines Benutzers und die Anzeige der ausgewählten Benutzer.
- * @param {Object} user - Das Benutzerobjekt, dessen Zuweisungsstatus aktualisiert werden soll.
+ * Updates a user's assignment status and the display of selected users.
+ * @param {Object} user - The user object whose assignment status is to be updated.
  */
 function updateAssignee(user) {
     if (user.added) {
-        if (!assignedTo.includes(user.name)) { // Benutzer hinzufügen, wenn er noch nicht im Array ist
+        if (!assignedTo.includes(user.name)) { // Add user if not already in array
             assignedTo.push(user.name);
         }
     } else {
-        assignedTo = assignedTo.filter(name => name !== user.name); // Benutzer entfernen, wenn er im Array ist
+        assignedTo = assignedTo.filter(name => name !== user.name); // Remove user if he is in the array
     }
     updateSelectedAssigneesDisplay();
 }
 
 /**
- * Fügt dem Dropdown-Button einen Event-Listener hinzu, um das Dropdown-Menü für Zuweisungen zu steuern.
- * Schließt das Dropdown-Menü, wenn außerhalb des Dropdown-Bereichs geklickt wird.
+ * Adds an event listener to the dropdown button to control the assignment dropdown menu.
+ * Closes the dropdown menu when clicked outside the dropdown area.
  */
 function setupAssigneeGlobalClickListener() {
     const dropdownContent = document.getElementById('assign-to');
@@ -64,18 +64,18 @@ function setupAssigneeGlobalClickListener() {
     document.addEventListener('click', function(event) {
         let isClickInsideDropdown = dropdownButton.contains(event.target) || dropdownContent.contains(event.target);
         if (!isClickInsideDropdown && dropdownContent.style.display === 'block') {
-            toggleAssigneeDropdown(); // Schließt das Dropdown
+            toggleAssigneeDropdown(); // Closes the dropdown when clicked outside
         }
     });
 }
 
 /**
- * Aktualisiert den 'added'-Status eines Benutzers im letterContainer und assignedTo Array.
- * @param {string|object} letter - Der Buchstabe des Kontakts oder ein Objekt mit letter und index.
- * @param {number} index - Der Index des Kontakts im letterContainer.
+ * Updates a user's 'added' status in the letterContainer and assignedTo array.
+ * @param {string|object} letter - The contact's letter or an object with letter and index.
+ * @param {number} index - The index of the contact in the letterContainer.
  */
 function updateAssigneeStatus(letter, index) {
-    if (typeof letter === 'object' && letter !== null) { // Überprüfung, ob der erste Parameter ein Objekt ist
+    if (typeof letter === 'object' && letter !== null) { // Checking whether the first parameter is an object
         index = letter.index;
         letter = letter.letter;
     }
@@ -86,8 +86,8 @@ function updateAssigneeStatus(letter, index) {
 }
 
 /**
- * Fügt den Kontakt dem assignedTo Array hinzu oder entfernt ihn.
- * @param {Object} contact - Das Kontaktobjekt.
+ * Adds or removes the contact from the assignedTo array.
+ * @param {Object} contact - The contact object.
  */
 function updateAssignedTo(contact) {
     const foundIndex = assignedTo.findIndex(c => c.name === contact.completeName);
@@ -107,20 +107,20 @@ function updateAssignedTo(contact) {
 }
 
 /**
- * Hauptfunktion zum Umschalten des 'added'-Status eines Benutzers und Neu-Rendern der Anzeige.
- * @param {string|object} letter - Der Buchstabe des Kontakts oder ein Objekt mit letter und index.
- * @param {number} index - Der Index des Kontakts im letterContainer.
+ * Main function to toggle a user's 'added' status and re-render the display.
+ * @param {string|object} letter - The contact's letter or an object with letter and index.
+ * @param {number} index - The index of the contact in the letterContainer.
  */
 function toggleAssigneeStatus(letter, index) {
-    updateAssigneeStatus(letter, index); // Aktualisiert den 'added'-Status
-    updateSelectedAssigneesDisplay(); // Aktualisiert die Anzeige der ausgewählten Benutzer
-    renderAssignees(); // Rendert die Benutzerliste im Dropdown neu
+    updateAssigneeStatus(letter, index); // Updates 'added' status
+    updateSelectedAssigneesDisplay(); // Updates the display of selected users
+    renderAssignees(); // Re-renders the user list in the dropdown
 }
 
 /**
- * Generiert die Initialen aus dem vollständigen Namen eines Benutzers.
- * @param {string} completeName - Der vollständige Name des Benutzers.
- * @returns {string} Die Initialen des Benutzers in Großbuchstaben.
+ * Generates the initials from a user's full name.
+ * @param {string} completeName - The user's full name.
+ * @returns {string} The user's initials in capital letters.
  */
 function generateInitials(completeName) {
     const nameParts = completeName.split(' ');
@@ -179,26 +179,26 @@ function renderAssignees() {
 }
 
 /**
- * Richtet einen Event-Listener für den Dropdown-Button ein, um das Dropdown-Menü zu steuern.
+ * Sets up an event listener for the dropdown button to control the dropdown menu.
  */
 function setupAssigneeDropdownToggleListener() {
     let dropdownButton = document.getElementById('dropdown-assignees');
     if (!dropdownButton) {
         console.info('Dropdown-Button für Assignees wurde nicht im DOM gefunden.');
-        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
+        return; // Terminates the function early if the element does not exist
     }
     dropdownButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Verhindert das Schließen des Dropdowns beim Klicken auf den Button
+        event.stopPropagation(); // Prevents the dropdown from closing when the button is clicked
         toggleAssigneeDropdown();
     });
 }
 
 /**
- * Aktualisiert die Anzeige der aktuell ausgewählten Benutzer.
+ * Updates the display of currently selected users.
  */
 function updateSelectedAssigneesDisplay() {
     let selectedAssigneesDiv = document.getElementById('selected-assignees');
-    selectedAssigneesDiv.innerHTML = ''; // Löscht den aktuellen Inhalt
+    selectedAssigneesDiv.innerHTML = ''; // Deletes the current content
     Object.values(letterContainer).forEach(contacts => {
         contacts.forEach(contact => {
             if (contact.added) {
@@ -217,13 +217,13 @@ function updateSelectedAssigneesDisplay() {
 //! Category DropDown
 
 /**
- * Initialisiert das Dropdown-Menü für Kategorien und fügt Kategorieoptionen hinzu.
+ * Initializes the category drop-down menu and adds category options.
  */
 function initCategoryDropdown() {
     let dropdownContent = document.getElementById('category');
     if (!dropdownContent) {
         console.info('Dropdown-Container für Kategorien wurde nicht im DOM gefunden.');
-        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
+        return; // Terminates the function early if the element does not exist
     }
     let categories = ['Technical Task', 'User Story'];
     categories.forEach((category) => {
@@ -239,19 +239,19 @@ function initCategoryDropdown() {
 }
 
 /**
- * Wählt eine Kategorie aus und aktualisiert den Text des Dropdown-Buttons.
- * @param {string} categoryName - Der Name der ausgewählten Kategorie.
+ * Selects a category and updates the dropdown button text.
+ * @param {string} categoryName - The name of the selected category.
  */
 function selectCategoryItem(categoryName) {
     let dropdownButton = document.getElementById('dropdown-categories');
     dropdownButton.textContent = categoryName;
     toggleCategoryDropdown();
-    category = categoryName; // Speichert die ausgewählte Kategorie
-    validateCategorySelection(); // Validiert die Auswahl
+    category = categoryName; // Saves the selected category
+    validateCategorySelection(); // Validates the selection
 }
 
 /**
- * Schaltet das Kategorie-Dropdown-Menü um und steuert die Anzeige der Pfeil-Icons.
+ * Toggles the category dropdown menu and controls the display of arrow icons.
  */
 function toggleCategoryDropdown() {
     let dropdownContent = document.getElementById('category');
@@ -264,7 +264,7 @@ function toggleCategoryDropdown() {
 }
 
 /**
- * Richtet Event-Listener für das Kategorie-Dropdown-Menü ein.
+ * Sets up event listeners for the category dropdown menu.
  */
 function setupCategoryDropdownEventListeners() {
     const dropdownCategoriesButton = document.getElementById('dropdown-categories');
@@ -281,7 +281,7 @@ function setupCategoryDropdownEventListeners() {
 }
 
 /**
- * Validiert die Auswahl einer Kategorie und zeigt gegebenenfalls eine Fehlermeldung an.
+ * Validates the selection of a category and displays an error message if necessary.
  */
 function validateCategorySelection() {
     let errorMsg = document.getElementById('dropdown-categories-error-msg');
@@ -293,8 +293,8 @@ function validateCategorySelection() {
 }
 
 /**
- * Schaltet die Pfeil-Icons und den Hintergrund beim Öffnen und Schließen des Kategorie-Dropdowns um.
- * @param {boolean} isOpen - Gibt an, ob das Dropdown-Menü geöffnet ist.
+ * Toggles the arrow icons and background when opening and closing the category dropdown.
+ * @param {boolean} isOpen - Indicates whether the drop-down menu is open.
  */
 function toggleCategoryDropdownArrows(isOpen) {
     const arrowsDown = document.querySelectorAll('.arrowDown');

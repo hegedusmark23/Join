@@ -1,5 +1,5 @@
 /**
- * Setzt Eingabefelder zurück.
+ * Resets input fields.
  */
 function resetInputFields() {
     document.getElementById('addtask-title').value = '';
@@ -8,19 +8,19 @@ function resetInputFields() {
 }
 
 /**
- * Setzt globale Variablen zurück.
+ * Resets global variables.
  */
 function resetGlobalVariables() {
     title = null;
     description = null;
     dueDate = null;
     prio = null;
-    category = null; // Löscht die Auswahl in der Kategorie
-    assignedTo = []; // Leert das Array der zugewiesenen Benutzer
+    category = null; // Deletes the selection in the category
+    assignedTo = []; // Empties the array of assigned users
 }
 
 /**
- * Setzt Dropdown-Felder und deren Zustände zurück.
+ * Resets dropdown fields and their states.
  */
 function resetDropdowns() {
     document.getElementById('dropdown-categories').textContent = 'Select task category';
@@ -32,7 +32,7 @@ function resetDropdowns() {
 }
 
 /**
- * Setzt die Anzeige von Assignees und Subtasks zurück.
+ * Resets the display of assignees and subtasks.
  */
 function resetAssigneesAndSubtasks() {
     updateSelectedAssigneesDisplay();
@@ -46,7 +46,7 @@ function resetAssigneesAndSubtasks() {
 }
 
 /**
- * Setzt die visuellen Zustände der UI-Elemente zurück.
+ * Resets the visual states of the UI elements.
  */
 function resetUIElements() {
     const prioButtons = document.querySelectorAll('.addtask-buttons');
@@ -63,7 +63,7 @@ function resetUIElements() {
 }
 
 /**
- * Setzt alle Eingaben und ausgewählten Zustände im Formular zurück.
+ * Resets all entries and selected states in the form.
  */
 function clearAllInputs() {
     resetInputFields();
@@ -74,28 +74,29 @@ function clearAllInputs() {
 }
 
 /**
- * Setzt den 'added'-Status aller Kontakte zurück und aktualisiert die UI entsprechend.
- * Diese Funktion durchläuft alle Kontakte im letterContainer und setzt deren 'added'-Status zurück.
- * Anschließend wird das Array der zugewiesenen Benutzer geleert und die UI-Elemente,
- * die die zugewiesenen Kontakte und deren Auswahlzustand darstellen, werden aktualisiert.
+ * 
+Resets the 'added' status of all contacts and updates the UI accordingly.
+ * This function loops through all contacts in the letterContainer and resets their 'added' status.
+ * The array of assigned users is then emptied and the UI elements,
+ * representing the assigned contacts and their selection status are updated.
  */
 function resetAssigneeSelection() {
-    // Durchläuft den letterContainer und setzt den 'added'-Status jedes Kontakts zurück
+    // Loops through the letterContainer and resets the 'added' status of each contact
     Object.values(letterContainer).forEach(contacts => {
         contacts.forEach(contact => {
-            contact.added = false; // Setzt den Zustand zurück
+            contact.added = false; // Resets the state
         });
     });
-    assignedTo = []; // Leert das Array der zugewiesenen Benutzer
-    renderAssignees(); // Rendert die Benutzerliste im Dropdown neu, um den zurückgesetzten Zustand widerzuspiegeln
-    updateSelectedAssigneesDisplay();    // Aktualisiert die Anzeige der ausgewählten Benutzer
+    assignedTo = []; // Empties the array of assigned users
+    renderAssignees(); // Re-renders the user list in the dropdown to reflect the reset state
+    updateSelectedAssigneesDisplay();    // Updates the display of selected users
 }
 
 
 /**
- * Fügt Event Listener für Fokus und Blur zu einem Eingabefeld hinzu.
- * @param {HTMLElement} inputElement - Das Eingabefeld, für das Listener hinzugefügt werden.
- * @param {HTMLElement} errorMsgElement - Das Element für Fehlermeldungen, das ein- oder ausgeblendet wird.
+ * Adds event listeners for focus and blur to an input field.
+ * @param {HTMLElement} inputElement - The input field for which listeners will be added.
+ * @param {HTMLElement} errorMsgElement - The error message element to show or hide.
  */
 function addFocusAndBlurListeners(inputElement, errorMsgElement) {
     let focused = false;
@@ -103,14 +104,14 @@ function addFocusAndBlurListeners(inputElement, errorMsgElement) {
         focused = true;
     });
     inputElement.addEventListener('blur', () => {
-        // Zeigt die Fehlermeldung an, wenn das Feld leer ist und fokussiert wurde.
+        // Displays the error message if the field is empty and has been focused.
         errorMsgElement.style.visibility = inputElement.value.trim() === "" && focused ? 'visible' : 'hidden';
     });
 }
 
 /**
- * Überprüft, ob alle benötigten Eingabeelemente und Fehlermeldungselemente vorhanden sind.
- * @returns {boolean} Gibt zurück, ob alle Elemente vorhanden sind.
+ * Checks whether all required input elements and error message elements are present.
+ * @returns {boolean} Returns whether all elements are present.
  */
 function validateInputElements() {
     const elements = [
@@ -127,7 +128,7 @@ function validateInputElements() {
 }
 
 /**
- * Überprüft die Eingabefelder und fügt entsprechende Event Listener hinzu.
+ * Checks the input fields and adds appropriate event listeners.
  */
 function checkInputFields() {
     if (!validateInputElements()) return;
@@ -140,12 +141,12 @@ function checkInputFields() {
 }
 
 /**
- * Fügt Event-Listener zu den Eingabefeldern für Titel, Beschreibung und Fälligkeitsdatum hinzu.
- * Bei jeder Eingabe werden die globalen Variablen `title`, `description` und `dueDate` aktualisiert.
- * Falls ein Eingabefeld nicht im DOM gefunden wird, wird eine Informationsmeldung in der Konsole ausgegeben.
+ * Adds event listeners to the title, description, and due date input fields.
+ * With each input, the global variables `title`, `description` and `dueDate` are updated.
+ * If an input field is not found in the DOM, an informational message is printed in the console.
  */
 function saveInputFields() {
-    // Event-Listener für Titel
+    // Event listener for titles
     const titleInput = document.getElementById('addtask-title');
     if (titleInput) {
         titleInput.addEventListener('input', () => {
@@ -154,7 +155,7 @@ function saveInputFields() {
     } else {
         console.info('Titel-Inputfeld nicht gefunden.');
     }
-    // Event-Listener für Beschreibung
+    // Event listener for description
     const descriptionInput = document.getElementById('description');
     if (descriptionInput) {
         descriptionInput.addEventListener('input', () => {
@@ -163,7 +164,7 @@ function saveInputFields() {
     } else {
         console.info('Beschreibungs-Inputfeld nicht gefunden.');
     }
-    // Event-Listener für das Fälligkeitsdatum
+    // Event listener for the due date
     const dueDateInput = document.getElementById('dueDate');
     if (dueDateInput) {
         dueDateInput.addEventListener('input', () => {
@@ -175,47 +176,47 @@ function saveInputFields() {
 }
 
 /**
- * Lädt die gespeicherten Tasks aus dem Speicher und zeigt sie an.
- * Diese asynchrone Funktion versucht, die gespeicherten Tasks unter dem Schlüssel 'tasks' abzurufen.
- * Bei Erfolg werden die Tasks deserialisiert (von einem JSON-String in ein Objekt umgewandelt) und 
- * in die globale Variable `tasks` geladen. Anschließend wird `showTasks` aufgerufen, um die Tasks anzuzeigen.
- * Bei einem Fehler wird eine Fehlermeldung in der Konsole ausgegeben.
+ * Loads the saved tasks from memory and displays them.
+ * This asynchronous function attempts to retrieve the stored tasks under the 'tasks' key.
+ * If successful, the tasks are deserialized (converted from a JSON string to an object) and
+ * loaded into the global variable `tasks`. Then `showTasks` is called to display the tasks.
+ * If an error occurs, an error message is displayed in the console.
  */
 async function loadTasks() {
     try {
-        // Versuch, die gespeicherten Tasks abzurufen
+        // Attempting to retrieve the saved tasks
         const storedTasks = await getItem('tasks');
-        // Überprüfung, ob gespeicherte Tasks existieren
+        // Check whether saved tasks exist
         if (storedTasks) {
-            // Deserialisierung der gespeicherten Tasks und Zuweisung zur globalen Variable `tasks`
+            // Deserialization of the stored tasks and assignment to the global variable `tasks`
             tasks = JSON.parse(storedTasks);
         }
-        // Aufruf der Funktion, um die geladenen Tasks anzuzeigen
+        // Call the function to display the loaded tasks
         showTasks();
     } catch (error) {
-        // Ausgabe einer Fehlermeldung im Falle eines Fehlers beim Laden der Tasks
+        // Output an error message in the event of an error loading the tasks
         console.error('Fehler beim Laden der Tasks:', error);
     }
 }
 
 /**
- * Erstellt eine Aufgabe basierend auf den Eingabewerten des Formulars und speichert sie.
+ * Creates a task based on the form's input values ​​and saves it.
  */
 async function createTask() {
     const createTaskButton = document.getElementById('create-task');
     if (!createTaskButton) {
         console.info('Create-Task-Button wurde nicht im DOM gefunden.');
-        return; // Beendet die Funktion frühzeitig, wenn das Button-Element nicht existiert
+        return; //Terminates the function early if the button element does not exist
     }
     createTaskButton.addEventListener('click', async () => {
         if (!validateTaskForm()) {
             console.info('Validation failed. No Task created.');
             return;
         }
-        let newTask = createNewTaskInstance(); // Erstellen einer neuen Task-Instanz
+        let newTask = createNewTaskInstance(); // Creating a new task instance
         try {
-            tasks.push(newTask);// Hinzufügen des neuen Tasks zum Array
-            await setItem('tasks', JSON.stringify(tasks)); // Speichern des aktualisierten Arrays
+            tasks.push(newTask);// Adding the new task to the array
+            await setItem('tasks', JSON.stringify(tasks)); // Saving the updated array
             showTaskAddedMessage();
             clearAllInputs();
         } catch (error) {
@@ -226,35 +227,35 @@ async function createTask() {
 }
 
 /**
- * Erstellt eine neue Task-Instanz mit den aktuellen Werten aus den Eingabefeldern und globalen Variablen.
- * Weist der neuen Instanz Kategorie und Subtasks zu und inkrementiert den globalen Identifier.
- * @returns {Task} Die erstellte Task-Instanz.
+ * Creates a new task instance with the current values ​​from the input fields and global variables.
+ * Assigns category and subtasks to the new instance and increments the global identifier.
+ * @returns {Task} The created task instance.
  */
 function createNewTaskInstance() {
     let newTask = new Task(
-        Date.now(), // Eindeutige ID
+        Date.now(), // Unique ID
         title,
         description,
         assignedTo,
         dueDate,
         prio,
-        new Date().toISOString(), // Erstellungsdatum
-        STORAGE_TOKEN, // Storage-Token
+        new Date().toISOString(), // Creation Date
+        STORAGE_TOKEN, // Storage token
         identifier
     );
-    // Hinzufügen von Kategorie und Subtasks
+    // Adding category and subtasks
     newTask.category = category;
     newTask.subtask = subtasks;
-    return newTask; // Gibt das erstellte Task-Objekt zurück
+    return newTask; // Returns the created Task object
 }
 
 /**
- * Überprüft die Gültigkeit der Eingabefelder im Aufgabenformular und zeigt Fehlermeldungen an, falls erforderlich.
- * @returns {boolean} Gibt `true` zurück, wenn das Formular gültig ist, sonst `false`.
+ * Checks the validity of the input fields in the task form and displays error messages if necessary.
+ * @returns {boolean} Returns `true` if the form is valid, `false` otherwise.
  */
 function validateTaskForm() {
     let isValid = true;
-    // Titel validieren
+    // Validate title
     const titleInput = document.getElementById('addtask-title');
     if (titleInput.value.trim() === "") {
         document.getElementById('title-error-msg').style.visibility = 'visible';
@@ -262,7 +263,7 @@ function validateTaskForm() {
     } else {
         document.getElementById('title-error-msg').style.visibility = 'hidden';
     }
-    // Fälligkeitsdatum validieren
+    // Validate due date
     const dueDateInput = document.getElementById('dueDate');
     if (dueDateInput.value.trim() === "") {
         document.getElementById('duedate-error-msg').style.visibility = 'visible';
@@ -270,8 +271,8 @@ function validateTaskForm() {
     } else {
         document.getElementById('duedate-error-msg').style.visibility = 'hidden';
     }
-    // Kategorie validieren
-    if (!category) { // Nehmen an, dass 'category' global oder irgendwo gesetzt wird
+    // Validate category
+    if (!category) { // Assume that 'category' is set globally or somewhere
         document.getElementById('dropdown-categories-error-msg').style.visibility = 'visible';
         isValid = false;
     } else {
@@ -281,14 +282,14 @@ function validateTaskForm() {
 }
 
 /**
- * Zeigt eine Benachrichtigungsnachricht an, dass eine Aufgabe erfolgreich hinzugefügt wurde.
- * 
- * Diese Funktion zeigt eine Benachrichtigungsnachricht im UI an und verbirgt sie automatisch
- * nach einer kurzen Verzögerung. Die Funktion kann optional so angepasst werden, dass sie
- * unterschiedlich aussieht, je nachdem, ob sie innerhalb eines Modals aufgerufen wird oder nicht.
- * 
- * @param {boolean} [fromModal=false] - Gibt an, ob die Funktion innerhalb eines Modals aufgerufen wird.
- * Wenn `true`, wird eine zusätzliche CSS-Klasse angewendet, um den Hintergrundstil der Nachricht anzupassen.
+ * Displays a notification message that a task was added successfully.
+ *
+ * This feature displays a notification message in the UI and hides it automatically
+ * after a short delay. The function can optionally be adapted to:
+ * looks different depending on whether it is called within a modal or not.
+ *
+ * @param {boolean} [fromModal=false] - Indicates whether the function is called within a modal.
+ * If `true`, an additional CSS class is applied to customize the background style of the message.
  */
 function showTaskAddedMessage(fromModal = false) {
     const messageElement = document.getElementById('create-task-message');
@@ -308,14 +309,14 @@ function showTaskAddedMessage(fromModal = false) {
 }
 
 /**
- * Überprüft, ob die aktuelle Seite die "Board"-Seite ist, basierend auf dem Vorhandensein bestimmter Elemente.
- * 
- * Diese Funktion prüft das Vorhandensein spezifischer Elemente im DOM, die typisch für die "Board"-Seite sind.
- * Die Überprüfung basiert auf einer Liste von Element-IDs, die erwartet werden, wenn die "Board"-Seite
- * dargestellt wird. Die Funktion gibt `true` zurück, wenn mindestens eines der erwarteten Elemente
- * im DOM gefunden wird, was darauf hindeutet, dass die aktuelle Seite die "Board"-Seite ist.
- * 
- * @returns {boolean} Gibt `true` zurück, wenn sich die Anwendung auf der "Board"-Seite befindet, sonst `false`.
+ * Checks whether the current page is the "board" page based on the presence of certain elements.
+ *
+ * This function checks the presence of specific elements in the DOM that are typical for the "board" page.
+ * Validation is based on a list of item IDs that are expected when the "Board" page
+ * is pictured. The function returns `true` if at least one of the expected elements
+ * is found in the DOM, indicating that the current page is the "board" page.
+ *
+ * @returns {boolean} Returns `true` if the application is on the "board" page, `false` otherwise.
  */
 function checkIfBoardPage() {
     const ids = [
@@ -329,25 +330,25 @@ function checkIfBoardPage() {
         'done'
     ];
 
-    // Überprüfe, ob mindestens eines dieser Elemente existiert.
+    // Check whether at least one of these elements exists.
     return ids.some(id => document.getElementById(id) !== null);
 }
 /**
- * Initialisiert die Board-Seite, wenn sich die Anwendung auf dieser befindet.
- * 
- * Diese Funktion nutzt `checkIfBoardPage` um zu überprüfen, ob die aktuelle Seite die Board-Seite ist.
- * Ist dies der Fall, wird die Board-Seite initialisiert, indem `initializeBoard` aufgerufen wird.
- * Wenn die Überprüfung ergibt, dass es sich nicht um die Board-Seite handelt, wird eine Info-Nachricht
- * in der Konsole ausgegeben, und es werden keine weiteren Aktionen zur Initialisierung der Board-Seite unternommen.
- * Diese Funktion stellt sicher, dass Board-spezifische Initialisierungen nur dann ausgeführt werden,
- * wenn dies auch tatsächlich notwendig ist.
+ * Initializes the board page when the application is on it.
+ *
+ * This function uses `checkIfBoardPage` to check if the current page is the board page.
+ * If this is the case, the board page is initialized by calling `initializeBoard`.
+ * If verification shows it is not the board page, an info message will be sent
+ * is output to the console and no further actions are taken to initialize the board page.
+ * This function ensures that board-specific initializations are only carried out when
+ * if this is actually necessary.
  */
 function initializeBoardIfNeeded() {
     if (checkIfBoardPage()) {
-        // Führe die Initialisierung für die Board-Seite aus.
+        // Run the initialization for the board page.
         initializeBoard();
     } else {
-        // Logge eine Nachricht, falls nicht die Board-Seite.
+        // Log a message if not the board page.
         console.info('Nicht auf der Board-Seite, Initialisierung übersprungen.');
     }
 }
