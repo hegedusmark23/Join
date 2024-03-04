@@ -111,19 +111,19 @@ function timeDynamicWelcome() {
 /**
  * Shows the password on the login page.
  */
-function revealPassword() {
-  var x = document.getElementById("password");
-  if (x.type === "password" && x.value.length > 2) {
-    x.style.background = "url(/assets/img/visibility.png)";
-    x.type = "text";
+function revealPassword(inputField) {
+  if (inputField.type === "password" && inputField.value.length > 2) {
+    inputField.style.background = "url(/assets/img/visibility.png)";
+    inputField.type = "text";
   } else {
-    x.style.background = "url(/assets/img/lock-icon.png)";
-    x.type = "password";
+    inputField.style.background = "url(/assets/img/lock-icon.png)";
+    inputField.type = "password";
   }
-  x.style.backgroundRepeat = "no-repeat";
-  x.style.backgroundPosition = "center";
-  x.style.backgroundPositionX = "calc(100% - 12px)";
+  inputField.style.backgroundRepeat = "no-repeat";
+  inputField.style.backgroundPosition = "center";
+  inputField.style.backgroundPositionX = "calc(100% - 12px)";
 }
+
 
 /**
  * Performs guest login.
