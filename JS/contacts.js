@@ -174,52 +174,20 @@ function showContact(key, i) {
     let phone = letterContainer[key][i]['phone'];
     badgeColor = letterContainer[key][i]['badgeColor'];
     capitalizeLetters(name);
-    if (windowWidth <= 1050) {
-        showContactMobileVersion(key, i, name, email, phone, badgeColor);
-    } else {
-        showContactDesktopVersion(key, i, name, email, phone, badgeColor);
-    }
-
-}
-
-/**
- * Diese Funktion zeigt den ausgewählten Kontakt in der mobilen Version an
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
- * @param {string} name - Name des ausgewählten Kontakts
- * @param {string} email - E-Mail des ausgewählten Kontakts
- * @param {string} phone - Phone des ausgewählten Kontakts
- * @param {string} badgeColor Farbe des Kontaktabzeichens des ausgewählten Kontakts
- */
-function showContactMobileVersion(key, i, name, email, phone, badgeColor) {
-    let contactViewContainer = document.getElementById('contact-view-container');
-    document.getElementById('contact-book').classList.add('d-none')
-    document.getElementById('contact-view-section').classList.remove('mobile-d-none');
-    contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone, badgeColor);
-    contactViewContainer.classList.remove('translateX');
-}
-
-/**
-* Diese Funktion zeigt den ausgewählten Kontakt in der Desktop-Version an
-* @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
-* @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts 
-* @param {string} name - Name des ausgewählten Kontakts
-* @param {string} email - E-Mail des ausgewählten Kontakts
-* @param {string} phone - Phone des ausgewählten Kontakts
-* @param {string} badgeColor Farbe des Kontaktabzeichens des ausgewählten Kontakts
-*/
-function showContactDesktopVersion(key, i, name, email, phone, badgeColor) {
     let contactViewContainer = document.getElementById('contact-view-container')
     contactViewContainer.innerHTML = contactViewContainerHTML(key, i, name, email, phone, badgeColor);
-    contactViewContainer.classList.remove('translateX')
+    contactViewContainer.classList.remove('translateX');
+    document.getElementById('contact-book').classList.add('mobile-d-none')
+    document.getElementById('contact-view-section').classList.remove('mobile-d-none');
 }
+
 
 /**
  * Diese Funktion ist nur für die mobile Version. Blendet die Kontaktansicht aus und zeigt nur die Kontaktliste an
  */
 function backToContactList() {
-    document.getElementById('contact-view-section').classList.add('mobile-d-none');
-    document.getElementById('contact-book').classList.remove('d-none')
+    document.getElementById('contact-book').classList.remove('mobile-d-none')
+    document.getElementById('contact-view-section').classList.add('mobile-d-none')
 }
 
 /**
@@ -227,7 +195,7 @@ function backToContactList() {
  * @param {object} event 
  */
 function showPopUpEditDelete(event) {
-    document.getElementById('contact-view-icons-container').classList.remove('translateXPopUpEditDelete');
+    document.getElementById('contact-view-icons-container-mobile').classList.remove('translateXPopUpEditDelete');
     document.getElementById('three-vertical-dots-container').style.backgroundColor = '#29ABE2';
     event.stopPropagation();
 }
@@ -237,7 +205,7 @@ function showPopUpEditDelete(event) {
  * @param {object} event 
  */
 function hidePopUpEditDelete(event) {
-    document.getElementById('contact-view-icons-container').classList.add('translateXPopUpEditDelete');
+    document.getElementById('contact-view-icons-container-mobile').classList.add('translateXPopUpEditDelete');
     setTimeout(removeBgColorOnPopUpClosed, 800);
     event.stopPropagation();
 }
@@ -430,38 +398,25 @@ function backgroundAndTextOriginal(key, i) {
  * Diese Funktion zeigt das Pop-up-Fenster mit dem Formular zum Anlegen eines neuen Kontakts an
  */
 function showAddContactOverlay() {
-    if (windowWidth > 1050) {
-        document.getElementById('add-contact-overlay').classList.remove('d-none');
-        document.getElementById('add-new-contact-btn').style.backgroundColor = '#29ABE2'
-        setTimeout(() => {
-            document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp');
-        }, 10)
-    } else {
-        document.getElementById('add-contact-overlay').classList.remove('d-none');
-        setTimeout(() => {
-            document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp-Mobile');
-        }, 100)
-        document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#29ABE2'
-    }
+    document.getElementById('add-contact-overlay').classList.remove('d-none');
+    document.getElementById('add-new-contact-btn').style.backgroundColor = '#29ABE2'
+    document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#29ABE2'
+    setTimeout(() => {
+        document.getElementById('contact-dialog').classList.remove('translateContactDialogPopUp');
+    }, 10)
 }
 
 /**
  * Diese Funktion blendet das Pop-up-Fenster mit dem Formular zum Anlegen eines neuen Kontakts aus
  */
 function hideAddContactOverlay(event) {
-    if (windowWidth > 1050) {
-        document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
-        setTimeout(() => {
-            document.getElementById('add-contact-overlay').classList.add('d-none');
-            document.getElementById('add-new-contact-btn').style.backgroundColor = '#2A3647'
-        }, 200)
-    } else {
-        document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp-Mobile');
-        setTimeout(() => {
-            document.getElementById('add-contact-overlay').classList.add('d-none');
-        }, 100)
-        setTimeout(originalBgColorOfAddContactBtnMobile, 800);
-    }
+    document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
+    setTimeout(() => {
+        document.getElementById('add-contact-overlay').classList.add('d-none');
+        document.getElementById('add-new-contact-btn').style.backgroundColor = '#2A3647';
+        document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#2A3647'
+    }, 200)
+    setTimeout(originalBgColorOfAddContactBtnMobile, 800);
     event.stopPropagation();
 }
 
