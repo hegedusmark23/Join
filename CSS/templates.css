@@ -974,7 +974,7 @@ input#subtask-edit-input {
   min-height: 300px;
   max-height: calc(931px - 96px);
   border-radius: 30px;
-  padding: 48px 40px;
+  padding: 20px 25px;
   display: flex;
   flex-direction: column;
   gap: 24px;
