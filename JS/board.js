@@ -53,10 +53,10 @@ async function initializeBoardCard(filteredTasks = null) {
     let tasks = filteredTasks ? filteredTasks : await fetchTasks();
     getNoTaskDivs();
     getCardContainers();
-    filterTodos(tasks);
-    filterInProgress(tasks)
-    filterAwaitFeedback(tasks);
-    filterDone(tasks);
+    await filterTodos(tasks);
+    await filterInProgress(tasks)
+    await filterAwaitFeedback(tasks);
+    await filterDone(tasks);
     setupTaskClickListeners();
 }
 
@@ -84,7 +84,7 @@ function getCardContainers() {
  * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'toDo' ab.
  * Dann fügt es die Tasks in dem Container mit der ID "toDo" ein. 
  */
-function filterTodos(tasks) {
+async function filterTodos(tasks) {
     todos = tasks.filter(t => t['state'] == 'toDo');
     if (todos.length > 0) {
         noTasksDiv.style.display = 'none';
@@ -103,7 +103,7 @@ function filterTodos(tasks) {
  * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'in-progress' ab.
  * Dann fügt es die Tasks in dem Container mit der ID "in-progress" ein. 
  */
-function filterInProgress(tasks) {
+async function filterInProgress(tasks) {
     inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
     if (inProgress.length > 0) {
         noTaskDiv2.style.display = 'none';
@@ -122,7 +122,7 @@ function filterInProgress(tasks) {
  * Diese Funktion filtert die Elemente des Arrays Tasks und ruft nur die Elemente mit dem Status 'await-feedback' ab. 
  * Dann fügt es die Tasks in dem Container mit der ID "await-feedback" ein.
  */
-function filterAwaitFeedback(tasks) {
+async function filterAwaitFeedback(tasks) {
     awaitFeedback = tasks.filter(awFe => awFe['state'] == 'await-feedback');
     if (awaitFeedback.length > 0) {
         noTaskDiv3.style.display = 'none';
@@ -142,7 +142,7 @@ function filterAwaitFeedback(tasks) {
  * Dann fügt es die Tasks in dem Container mit der ID "done" ein.
  */
 
-function filterDone(tasks) {
+async function filterDone(tasks) {
     done = tasks.filter(d => d['state'] == 'done');
     if (done.length > 0) {
         noTaskDiv4.style.display = 'none';

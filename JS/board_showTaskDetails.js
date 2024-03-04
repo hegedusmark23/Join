@@ -19,7 +19,7 @@ function openTaskDetailModal(task) {
  */
 function updateTaskDetailsAndBindListener(task) {
     const detailsContainer = document.getElementById('task-details');
-    detailsContainer.innerHTML = detailModalContent(task); 
+    detailsContainer.innerHTML = detailModalContent(task);
     addSubtaskEventListener(); // Binden des Event Listeners, nachdem der Inhalt eingefügt wurde
 }
 
@@ -67,7 +67,7 @@ function generatePriorityHtml(task) {
  * @param {Object[]} assignees - Array von Assignee-Objekten mit Farbe und Initialen.
  * @returns {string} HTML-String mit den Darstellungen der Assignees oder einem Platzhalter.
  */
-function generateAssigneesHtml(assignees) {  
+function generateAssigneesHtml(assignees) {
     if (!assignees || assignees.length === 0) { // Prüft, ob das Array leer oder nicht definiert ist und gibt einen Platzhalter zurück
         return '<div class="detail-assignee-na">N/A</div>';
     } // Erstellt für jeden Assignee einen HTML-String und fügt sie zusammen
