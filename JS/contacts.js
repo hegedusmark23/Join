@@ -12,8 +12,8 @@ let windowWidth = window.innerWidth || document.documentElement.clientWidth || d
 let truncedEmail;
 
 /**
- *   Diese Funktion erstellt für jeden im Alphabet-Array enthaltenen Buchstaben eine Schlüssel-Wert-Eigenschaft im lettersContainer-Objekt, wobei jeder Schlüssel ein leeres Array ist
- * @param {string} letter - der Parameter letter enthält den Buchstaben, der aus dem Alphabet-Array iteriert wird
+ *   This function creates a key-value property in the lettersContainer object for each letter contained in the alphabet array, where each key is an empty array
+ * @param {string} letter - the parameter "letter" contains the letter that is iterated from the alphabet array
 */
 alphabet.forEach((letter) => {
     letterContainer[letter] = [];
@@ -21,7 +21,7 @@ alphabet.forEach((letter) => {
 
 
 /**
- * Diese asynchrone Funktion schließt den Header und die Sidebar in die Seite addcontacts.html ein. Mit der Funktion loadItems werden dann alle zuvor im Remote Storage gespeicherten Kontakte übernommen und nach der Umkehrung von Text in Code wieder in den Json "lettersContainer" eingefügt. Schließlich iteriert die Funktion setLettersContainers() die Schlüssel des lettersContainer-Arrays in den Container "contact-list", um die Buchstaben A bis Z in der Kontaktliste anzuzeigen;
+ * This asynchronous function includes the header and the sidebar in the addcontacts.html page. With the function loadItems, all contacts previously saved in the remote storage are then transferred and inserted back into the json "lettersContainer" after reversing text to code. Finally, the setLettersContainers() function iterates the keys of the lettersContainer array into the "contact-list" container to display the letters A to Z in the contact list;
  */
 async function renderContact() {
     includeHTML();
@@ -30,7 +30,7 @@ async function renderContact() {
 }
 
 /**
- * Diese Funktion holt die Kontaktdaten aus dem Remote Storage und wandelt sie von Text in Code um, um sie dann in das Array letterContainer einzufügen
+ * This function retrieves the contact data from the remote storage and converts it from text to code in order to insert it into the letterContainer array
  */
 async function loadItems() {
     try {
@@ -47,7 +47,7 @@ async function loadItems() {
 }
 
 /**
- * Diese Funktion nimmt eine zufällige Farbe aus dem Array colors, nimmt die Daten (vollständiger Name, E-Mail und Telefonnummer) aus dem Kontaktformular und ruft schließlich die Funktion addContacts() auf;
+ * This function takes a random color from the colors array, takes the data (full name, email and phone number) from the contact form and finally calls the addContacts() function;
  */
 async function getContact() {
     let color = Math.floor(Math.random() * colors.length);
@@ -60,18 +60,18 @@ async function getContact() {
 }
 
 /**
- * Diese asynchrone Funktion erzeugt eine Instanz der Klasse Contact{}, der folgende Parameter zugewiesen werden: Kontaktname, E-Mail, Telefonnummer und Farbe des Kontaktabzeichens. 
- * Nachdem das neue Contact{}-Objekt erstellt wurde, wird es in das Json Array letterContainer eingefügt, und zwar in den Schlüssel, dessen Buchstabe dem Anfangsbuchstaben des neu erstellten Kontakts entspricht
- * Danach wird der neue Zustand des letterContainer-Arrays im Remote Storage gespeichert
- * Wenn die Bildschirmbreite weniger als 1050 px beträgt, das heisst wenn der Benutzer ein Handy oder ein Tablet verwendet, blenden Sie die Kontaktliste aus und zeigen Sie nur den Container mit dem neu erstellten Kontakt an. 
- * Andernfalls, wenn die Breite größer als 1050 px ist, wird der Kontakt im Container angezeigt, ohne dass HTML-Elemente ausgeblendet werden.
- * Schließlich wird die Seite mit der Funktion renderContacts() erneut geladen, um das Json-Array letterContainer mit dem neuen Kontakt neu zu laden und auf der Seite anzuzeigen, alle Formulareingaben werden geleert und das Pop-up-Fenster "Add Contacts" wird ausgeblendet
- * @param {string} completeName - vollständiger Kontaktname
- * @param {string} emailAdress - Kontakt-E-Mail-Adresse
- * @param {string} phone - Kontakt-Telefonnummer
- * @param {string} badgeColor - Farbe des Kontaktabzeichens
- * @param {string} firstLetter - globale Variable, die den Anfangsbuchstaben jedes neu erstellten Kontakts enthäl
- * @param {number} windowWidth - aktuelle Breite des Benutzerbildschirms
+ * This asynchronous function creates an instance of the Contact{} class to which the following parameters are assigned: Contact name, email, phone number and contact badge color.
+ * After the new Contact{} object has been created, it is inserted into the Json array letterContainer in the key whose letter corresponds to the first letter of the newly created contact
+ * The new state of the letterContainer array is then saved in the remote storage
+ * If the screen width is less than 1050 px, i.e. if the user is using a cell phone or tablet, hide the contact list and only display the container with the newly created contact 
+ * Otherwise, if the width is greater than 1050 px, the contact is displayed in the container without HTML elements being hidden.
+ * Finally, the page is reloaded with the renderContacts() function to reload the Json array letterContainer with the new contact and display it on the page, all form inputs are cleared and the "Add Contacts" pop-up window is hidden
+ * @param {string} completeName - Complete contact name;
+ * @param {string} emailAdress - Contact's E-Mail address;
+ * @param {string} phone - Contact's phone number
+ * @param {string} badgeColor - Contact's badge color;
+ * @param {string} firstLetter - global variable that contains the first letter of each newly created contact.
+ * @param {number} windowWidth - Current width of the user screen
  */
 
 async function addContacts(completeName, emailAdress, phone, badgeColor) {
@@ -91,7 +91,7 @@ async function addContacts(completeName, emailAdress, phone, badgeColor) {
 }
 
 /**
- * Diese Funktion nimmt alle die Inputsfelder nach Tag-Namen und leert sie
+ * This function takes all the input fields by tag name and empties them
  */
 function emptyInputs() {
     let inputs = document.getElementsByTagName("input");
@@ -102,7 +102,7 @@ function emptyInputs() {
 }
 
 /**
- * Diese Funktion durchläuft das Json-Array letterContainer und erstellt für jeden Schlüssel einen Container mit dem dem aktuellen Schlüssel zugeordneten Buchstabentitel. Die Schlüssel im Array sind nun Container, die den Kontakt mit dem ersten Buchstaben enthalten, der dem Containernamen entspricht
+ * This function runs through the Json array letterContainer and creates a container for each key with the letter title assigned to the current key. The keys in the array are now containers that contain the contact with the first letter that corresponds to the container name
  */
 async function setLettersContainers() {
     let contactList = document.getElementById('contacts-list');
@@ -116,7 +116,7 @@ async function setLettersContainers() {
 }
 
 /**
- * diese Funktion durchläuft das Array des aktuellen Schlüssels und zeigt im Sub-Container alle Kontakte mit dem dem Schlüssel entsprechenden Anfangsbuchstaben
+ * This function runs through the array of the current key and shows all contacts with the initial letter corresponding to the key in the sub-container.
  * @param {string} key - Schlüssel des letterContainer-Objekts, das einem Buchstaben entspricht
  */
 
@@ -136,9 +136,9 @@ function showContactsInTheList(key) {
 }
 
 /**
- * Diese Funktion prüft, ob die E-Mail-Adresse jedes iterierten Kontakts länger als 21 Zeichen ist. Wenn die Bildschirmbreite kleiner oder gleich 400 Pixel ist und die Länge der E-Mail größer als 21 ist, wird die E-Mail abgeschnitten und der E-Mail string werden drei Ellipsen hinzugefügt
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * This function checks whether the email address of each iterated contact is longer than 21 characters. If the screen width is less than or equal to 400 pixels and the length of the email is greater than 21, the email is truncated and three ellipses are added to the email string
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 
 function truncEmailMobile(key, i) {
@@ -151,11 +151,11 @@ function truncEmailMobile(key, i) {
 }
 
 /**
- * Diese Funktion nimmt die beiden Initialen des vollständigen Namens des Kontakts
- * @param {string} completeName - Vollständiger Name des Kontakts
+ * This function takes the two initials of the contact's full name
+ * @param {string} completeName -Contact's complete name
  */
 function capitalizeLetters(completeName) {
-    let name = completeName.split(" "); // mettere sempre uno spazio in mezzo quando si vuol creare due stringe intere separate
+    let name = completeName.split(" ");
     let words = name.map((word) => {
         return word.charAt(0);
     });
@@ -164,9 +164,9 @@ function capitalizeLetters(completeName) {
 }
 
 /**
- * Diese Funktion zeigt den ausgewählten Kontakt in der Contact-View
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * This function shows the selected contact in the contact view
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 function showContact(key, i) {
     let name = letterContainer[key][i]['completeName'];
@@ -183,7 +183,7 @@ function showContact(key, i) {
 
 
 /**
- * Diese Funktion ist nur für die mobile Version. Blendet die Kontaktansicht aus und zeigt nur die Kontaktliste an
+ * This function is only for the mobile version. Hides the contact view and only shows the contact list
  */
 function backToContactList() {
     document.getElementById('contact-book').classList.remove('mobile-d-none')
@@ -191,7 +191,7 @@ function backToContactList() {
 }
 
 /**
- * Diese Funktion ist nur für die mobile Version. Durch Klicken auf dem Button mit den Ellipsen Icon unten rechts erscheint ein kleines Dropdown-Menü mit zwei Optionen: Edit und Delete
+ * This function is only for the mobile version. By clicking on the button with the ellipsis icon at the bottom right, a small drop-down menu appears with two options: Edit and Delete
  * @param {object} event 
  */
 function showPopUpEditDelete(event) {
@@ -201,7 +201,7 @@ function showPopUpEditDelete(event) {
 }
 
 /**
- * Diese Funktion ist nur für die mobile Version. Durch Klicken auf eine beliebige Stelle im Abschnitt „Kontaktansicht“ wird das Dropdown-Menü ausgeblendet
+ * This function is only for the mobile version. Click anywhere in the "Contact view" section to hide the drop-down menu
  * @param {object} event 
  */
 function hidePopUpEditDelete(event) {
@@ -211,14 +211,14 @@ function hidePopUpEditDelete(event) {
 }
 
 /**
- * Diese Funktion entfernt die hellblaue Hintergrundfarbe nach 800 Millisekunden
+ * This function removes the light blue background color after 800 milliseconds
  */
 function removeBgColorOnPopUpClosed() {
     document.getElementById('three-vertical-dots-container').style.backgroundColor = '#2A3647';
 }
 
 /**
- * Diese Funktion zeigt den neu angelegten Kontakt in der Kontaktansicht an
+ * This function displays the newly created contact in the contact view
  */
 async function showAlreadyCreatedContactInTheView() {
     let key = firstLetter;
@@ -235,7 +235,7 @@ async function showAlreadyCreatedContactInTheView() {
 }
 
 /**
- * Diese Funktion zeigt in der Übersetzung und einige Millisekunden nach der Erstellung eines neuen Kontakts ein kleines Banner an, das besagt, dass der Kontakt erfolgreich erstellt wurde
+ * This function displays a small banner in the translation and a few milliseconds after a new contact has been created, stating that the contact has been successfully created
  */
 function successfulContactAddedButton() {
     let successButton = document.getElementById('successfulButton');
@@ -251,7 +251,7 @@ function successfulContactAddedButton() {
 }
 
 /**
- * diese Funktion verschiebt das Banner mit der Nachricht, dass der Kontakt erfolgreich erstellt wurde, wieder aus dem Viewport
+ * this function moves the banner with the message that the contact has been successfully created out of the viewport again
  */
 
 function hideSuccessfulContactAddedButton() {
@@ -264,9 +264,9 @@ function hideSuccessfulContactAddedButton() {
 }
 
 /**
- * Diese Funktion zeigt das Pop-up-Fenster zum Bearbeiten oder Löschen des Kontakts an
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * This function displays the pop-up window for editing or deleting the contact
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 function showEditContactOverlay(key, i) {
     createEditDialogContainer(key, i)
@@ -291,9 +291,9 @@ function createEditDialogContainer(key, i) {
 }
 
 /**
- * Diese Funktion ruft den Wert der Eingabe im Pop-up-Fenster "Edit Contact" ab
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * This function retrieves the value of the input in the "Edit Contact" pop-up window
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 function getTheInputs(key, i) {
     inputName = document.getElementById(`input-name${key}${i}`);
@@ -310,9 +310,9 @@ function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
 }
 
 /**
- * Diese Funktion verschiebt das Pop-up von außerhalb des Dialogs nach innen und erzeugt eine Animation
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * This function moves the pop-up from outside the dialog to the inside and creates an animation
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 
 function translateContactDialogPopUpInside(key, i) {
@@ -322,9 +322,9 @@ function translateContactDialogPopUpInside(key, i) {
 }
 
 /**
- * Diese Funktion verschiebt das Popup-Fenster von innerhalb des Dialogs nach außerhalb und blendet es aus
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * This function moves the pop-up window from inside the dialog to outside and hides it
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 
 function hideEditContactOverlay(key, i, event) {
@@ -336,9 +336,9 @@ function hideEditContactOverlay(key, i, event) {
 }
 
 /**
- * Diese Funktion speichert die neuen Daten, die im Formular "Edit Contact" eingegeben wurden und erstellt einen neuen Kontakt mit diesen neuen Daten
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * This function saves the new data entered in the "Edit Contact" form and creates a new contact with this new data
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 async function saveNewContact(key, i) {
     let contactViewContainer = document.getElementById('contact-view-container');
@@ -355,9 +355,9 @@ async function saveNewContact(key, i) {
 }
 
 /**
- * Diese Funktion löscht den ausgewählten Kontakt durch Anklicken. Wenn die Bildschirmbreite 1050 Pixel oder weniger beträgt, blendet sie den Contact-View-Container aus und kehrt zur Kontaktliste zurück, ansonsten leert sie den Contact-View-Container
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * This function deletes the selected contact by clicking on it. If the screen width is 1050 pixels or less, it hides the contact view container and returns to the contact list, otherwise it empties the contact view container
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 async function deleteContact(key, i) {
     letterContainer[key].splice(i, 1);
@@ -373,9 +373,9 @@ async function deleteContact(key, i) {
 
 
 /**
- * Wenn der Kontaktcontainer in Focus ist, wird der Hintergrund schwarz und der Text weiß.
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * If the contact container is in focus, the background is black and the text is white.
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 function backgroundBlackAndWhiteText(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.add('black-container');
@@ -384,9 +384,9 @@ function backgroundBlackAndWhiteText(key, i) {
 }
 
 /**
- * Wenn der Kontaktcontainer den Fokus verliert, kehrt der Container zu seinen ursprünglichen Farben zurück
- * @param {string} key - parameter, der dem Hauptcontainer entspricht, in dem der Kontakt enthalten ist
- * @param {number} i - - Index jedes im Hauptcontainer enthaltenen Kontakts
+ * If the contact container loses focus, the container returns to its original colors
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
  */
 function backgroundAndTextOriginal(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.remove('black-container');
@@ -395,7 +395,7 @@ function backgroundAndTextOriginal(key, i) {
 }
 
 /**
- * Diese Funktion zeigt das Pop-up-Fenster mit dem Formular zum Anlegen eines neuen Kontakts an
+ * This function displays the pop-up window with the form for creating a new contact
  */
 function showAddContactOverlay() {
     document.getElementById('add-contact-overlay').classList.remove('d-none');
@@ -407,7 +407,7 @@ function showAddContactOverlay() {
 }
 
 /**
- * Diese Funktion blendet das Pop-up-Fenster mit dem Formular zum Anlegen eines neuen Kontakts aus
+ * This function hides the pop-up window with the form for creating a new contact
  */
 function hideAddContactOverlay(event) {
     document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
@@ -421,14 +421,14 @@ function hideAddContactOverlay(event) {
 }
 
 /**
- * Diese Funktion stellt die ursprüngliche Farbe der Schaltfläche nach 800 Millisekunden ein, wenn das Pop-up-Fenster "Kontakt hinzufügen" ausgeblendet ist
+ * This function restores the original color of the button after 800 milliseconds when the "Add contact" pop-up window is hidden
  */
 function originalBgColorOfAddContactBtnMobile() {
     document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#2A3647'
 }
 
 /**
- * Mit dieser Funktion wird die Weiterleitung von Ereignissen auf übergeordnete oder untergeordnete Container aufgehoben
+ * This function cancels the forwarding of events to superordinate or subordinate containers
  * @param {object} event 
  */
 function doNotClose(event) {
