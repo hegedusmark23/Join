@@ -66,12 +66,14 @@ function generateAssigneeMarkup(contact, isAssigned) {
  */
 function generateAssigneesMarkup(task, letterContainer) {
     let assigneesMarkup = '';
+
     Object.keys(letterContainer).forEach(letter => {
         letterContainer[letter].forEach(contact => {
-            const isAssigned = task.assignTo.some(assignee => assignee.name === contact.completeName);
+            const isAssigned = task.assignTo.some(assignee => assignee.name.trim() === contact.completeName.trim());
             assigneesMarkup += generateAssigneeMarkup(contact, isAssigned);
         });
     });
+
     return assigneesMarkup;
 }
 
@@ -98,6 +100,21 @@ function createSubtasksHtml(subtasks) {
         </li>`
     ).join('');
 }
+
+function checkAndSetPriority(prioButtons) {
+    console.log("checkAndSetPriority wird ausgeführt");
+    const isActiveButtonPresent = Array.from(prioButtons).some(button => button.classList.contains('is-active'));
+    console.log("Ist ein aktiver Button vorhanden?", isActiveButtonPresent);
+    if (!isActiveButtonPresent) {
+        console.log("Kein Button ist aktiv. Priorität wird auf null gesetzt.");
+        return null;
+    }
+    const activeButton = Array.from(prioButtons).find(button => button.classList.contains('is-active'));
+    const priority = activeButton.id.replace('addtask-prio-', '');
+    console.log("Aktive Priorität:", priority);
+    return priority;
+}
+
 
 /**
  * Rendert das Bearbeitungsformular für einen Task.
@@ -270,6 +287,10 @@ function renderEditTask(taskId) {
         renderAssignees(); // Neuaufruf von renderAssignees(), um sicherzustellen, dass die Liste korrekt gerendert und Event-Listener zugeordnet sind
         setTimeout(() => {
             const assignToContainer = document.getElementById('assign-to');
+            const prioButtons = document.querySelectorAll('.addtask-buttons');
+            console.log("Prio-Buttons nach dem Rendering:", prioButtons.length);
+            const currentPriority = checkAndSetPriority(prioButtons);
+            console.log("Ermittelte Priorität:", currentPriority);
             if (assignToContainer) {
                 assignToContainer.innerHTML = assigneesMarkup;
                 document.querySelectorAll('.dropdown-content-container').forEach((container) => { // Binden der Event-Listener an alle Container und Überprüfung des geklickten Elements
@@ -291,3 +312,17 @@ function renderEditTask(taskId) {
         reinitializeEventListenersForEditModal()
     }
 }
+
+async function prepareTaskForEditing(taskId) {
+    let tasks = await fetchTasks(); // Abrufen der Tasks
+
+    // Finden des spezifischen Task-Objekts, das bearbeitet werden soll
+    let taskToEdit = tasks.find(task => task.id === taskId);
+
+    if (taskToEdit) {
+        renderEditTask(taskToEdit); // Hier wird das gefundene Task-Objekt verwendet
+    } else {
+        console.error('Task nicht gefunden.');
+    }
+}
+

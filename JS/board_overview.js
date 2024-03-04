@@ -91,7 +91,7 @@ function taskImage(task) {
         return 'prio_low.svg';
     } else if (task.prio === 'medium') {
         return 'prio_medium.svg';
-    } else if (task.prio === 'high') {
+    } else if (task.prio === 'urgent') {
         return 'prio_high.svg';
     } else {
         return null;// Kein Bild für 'N/A' oder null-Werte

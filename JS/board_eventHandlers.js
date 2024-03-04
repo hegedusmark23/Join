@@ -274,6 +274,8 @@ function setupModalCloseDelegationEdit() {
     const closeModalButton = document.getElementById('close-modal-button-edittask');
     if (closeModalButton) {
         closeModalButton.addEventListener('click', function() {
+            // Stellt sicher, dass das Dropdown geschlossen wird
+            toggleAssigneeDropdown(false);
             clearEditModalContent();
             reinitializeEventListenersForEditModal();
         });
@@ -282,3 +284,4 @@ function setupModalCloseDelegationEdit() {
         return;
     }
 }
+

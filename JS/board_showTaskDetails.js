@@ -51,7 +51,8 @@ function generateDueDateHtml(task) {
  * @returns {string} HTML-String für die Prioritätsanzeige.
  */
 function generatePriorityHtml(task) {
-    let imgHtml = taskImage(task) ? `<img style="margin-left: 4px;" src="./assets/icons/${taskImage(task)}" alt="Priority">` : '';
+    const imageFileName = taskImage(task);
+    let imgHtml = imageFileName ? `<img style="margin-left: 4px;" src="./assets/icons/${imageFileName}" alt="Priority">` : '';
     return `
         <div class="task-detail">
             <span class="detail-label">Priority:</span>

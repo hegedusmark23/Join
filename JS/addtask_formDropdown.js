@@ -15,16 +15,21 @@ let dropdownClicked = false;
 /**
  * Toggles the assignment drop-down menu and controls the display of arrow icons.
  */
-function toggleAssigneeDropdown() {
+function toggleAssigneeDropdown(shouldOpen) {
     let dropdownContent = document.getElementById('assign-to');
-    let isDropdownOpen = dropdownContent.style.display === 'block';
-    dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
+    if (!dropdownContent) {
+        console.error('Element #assign-to wurde nicht gefunden.');
+        return; // Frühzeitige Rückkehr, wenn das Element nicht existiert
+    }
 
-    // Pfeil-Icons umschalten
-    let arrowsDown = document.querySelectorAll('.arrowDown');
-    let arrowsUp = document.querySelectorAll('.arrowUp');
-    arrowsDown.forEach(arrow => arrow.style.display = isDropdownOpen ? 'block' : 'none');
-    arrowsUp.forEach(arrow => arrow.style.display = isDropdownOpen ? 'none' : 'block');
+    // Entscheidet basierend auf dem übergebenen Parameter, ob das Dropdown geöffnet oder geschlossen werden soll
+    if (shouldOpen === false) {
+        dropdownContent.style.display = 'none';
+    } else {
+        // Wenn kein Parameter übergeben wurde, toggle den aktuellen Zustand
+        let isDropdownOpen = dropdownContent.style.display === 'block';
+        dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
+    }
 }
 
 /**
@@ -47,24 +52,20 @@ function updateAssignee(user) {
  * Closes the dropdown menu when clicked outside the dropdown area.
  */
 function setupAssigneeGlobalClickListener() {
+    // Prüfen, ob die Dropdown-Elemente existieren
     const dropdownContent = document.getElementById('assign-to');
     const dropdownButton = document.getElementById('dropdown-assignees');
+
     if (!dropdownContent || !dropdownButton) {
         console.info('Dropdown-Elemente wurden nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn die Elemente nicht existieren
     }
 
-    // Öffnet oder schließt das Dropdown, wenn der Button geklickt wird.
-    dropdownButton.addEventListener('click', function(event) {
-        toggleAssigneeDropdown(); // Toggled das Dropdown
-        event.stopPropagation(); // Verhindert, dass das Event im Dokument weiter propagiert wird
-    });
-    
-    // Schließt das Dropdown, wenn außerhalb des Dropdown-Bereichs geklickt wird.
     document.addEventListener('click', function(event) {
         let isClickInsideDropdown = dropdownButton.contains(event.target) || dropdownContent.contains(event.target);
+
         if (!isClickInsideDropdown && dropdownContent.style.display === 'block') {
-            toggleAssigneeDropdown(); // Closes the dropdown when clicked outside
+            toggleAssigneeDropdown(); // Schließt das Dropdown, wenn außerhalb geklickt wird
         }
     });
 }
