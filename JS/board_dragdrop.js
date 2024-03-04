@@ -48,8 +48,12 @@ function hideNoTaskDiv(id) {
     } else if (id == 'done') {
         hideDivAndSetBorder4();
     }
-    document.getElementById(backgroundToHide).style.display = 'none';
-    document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.3)';
+    if (backgroundToHide && boardSectionToSet) {
+        setTimeout(() => {
+            document.getElementById(backgroundToHide).style.display = 'none';
+            document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.3)';
+        }, 10)
+    } else { }
 }
 
 function hideDivAndSetBorder1() {
@@ -87,10 +91,14 @@ function resetNoTaskDiv(id) {
     } else if (id == 'done' && done.length == 0) {
         resetDivAndHideBorder4()
     }
-    if (backgroundToReset && boardSectionToHide) {
-        document.getElementById(backgroundToReset).style.display = 'flex';
-        document.getElementById(boardSectionToHide).style.border = 'none'
+    if (backgroundToReset) {
+        setTimeout(addStyle, 50) // ho aggiunto un ritardo per evitare sovrapposizione tra le funzioni hideNoTaskDiv() e resetNoTaskDiv();
     } else { }
+}
+
+function addStyle() {
+    document.getElementById(backgroundToReset).style.display = 'flex';
+    document.getElementById(boardSectionToHide).style.border = 'none'
 }
 
 function resetDivAndHideBorder1() {
@@ -113,7 +121,7 @@ function resetDivAndHideBorder4() {
     boardSectionToHide = 'board-section-4'
 }
 
-document.addEventListener('dragend', ()=>{
+document.addEventListener('dragend', () => {
     document.getElementById('board-section-1').style.border = 'none';
     document.getElementById('board-section-2').style.border = 'none';
     document.getElementById('board-section-3').style.border = 'none';

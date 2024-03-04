@@ -786,10 +786,6 @@ h1.contact-view-title {
     height: 90px;
   }
 
-  .initialsLetters {
-    font-size: 32px;
-  }
-
   .input-name,
   .input-email,
   .input-phone {
@@ -800,6 +796,10 @@ h1.contact-view-title {
 @media (min-width: 1051px) {
   .translateContactDialogPopUp {
     transform: translateX(300%);
+  }
+
+  .contact-view-icons-container-mobile{
+    display: none;
   }
 
   .arrow-left-line {
@@ -845,10 +845,11 @@ h1.contact-view-title {
     width: 100%;
   }
 
-  .contact-view-icons-container {
+  .contact-view-icons-container-mobile{
     position: fixed;
     bottom: 90px;
     right: 0px;
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
@@ -924,7 +925,7 @@ h1.contact-view-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -100px;
+    margin-top: -120px;
   }
 
   .person-icon-container {
@@ -958,6 +959,10 @@ h1.contact-view-title {
     top: 48px;
     right: 24px;
     z-index: 5;
+  }
+
+  .cross-icon-container:hover{
+    background: #29abe2;
   }
 
   .cross-icon path {
