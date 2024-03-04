@@ -350,7 +350,7 @@ async function saveNewContact(key, i) {
     capitalizeLetters(inputName.value);
     await setItem('contacts', JSON.stringify(letterContainer));
     contactViewContainer.innerHTML = showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, inputName.value, inputEmail.value, inputPhone.value, badgeColor);
-    document.getElementById('edit-contact-overlay').classList.add('d-none');
+    document.getElementById(`edit-contact-overlay${key}${i}`).classList.add('d-none');
     await renderContact();
 }
 
@@ -359,16 +359,13 @@ async function saveNewContact(key, i) {
  * @param {string} key - parameter corresponding to the main container in which the contact is contained
  * @param {number} i - Index of each contact contained in the main letter container
  */
-async function deleteContact(key, i) {
+async function deleteContact(key, i, event) {
     letterContainer[key].splice(i, 1);
-    if (windowWidth <= 1050) {
-        backToContactList();
-    } else {
-        document.getElementById('contact-view-container').innerHTML = '';
-    }
+    backToContactList();
+    document.getElementById(`contact-view-container`).innerHTML = '';
     await setItem('contacts', JSON.stringify(letterContainer));
     renderContact();
-    hideEditContactOverlay();
+    hideEditContactOverlay(key, i, event);
 }
 
 
@@ -409,7 +406,7 @@ function showAddContactOverlay() {
 /**
  * This function hides the pop-up window with the form for creating a new contact
  */
-function hideAddContactOverlay(event) {
+function hideAddContactOverlay() {
     document.getElementById('contact-dialog').classList.add('translateContactDialogPopUp');
     setTimeout(() => {
         document.getElementById('add-contact-overlay').classList.add('d-none');
@@ -417,7 +414,6 @@ function hideAddContactOverlay(event) {
         document.getElementById('add-new-contact-btn-mobile').style.backgroundColor = '#2A3647'
     }, 200)
     setTimeout(originalBgColorOfAddContactBtnMobile, 800);
-    event.stopPropagation();
 }
 
 /**

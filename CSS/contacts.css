@@ -688,10 +688,6 @@ h1.contact-view-title {
     padding: 32px 12px;
   }
 
-  .add-new-contact-btn {
-    width: 80%;
-  }
-
   .letter-container {
     padding: 8px 18px;
   }
@@ -841,6 +837,11 @@ h1.contact-view-title {
     background: #2a3647;
   }
 
+  .add-new-contact-btn-mobile:hover {
+    background: #29abe2;
+    cursor: pointer;
+  }
+
   .contact-view-section {
     width: 100%;
   }
@@ -882,6 +883,12 @@ h1.contact-view-title {
     justify-content: center;
     align-items: center;
     background: #2a3647;
+    cursor: pointer;
+  }
+
+  .three-vertical-dots-container:hover{
+    background: #29abe2;
+    cursor:pointer;
   }
 
   .translateXPopUpEditDelete {

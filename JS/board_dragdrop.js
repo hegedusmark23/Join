@@ -58,7 +58,7 @@ function hideNoTaskDiv(id) {
         setTimeout(() => {
             document.getElementById(backgroundToHide).style.display = 'none';
             document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.3)';
-        }, 10)
+        }, 0)
     } else { }
 }
 
@@ -98,7 +98,7 @@ function resetNoTaskDiv(id) {
         resetDivAndHideBorder4()
     }
     if (backgroundToReset) {
-        setTimeout(addStyle, 50) // I added a delay to avoid overlap between the hideNoTaskDiv() and resetNoTaskDiv() functions;
+        setTimeout(addStyle, 0) // I added a delay to avoid overlap between the hideNoTaskDiv() and resetNoTaskDiv() functions;
     } else { }
 }
 
