@@ -44,8 +44,7 @@ function createFormSectionLeft(taskState) {
             <label>
                 <span>Description</span>
                 <textarea class="textarea-description textarea" placeholder="Enter a description" name="decription"
-                    id="description">
-                </textarea>
+                    id="description"></textarea>
             </label>
         </div>
         <div class="addtask-selection">
