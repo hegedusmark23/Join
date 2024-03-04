@@ -2,7 +2,7 @@
  * Repräsentiert die aktuell ausgewählte oder zu bearbeitende Aufgabe.
  * @type {Task}
  */
-let currentTask = new Task();
+let currentTask = new Task;
 
 /**
  * Gibt an, ob ein Dropdown-Menü angeklickt wurde, um seinen Zustand zu steuern.
@@ -53,11 +53,18 @@ function setupAssigneeGlobalClickListener() {
         console.info('Dropdown-Elemente wurden nicht im DOM gefunden.');
         return; // Beendet die Funktion frühzeitig, wenn die Elemente nicht existieren
     }
+
+    // Öffnet oder schließt das Dropdown, wenn der Button geklickt wird.
+    dropdownButton.addEventListener('click', function(event) {
+        toggleAssigneeDropdown(); // Toggled das Dropdown
+        event.stopPropagation(); // Verhindert, dass das Event im Dokument weiter propagiert wird
+    });
+    
+    // Schließt das Dropdown, wenn außerhalb des Dropdown-Bereichs geklickt wird.
     document.addEventListener('click', function(event) {
         let isClickInsideDropdown = dropdownButton.contains(event.target) || dropdownContent.contains(event.target);
-
         if (!isClickInsideDropdown && dropdownContent.style.display === 'block') {
-            toggleAssigneeDropdown(); // Schließt das Dropdown, wenn außerhalb geklickt wird
+            toggleAssigneeDropdown(); // Schließt das Dropdown
         }
     });
 }
@@ -122,83 +129,50 @@ function generateInitials(completeName) {
 }
 
 /**
- * Löscht den aktuellen Inhalt des Dropdown-Menüs.
- * @param {HTMLElement} dropdownContent - Das Element des Dropdown-Menüs.
- */
-function clearDropdownContent(dropdownContent) {
-    dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
-}
-
-/**
- * Generiert das SVG-Element für die Checkbox basierend auf dem Status `isAdded`.
- * @param {boolean} isAdded - Gibt an, ob der Kontakt hinzugefügt wurde oder nicht.
- * @returns {string} SVG-Element als Zeichenkette.
- */
-function generateCheckboxSVG(isAdded) {
-    return isAdded ? 
-        `<svg id="checkbox-checked-active" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#fff" stroke-width="2" stroke-linecap="round"></path>
-            <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>` : 
-        `<svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
-        </svg>`;
-}
-
-/**
- * Erstellt das innere HTML für den Benutzer-Container einschließlich des Checkbox-SVGs.
- * @param {Object} contact - Kontaktobjekt mit Informationen zum Kontakt.
- * @param {number} index - Index des Kontakts in der Liste.
- * @param {string} initials - Initialen des Kontakts.
- * @param {string} checkboxSVG - SVG-Element als Zeichenkette für die Checkbox.
- * @returns {string} HTML-Zeichenkette für den Benutzer-Container.
- */
-function createUserContainerHTML(contact, index, initials, checkboxSVG) {
-    return `
-        <div class="dropdown-content-binding">
-            <div class="dropdown-content-circle" style="background-color:${contact.badgeColor};">
-                <p id="user-initials">${initials}</p>
-            </div>
-            <div class="dropdown-content-name">
-                <a id="user-name" href="#" data-value="option${index + 1}">${contact.completeName}</a>
-            </div>
-        </div>
-        <div class="dropdown-content-checkbox">${checkboxSVG}</div>
-    `;
-}
-
-/**
- * Erstellt und konfiguriert den Container für einen Benutzer.
- * @param {Object} contact - Kontaktobjekt mit Informationen zum Kontakt.
- * @param {number} index - Index des Kontakts in der Liste.
- * @param {string} letter - Der Anfangsbuchstabe des Namens des Kontakts, dient als Schlüssel im `letterContainer`.
- * @returns {HTMLElement} Das Benutzer-Container-Element.
- */
-function createUserContainer(contact, index, letter) {
-    const initials = generateInitials(contact.completeName);
-    const checkboxSVG = generateCheckboxSVG(contact.added);
-    let userContainer = document.createElement('div');
-    userContainer.className = 'dropdown-content-container' + (contact.added ? ' user-checked' : '');
-    userContainer.innerHTML = createUserContainerHTML(contact, index, initials, checkboxSVG);
-    userContainer.addEventListener('click', function() {
-        toggleAssigneeStatus(letter, index);
-    });
-    return userContainer;
-}
-
-/**
  * Rendert die Benutzerliste im Dropdown-Menü basierend auf dem `letterContainer`.
  */
 function renderAssignees() {
     let dropdownContent = document.getElementById('assign-to');
     if (!dropdownContent) {
         console.info('Dropdown-Container für Assignees wurde nicht im DOM gefunden.');
-        return;
+        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
     }
-    clearDropdownContent(dropdownContent);
+
+    dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
+
     Object.keys(letterContainer).forEach(letter => {
         letterContainer[letter].forEach((contact, index) => {
-            let userContainer = createUserContainer(contact, index, letter);
+            const initials = generateInitials(contact.completeName); // Initialen generieren
+            let userContainer = document.createElement('div');
+            userContainer.className = 'dropdown-content-container' + (contact.added ? ' user-checked' : '');
+
+            // Erstellung des Checkbox SVG basierend auf dem 'added' Zustand
+            const checkboxSVG = contact.added ? 
+                `<svg id="checkbox-checked-active" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#fff" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>` : 
+                `<svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
+                </svg>`;
+
+            userContainer.innerHTML = `
+                <div class="dropdown-content-binding">
+                    <div class="dropdown-content-circle" style="background-color:${contact.badgeColor};">
+                        <p id="user-initials">${initials}</p>
+                    </div>
+                    <div class="dropdown-content-name">
+                        <a id="user-name" href="#" data-value="option${index + 1}">${contact.completeName}</a>
+                    </div>
+                </div>
+                <div class="dropdown-content-checkbox">${checkboxSVG}</div>
+            `;
+
+            // Event-Listener für den Klick hinzufügen
+            userContainer.addEventListener('click', function() {
+                toggleAssigneeStatus(letter, index, contact);
+            });
+
             dropdownContent.appendChild(userContainer);
         });
     });

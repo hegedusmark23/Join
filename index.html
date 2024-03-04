@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./CSS/templates.css">
     <link rel="stylesheet" href="./CSS/general.css">
     <link rel="stylesheet" href="./CSS/login-signup.css">
-    <link rel="shortcut icon" href="/assets/img/logo-small-blue.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
 <body onload="initRegister(); rememberMe();">
@@ -28,8 +28,10 @@
                 <input id="email" autocomplete="email" required class="login-input email-input" placeholder="Email"
                     type="email">
                 <input onclick="revealPassword()" id="password" autocomplete="current-password" required minlength="2"
-                    class="login-input password-input password-input-image" placeholder="Password" type="password" style="background: url(/assets/img/lock-icon.png) no-repeat right 7px 7px">
-                <p id="login-error-message" class="login-error-message d-none">You have entered an invalid username or password.</p>
+                    class="login-input password-input password-input-image" placeholder="Password" type="password"
+                    style="background: url(/assets/img/lock-icon.png) no-repeat right 7px 7px">
+                <p id="login-error-message" class="login-error-message d-none">You have entered an invalid username or
+                    password.</p>
                 <div class="checkbox-div">
                     <input type="checkbox" name="Remember me" id="remember">
                     <p class="remember-text">Remember me</p>

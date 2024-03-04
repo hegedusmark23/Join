@@ -108,7 +108,7 @@ function extractFormData() {
         description: document.getElementById('description') ? document.getElementById('description').value : '',
         dueDate: document.getElementById('dueDate') ? document.getElementById('dueDate').value : '',
         category: document.getElementById('dropdown-categories') ? document.getElementById('dropdown-categories').textContent : '',
-        priority: extractPriority(), // Implementieren Sie diese Funktion entsprechend Ihrer Logik
+        prio: extractPriority(), // Implementieren Sie diese Funktion entsprechend Ihrer Logik
         assignTo: extractAssignees(),
         subtask: extractSubtasks()
     };
@@ -164,31 +164,41 @@ async function saveTaskEdit(taskId) {
 }
 
 /**
- * Aktualisiert eine Aufgabe im tasks Array basierend auf den übergebenen Formulardaten.
- * @param {number} taskIndex Der Index der Aufgabe im tasks Array.
- * @param {object} formData Die Daten, die aus dem Formular extrahiert wurden und mit denen der Task aktualisiert wird.
- * if (formData.assignTo.length === 0 && tasks[taskIndex].assignTo && tasks[taskIndex].assignTo.length > 0) -->
- * Wenn keine neuen Assignees gewählt wurden, aber im aktuellen Task Assignees vorhanden sind,
- * entferne die assignTo-Eigenschaft aus formData, damit die existierenden Assignees nicht 
- * überschrieben werden
- * tasks[taskIndex] = { ...tasks[taskIndex], ...formData } -->
- * Aktualisiere den Task im Array.
- * Wenn formData.assignTo existiert, wird es normal aktualisiert.
- * Wenn formData.assignTo zuvor entfernt wurde, bleiben die existierenden Assignees erhalten.
+ * Aktualisiert eine Aufgabe im tasks Array basierend auf den übergebenen Formulardaten. 
+ * Stellt sicher, dass Priorität, Assignees und Subtasks nur aktualisiert werden, wenn Änderungen vorgenommen wurden.
+ * 
+ * @param {number} taskIndex - Der Index der Aufgabe im tasks Array.
+ * @param {object} formData - Die Daten, die aus dem Formular extrahiert wurden und mit denen der Task aktualisiert wird.
  */
 function updateTask(taskIndex, formData) {
-    // Überprüfen, ob das extractAssignees Array leer ist
-    if (formData.assignTo.length === 0 && tasks[taskIndex].assignTo && tasks[taskIndex].assignTo.length > 0) {
-        // Wenn keine neuen Assignees gewählt wurden, aber im aktuellen Task Assignees vorhanden sind,
-        // entferne die assignTo-Eigenschaft aus formData, damit die existierenden Assignees nicht überschrieben werden
-        delete formData.assignTo;
+    let updatedTask = { ...tasks[taskIndex] }; // Bereitet das zu aktualisierende Task-Objekt vor
+    if ('prio' in formData && formData.prio !== '') { // Überprüft und aktualisiert die Priorität des Tasks, wenn im formData vorhanden
+        updatedTask.prio = formData.prio;
+    }    
+    if ('assignTo' in formData && formData.assignTo.length > 0) { // Wenn assignTo nicht im formData ist oder kein Assignee ausgewählt wurde, überschreiben Sie nicht
+        updatedTask.assignTo = formData.assignTo;
     }
-    
-    // Aktualisiere den Task im Array
-    // Wenn formData.assignTo existiert, wird es normal aktualisiert.
-    // Wenn formData.assignTo zuvor entfernt wurde, bleiben die existierenden Assignees erhalten.
-    tasks[taskIndex] = { ...tasks[taskIndex], ...formData };
+    if ('subtask' in formData) { // Spezielle Behandlung für Subtasks, um sicherzustellen, dass 'completed' Zustände erhalten bleiben
+        updatedTask.subtask = formData.subtask.map(formDataSubtask => {
+            let existingSubtask = updatedTask.subtask.find(subtask => subtask.id === formDataSubtask.id);
+            if (existingSubtask) {
+                return {
+                    ...existingSubtask,
+                    text: formDataSubtask.text,
+                };
+            } else {
+                return formDataSubtask;
+            }
+        });
+    }
+    Object.keys(formData).forEach(key => { // Andere Felder des Tasks aktualisieren, unter Ausschluss der bereits behandelten Felder
+        if (!['prio', 'assignTo', 'subtask'].includes(key)) {
+            updatedTask[key] = formData[key];
+        }
+    });   
+    tasks[taskIndex] = updatedTask; // Aktualisiert das Task im tasks Array
 }
+
 
 /**
  * Speichert das aktualisierte tasks Array im Speicher und aktualisiert das UI.

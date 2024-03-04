@@ -80,7 +80,7 @@ function generateAssigneesMarkup(task, letterContainer) {
  * @param {Array} subtasks - Liste der Subtasks des zu bearbeitenden Tasks.
  * @returns {string} HTML-String der Subtasks.
  */
-function generateSubtasksHtml(subtasks) {
+function createSubtasksHtml(subtasks) {
     if (!Array.isArray(subtasks)) {
         console.info('subtasks is not an array:', subtasks);
         return ''; //
@@ -112,7 +112,7 @@ function renderEditTask(taskId) {
     
     const assignedUsersHtml = generateAssignedUsersHtml(task.assignTo);
     const assigneesMarkup = generateAssigneesMarkup(task, letterContainer);
-    const subtasksHtml = generateSubtasksHtml(task.subtask);
+    const subtasksHtml = createSubtasksHtml(task.subtask);
 
     const modalContent = `
     <main class="addTask-content" data-task-id="${taskId}">

@@ -179,8 +179,7 @@ function generateSubtasksHtml(task, subtasks) {
  */
 function detailModalContent(task) {
     let assigneesHtml = generateAssigneesHtml(task.assignTo);  // Bereitet HTML für Assignees vor, zeigt "N/A", wenn keine vorhanden sind
-    console.log('Subtasks before generateSubtasksHtml call:', task.subtask);
-    let subtasksHtml = generateSubtasksHtml(task.subtask);  // Bereitet HTML für Subtasks vor, zeigt nichts, wenn keine vorhanden sind
+    let subtasksHtml = generateSubtasksHtml(task, task.subtask);  // Bereitet HTML für Subtasks vor, zeigt nichts, wenn keine vorhanden sind
     return `
     ${generateDetailHeader(task)}
         <div class="task-details-main-content">

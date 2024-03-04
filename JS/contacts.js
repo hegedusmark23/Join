@@ -484,7 +484,3 @@ function originalBgColorOfAddContactBtnMobile() {
 function doNotClose(event) {
     event.stopPropagation()
 }
-
-
-
-
