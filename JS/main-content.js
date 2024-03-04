@@ -153,6 +153,21 @@ function buttonFocus() {
 }
 
 /**
+ * @returns the current url.
+ */
+function getCurrentURL() {
+  return window.location.href
+}
+
+/**
+ * Redirects to the previous page from the generated content.
+ */
+function closeGeneratedContent() {
+  const url = getCurrentURL()
+    window.location.href = url;
+}
+
+/**
  * Counts the total number of tasks on the summary page.
  */
 function numberOfAllTasks() {

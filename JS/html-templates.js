@@ -4,7 +4,7 @@
  */
 function legalNoticeHTML() {
     return /*html*/`
-        <a class="legal-site-arrow" href="/summary.html"><img class="arrow" src="/assets/img/arrow-left-blue.png" alt=""></a>
+        <a class="legal-site-arrow" onclick="closeGeneratedContent()"><img class="arrow" src="/assets/img/arrow-left-blue.png" alt=""></a>
             <div id="summary-content">
                 <div class="legal-text-container">
                     <div>
@@ -39,7 +39,7 @@ function legalNoticeHTML() {
  */
 function privacyPolicyHTML() {
     return /*html*/`
-        <a class="legal-site-arrow" href="/summary.html"><img class="arrow"
+        <a class="legal-site-arrow" onclick="closeGeneratedContent()"><img class="arrow"
                     src="/assets/img/arrow-left-blue.png" alt=""></a>
             <div id="summary-content">
                 <div class="legal-text-container">
@@ -131,7 +131,7 @@ function privacyPolicyHTML() {
  */
 function helpHTML() {
     return /*html*/`
-    <a class="legal-site-arrow" href="/summary.html"><img class="arrow"
+    <a class="legal-site-arrow" onclick="closeGeneratedContent()"><img class="arrow"
     src="/assets/img/arrow-left-blue.png" alt=""></a>
 <div id="summary-content">
 <div class="legal-text-container">

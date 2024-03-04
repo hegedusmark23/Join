@@ -12,103 +12,108 @@
     <link rel="shortcut icon" href="./assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
-<body onload="init();">
+<body onload=" init();">
     <main class="index-contents">
-        <header w3-include-html="./assets/templates/header.html"></header>
-        <aside class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
+        <header id="header" w3-include-html="./assets/templates/header.html"></header>
+        <aside id="navbar" class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
         <div class="content-container">
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="closeMenu(); generatePrivacyPolicyContent();">Legal Notice</a></div>
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="closeMenu(); generateLegalNoticeContent();">Privacy Policy</a></div>
-                <div onclick="logOut()" class="popup-links-div"><a class="popup-links" href="landingpage.html">Log
+                <div onclick="logOut()" class="popup-links-div"><a class="popup-links">Log
                         out</a></div>
             </menu>
             <section class="main-content" onclick="closeMenu()" id="main-content">
                 <div class="summary-container">
                     <div class="summary-main-content">
-                        <div class="tasks-headline-container">
+                        <div id="tasks-headline-container" class="tasks-headline-container">
                             <div class="summary-headline">
                                 <h1 class="summary-headline-bold">Join 360</h1>
                                 <div class="vert-blue-line"></div>
                                 <p class="summary-headline-normal">Key Metrics at a Glance</p>
                                 <div class="blue-line-mobile"></div>
                             </div>
-                            <div class="tasks-summary-section">
+
+                            <div class="tasks-summary-container">
+                                <div class="tasks-summary-section">
+
+                                    <a href="/board.html">
+                                        <div class="task-container-mid">
+                                            <div id="pencil-button" onmouseover="changePencilImgColor()"
+                                                class="summary-task-display-mid">
+                                                <div class="summary-icon-circle"><img id="pencil-icon"
+                                                        src="./assets/img/pencil-white.png" alt="">
+                                                </div>
+                                                <div class="text-center">
+                                                    <h1 id="numberOfToDos" class="tasks-number no-margin">0</h1>
+                                                    <span class="summary-text">To-do</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="/board.html">
+                                        <div id="check-button" onmouseover="changeCheckImgColor()"
+                                            class="summary-task-display-mid">
+                                            <div class="summary-icon-circle"><img id="check-icon"
+                                                    src="./assets/img/check-white.png" alt=""></div>
+                                            <div class="text-center">
+                                                <h1 id="numberOfDone" class="tasks-number no-margin">0</h1>
+                                                <span class="summary-text">Done</span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
 
                                 <a href="/board.html">
-                                    <div class="task-container-mid">
-                                        <div id="pencil-button" onmouseover="changePencilImgColor()"
-                                            class="summary-task-display-mid">
-                                            <div class="summary-icon-circle"><img id="pencil-icon"
-                                                    src="./assets/img/pencil-white.png" alt="">
+                                    <div class="summary-task-display-long">
+                                        <div class="urgency-div">
+                                            <div class="red-urgent-icon"><img src="./assets/img/doube-arrows-up.png"
+                                                    alt="">
                                             </div>
                                             <div class="text-center">
-                                                <h1 id="numberOfToDos" class="tasks-number no-margin">0</h1>
-                                                <span class="summary-text">To-do</span>
+                                                <h1 id="numberOfUrgent" class="tasks-number no-margin">0</h1>
+                                                <span class="summary-text">Urgent</span>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-
-                                <a href="/board.html">
-                                    <div id="check-button" onmouseover="changeCheckImgColor()"
-                                        class="summary-task-display-mid">
-                                        <div class="summary-icon-circle"><img id="check-icon"
-                                                src="./assets/img/check-white.png" alt=""></div>
-                                        <div class="text-center">
-                                            <h1 id="numberOfDone" class="tasks-number no-margin">0</h1>
-                                            <span class="summary-text">Done</span>
+                                        <div class="gray-vert-line"></div>
+                                        <div class="deadline-div">
+                                            <h3 id="urgentDate">No urgent task</h3>
+                                            <span>Upcoming Deadline</span>
                                         </div>
                                     </div>
                                 </a>
 
-                            </div>
+                                <div class="small-task-container">
+                                    <a href="/board.html">
+                                        <div class="summary-task-display-small">
+                                            <h1 id="numberOfTasksInBoard" class="tasks-number no-margin">0</h1>
+                                            <span class="summary-text-bigger">Tasks in Board</span>
+                                        </div>
+                                    </a>
 
-                            <a href="/board.html">
-                                <div class="summary-task-display-long">
-                                    <div class="urgency-div">
-                                        <div class="red-urgent-icon"><img src="./assets/img/doube-arrows-up.png" alt="">
+                                    <a href="/board.html">
+                                        <div class="summary-task-display-small">
+                                            <h1 id="numberOfTasksInProgress" class="tasks-number no-margin">0</h1>
+                                            <span class="summary-text-bigger">Tasks In Progress</span>
                                         </div>
-                                        <div class="text-center">
-                                            <h1 id="numberOfUrgent" class="tasks-number no-margin">0</h1>
-                                            <span class="summary-text">Urgent</span>
+                                    </a>
+
+                                    <a href="/board.html">
+                                        <div class="summary-task-display-small">
+                                            <h1 id="awaitingFeedback" class="tasks-number no-margin">0</h1>
+                                            <span class="summary-text-bigger">Awaiting Feedback</span>
                                         </div>
-                                    </div>
-                                    <div class="gray-vert-line"></div>
-                                    <div class="deadline-div">
-                                        <h3 id="urgentDate">No urgent task</h3>
-                                        <span>Upcoming Deadline</span>
-                                    </div>
+                                    </a>
                                 </div>
-                            </a>
-
-                            <div class="small-task-container">
-                                <a href="/board.html">
-                                    <div class="summary-task-display-small">
-                                        <h1 id="numberOfTasksInBoard" class="tasks-number no-margin">0</h1>
-                                        <span class="summary-text-bigger">Tasks in Board</span>
-                                    </div>
-                                </a>
-
-                                <a href="/board.html">
-                                    <div class="summary-task-display-small">
-                                        <h1 id="numberOfTasksInProgress" class="tasks-number no-margin">0</h1>
-                                        <span class="summary-text-bigger">Tasks In Progress</span>
-                                    </div>
-                                </a>
-
-                                <a href="/board.html">
-                                    <div class="summary-task-display-small">
-                                        <h1 id="awaitingFeedback" class="tasks-number no-margin">0</h1>
-                                        <span class="summary-text-bigger">Awaiting Feedback</span>
-                                    </div>
-                                </a>
                             </div>
+
                         </div>
                     </div>
-                    <div class="welcome-section">
+                    <div id="welcome-section" class="welcome-section">
                         <h1 id="daytime" class="daytime-text no-margin">Sample Daytime,</h1><br>
                         <h1 id="welcome-message" class="user-name-text no-margin">Guest User</h1>
                     </div>
