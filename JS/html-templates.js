@@ -1,6 +1,6 @@
 /**
- * Gibt das HTML für den rechtlichen Hinweis zurück.
- * @returns {string} HTML-String für die Seite des rechtlichen Hinweises.
+ * Returns the HTML for the legal notice.
+ * @returns {string} HTML string for the legal notice page.
  */
 function legalNoticeHTML() {
     return /*html*/`
@@ -34,8 +34,8 @@ function legalNoticeHTML() {
 }
 
 /**
- * Gibt das HTML für die Datenschutzerklärung zurück.
- * @returns {string} HTML-String für die Datenschutzerklärungsseite.
+ * Returns the HTML for the privacy policy.
+ * @returns {string} HTML string for the privacy policy page.
  */
 function privacyPolicyHTML() {
     return /*html*/`
@@ -126,8 +126,8 @@ function privacyPolicyHTML() {
 }
 
 /**
- * Gibt das HTML für die Hilfeseite zurück.
- * @returns {string} HTML-String für die Hilfeseite.
+ * Returns the HTML for the help page.
+ * @returns {string} HTML string for the help page.
  */
 function helpHTML() {
     return /*html*/`

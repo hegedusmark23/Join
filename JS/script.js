@@ -1,95 +1,95 @@
 /** 
  * @global
- * @desc Der Titel der Aufgabe, die hinzugefügt wird. `null`, bis eine Eingabe erfolgt.
+ * @desc The title of the task that is being added. `null` until an input is made.
  * @type {string|null}
  */
 let title = null;
 
 /** 
  * @global
- * @desc Die Beschreibung der Aufgabe. `null`, bis eine Eingabe erfolgt.
+ * @desc The description of the task. `null` until an input is made.
  * @type {string|null}
  */
 let description = null;
 
 /** 
  * @global
- * @desc Das Fälligkeitsdatum der Aufgabe. `null`, bis eine Eingabe erfolgt.
+ * @desc The due date of the task. `null` until an input is made.
  * @type {string|null}
  */
 let dueDate = null;
 
 /** 
  * @global
- * @desc Die Priorität der Aufgabe. `null`, bis eine Auswahl erfolgt.
+ * @desc The priority of the task. `null` until a selection is made.
  * @type {string|null}
  */
 let prio = null;
 
 /** 
  * @global
- * @desc Eine Liste von Subtasks der Aufgabe. Leer, bis Subtasks hinzugefügt werden.
+ * @desc A list of subtasks of the task. Blank until subtasks are added.
  * @type {Array<Object>}
  */
 let subtasks = [];
 
 /** 
  * @global
- * @desc Eine Liste der dem Task zugewiesenen Personen. Leer, bis Zuweisungen erfolgen.
+ * @desc A list of people assigned to the task. Blank until assignments are made.
  * @type {Array<Object>}
  */
 let assignedTo = [];
 
 /** 
  * @global
- * @desc Die Kategorie der Aufgabe. `null`, bis eine Auswahl erfolgt.
+ * @desc The category of the task. `null` until a selection is made.
  * @type {string|null}
  */
 let category = null;
 
 /** 
  * @global
- * @desc Ein Zähler zur Erstellung eindeutiger Identifikatoren für neue Aufgaben.
+ * @desc A counter to create unique identifiers for new tasks.
  * @type {number}
  */
 let identifier = 0;
 
 /** 
  * @global
- * @desc Eine Liste aller Aufgaben. Leer, bis Aufgaben hinzugefügt werden.
+ * @desc A list of all tasks. Blank until tasks are added.
  * @type {Array<Object>}
  */
 let tasks = [];
 
 /**
- * Initialisiert die Hauptfunktionen der Anwendung.
- * Lädt dynamische HTML-Inhalte, begrüßt den Benutzer basierend auf der Tageszeit,
- * fokussiert den Hauptbutton und sortiert die Aufgaben in verschiedene Kategorien.
- * Die Sortierung erfolgt mit einer Verzögerung, um sicherzustellen, dass alle
- * Daten geladen wurden.
+ * Initializes the main functions of the application.
+ * Loads dynamic HTML content, greets the user based on the time of day,
+ * focuses the main button and sorts the tasks into different categories.
+ * Sorting occurs with a delay to ensure all
+ * Data has been loaded.
  */
 async function init(){
     mobileWelcomeAnimation();
-    await includeHTML(); // Lädt dynamische HTML-Komponenten
-    timeDynamicWelcome(); // Zeigt eine begrüßende Nachricht basierend auf der Tageszeit
-    buttonFocus(); // Setzt den Fokus auf den Hauptbutton der Seite
-    // Verzögert die Ausführung der Sortierfunktionen, um das Laden der Daten abzuwarten
+    await includeHTML(); // Loads dynamic HTML components
+    timeDynamicWelcome(); // Displays a welcoming message based on the time of day
+    buttonFocus(); // Sets the focus on the main button of the page
+    // Delays the execution of the sorting functions to wait for the data to load
     setTimeout(() => {
         sortTasksByStateToDo();
         sortTasksByStateInProgress();
-        numberOfAllTasks(); // Aktualisiert die Anzeige der Gesamtanzahl der Aufgaben
+        numberOfAllTasks(); // Updates the display of the total number of tasks
         sortTasksByStateAwaitingFeedback();
         sortTasksByStateDone();
-        sortTasksByPrioUrgent(); // Sortiert die Aufgaben nach Dringlichkeit
+        sortTasksByPrioUrgent(); //Sorts tasks by urgency
     }, 250);
 }
 
 /**
- * Initialisiert die Registrierungsfunktion der Anwendung.
- * Lädt vorhandene Benutzerdaten beim Start der Registrierungsseite.
+ * Initializes the application's registration function.
+ * Loads existing user data when starting the registration page.
  */
 async function initRegister(){
-    await loadUsers(); // Lädt vorhandene Benutzer aus dem Speicher
+    await loadUsers(); // Loads existing users from storage
 }
 
 async function showTasks() {
@@ -121,13 +121,13 @@ function reinitializeEventListenersForEditModal() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialisierungen, die auf allen Seiten durchgeführt werden sollten
+    // Initializations that should be performed on all pages
         checkInputFields();
         saveInputFields();
         loadTasks();
         createTask();
 
-        // Funktionen, die sowohl auf der "Add Task"-Seite als auch auf der "Board"-Seite benötigt werden
+        //Functions needed on both the "Add Task" page and the "Board" page
       if (window.location.href === "http://127.0.0.1:5500/addtask.html") {
         loadItems().then(() => {
             renderAssignees();
@@ -142,12 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
         setupCategoryDropdownEventListeners();
         setupAssigneeGlobalClickListener();
       }
-    // Hilfsfunktion, um zu überprüfen, "Board"-Seite aktiv
+    // Auxiliary function to check "Board" page active
     function isBoardPage() {
         return document.getElementById('board-card-background-1') !== null;
   
     }
-    // Funktionen spezifisch für die "Board"-Seite
+    // Functions specific to the "Board" page
     function initializeBoardPage() {
         initializeBoardCard();
         setupTaskClickListeners();
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupTaskStateListeners();
     }
 
-    // Bedingte Initialisierung basierend auf der aktuellen Seite
+    // Conditional initialization based on the current page
     if (isBoardPage()) {
         initializeBoardPage();
     } else {

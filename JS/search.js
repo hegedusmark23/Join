@@ -1,7 +1,7 @@
 /**
- * Fügt dem Sucheingabefeld einen Event-Listener hinzu, der bei jeder Eingabe ausgelöst wird.
- * Startet die Suchfunktion basierend auf dem eingegebenen Suchbegriff.
- * Wechselt die Icons basierend darauf, ob das Eingabefeld leer ist oder nicht.
+ * Adds an event listener to the search input field that fires on each input.
+ * Starts the search function based on the search term entered.
+ * Switches icons based on whether the input field is empty or not.
  */
 document.querySelector('input[type="text"]').addEventListener('input', async function(e) {
     const searchTerm = e.target.value;
@@ -18,19 +18,19 @@ document.querySelector('input[type="text"]').addEventListener('input', async fun
 });
 
 /**
- * Fügt dem Kreuz-Icon im Suchfeld einen Event-Listener hinzu.
- * Bei Klick wird der Inhalt des Eingabefelds gelöscht und das Such-Icon wieder angezeigt.
+ * Adds an event listener to the cross icon in the search field.
+ * When you click, the contents of the input field are deleted and the search icon is displayed again.
  */
 document.querySelector('.search-icon img[src*="cross.svg"]').addEventListener('click', function() {
     const inputField = document.querySelector('input[type="text"]'); 
-    inputField.value = ''; // Löscht den Wert im Inputfeld
-    inputField.dispatchEvent(new Event('input')); // Trigger manuell das input Event, um die Suche zurückzusetzen und das Icon zu wechseln
+    inputField.value = ''; // Deletes the value in the input field
+    inputField.dispatchEvent(new Event('input')); // Manually trigger the input event to reset the search and change the icon
 });
 
 /**
- * Führt eine Suche durch, indem es die vorhandenen Tasks nach dem Suchbegriff filtert.
- * Aktualisiert das Board, um nur die Tasks anzuzeigen, die den Suchkriterien entsprechen.
- * @param {string} searchTerm - Der Suchbegriff, nach dem gefiltert werden soll.
+ * Performs a search by filtering the existing tasks based on the search term.
+ * Updates the board to show only the tasks that match the search criteria.
+ * @param {string} searchTerm - The search term to filter on.
  */
 async function searchTasks(searchTerm) {
     let tasks = await fetchTasks();
@@ -40,5 +40,5 @@ async function searchTasks(searchTerm) {
             (task.description && task.description.toLowerCase().includes(searchTerm.toLowerCase()))
         );
     }
-    await initializeBoardCard(tasks); // initializeBoardCard mit gefilterten Tasks aufrufen
+    await initializeBoardCard(tasks); // Call initializeBoardCard with filtered tasks
 }

@@ -1,37 +1,37 @@
 /**
  * @global
- * @desc Array, das alle Benutzerobjekte speichert. Jedes Benutzerobjekt enthält Name, E-Mail und Passwort.
+ * @desc Array that stores all user objects. Each user object contains name, email and password.
  * @type {Array<Object>}
  */
 let users = [];
 
 /**
  * @global
- * @desc Speichert Informationen zum derzeit eingeloggten Benutzer.
+ * @desc Stores information about the currently logged in user.
  * @type {Array}
  */
 let currentUser = [];
 
 /**
  * @global
- * @desc Wird verwendet, um auf das Namenseingabefeld des Registrierungsformulars zu verweisen.
+ * @desc Used to reference the name input field of the registration form.
  * @type {HTMLInputElement}
  */
 let Name = [];
 
 /**
- * Lädt die Benutzerliste aus dem Speicher und aktualisiert die globale Variable `users`.
- * 
- * Diese asynchrone Funktion versucht, eine gespeicherte Liste von Benutzern zu laden, indem sie
- * auf einen Speichermechanismus zugreift. Die geladenen
- * Daten werden dann verwendet, um die globale Variable `users` zu aktualisieren. Im Falle eines
- * Fehlers beim Laden der Daten wird eine Fehlermeldung in der Konsole ausgegeben.
+ * Loads the user list from memory and updates the global variable `users`.
+ *
+ * This asynchronous function attempts to load a saved list of users by
+ * accesses a storage mechanism. The invited ones
+ * Data is then used to update the global variable `users`. in case of a
+ * If there is an error loading the data, an error message is displayed in the console.
  * 
  * @async
  * @function loadUsers
- * @returns {Promise<void>} Eine Promise, die erfüllt wird, wenn die Benutzer geladen und die
- * globale Variable `users` aktualisiert wurde. Gibt nichts zurück, aber fängt mögliche Fehler ab
- * und zeigt diese in der Konsole an.
+ * @returns {Promise<void>} A promise that will be fulfilled when the users load and the
+ * global variable `users` has been updated. Returns nothing, but catches possible errors
+ * and displays this in the console.
  */
 async function loadUsers() {
   try {
@@ -42,13 +42,13 @@ async function loadUsers() {
 }
 
 /**
- * Führt die Benutzerregistrierung durch das Erfassen der Formulardaten und das Speichern der Benutzerdaten aus.
- * Nach erfolgreicher Registrierung werden das Formular zurückgesetzt und der Benutzer zur Anmeldeseite weitergeleitet.
+ * Performs user registration by collecting the form data and saving the user data.
+ * After successful registration, the form will be reset and the user will be redirected to the login page.
  * 
  * @async
  * @function register
- * @description Registriert einen neuen Benutzer mit den eingegebenen Daten aus dem Registrierungsformular.
- * Deaktiviert den Registrierungsbutton während des Registrierungsvorgangs, um Mehrfachregistrierungen zu vermeiden.
+ * @description Registers a new user with the data entered from the registration form.
+ * Disables the registration button during the registration process to avoid multiple registrations.
  */
 async function register() {
   let Name = document.getElementById('name');
@@ -68,7 +68,7 @@ async function register() {
 }
 
 /**
- * Setzt das Registrierungsformular nach der Registrierung zurück.
+ * Resets the registration form after registration.
  */
 function resetForm() {     
   let Name = document.getElementById('name');
@@ -80,7 +80,7 @@ function resetForm() {
 }
 
 /**
- * Überprüft, ob die Passwörter bei der Registrierung übereinstimmen.
+ * Checks whether the passwords match during registration.
  */
 function match() {      
   var password = document.getElementById("password")
@@ -97,7 +97,7 @@ function match() {
 }
 
 /**
- * Führt den Login-Prozess durch.
+ * Performs the login process.
  */
 async function login() {
   let email = document.getElementById('email');
@@ -112,7 +112,7 @@ async function login() {
 }
 
 /**
- * Leert die Arrays, die den aktuellen Benutzer betreffen, und leitet zur Login-Seite um.
+ * Empties the arrays related to the current user and redirects to the login page
  */
 function logOut() {  
   Name = [];
@@ -120,36 +120,8 @@ function logOut() {
   window.location.href = '/index.html';
 }
 
-/*async function logOut() {
-  try {
-    // Elküldjük a kijelentkezési kérést a szervernek
-    const response = await fetch('/logout', {
-      method: 'POST', // vagy más HTTP módszer, amit a szerver támogat
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: 'logout',
-        // bármilyen további adatot elküldhetsz a szervernek a kijelentkezéssel kapcsolatban
-      }),
-    });
-
-    if (response.ok) {
-      // Sikeres kijelentkezés esetén töröljük a helyi felhasználói adatokat
-      await removeItem('user');
-      
-      // Átirányítjuk a felhasználót
-      window.location.href = '/landingpage.html';
-    } else {
-      console.error('Hiba történt a kijelentkezés során', response.statusText);
-    }
-  } catch (error) {
-    console.error('Hiba történt a kijelentkezés során', error);
-  }
-}*/
-
 /**
- * Legt den aktuellen Benutzer nach dem Login fest.
+ * Sets the current user after login.
  */
 async function setCurrentUser() {   
   const userData = await getItem('user');
@@ -166,7 +138,7 @@ async function setCurrentUser() {
 }
 
 /**
- * Legt den Namen des aktuellen Benutzers fest.
+ * Sets the name of the current user.
  */
 async function setCurrentUserName() { 
   const userData = await getItem('user');
@@ -180,7 +152,7 @@ async function setCurrentUserName() {
 }
 
 /**
- * Filtert den Namen des Benutzers heraus.
+ * Filters out the user's name.
  */
 function getNamefromArray() {
   let message = document.getElementById('welcome-message');
@@ -188,7 +160,7 @@ function getNamefromArray() {
 }
 
 /**
- * Setzt den ersten Buchstaben des angemeldeten Benutzers groß und zeigt sie auf dem Benutzer-Button an.
+ * Capitalizes the first letter of the logged in user and displays it on the user button.
  */
 function capitalisedName() {    
   let capitalisedName = document.getElementById('user-name-capitalized');
@@ -199,7 +171,7 @@ function capitalisedName() {
 }
 
 /**
- * Zeigt eine Fehlermeldung an, falls Benutzername oder Passwort falsch sind.
+ * Displays an error message if username or password is incorrect.
  */
 function loginError() {       
   let message = document.getElementById('login-error-message');
@@ -209,7 +181,7 @@ function loginError() {
 }
 
 /**
- * Funktion hinter der Checkbox "Angemeldet bleiben".
+ * Function behind the “Stay logged in” checkbox.
  */
 function rememberMe() {   
   var rememberMeCheckbox = document.getElementById('remember');
