@@ -25,7 +25,7 @@ body {
 
 
 .contact-book::-webkit-scrollbar {
-  width:24px;
+  width: 24px;
 }
 
 .contact-book::-webkit-scrollbar-thumb {
@@ -38,7 +38,7 @@ body {
   background-color: #fff;
 }
 
-.contact-book::-webkit-scrollbar-button{
+.contact-book::-webkit-scrollbar-button {
   width: 100vw;
   color: #a8a8a8;
 }
@@ -49,7 +49,7 @@ body {
   background: #2a3647;
   border-radius: 10px;
   width: 352px;
-  height: 56px;
+  height: 38px;
   padding: 12px 0;
   color: #fff;
   font-weight: bold;
@@ -67,7 +67,7 @@ body {
 }
 
 .add-new-contact-btn:hover {
-  background-color: #29abe2;
+  background-color: #29abe2 !important;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -366,10 +366,11 @@ h1.contact-view-title {
   gap: 5px;
 }
 
-.contact-list-name{
+.contact-list-name {
   color: #000;
   font-size: 20px;
 }
+
 .contact-list-email {
   color: #29abe2;
   font-size: 16px;
@@ -539,6 +540,12 @@ h1.contact-view-title {
   border: 1px solid rgba(0, 0, 0, 0.5);
   outline: none !important;
   padding: 16px 38px 16px 16px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .contact-btn-container {
@@ -807,11 +814,11 @@ h1.contact-view-title {
     display: none;
   }
 
-  .add-new-contact-btn-mobile {
+  
+  .three-vertical-dots-container {
     display: none;
   }
-
-  .three-vertical-dots-container {
+  .desktop-d-none {
     display: none;
   }
 }
@@ -934,7 +941,7 @@ h1.contact-view-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -120px;
+    margin-top: -90px;
   }
 
   .person-icon-container {

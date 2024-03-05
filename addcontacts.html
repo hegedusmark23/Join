@@ -33,7 +33,7 @@
                             alt="add-person">
                     </div>
                     <div onclick="showAddContactOverlay()" id="add-new-contact-btn-mobile"
-                        class="add-new-contact-btn-mobile"><img class="add-person-icon"
+                        class="add-new-contact-btn-mobile desktop-d-none"><img class="add-person-icon"
                             src="./assets/icons/person_add.svg" alt="">
                     </div>
                     <div id="contacts-list" class="contacts-list"></div>
@@ -88,7 +88,7 @@
                                         placeholder="Name and Lastname">
                                     <input required class="input-email" type="email" id="email"
                                         placeholder="E-Mail Address">
-                                    <input required class="input-phone" type="text" id="phone" placeholder="Phone">
+                                    <input required class="input-phone" type="tel" id="phone" pattern="[0-9]{2}[0-9]{3}[0-9]{6}" placeholder="Phone">
                                 </div>
                                 <div class="contact-btn-container">
                                     <button class="add-contact-btn1" onclick="emptyInputs()">Cancel
