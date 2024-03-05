@@ -80,7 +80,7 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
               <p class="delete">Delete</p>
               </span>
             </div>
-            <div id="contact-view-icons-container-mobile" class="contact-view-icons-container-mobile">
+            <div id="contact-view-icons-container-mobile" class="contact-view-icons-container-mobile translateXPopUpEditDelete">
               <span onclick="showEditContactOverlay('${key}', ${i})" id="contact-view-edit-container${key}${i}" class="contact-view-edit-container">
               <svg class="pencil-edit" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                <mask id="mask0_145734_3876" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
@@ -119,7 +119,7 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
       </div>
     </div>
     <div class="successfulButtonContainer">
-       <span id="successfulButton" class="successfulButton translateSuccButton translateSuccButtonMobile">
+       <span id="successfulButton" class="successfulButton translateSuccButton">
          Contact successfully created
        </span>
     </div>

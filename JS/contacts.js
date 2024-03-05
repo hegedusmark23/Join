@@ -78,13 +78,9 @@ async function addContacts(completeName, emailAdress, phone, badgeColor) {
     let contact = new Contact(completeName, emailAdress, phone, badgeColor);
     letterContainer[firstLetter].push(contact);
     await setItem('contacts', JSON.stringify(letterContainer));
-    if (windowWidth <= 1050) {
-        document.getElementById('contact-book').classList.add('d-none');
-        document.getElementById('contact-view-section').classList.remove('mobile-d-none');
-        await showAlreadyCreatedContactInTheView();
-    } else {
-        await showAlreadyCreatedContactInTheView();
-    }
+    document.getElementById('contact-book').classList.add('mobile-d-none');
+    document.getElementById('contact-view-section').classList.remove('mobile-d-none');
+    await showAlreadyCreatedContactInTheView();
     await renderContact();
     emptyInputs();
     hideAddContactOverlay();
@@ -240,13 +236,8 @@ async function showAlreadyCreatedContactInTheView() {
 function successfulContactAddedButton() {
     let successButton = document.getElementById('successfulButton');
     setTimeout(() => {
-        if (windowWidth <= 420) {
-            successButton.classList.remove('translateSuccButtonMobile')
-        } else {
-            successButton.classList.remove('translateSuccButton');
-        }
+        successButton.classList.remove('translateSuccButton');
     }, 700)
-
     setTimeout(hideSuccessfulContactAddedButton, 3000);
 }
 
@@ -256,11 +247,7 @@ function successfulContactAddedButton() {
 
 function hideSuccessfulContactAddedButton() {
     let successButton = document.getElementById('successfulButton');
-    if (windowWidth <= 420) {
-        successButton.classList.add('translateSuccButtonMobile')
-    } else {
-        successButton.classList.add('translateSuccButton');
-    }
+    successButton.classList.add('translateSuccButton');
 }
 
 /**
