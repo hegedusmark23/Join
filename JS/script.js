@@ -120,7 +120,7 @@ function reinitializeEventListenersForEditModal() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initializations that should be performed on all pages
-    if ((window.location.href === "http://127.0.0.1:5500/addtask.html") || (window.location.href === "http://127.0.0.1:5500/board.html")){
+    if ((window.location.href === "https://gruppe-870.developerakademie.net/addtask.html") || (window.location.href === "https://gruppe-870.developerakademie.net/board.html")){
         checkInputFields();
         saveInputFields();
         }
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         createTask();
         
     //Functions needed on both the "Add Task" page and the "Board" page
-    if ((window.location.href === "http://127.0.0.1:5500/addtask.html") || (window.location.href === "http://127.0.0.1:5500/board.html")) {
+    if ((window.location.href === "https://gruppe-870.developerakademie.net/addtask.html") || (window.location.href === "https://gruppe-870.developerakademie.net/board.html")) {
         loadItems().then(() => {
             renderAssignees();
         });
