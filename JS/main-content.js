@@ -87,7 +87,7 @@ function signUpMessage() {
  */
 function redirectToLogin() {
   setTimeout(function () {
-    window.location.href = '/landingpage.html'
+    window.location.href = '/index.html'
   }, 1500)
 }
 

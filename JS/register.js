@@ -42,6 +42,14 @@ async function loadUsers() {
 }
 
 /**
+ * Initializes the application's registration function.
+ * Loads existing user data when starting the registration page.
+ */
+async function initRegister() {
+  await loadUsers(); // Loads existing users from storage
+}
+
+/**
  * Performs user registration by collecting the form data and saving the user data.
  * After successful registration, the form will be reset and the user will be redirected to the login page.
  * 

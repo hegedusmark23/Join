@@ -164,6 +164,7 @@ a {
   position: fixed;
   top: 225px;
   right: 40px;
+  z-index: 999;
 }
 
 .blue-text {
@@ -456,6 +457,12 @@ a {
   background-color: transparent;
 }
 
+.prx_expandableWrapper{
+  width: 700px;
+  z-index: 1000;
+}
+
+
 @keyframes floathingMessage {
   0% {
     bottom: 0;
@@ -534,11 +541,17 @@ a {
 }
 
 .legal-text-container-noUser {
-  padding: 120px 50px 50px;
+  padding: 120px 85px 52px 266px;
   max-width: 1300px;
+  width: 100%;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1060px) {
+
+  .prx_expandableWrapper{
+    width: 500px;
+  }
+
   .board-header {
     flex-direction: column;
     align-items: start;
@@ -607,7 +620,7 @@ a {
     overflow-x: hidden;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     flex: 1;
     max-width: 600px;
     overflow-x: scroll;
@@ -631,6 +644,11 @@ a {
 }
 
 @media (max-width: 800px) {
+  
+  .prx_expandableWrapper{
+    width: 400px;
+  }
+
   .board-header {
     padding: 100px 30px 15px 80px;
   }
@@ -656,11 +674,30 @@ a {
     width: 100%;
     justify-content: space-between;
   }
+
+  .legal-text-container-noUser {
+    padding: 120px 85px 52px 85px;
+  }
+}
+
+@media(max-width: 600px){
+
+  .prx_expandableWrapper{
+    width: 400px;
+  }
 }
 
 @media (max-width: 485px) {
   .board-header {
     padding: 100px 30px 15px 40px;
+  }
+
+  .prx_expandableWrapper{
+    width: 300px;
+  }
+
+  .legal-text-container-noUser {
+    padding: 120px 20px 52px 20px;
   }
 
   section#board-content {
@@ -669,6 +706,15 @@ a {
 }
 
 @media (max-width: 430px) {
+
+  .prx_h1 {
+    font-size: 20px !important;
+  }
+
+  .prx_expandableWrapper{
+    width: 250px;
+  }
+
   .board-header {
     padding: 100px 30px 15px 20px;
   }
@@ -697,6 +743,10 @@ a {
   .board-header {
     padding: 100px 30px 15px 20px;
   }
+
+  .legal-text-container-noUser {
+    padding: 120px 20px 52px 9px;
+}
 
   section#board-content {
     padding: 10px 30px 10px 20px;
@@ -738,6 +788,10 @@ a {
 @media (max-width: 330px) {
   .board-search-input input {
     width: 187px;
+  }
+
+  .prx_expandableWrapper{
+    width: 240px;
   }
 
   .modal-content-tasks {

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+    <link rel="stylesheet" href="./CSS/templates.css">
+    <link rel="stylesheet" href="./CSS/general.css">
+    <link rel="stylesheet" href="./CSS/summary.css">
+    <link rel="stylesheet" href="./CSS/contacts.css">
+    <link rel="shortcut icon" href="./assets/img/logo-small-blue.png" type="image/x-icon">
+</head>
+
+<body onload=" init(); setCurrentUser();">
+    <main class="index-contents">
+        <header id="header" w3-include-html="./assets/templates/header.html"></header>
+        <aside id="navbar" class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
+        <div class="content-container">
+            <menu id="popup-menu" class="menu-popup">
+                <div class="popup-links-div"><a class="popup-links"
+                        onclick="closeMenu(); generatePrivacyPolicyContent();">Legal Notice</a></div>
+                <div class="popup-links-div"><a class="popup-links"
+                        onclick="closeMenu(); generateLegalNoticeContent();">Privacy Policy</a></div>
+                <div onclick="logOut()" class="popup-links-div"><a class="popup-links">Log
+                        out</a></div>
+            </menu>
+            <section class="main-content " onclick="closeMenu()" id="main-content">
+                <a class="legal-site-arrow" href="javascript:history.back()"><img class="arrow"
+                    src="/assets/img/arrow-left-blue.png" alt=""></a>
+                <div>
+                    <h1 class="legal-headline">Privacy Policy</h1>
+                    <script src="https://www.privacybee.ch/widget.js" defer></script>
+                    <privacybee-widget website-id="cltenjo9800o5yy3cqxan2ia7" type="dsg" lang="de"></privacybee-widget>
+                </div>
+        </section>
+        </div>
+    </main>
+    <script src="./JS/w3include.js"></script>
+    <script src="./JS/html-templates.js"></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/register.js"></script>
+    <script src="./JS/board.js"></script>
+    <script src="./JS/addtask.js"></script>
+    <script src="./JS/main-content.js"></script>
+    <script src="./JS/script.js"></script>
+
+
+</body>
+
+</html>

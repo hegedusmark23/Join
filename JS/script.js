@@ -88,9 +88,7 @@ async function init() {
  * Initializes the application's registration function.
  * Loads existing user data when starting the registration page.
  */
-async function initRegister() {
-    await loadUsers(); // Loads existing users from storage
-}
+
 
 async function showTasks() {
     console.log('Das sind die Tasks in meinem Array: ', tasks);
@@ -122,7 +120,7 @@ function reinitializeEventListenersForEditModal() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initializations that should be performed on all pages
-    if ((window.location.href === "http://127.0.0.1:5500/addtask.html") || (window.location.href === "http://127.0.0.1:5500/addtask.html")){
+    if ((window.location.href === "http://127.0.0.1:5500/addtask.html") || (window.location.href === "http://127.0.0.1:5500/board.html")){
         checkInputFields();
         saveInputFields();
         }
@@ -130,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         createTask();
         
     //Functions needed on both the "Add Task" page and the "Board" page
-    if (window.location.href === "http://127.0.0.1:5500/addtask.html") {
+    if ((window.location.href === "http://127.0.0.1:5500/addtask.html") || (window.location.href === "http://127.0.0.1:5500/board.html")) {
         loadItems().then(() => {
             renderAssignees();
         });
