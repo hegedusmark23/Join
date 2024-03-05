@@ -104,10 +104,10 @@ async function setLettersContainers() {
     let contactList = document.getElementById('contacts-list');
     contactList.innerHTML = '';
     for (let key in letterContainer) {
-        if (letterContainer.hasOwnProperty(key)) {
+        if (letterContainer.hasOwnProperty(key) && letterContainer[key].length > 0) {
             contactList.innerHTML += setLetterContainersHTML(key);
+            showContactsInTheList(key);
         }
-        showContactsInTheList(key);
     }
 }
 

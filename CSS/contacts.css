@@ -14,7 +14,6 @@ body {
 }
 
 .contact-book {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,11 +23,13 @@ body {
   background-color: white;
 }
 
+
 .contact-book::-webkit-scrollbar {
   width: 8px;
 }
 
 .contact-book::-webkit-scrollbar-thumb {
+  border-radius: 20px;
   background-color: #a8a8a8;
 }
 
@@ -36,10 +37,7 @@ body {
   background-color: #fff;
 }
 
-.contact-book::-webkit-scrollbar-thumb {
-  border-radius: 20px;
-  height: 53px;
-}
+
 
 .add-new-contact-btn {
   background: #2a3647;
@@ -121,9 +119,8 @@ h1.contact-view-title {
 .contact-view-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 24px;
-  gap: 21px;
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   flex: 1;
 }
@@ -329,7 +326,7 @@ h1.contact-view-title {
   padding: 15px 24px;
   cursor: pointer;
   border-radius: 10px;
-  transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .under-container:hover {
@@ -886,9 +883,9 @@ h1.contact-view-title {
     cursor: pointer;
   }
 
-  .three-vertical-dots-container:hover{
+  .three-vertical-dots-container:hover {
     background: #29abe2;
-    cursor:pointer;
+    cursor: pointer;
   }
 
   .translateXPopUpEditDelete {
@@ -1007,11 +1004,11 @@ h1.contact-view-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow:hidden;
-    flex:1;
+    overflow: hidden;
+    flex: 1;
   }
 
-  .successfulButton{
+  .successfulButton {
     margin-top: 0;
     height: 38px;
   }
