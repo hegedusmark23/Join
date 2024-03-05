@@ -191,7 +191,7 @@ function backToContactList() {
  * @param {object} event 
  */
 function showPopUpEditDelete(event) {
-    document.getElementById('contact-view-icons-container-mobile').classList.remove('translateXPopUpEditDelete');
+    document.getElementById('contact-view-icons-container').classList.remove('translateXPopUpEditDelete');
     document.getElementById('three-vertical-dots-container').style.backgroundColor = '#29ABE2';
     event.stopPropagation();
 }
@@ -201,7 +201,10 @@ function showPopUpEditDelete(event) {
  * @param {object} event 
  */
 function hidePopUpEditDelete(event) {
-    document.getElementById('contact-view-icons-container-mobile').classList.add('translateXPopUpEditDelete');
+    let iconsContainer = document.getElementById('contact-view-icons-container');
+    if (iconsContainer) {
+        iconsContainer.classList.add('translateXPopUpEditDelete');
+    }
     setTimeout(removeBgColorOnPopUpClosed, 800);
     event.stopPropagation();
 }
@@ -349,10 +352,21 @@ async function saveNewContact(key, i) {
 async function deleteContact(key, i, event) {
     letterContainer[key].splice(i, 1);
     backToContactList();
+    hidePopUpEditDelete(event);
+    document.getElementById(`contact-view-container`).innerHTML = '';
+    await setItem('contacts', JSON.stringify(letterContainer));
+    renderContact();
+    event.stopPropagation();
+}
+
+async function deleteContactFromPopUp(key, i, event) {
+    letterContainer[key].splice(i, 1);
     document.getElementById(`contact-view-container`).innerHTML = '';
     await setItem('contacts', JSON.stringify(letterContainer));
     renderContact();
     hideEditContactOverlay(key, i, event);
+    backToContactList();
+    event.stopPropagation();
 }
 
 

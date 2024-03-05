@@ -25,16 +25,22 @@ body {
 
 
 .contact-book::-webkit-scrollbar {
-  width: 8px;
+  width:24px;
 }
 
 .contact-book::-webkit-scrollbar-thumb {
   border-radius: 20px;
+  border: 8px solid #fff;
   background-color: #a8a8a8;
 }
 
 .contact-book::-webkit-scrollbar-track {
   background-color: #fff;
+}
+
+.contact-book::-webkit-scrollbar-button{
+  width: 100vw;
+  color: #a8a8a8;
 }
 
 
@@ -165,6 +171,7 @@ h1.contact-view-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 250px;
   gap: 16px;
   height: 24px;
 }
@@ -359,8 +366,13 @@ h1.contact-view-title {
   gap: 5px;
 }
 
+.contact-list-name{
+  color: #000;
+  font-size: 20px;
+}
 .contact-list-email {
   color: #29abe2;
+  font-size: 16px;
 }
 
 .contact-bg-dialog {
@@ -791,10 +803,6 @@ h1.contact-view-title {
     transform: translateX(300%);
   }
 
-  .contact-view-icons-container-mobile {
-    display: none;
-  }
-
   .arrow-left-line {
     display: none;
   }
@@ -843,7 +851,7 @@ h1.contact-view-title {
     width: 100%;
   }
 
-  .contact-view-icons-container-mobile {
+  .contact-view-icons-container {
     position: fixed;
     bottom: 90px;
     right: 0px;
@@ -852,6 +860,7 @@ h1.contact-view-title {
     align-items: center;
     gap: 16px;
     height: auto;
+    width: auto;
     background: #fff;
     padding: 16px;
     border-radius: 20px 20px 0 20px;
@@ -890,10 +899,6 @@ h1.contact-view-title {
 
   .translateXPopUpEditDelete {
     transform: translateX(170px);
-  }
-
-  .mobile-d-none {
-    display: none;
   }
 
   .contact-dialog {
@@ -1015,6 +1020,10 @@ h1.contact-view-title {
 
   .translateSuccButton {
     transform: translateY(300px);
+  }
+
+  .mobile-d-none {
+    display: none;
   }
 }
 
