@@ -199,7 +199,7 @@ function detailModalContent(task) {
 /**
  * Deletes the current task and refreshes the view.
  */
-function deleteCurrentTask() {
+async function deleteCurrentTask() {
     const taskHeaderElement = document.querySelector('.task-details-header');
     if (taskHeaderElement && taskHeaderElement.id) {
         const taskId = taskHeaderElement.id.replace('task-', '');
@@ -208,6 +208,8 @@ function deleteCurrentTask() {
                 .then(() => {
                     console.info('Task wurde erfolgreich gelöscht');
                     closeModal('task-detail-modal');
+                    identifier--;
+                    setItem('identifier', JSON.stringify(identifier))
                     initializeBoardCard();
                 })
                 .catch(error => {

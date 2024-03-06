@@ -1,3 +1,4 @@
+
 /**
  * Resets input fields.
  */
@@ -186,10 +187,12 @@ async function loadTasks() {
     try {
         // Attempting to retrieve the saved tasks
         const storedTasks = await getItem('tasks');
+        const storedIdentifier = await getItem('identifier')
         // Check whether saved tasks exist
         if (storedTasks) {
             // Deserialization of the stored tasks and assignment to the global variable `tasks`
             tasks = JSON.parse(storedTasks);
+            identifier = JSON.parse(storedIdentifier)
         }
         // Call the function to display the loaded tasks
         showTasks();
@@ -217,12 +220,13 @@ async function createTask() {
         try {
             tasks.push(newTask);// Adding the new task to the array
             await setItem('tasks', JSON.stringify(tasks)); // Saving the updated array
+            identifier++;
+            await setItem('identifier', JSON.stringify(identifier))
             showTaskAddedMessage();
             clearAllInputs();
         } catch (error) {
             console.error('Fehler beim Speichern des Tasks:', error);
         }
-        identifier++
     });
 }
 

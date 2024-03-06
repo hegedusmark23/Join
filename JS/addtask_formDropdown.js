@@ -2,7 +2,7 @@
  * Represents the currently selected or to-be-edited task.
  * @type {Task}
  */
-let currentTask = new Task;
+let currentTask = new Task();
 
 /**
  * Indicates whether a drop-down menu was clicked to control its state.
