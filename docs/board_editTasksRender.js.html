@@ -27,18 +27,18 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Generiert die Initialen aus dem vollständigen Namen einer Person.
- * @param {string} fullName - Der vollständige Name der Person.
- * @returns {string} Die Initialen der Person.
+ * Generates the initials from the full name of a person.
+ * @param {string} fullName - The full name of the person.
+ * @returns {string} The initials of the person.
  */
 function generateInitials(fullName) {
     return fullName.split(' ').map(part => part[0].toUpperCase()).join('');
 }
 
 /**
- * Generiert HTML-String für jeden dem Task zugewiesenen Benutzer.
- * @param {Array} assignees - Liste der dem Task zugewiesenen Benutzer.
- * @returns {string} HTML-String der zugewiesenen Benutzer.
+ * Generates HTML string for each user assigned to the task.
+ * @param {Array} assignees - List of users assigned to the task
+ * @returns {string} HTML string of the assigned users
  */
 function generateAssignedUsersHtml(assignees) {
     return assignees.map(user =>
@@ -47,9 +47,9 @@ function generateAssignedUsersHtml(assignees) {
 }
 
 /**
- * Generiert das SVG für die Checkbox basierend auf dem Zuweisungsstatus.
- * @param {boolean} isAssigned - Gibt an, ob der Kontakt dem Task zugewiesen ist.
- * @returns {string} SVG-String für die Checkbox.
+ * Generates the SVG for the checkbox based on the assignment status
+ * @param {boolean} isAssigned - Indicates whether the contact is assigned to the task
+ * @returns {string} SVG string for the checkbox
  */
 function generateCheckboxSVG(isAssigned) {
     return isAssigned ? 
@@ -63,10 +63,10 @@ function generateCheckboxSVG(isAssigned) {
 }
 
 /**
- * Generiert das Markup für einen einzelnen Zuweisungseintrag.
- * @param {Object} contact - Kontaktinformationen.
- * @param {boolean} isAssigned - Gibt an, ob der Kontakt dem Task zugewiesen ist.
- * @returns {string} HTML-String für den Zuweisungseintrag.
+ * Generates the markup for a single assignment entry
+ * @param {Object} contact - Contact information
+ * @param {boolean} isAssigned -Indicates whether the contact is assigned to the task
+ * @returns {string} HTML string for the assignment entry
  */
 function generateAssigneeMarkup(contact, isAssigned) {
     const userCheckedClass = isAssigned ? 'user-checked' : '';
@@ -87,28 +87,30 @@ function generateAssigneeMarkup(contact, isAssigned) {
 }
 
 /**
- * Generiert HTML-String für die Zuweisungsliste im Bearbeitungsmodus.
- * @param {Object} task - Der zu bearbeitende Task.
- * @param {Object} letterContainer - Container mit Kontakten, gruppiert nach dem ersten Buchstaben des Namens.
- * @returns {string} HTML-String für die Zuweisungsliste.
+ * Generates HTML string for the assignment list in edit mode.
+ * @param {Object} task - The task to be processed
+ * @param {Object} letterContainer - Container with contacts, grouped by the first letter of the name
+ * @returns {string} HTML string for the assignment list
  */
 function generateAssigneesMarkup(task, letterContainer) {
     let assigneesMarkup = '';
+
     Object.keys(letterContainer).forEach(letter => {
         letterContainer[letter].forEach(contact => {
-            const isAssigned = task.assignTo.some(assignee => assignee.name === contact.completeName);
+            const isAssigned = task.assignTo.some(assignee => assignee.name.trim() === contact.completeName.trim());
             assigneesMarkup += generateAssigneeMarkup(contact, isAssigned);
         });
     });
+
     return assigneesMarkup;
 }
 
 /**
- * Generiert HTML-String für Subtasks im Bearbeitungsmodus.
- * @param {Array} subtasks - Liste der Subtasks des zu bearbeitenden Tasks.
- * @returns {string} HTML-String der Subtasks.
+ * Generates HTML string for subtasks in edit mode
+ * @param {Array} subtasks - List of subtasks of the task to be processed
+ * @returns {string} HTML string of the subtasks
  */
-function generateSubtasksHtml(subtasks) {
+function createSubtasksHtml(subtasks) {
     if (!Array.isArray(subtasks)) {
         console.info('subtasks is not an array:', subtasks);
         return ''; //
@@ -127,9 +129,23 @@ function generateSubtasksHtml(subtasks) {
     ).join('');
 }
 
+function checkAndSetPriority(prioButtons) {
+    console.log("checkAndSetPriority wird ausgeführt");
+    const isActiveButtonPresent = Array.from(prioButtons).some(button => button.classList.contains('is-active'));
+    console.log("Ist ein aktiver Button vorhanden?", isActiveButtonPresent);
+    if (!isActiveButtonPresent) {
+        console.log("Kein Button ist aktiv. Priorität wird auf null gesetzt.");
+        return null;
+    }
+    const activeButton = Array.from(prioButtons).find(button => button.classList.contains('is-active'));
+    const priority = activeButton.id.replace('addtask-prio-', '');
+    console.log("Aktive Priorität:", priority);
+    return priority;
+}
+
 /**
- * Rendert das Bearbeitungsformular für einen Task.
- * @param {number} taskId - Die ID des Tasks, der bearbeitet werden soll.
+ * Renders the processing form for a task
+ * @param {number} taskId - The ID of the task that is to be processed
  */
 function renderEditTask(taskId) {
     const task = tasks.find(t => t.id === parseInt(taskId));
@@ -140,7 +156,7 @@ function renderEditTask(taskId) {
     
     const assignedUsersHtml = generateAssignedUsersHtml(task.assignTo);
     const assigneesMarkup = generateAssigneesMarkup(task, letterContainer);
-    const subtasksHtml = generateSubtasksHtml(task.subtask);
+    const subtasksHtml = createSubtasksHtml(task.subtask);
 
     const modalContent = `
     &lt;main class="addTask-content" data-task-id="${taskId}">
@@ -294,20 +310,24 @@ function renderEditTask(taskId) {
 
     const detailModalContainer = document.getElementById('task-details');
     if (detailModalContainer) {
-        detailModalContainer.innerHTML = modalContent; // Aktualisieren des Inhalts des Modals, ohne #assign-to zu befüllen
-        renderAssignees(); // Neuaufruf von renderAssignees(), um sicherzustellen, dass die Liste korrekt gerendert und Event-Listener zugeordnet sind
+        detailModalContainer.innerHTML = modalContent; // Update the content of the modal without filling #assign-to
+        renderAssignees(); // Re-call renderAssignees() to ensure that the list is rendered correctly and event listeners are assigned
         setTimeout(() => {
             const assignToContainer = document.getElementById('assign-to');
+            const prioButtons = document.querySelectorAll('.addtask-buttons');
+            console.log("Prio-Buttons nach dem Rendering:", prioButtons.length);
+            const currentPriority = checkAndSetPriority(prioButtons);
+            console.log("Ermittelte Priorität:", currentPriority);
             if (assignToContainer) {
                 assignToContainer.innerHTML = assigneesMarkup;
-                document.querySelectorAll('.dropdown-content-container').forEach((container) => { // Binden der Event-Listener an alle Container und Überprüfung des geklickten Elements
+                document.querySelectorAll('.dropdown-content-container').forEach((container) => { // Bind the event listeners to all containers and check the clicked element
                     container.addEventListener('click', function(event) {
                         event.stopPropagation(); 
-                        let targetElement = event.target; // Identifizieren des tatsächlichen Ziel-Elements, basierend auf der Klick-Aktion
-                        if (targetElement.tagName.toLowerCase() === 'svg' || targetElement.closest('.dropdown-content-checkbox')) { // Logik für Klick auf die Checkbox
-                        } else if (targetElement.tagName.toLowerCase() === 'a' || targetElement.closest('.dropdown-content-name')) { // Logik für Klick auf den Namen
+                        let targetElement = event.target; // Identify the actual target element based on the click action
+                        if (targetElement.tagName.toLowerCase() === 'svg' || targetElement.closest('.dropdown-content-checkbox')) { // Logic for clicking on the checkbox
+                        } else if (targetElement.tagName.toLowerCase() === 'a' || targetElement.closest('.dropdown-content-name')) { // Logic for clicking on the name
                         }
-                        const containerIndex = Array.from(assignToContainer.children).indexOf(container); // Extraktion des Buchstabens und des Indexes
+                        const containerIndex = Array.from(assignToContainer.children).indexOf(container); // Extraction of the letter and the index
                         let { letter, index } = extractLetterFromIndex(containerIndex);
                         toggleAssigneeStatus(letter, index);
                     });
@@ -315,10 +335,12 @@ function renderEditTask(taskId) {
             } else {
                 console.error('#assign-to wurde nach dem Einfügen des Modals nicht gefunden.');
             }
-        }, 0); // Verzögerung sicherstellen, dass das DOM vollständig aktualisiert wurde
+        }, 0);// Delay to ensure that the DOM has been fully updated
         reinitializeEventListenersForEditModal()
     }
-}</code></pre>
+}
+
+</code></pre>
         </article>
     </section>
 
@@ -328,13 +350,13 @@ function renderEditTask(taskId) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCompletedToExistingSubtasks">addCompletedToExistingSubtasks</a></li><li><a href="global.html#addStateToExistingTasks">addStateToExistingTasks</a></li><li><a href="global.html#addSubtaskEventListener">addSubtaskEventListener</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeAddStateTasks">changeAddStateTasks</a></li><li><a href="global.html#clearEditModalContent">clearEditModalContent</a></li><li><a href="global.html#clearModalContent">clearModalContent</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeModalAddTaskBoard">closeModalAddTaskBoard</a></li><li><a href="global.html#closeModalTaskEdit">closeModalTaskEdit</a></li><li><a href="global.html#createAssigneesFooter">createAssigneesFooter</a></li><li><a href="global.html#createDivider">createDivider</a></li><li><a href="global.html#createFormSectionLeft">createFormSectionLeft</a></li><li><a href="global.html#createFormSectionRight">createFormSectionRight</a></li><li><a href="global.html#createHeaderSection">createHeaderSection</a></li><li><a href="global.html#createSubtaskContent">createSubtaskContent</a></li><li><a href="global.html#createTaskModal">createTaskModal</a></li><li><a href="global.html#deleteCurrentTask">deleteCurrentTask</a></li><li><a href="global.html#deleteTasks">deleteTasks</a></li><li><a href="global.html#detailModalContent">detailModalContent</a></li><li><a href="global.html#extractAssignees">extractAssignees</a></li><li><a href="global.html#extractFormData">extractFormData</a></li><li><a href="global.html#extractLetterFromIndex">extractLetterFromIndex</a></li><li><a href="global.html#extractPriority">extractPriority</a></li><li><a href="global.html#extractSubtasks">extractSubtasks</a></li><li><a href="global.html#fetchAndFilterTasks">fetchAndFilterTasks</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesHtml">generateAssigneesHtml</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateDescriptionHtml">generateDescriptionHtml</a></li><li><a href="global.html#generateDetailFooter">generateDetailFooter</a></li><li><a href="global.html#generateDetailHeader">generateDetailHeader</a></li><li><a href="global.html#generateDueDateHtml">generateDueDateHtml</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#generatePriorityHtml">generatePriorityHtml</a></li><li><a href="global.html#generateSubtasksHtml">generateSubtasksHtml</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLabelColor">getLabelColor</a></li><li><a href="global.html#hideNoTaskDiv">hideNoTaskDiv</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initializeBoard">initializeBoard</a></li><li><a href="global.html#initializeBoardCard">initializeBoardCard</a></li><li><a href="global.html#insertDynamicContentIntoModal">insertDynamicContentIntoModal</a></li><li><a href="global.html#loadUser">loadUser</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#numberOfDone">numberOfDone</a></li><li><a href="global.html#numberOfTodos">numberOfTodos</a></li><li><a href="global.html#openCreateTaskModalWithState">openCreateTaskModalWithState</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openTaskDetailModal">openTaskDetailModal</a></li><li><a href="global.html#renderCardContent">renderCardContent</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li><li><a href="global.html#resetNoTaskDiv">resetNoTaskDiv</a></li><li><a href="global.html#saveTaskEdit">saveTaskEdit</a></li><li><a href="global.html#saveTasksAndReloadUI">saveTasksAndReloadUI</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setupCloseAddTaskModalListener">setupCloseAddTaskModalListener</a></li><li><a href="global.html#setupCloseTaskDetailModalListener">setupCloseTaskDetailModalListener</a></li><li><a href="global.html#setupDeleteTaskListener">setupDeleteTaskListener</a></li><li><a href="global.html#setupEditTaskListener">setupEditTaskListener</a></li><li><a href="global.html#setupModalCloseDelegation">setupModalCloseDelegation</a></li><li><a href="global.html#setupModalCloseDelegationAddAtskBoard">setupModalCloseDelegationAddAtskBoard</a></li><li><a href="global.html#setupModalCloseDelegationEdit">setupModalCloseDelegationEdit</a></li><li><a href="global.html#setupModalEventListeners">setupModalEventListeners</a></li><li><a href="global.html#setupOpenAddTaskModalListener">setupOpenAddTaskModalListener</a></li><li><a href="global.html#setupSaveTaskEditListener">setupSaveTaskEditListener</a></li><li><a href="global.html#setupSubtaskCompletionListener">setupSubtaskCompletionListener</a></li><li><a href="global.html#setupTaskClickListeners">setupTaskClickListeners</a></li><li><a href="global.html#setupTaskStateListeners">setupTaskStateListeners</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#taskImage">taskImage</a></li><li><a href="global.html#toggleSubtaskCompleted">toggleSubtaskCompleted</a></li><li><a href="global.html#updateSubtaskCompletion">updateSubtaskCompletion</a></li><li><a href="global.html#updateSubtaskProgress">updateSubtaskProgress</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskDetailsAndBindListener">updateTaskDetailsAndBindListener</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createSubtasksHtml">createSubtasksHtml</a></li><li><a href="global.html#generateAssignedUsersHtml">generateAssignedUsersHtml</a></li><li><a href="global.html#generateAssigneeMarkup">generateAssigneeMarkup</a></li><li><a href="global.html#generateAssigneesMarkup">generateAssigneesMarkup</a></li><li><a href="global.html#generateCheckboxSVG">generateCheckboxSVG</a></li><li><a href="global.html#generateInitials">generateInitials</a></li><li><a href="global.html#renderEditTask">renderEditTask</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 02 2024 09:45:31 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Mar 06 2024 19:38:32 GMT+0100 (közép-európai téli idő)
 </footer>
 
 <script> prettyPrint(); </script>
