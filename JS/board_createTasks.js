@@ -1,6 +1,6 @@
 /**
- * Erstellt den Header-Bereich des Modal-Formulars.
- * @returns {string} HTML-String des Header-Bereichs.
+ * Creates the header area of the modal form
+ * @returns {string} HTML string of the header area
  */
 function createHeaderSection() {
     return /*html*/`
@@ -22,9 +22,9 @@ function createHeaderSection() {
 }
 
 /**
- * Erstellt den linken Abschnitt des Formulars, inklusive dynamischer Zustandszuweisung.
- * @param {string} taskState - Der Zustand des Tasks, der dem Modal übergeben wird.
- * @returns {string} HTML-String des linken Formularabschnitts.
+ * Creates the left section of the form, including dynamic state assignment
+ * @param {string} taskState - The state of the task that is transferred to the modal
+ * @returns {string} HTML string of the left form section
  */
 function createFormSectionLeft(taskState) {
     return /*html*/`
@@ -76,8 +76,8 @@ function createFormSectionLeft(taskState) {
 }
 
 /**
- * Erstellt den rechten Abschnitt des Formulars.
- * @returns {string} HTML-String des rechten Formularabschnitts.
+ * Creates the right section of the form
+ * @returns {string} HTML string of the right-hand section of the form
  */
 function createFormSectionRight() {
     return /*html*/`
@@ -212,16 +212,16 @@ function createFormSectionRight() {
 }
 
 /**
- * Erstellt einen Trenner zwischen den Formularabschnitten.
- * @returns {string} HTML-String des Trenners.
+ * Creates a separator between the form sections
+ * @returns {string} HTML string of the separator
  */
 function createDivider() {
     return `<div class="divider divider-modal-tpl"></div>`;
 }
 
 /**
- * Fügt dynamischen Inhalt in das AddTask Modal ein, inklusive Zustandsmanagement für die Task-Erstellung.
- * @param {string} taskState - Der Zustand des zu erstellenden Tasks.
+ * Inserts dynamic content into the AddTask modal, including state management for task creation
+ * @param {string} taskState - The status of the task to be created
  */
 function insertDynamicContentIntoModal(taskState) {
     const modalContent = document.querySelector('#addtask-modal .modal-content');
@@ -247,32 +247,30 @@ function insertDynamicContentIntoModal(taskState) {
 }
 
 /**
- * Erstellt und speichert einen neuen Task basierend auf den Formulareingaben und dem ausgewählten Zustand.
+ * Creates and saves a new task based on the form entries and the selected status
  */
 async function createTaskModal() {
-    if (!validateTaskForm()) {     // Validiere das Formular
+    if (!validateTaskForm()) {     // Validate the form
         console.info('Validation failed. No Task created.');
         return;
     }
     const taskState = document.getElementById('taskState').value;
     let newTask = new Task(
-        Date.now(), // Eindeutige ID
+        Date.now(), // Unique ID
         title,
         description,
         assignedTo,
         dueDate,
         prio,
-        new Date().toISOString(), // Erstellungsdatum
+        new Date().toISOString(), // Date of creation
         STORAGE_TOKEN,
         identifier
     );
-    // Hinzufügen von Kategorie und Subtasks
-    newTask.category = category;
+    newTask.category = category; // Add category and subtasks
     newTask.subtask = subtasks;
-    newTask.state = taskState || 'toDo'; // Setzen des Task-Zustandes
+    newTask.state = taskState || 'toDo'; // Set the task state
     try {
-        // Hinzufügen des neuen Tasks zum Array und Speichern
-        tasks.push(newTask);
+        tasks.push(newTask); // Add the new task to the array and save
         await setItem('tasks', JSON.stringify(tasks));
         console.info('Task erfolgreich gespeichert');
         showTaskAddedMessage();
@@ -286,13 +284,13 @@ async function createTaskModal() {
 }
 
 /**
- * Leert den Inhalt des Modal-Formulars und setzt es auf den Ursprungszustand zurück.
+ * Clears the content of the modal form and resets it to its original state
  */
 function clearModalContent() {
     const modalContent = document.querySelector('#addtask-modal .modal-content');
     if (modalContent) {
-        modalContent.innerHTML = ''; // Entfernt den Inhalt des .modal-content Containers
-        modalContent.className = 'modal-content'; // Stellt die ursprünglichen Klassen des Containers wieder her
+        modalContent.innerHTML = ''; // Removes the content of the .modal-content container
+        modalContent.className = 'modal-content'; // Restores the original classes of the container
     }
     const modal = document.getElementById('addtask-modal');
     if (modal) {
