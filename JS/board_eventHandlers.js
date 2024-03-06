@@ -1,7 +1,7 @@
 //! Allgemeine Eventlistner
 
 /**
- * Fügt einen Event Listener hinzu, der auf Klicks auf Subtask-Checkboxen reagiert.
+ * Adds an event listener that reacts to clicks on subtask checkboxes.
  */
 function addSubtaskEventListener() {
     document.body.addEventListener('click', async (event) => {
@@ -21,7 +21,7 @@ function addSubtaskEventListener() {
 //! Create Tasks Eventlistner (board_createTasks.js)
 
 /**
- * Initialisiert den EventListener zum Öffnen des AddTask-Modals.
+ * Initialises the EventListener to open the AddTask modal
  */
 function setupOpenAddTaskModalListener() {
     const openAddTaskButton = document.getElementById('open-modal-button');
@@ -35,7 +35,7 @@ function setupOpenAddTaskModalListener() {
 }
 
 /**
- * Initialisiert den EventListener zum Schließen des AddTask-Modals.
+ * Initialises the EventListener to close the AddTask modal
  */
 function setupCloseAddTaskModalListener() {
     const closeAddTaskButton = document.getElementById('close-modal-button-addtask');
@@ -45,51 +45,51 @@ function setupCloseAddTaskModalListener() {
 }
 
 /**
- * Öffnet ein Modal auf Basis der übergebenen ID.
- * @param {string} modalId - Die ID des Modals, das geöffnet werden soll.
+ * Opens a modal based on the transferred ID
+ * @param {string} modalId - The ID of the modal to be opened
  */
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-      modal.style.display = 'block'; // Stellt sicher, dass das Modal sichtbar ist
+      modal.style.display = 'block'; // Ensures that the modal is visible
       setTimeout(() => {
-        modal.classList.add('modal-open'); // Fügt die Klasse hinzu, um das Modal sanft einzublenden
+        modal.classList.add('modal-open'); // Adds the class to gently fade in the modal
         const modalContent = modal.querySelector('.modal-content');
         if (modalContent) {
-          modalContent.classList.add('addtask-modal-content'); // Spezifische Klasse für Animation
+          modalContent.classList.add('addtask-modal-content'); // Specific class for animation
         }
       }, 10);
     }
   }
 
 /**
- * Schließt ein Modal auf Basis der übergebenen ID und sorgt für eine sanfte Ausblendung des Inhalts.
- * @param {string} modalId - Die ID des Modals, das geschlossen werden soll.
+ * Closes a modal based on the transferred ID and ensures that the content is gently faded out
+ * @param {string} modalId - The ID of the modal that is to be closed
  */
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
-    const modalContent = modal.querySelector('.modal-content-tasks'); // Zugriff auf den Inhalt des Modals
+    const modalContent = modal.querySelector('.modal-content-tasks'); // Access to the content of the modal
     if (modal && modalContent) {
-        modal.classList.remove('modal-open'); // Entfernt die Klasse, die das Modal einblendet
-        modalContent.classList.add('modal-close'); // Fügt die Klasse hinzu, die den Inhalt ausfährt
+        modal.classList.remove('modal-open'); // Removes the class that displays the modal
+        modalContent.classList.add('modal-close'); // Adds the class that extends the content
 
         setTimeout(() => {
-            modal.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-            modalContent.classList.remove('modal-close'); // Bereitet den Inhalt für die nächste Öffnung vor
-        }, 700); // Wartezeit entspricht der Dauer der Animation
+            modal.style.display = 'none'; // Hides the background after the animation
+            modalContent.classList.remove('modal-close'); // Prepares the contents for the next opening
+        }, 700); // Waiting time corresponds to the duration of the animation
     }
 }
 
 /**
- * Fügt EventListener zu spezifischen Buttons hinzu, die das AddTask-Modal mit einem vordefinierten Status öffnen.
+ * Adds EventListeners to specific buttons that open the AddTask modal with a predefined status.
  */
 function setupTaskStateListeners() {
-    const stateMappings = [     // Array mit den IDs der Buttons und den entsprechenden States
+    const stateMappings = [     // Array with the IDs of the buttons and the corresponding states
         { buttonId: 'addtask-todo', taskState: 'toDo' },
         { buttonId: 'addtask-in-progress', taskState: 'in-progress' },
         { buttonId: 'addtask-await-feedback', taskState: 'await-feedback' }
     ];
-    stateMappings.forEach(mapping => {     // Für jedes Mapping einen EventListener hinzufügen
+    stateMappings.forEach(mapping => {     // Add an EventListener for each mapping
         const button = document.getElementById(mapping.buttonId);
         if (button) {
             button.addEventListener('click', () => {
@@ -100,8 +100,8 @@ function setupTaskStateListeners() {
 }
 
 /**
- * Öffnet das AddTask-Modal und setzt den Status des neuen Tasks basierend auf dem übergebenen Parameter.
- * @param {string} taskState - Der Zustand, der dem neuen Task zugewiesen werden soll.
+ * Opens the AddTask modal and sets the status of the new task based on the transferred parameter
+ * @param {string} taskState - The status to be assigned to the new task
  */
 function openCreateTaskModalWithState(taskState) {
     insertDynamicContentIntoModal(taskState);
@@ -111,10 +111,10 @@ function openCreateTaskModalWithState(taskState) {
 }
 
 /**
- * Richtet Event-Listener für das Schließen und Erstellen eines Tasks ein. Verwendet den übergebenen Task-Zustand.
- * @param {string} taskState - Der Zustand des zu erstellenden Tasks.
+ * Sets up event listeners for closing and creating a task. Uses the transferred task state.
+ * @param {string} taskState - The status of the task to be created
  */
-function setupModalEventListeners(taskState) { // Event-Listener für den Schließen-Button
+function setupModalEventListeners(taskState) { // Event listener for the close button
     const closeModalButton = document.getElementById('close-modal-button-addtask-board');
     if (closeModalButton) {
         closeModalButton.addEventListener('click', function() {
@@ -122,7 +122,7 @@ function setupModalEventListeners(taskState) { // Event-Listener für den Schlie
             reinitializeEventListenersForEditModal();
         });
     }
-    const createTaskButton = document.getElementById('create-task-board'); // Event-Listener für den Erstellen-Button
+    const createTaskButton = document.getElementById('create-task-board'); // Event listener for the create button
     if (createTaskButton) {
         createTaskButton.addEventListener('click', function() {
             createTaskModal(taskState)
@@ -134,13 +134,13 @@ function setupModalEventListeners(taskState) { // Event-Listener für den Schlie
 
 //! Detailmodal Eventlistners (board_showTaskDetails.js)
 /**
- * Initialisiert EventListener für jede Board-Karte, um das Detail-Modal beim Klicken zu öffnen.
+ * Initialises EventListener for each board card to open the detail modal when clicked
  */
 function setupTaskClickListeners() {
     document.querySelectorAll('.board-card').forEach(card => {
         card.addEventListener('click', function () {
             const taskId = this.getAttribute('data-task-id');
-            const task = tasks.find(task => task.id.toString() === taskId); // `tasks` sollte dein Array von Task-Objekten sein
+            const task = tasks.find(task => task.id.toString() === taskId); // `tasks` should be your array of task objects
             if (task) {
                 openTaskDetailModal(task);
             }
@@ -149,7 +149,7 @@ function setupTaskClickListeners() {
 }
 
 /**
- * Initialisiert den EventListener für den Schließen-Button des Task-Detail-Modals.
+ * Initialises the EventListener for the close button of the task detail modal
  */
 function setupCloseTaskDetailModalListener() {
     const closeTaskDetailButton = document.getElementById('close-modal-button-detail');
@@ -159,20 +159,19 @@ function setupCloseTaskDetailModalListener() {
 }
 
 /**
- * Richtet eine Event-Delegation für den Schließ-Button im Detail-Modal ein.
+ * Sets up an event delegation for the close button in the detail modal.
  */
 function setupModalCloseDelegation() {
     const modal = document.getElementById('task-detail-modal');
     modal.addEventListener('click', function(event) {
-        // Prüfe, ob das geklickte Element der Schließ-Button oder ein Element innerhalb des Schließ-Buttons ist
-        if (event.target.closest('#close-modal-button-detail')) {
+        if (event.target.closest('#close-modal-button-detail')) { // Check whether the clicked element is the close button or an element within the close button
             closeModal('task-detail-modal');
         }
     });
 }
 
 /**
- * Richtet einen EventListener ein, der auf Klicks innerhalb des Modals reagiert, um Subtask-Status zu aktualisieren.
+ * Sets up an EventListener that reacts to clicks within the modal to update subtask statuses.
  */
 function setupSubtaskCompletionListener() {
     document.addEventListener('click', async function (event) {// Identifizieren ob das Task-Element im Bearbeitungsmodus ist.
@@ -192,7 +191,7 @@ function setupSubtaskCompletionListener() {
 }
 
 /**
- * Initialisiert den EventListener für den "Löschen"-Button, um den aktuellen Task zu löschen.
+ * Initialises the EventListener for the "Delete" button to delete the current task.
  */
 function setupDeleteTaskListener() {
     const deleteButton = document.getElementById('delete-task-button');
@@ -206,7 +205,7 @@ function setupDeleteTaskListener() {
 //! Create Tasks Eventlistner (board_editTasks.js)
 
 /**
- * Richtet die Event-Delegation für den Schließ-Button im Modal zum Bearbeiten von Tasks ein.
+ * Sets up the event delegation for the close button in the modal for editing tasks.
  */
 function setupModalCloseDelegationAddAtskBoard() {
     const modalAddTaskBtn = document.getElementById('close-modal-button-addtask-board');
@@ -220,7 +219,7 @@ function setupModalCloseDelegationAddAtskBoard() {
 }
 
 /**
- * Event-Listener für das Bearbeiten von Tasks.
+ * Event listener for editing tasks.
  */
 function setupEditTaskListener() {
     document.addEventListener('click', function(event) {
@@ -243,13 +242,12 @@ function setupEditTaskListener() {
 }
 
 /**
- * Richtet den Event-Listener für den Speichern-Button im Bearbeitungsmodal ein.
+ * Sets up the event listener for the save button in the editing modal.
  */
 function setupSaveTaskEditListener() {
     const saveButton = document.getElementById('save-task-edit');
     if (saveButton) {
-        saveButton.addEventListener('click', async function() {
-            // Die ID des zu bearbeitenden Tasks wird als Data-Attribut des Speichern-Buttons gespeichert.
+        saveButton.addEventListener('click', async function() { // The ID of the task to be processed is saved as the data attribute of the Save button.
             const taskId = this.getAttribute('data-task-id');
             if (!taskId) {
                 console.error('Task ID fehlt.');
@@ -268,13 +266,12 @@ function setupSaveTaskEditListener() {
 }
 
 /**
- * Richtet den Event-Listener für den Schließ-Button im Bearbeitungsmodal ein.
+ * Sets up the event listener for the close button in the editing modal.
  */
 function setupModalCloseDelegationEdit() {
     const closeModalButton = document.getElementById('close-modal-button-edittask');
     if (closeModalButton) {
-        closeModalButton.addEventListener('click', function() {
-            // Stellt sicher, dass das Dropdown geschlossen wird
+        closeModalButton.addEventListener('click', function() { // Ensures that the dropdown is closed
             toggleAssigneeDropdown(false);
             clearEditModalContent();
             reinitializeEventListenersForEditModal();

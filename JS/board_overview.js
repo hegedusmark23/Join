@@ -1,6 +1,6 @@
 
 /**
- * Aktualisiert die Anzeige der Anzahl von To-Do-Tasks.
+ * Updates the display of the number of to-do tasks.
  */
 function numberOfTodos() {
     let toDos = document.getElementById('numberOfToDos');
@@ -8,7 +8,7 @@ function numberOfTodos() {
 }
 
 /**
- * Aktualisiert die Anzeige der Anzahl von abgeschlossenen Tasks.
+ * Updates the display of the number of completed tasks.
  */
 function numberOfDone() {
     let dones = document.getElementById('numberOfDone');
@@ -16,10 +16,10 @@ function numberOfDone() {
 }
 
 /**
- * Filtert Tasks basierend auf ihrem Status.
- * @param {Array} filteredTasks - Array von gefilterten Tasks.
- * @param {string} status - Der Status, nach dem gefiltert werden soll.
- * @returns {Promise<Array>} Eine Promise, die ein Array von gefilterten Tasks zurückgibt.
+ * Filters tasks based on their status.
+ * @param {Array} filteredTasks - Array of filtered tasks.
+ * @param {string} status - The status to be filtered by
+ * @returns {Promise<Array>} - A Promise that returns an array of filtered tasks.
  */
 async function fetchAndFilterTasks(filteredTasks, status) {
     let tasks = filteredTasks ? filteredTasks : await fetchTasks();
@@ -27,18 +27,18 @@ async function fetchAndFilterTasks(filteredTasks, status) {
 }
 
 /**
- * Steuert die Anzeige des "Keine Tasks"-Divs.
- * @param {HTMLElement} noTasksDiv - Das Div-Element, das angezeigt wird, wenn keine Tasks vorhanden sind.
- * @param {Array} tasks - Array von Tasks.
+ * Controls the display of the "No tasks" div
+ * @param {HTMLElement} noTasksDiv - The div element that is displayed if there are no tasks.
+ * @param {Array} tasks - Array of Tasks
  */
 function displayNoTasksDiv(noTasksDiv, tasks) {
     noTasksDiv.style.display = tasks.length > 0 ? 'none' : 'flex';
 }
 
 /**
- * Füllt den Task-Container mit Task-Karten.
- * @param {HTMLElement} container - Der Container für die Task-Karten.
- * @param {Array} tasks - Array von Tasks.
+ * Fills the task container with task cards
+ * @param {HTMLElement} container - The container for the task cards
+ * @param {Array} tasks - Array of Tasks
  */
 function populateTaskContainer(container, tasks) {
     if (container) {
@@ -53,11 +53,11 @@ function populateTaskContainer(container, tasks) {
 }
 
 /**
- * Verarbeitet Tasks für einen bestimmten Status und aktualisiert die Anzeige entsprechend.
- * @param {Array} filteredTasks - Array von gefilterten Tasks.
- * @param {string} status - Der Status, nach dem gefiltert werden soll.
- * @param {string} noTasksDivId - Die ID des "Keine Tasks"-Divs.
- * @param {string} containerId - Die ID des Containers für die Task-Karten.
+ * Processes tasks for a specific status and updates the display accordingly
+ * @param {Array} filteredTasks - Array of filtered tasks
+ * @param {string} status - The status to be filtered by
+ * @param {string} noTasksDivId - The ID of the "No tasks" div
+ * @param {string} containerId - The ID of the container for the task cards
  */
 async function processTasksForStatus(filteredTasks, status, noTasksDivId, containerId) {
     let tasks = await fetchAndFilterTasks(filteredTasks, status);
@@ -68,24 +68,24 @@ async function processTasksForStatus(filteredTasks, status, noTasksDivId, contai
 }
 
 /**
- * Aktualisiert den Fortschritt der Subtasks für einen gegebenen Task.
- * @param {Object} task - Der Task, dessen Subtask-Fortschritt aktualisiert werden soll.
- * @returns {Object} Ein Objekt mit dem Prozentsatz des Fortschritts und einem Text, der den Fortschritt anzeigt.
+ * Updates the progress of the subtasks for a given task
+ * @param {Object} task - The task whose subtask progress is to be updated
+ * @returns {Object} Ein Objekt mit dem Prozentsatz des Fortschritts und einem Text, der den Fortschritt angibt
  */
 function updateSubtaskProgress(task) {
-    let totalSubtasks = task.subtask ? task.subtask.length : 0;// Prüfe zunächst, ob der Task Subtasks hat. Wenn ja, ermittle die Gesamtanzahl der Subtasks.
-    let completedSubtasks = task.subtask ? task.subtask.filter(subtask => subtask.completed === 'done').length : 0; // Ermittle die Anzahl der abgeschlossenen Subtasks.
-    let completionPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;// Berechne den Prozentsatz der abgeschlossenen Subtasks.
+    let totalSubtasks = task.subtask ? task.subtask.length : 0; // First check whether the task has subtasks. If so, determine the total number of subtasks
+    let completedSubtasks = task.subtask ? task.subtask.filter(subtask => subtask.completed === 'done').length : 0; // Determine the number of completed subtasks
+    let completionPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0; // Calculate the percentage of completed subtasks.
     return {
         completionPercentage,
         subtaskText: totalSubtasks > 0 ? `${completedSubtasks}/${totalSubtasks} Subtasks` : 'No Subtasks'
-    };// Die Funktion gibt ein Objekt zurück, das zwei Eigenschaften enthält:
+    }; // The function returns an object that contains two properties:
 }
 
 /**
- * Bestimmt das Bild basierend auf der Priorität des Tasks.
- * @param {Object} task - Das Task-Objekt, für das das Bild bestimmt wird.
- * @returns {string|null} Der Dateiname des Bildes oder null, wenn keine Priorität gesetzt ist.
+ * Determines the screen based on the priority of the task.
+ * @param {Object} task - The task object for which the image is determined.
+ * @returns {string|null} The file name of the image or zero if no priority is set.
  */
 function taskImage(task) {
     if (task.prio === 'low') {
@@ -95,14 +95,14 @@ function taskImage(task) {
     } else if (task.prio === 'urgent') {
         return 'prio_high.svg';
     } else {
-        return null;// Kein Bild für 'N/A' oder null-Werte
+        return null; // No image for 'N/A' or zero values
     }
 }
 
 /**
- * Erzeugt den HTML-String für die Fußzeile der Zuweisungen (Assignees) in der Board-Karte.
- * @param {Object} task - Das Task-Objekt, dessen Assignees gerendert werden sollen.
- * @returns {string} HTML-String für die Fußzeile der Assignees.
+ * Generates the HTML string for the footer of the assignments (assignees) in the board map.
+ * @param {Object} task - The task object whose assignees are to be rendered.
+ * @returns {string} HTML string for the footer of the assignees
  */
 function createAssigneesFooter(task) {
     let assigneesFooter = '';
@@ -115,9 +115,9 @@ function createAssigneesFooter(task) {
 }
 
 /**
- * Bestimmt die Farbe der Kategorie-Label basierend auf der Kategorie des Tasks.
- * @param {string} category - Die Kategorie des Tasks.
- * @returns {string} Farbcode für das Kategorie-Label.
+ * Determines the colour of the category label based on the category of the task.
+ * @param {string} category - The category of Tasks
+ * @returns {string} Colour code for the category label.
  */
 function getLabelColor(category) {
     const labelCol1 = '#0038ff';
@@ -127,10 +127,10 @@ function getLabelColor(category) {
 }
 
 /**
- * Erzeugt den HTML-String für die Subtask-Anzeige in der Board-Karte.
- * @param {Object} task - Das Task-Objekt, dessen Subtasks gerendert werden sollen.
- * @param {Object} completionDetails - Details zum Fortschritt der Subtasks.
- * @returns {string} HTML-String für die Subtask-Anzeige.
+ * Generates the HTML string for the subtask display in the board map.
+ * @param {Object} task - The task object whose subtasks are to be rendered.
+ * @param {Object} completionDetails - Details on the progress of the subtasks.
+ * @returns {string} HTML string for the subtask display.
  */
 function createSubtaskContent(task, completionDetails) {
     return (task.subtask && task.subtask.length > 0) ?
@@ -143,11 +143,11 @@ function createSubtaskContent(task, completionDetails) {
 }
 
 /**
- * Erstellt den HTML-Content für eine Board-Karte basierend auf einem Task.
- * @param {number} i - Index des Tasks im Array, dient als Teil der ID.
- * @param {Object} task - Das Task-Objekt, für das der Inhalt erstellt wird.
- * @param {Object} completionDetails - Details zum Fortschritt der Subtasks.
- * @returns {string} HTML-String für die Board-Karte.
+ * Creates the HTML content for a board map based on a task.
+ * @param {number} i - Index of the task in the array, serves as part of the ID.
+ * @param {Object} task - The task object for which the content is created.
+ * @param {Object} completionDetails - Details on the progress of the subtasks.
+ * @returns {string} HTML string for the board card.
  */
 function renderCardContent(i, task, completionDetails) {
     let tasksImg = taskImage(task);
@@ -171,10 +171,10 @@ function renderCardContent(i, task, completionDetails) {
 }
 
 /**
- * Wechselt den Abschlussstatus eines Subtasks.
- * @param {number} taskId - Die ID des übergeordneten Tasks.
- * @param {number} subtaskId - Die ID des Subtasks.
- * @returns {Object|null} Das aktualisierte Task-Objekt oder null, falls nicht gefunden.
+ * Changes the completion status of a subtask.
+ * @param {number} taskId - The ID of the parent task.
+ * @param {number} subtaskId - The ID of the subtask.
+ * @returns {Object|null} - The updated task object or null if not found.
  */
 async function toggleSubtaskCompleted(taskId, subtaskId) {
     let task = tasks.find(task => task.id === taskId);
