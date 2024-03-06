@@ -71,9 +71,11 @@ let tasks = [];
 async function init() {
     mobileWelcomeAnimation();
     await includeHTML(); // Loads dynamic HTML components
-    timeDynamicWelcome(); // Displays a welcoming message based on the time of day
+    
     buttonFocus(); // Sets the focus on the main button of the page
     // Delays the execution of the sorting functions to wait for the data to load
+    if (window.location.href === "http://127.0.0.1:5500/summary.html") {
+        timeDynamicWelcome(); // Displays a welcoming message based on the time of day
     setTimeout(() => {
         sortTasksByStateToDo();
         sortTasksByStateInProgress();
@@ -81,7 +83,9 @@ async function init() {
         sortTasksByStateAwaitingFeedback();
         sortTasksByStateDone();
         sortTasksByPrioUrgent(); //Sorts tasks by urgency
-    }, 250);
+    }, 300);    
+    } 
+    
 }
 
 /**

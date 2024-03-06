@@ -475,6 +475,10 @@ form {
     width: 180px;
   }
 
+  .login-error-message{
+    font-size: 11px;
+  }
+
   .white-btn {
     padding: 8px;
     font-size: 14px;

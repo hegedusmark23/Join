@@ -462,6 +462,15 @@ a {
   z-index: 1000;
 }
 
+.prx_wrapper{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.privacy-container{
+  padding: 0px 50px;
+}
+
 
 @keyframes floathingMessage {
   0% {
@@ -707,6 +716,10 @@ a {
 
 @media (max-width: 430px) {
 
+  .privacy-container{
+    padding: 50px 20px;
+  }
+
   .prx_h1 {
     font-size: 20px !important;
   }
@@ -788,6 +801,10 @@ a {
 @media (max-width: 330px) {
   .board-search-input input {
     width: 187px;
+  }
+
+  .privacy-container{
+    padding: 50px 10px;
   }
 
   .prx_expandableWrapper{

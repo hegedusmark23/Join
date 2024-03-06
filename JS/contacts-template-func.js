@@ -195,7 +195,7 @@ function editContactOverlayHTML(key, i, badgeColor) {
                     <div class="inputs-container">
                         <input required id="input-name${key}${i}" class="input-name" type="text" id="name" placeholder="Name and Lastname">
                         <input required id="input-email${key}${i}" class="input-email" type="email" id="email" placeholder="E-Mail Address">
-                        <input required id="input-phone${key}${i}" class="input-phone" type="text" id="phone" placeholder="Phone">
+                        <input required id="input-phone${key}${i}" class="input-phone" type="number" id="phone" placeholder="Phone">
                     </div>
                     <div class="contact-btn-container">
                         <button class="edit-contact-btn1" onclick="deleteContactFromPopUp('${key}', ${i}, event)">Delete

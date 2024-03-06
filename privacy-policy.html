@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="./assets/img/logo-small-blue.png" type="image/x-icon">
 </head>
 
-<body onload=" init(); setCurrentUser();">
+<body onload=" init(); setCurrentUserName()">
     <main class="index-contents">
         <header id="header" w3-include-html="./assets/templates/header.html"></header>
         <aside id="navbar" class="navbar" w3-include-html="./assets/templates/sidenavbar.html"></aside>
@@ -28,7 +28,7 @@
             <section class="main-content " onclick="closeMenu()" id="main-content">
                 <a class="legal-site-arrow" href="javascript:history.back()"><img class="arrow"
                     src="/assets/img/arrow-left-blue.png" alt=""></a>
-                <div>
+                <div class="privacy-container">
                     <h1 class="legal-headline">Privacy Policy</h1>
                     <script src="https://www.privacybee.ch/widget.js" defer></script>
                     <privacybee-widget website-id="cltenjo9800o5yy3cqxan2ia7" type="dsg" lang="de"></privacybee-widget>
