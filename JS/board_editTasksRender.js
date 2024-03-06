@@ -1,16 +1,16 @@
 /**
- * Generiert die Initialen aus dem vollständigen Namen einer Person.
- * @param {string} fullName - Der vollständige Name der Person.
- * @returns {string} Die Initialen der Person.
+ * Generates the initials from the full name of a person.
+ * @param {string} fullName - The full name of the person.
+ * @returns {string} The initials of the person.
  */
 function generateInitials(fullName) {
     return fullName.split(' ').map(part => part[0].toUpperCase()).join('');
 }
 
 /**
- * Generiert HTML-String für jeden dem Task zugewiesenen Benutzer.
- * @param {Array} assignees - Liste der dem Task zugewiesenen Benutzer.
- * @returns {string} HTML-String der zugewiesenen Benutzer.
+ * Generates HTML string for each user assigned to the task.
+ * @param {Array} assignees - List of users assigned to the task
+ * @returns {string} HTML string of the assigned users
  */
 function generateAssignedUsersHtml(assignees) {
     return assignees.map(user =>
@@ -19,9 +19,9 @@ function generateAssignedUsersHtml(assignees) {
 }
 
 /**
- * Generiert das SVG für die Checkbox basierend auf dem Zuweisungsstatus.
- * @param {boolean} isAssigned - Gibt an, ob der Kontakt dem Task zugewiesen ist.
- * @returns {string} SVG-String für die Checkbox.
+ * Generates the SVG for the checkbox based on the assignment status
+ * @param {boolean} isAssigned - Indicates whether the contact is assigned to the task
+ * @returns {string} SVG string for the checkbox
  */
 function generateCheckboxSVG(isAssigned) {
     return isAssigned ? 
@@ -35,10 +35,10 @@ function generateCheckboxSVG(isAssigned) {
 }
 
 /**
- * Generiert das Markup für einen einzelnen Zuweisungseintrag.
- * @param {Object} contact - Kontaktinformationen.
- * @param {boolean} isAssigned - Gibt an, ob der Kontakt dem Task zugewiesen ist.
- * @returns {string} HTML-String für den Zuweisungseintrag.
+ * Generates the markup for a single assignment entry
+ * @param {Object} contact - Contact information
+ * @param {boolean} isAssigned -Indicates whether the contact is assigned to the task
+ * @returns {string} HTML string for the assignment entry
  */
 function generateAssigneeMarkup(contact, isAssigned) {
     const userCheckedClass = isAssigned ? 'user-checked' : '';
@@ -59,10 +59,10 @@ function generateAssigneeMarkup(contact, isAssigned) {
 }
 
 /**
- * Generiert HTML-String für die Zuweisungsliste im Bearbeitungsmodus.
- * @param {Object} task - Der zu bearbeitende Task.
- * @param {Object} letterContainer - Container mit Kontakten, gruppiert nach dem ersten Buchstaben des Namens.
- * @returns {string} HTML-String für die Zuweisungsliste.
+ * Generates HTML string for the assignment list in edit mode.
+ * @param {Object} task - The task to be processed
+ * @param {Object} letterContainer - Container with contacts, grouped by the first letter of the name
+ * @returns {string} HTML string for the assignment list
  */
 function generateAssigneesMarkup(task, letterContainer) {
     let assigneesMarkup = '';
@@ -78,9 +78,9 @@ function generateAssigneesMarkup(task, letterContainer) {
 }
 
 /**
- * Generiert HTML-String für Subtasks im Bearbeitungsmodus.
- * @param {Array} subtasks - Liste der Subtasks des zu bearbeitenden Tasks.
- * @returns {string} HTML-String der Subtasks.
+ * Generates HTML string for subtasks in edit mode
+ * @param {Array} subtasks - List of subtasks of the task to be processed
+ * @returns {string} HTML string of the subtasks
  */
 function createSubtasksHtml(subtasks) {
     if (!Array.isArray(subtasks)) {
@@ -116,8 +116,8 @@ function checkAndSetPriority(prioButtons) {
 }
 
 /**
- * Rendert das Bearbeitungsformular für einen Task.
- * @param {number} taskId - Die ID des Tasks, der bearbeitet werden soll.
+ * Renders the processing form for a task
+ * @param {number} taskId - The ID of the task that is to be processed
  */
 function renderEditTask(taskId) {
     const task = tasks.find(t => t.id === parseInt(taskId));
@@ -282,8 +282,8 @@ function renderEditTask(taskId) {
 
     const detailModalContainer = document.getElementById('task-details');
     if (detailModalContainer) {
-        detailModalContainer.innerHTML = modalContent; // Aktualisieren des Inhalts des Modals, ohne #assign-to zu befüllen
-        renderAssignees(); // Neuaufruf von renderAssignees(), um sicherzustellen, dass die Liste korrekt gerendert und Event-Listener zugeordnet sind
+        detailModalContainer.innerHTML = modalContent; // Update the content of the modal without filling #assign-to
+        renderAssignees(); // Re-call renderAssignees() to ensure that the list is rendered correctly and event listeners are assigned
         setTimeout(() => {
             const assignToContainer = document.getElementById('assign-to');
             const prioButtons = document.querySelectorAll('.addtask-buttons');
@@ -292,14 +292,14 @@ function renderEditTask(taskId) {
             console.log("Ermittelte Priorität:", currentPriority);
             if (assignToContainer) {
                 assignToContainer.innerHTML = assigneesMarkup;
-                document.querySelectorAll('.dropdown-content-container').forEach((container) => { // Binden der Event-Listener an alle Container und Überprüfung des geklickten Elements
+                document.querySelectorAll('.dropdown-content-container').forEach((container) => { // Bind the event listeners to all containers and check the clicked element
                     container.addEventListener('click', function(event) {
                         event.stopPropagation(); 
-                        let targetElement = event.target; // Identifizieren des tatsächlichen Ziel-Elements, basierend auf der Klick-Aktion
-                        if (targetElement.tagName.toLowerCase() === 'svg' || targetElement.closest('.dropdown-content-checkbox')) { // Logik für Klick auf die Checkbox
-                        } else if (targetElement.tagName.toLowerCase() === 'a' || targetElement.closest('.dropdown-content-name')) { // Logik für Klick auf den Namen
+                        let targetElement = event.target; // Identify the actual target element based on the click action
+                        if (targetElement.tagName.toLowerCase() === 'svg' || targetElement.closest('.dropdown-content-checkbox')) { // Logic for clicking on the checkbox
+                        } else if (targetElement.tagName.toLowerCase() === 'a' || targetElement.closest('.dropdown-content-name')) { // Logic for clicking on the name
                         }
-                        const containerIndex = Array.from(assignToContainer.children).indexOf(container); // Extraktion des Buchstabens und des Indexes
+                        const containerIndex = Array.from(assignToContainer.children).indexOf(container); // Extraction of the letter and the index
                         let { letter, index } = extractLetterFromIndex(containerIndex);
                         toggleAssigneeStatus(letter, index);
                     });
@@ -307,7 +307,7 @@ function renderEditTask(taskId) {
             } else {
                 console.error('#assign-to wurde nach dem Einfügen des Modals nicht gefunden.');
             }
-        }, 0); // Verzögerung sicherstellen, dass das DOM vollständig aktualisiert wurde
+        }, 0);// Delay to ensure that the DOM has been fully updated
         reinitializeEventListenersForEditModal()
     }
 }

@@ -1,106 +1,100 @@
 /**
- * Leert den Inhalt des Modals für die Bearbeitung eines Tasks.
+ * Empties the content of the modal for processing a task
  */
 function clearEditModalContent() {
     const modal = document.getElementById('task-detail-modal');
     const taskDetailsContainer = modal.querySelector('#task-details-container');
-    if (taskDetailsContainer) { // Stellt sicher, dass der Container existiert
-        // Setzt den Inhalt von #task-details-container zurück auf den Anfangszustand
+    if (taskDetailsContainer) { // Ensures that the container exists
+        // Resets the content of #task-details-container to the initial state
         taskDetailsContainer.innerHTML = ` 
             <div id="task-details">
                 
             </div>
         `;
     }
-    modal.classList.remove('modal-open'); // Entfernt die Öffnungsklasse
-    modal.style.display = 'none'; // Versteckt das Modal
+    modal.classList.remove('modal-open'); // Removes the opening class
+    modal.style.display = 'none'; // Hides the modal
 }
 
 /**
- * Schließt das Modal für das Hinzufügen eines Tasks.
+ * Closes the modal for adding a task
  */
 function closeModalAddTaskBoard() {
     const modalClose = document.getElementById('addtask-modal');
     if (modalClose) {
-        modalClose.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
+        modalClose.classList.remove('modal-open'); // Starts the closing animation for the content
         setTimeout(() => {
-            modalClose.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-        }, 200); // Wartezeit entspricht der Dauer der Animation
+            modalClose.style.display = 'none'; // Hides the background after the animation
+        }, 200); // Waiting time corresponds to the duration of the animation
     }
 }
 
 /**
- * Schließt das Modal zum Bearbeiten eines Tasks.
+ * Closes the modal for editing a task
  */
 function closeModalTaskEdit() {
     const modalEdit = document.getElementById('task-detail-modal');
     if (modalEdit) {
-        modalEdit.classList.remove('modal-open'); // Startet die Schließanimation für den Inhalt
+        modalEdit.classList.remove('modal-open'); // Starts the closing animation for the content
         setTimeout(() => {
-            modalEdit.style.display = 'none'; // Versteckt den Hintergrund nach der Animation
-        }, 500); // Wartezeit entspricht der Dauer der Animation
+            modalEdit.style.display = 'none'; // Hides the background after the animation
+        }, 500); // Waiting time corresponds to the duration of the animation
     }
 }
 
 /**
- * Generiert Initialen aus dem vollständigen Namen.
- * @param {string} completeName - Vollständiger Name, aus dem die Initialen generiert werden sollen.
- * @return {string} Die generierten Initialen.
+ * Generates initials from the full name
+ * @param {string} completeName - Full name from which the initials are to be generated
+ * @return {string} The generated initials
  */
 function generateInitials(completeName) {
     return completeName.split(' ').map(part => part[0]).join('').toUpperCase();
 }
 
 /**
- * Extrahiert den Buchstaben und den lokalen Index aus einem globalen Index.
- * Dies wird verwendet, um einen bestimmten Kontakt in der verschachtelten Struktur von `letterContainer` zu lokalisieren.
+ * Extracts the letter and the local index from a global index
+ * This is used to localise a specific contact in the nested structure of `letterContainer`
  *
- * @param {number} globalIndex - Der globale Index des Kontakts über alle Buchstaben hinweg.
- * @returns {object} Ein Objekt mit dem Buchstaben und dem lokalen Index des Kontakts. Gibt `{ letter: null, index: -1 }` zurück, falls kein Kontakt gefunden wurde.
+ * @param {number} globalIndex - The global index of the contact across all letters
+ * @returns {object} An object with the letter and the local index of the contact. Returns `{ letter: null, index: -1 }` if no contact was found
  */
 function extractLetterFromIndex(globalIndex) {
-    let runningIndex = 0; // Laufender Index zum Durchlaufen der Kontakte
-    // Durchläuft jeden Buchstaben in `letterContainer`
-    for (let letter in letterContainer) {
-        // Sicherstellen, dass das aktuelle Eigentum ein direktes Eigentum von `letterContainer` ist
-        if (letterContainer.hasOwnProperty(letter)) {
-            // Überprüfen, ob der globale Index innerhalb der Länge der aktuellen Buchstabengruppe liegt
-            if (globalIndex < runningIndex + letterContainer[letter].length) {
-                // Gibt den Buchstaben und den lokalen Index innerhalb der Buchstabengruppe zurück
-                return { letter: letter, index: globalIndex - runningIndex };
+    let runningIndex = 0; // Running index for scrolling through the contacts
+    for (let letter in letterContainer) { // Runs through every letter in `letterContainer`
+        if (letterContainer.hasOwnProperty(letter)) { // Ensure that the current ownership is a direct ownership of `letterContainer`
+            if (globalIndex < runningIndex + letterContainer[letter].length) {   // Check whether the global index is within the length of the current letter group
+                return { letter: letter, index: globalIndex - runningIndex }; // Returns the letter and the local index within the letter group
             }
-            // Aktualisiert den laufenden Index um die Länge der aktuellen Buchstabengruppe
-            runningIndex += letterContainer[letter].length;
+            runningIndex += letterContainer[letter].length; // Updates the current index by the length of the current letter group
         }
     }
-    // Gibt `{ letter: null, index: -1 }` zurück, falls kein Kontakt gefunden wurde
-    return { letter: null, index: -1 };
+    return { letter: null, index: -1 }; // Gibt `{ letter: null, index: -1 }` zurück, falls kein Kontakt gefunden wurde
 }
 
 /**
- * Extrahiert die Priorität aus dem aktiven Prioritäts-Button.
+ * Extracts the priority from the active priority button
  * 
- * Diese Funktion sucht nach dem aktiven Prioritäts-Button in der
- * AddTask-Modalansicht und extrahiert den Textinhalt des Buttons,
- * um die ausgewählte Priorität zu bestimmen. Wenn kein aktiver Button
- * gefunden wird, gibt die Funktion einen leeren String zurück.
- * Der extrahierte Text wird bereinigt (Leerzeichen entfernt und in
- * Kleinbuchstaben konvertiert), um eine konsistente Prioritätsangabe zu gewährleisten.
+ * This function searches for the active priority button in the
+ * AddTask modal view and extracts the text content of the button,
+ * to determine the selected priority. If no active button
+ * button is found, the function returns an empty string.
+ * The extracted text is cleaned up (spaces removed and converted to
+ * lower case) to ensure a consistent priority specification.
  *
- * @returns {string} Die extrahierte Priorität in Kleinbuchstaben oder
- *                   ein leerer String, falls keine Priorität ausgewählt ist.
+ * @returns {string} The extracted priority in lower case letters or
+ *                   an empty string if no priority is selected
  */
 function extractPriority() {
     const activeButton = document.querySelector('.addtask-prio-btn .is-active');
-    if (!activeButton) return ''; // Kein aktiver Button gefunden, gibt einen leeren String zurück
-    let priorityText = activeButton.innerText; // Extrahiert den Text des Buttons
-    priorityText = priorityText.trim().toLowerCase(); // Entfernt Leerzeichen und konvertiert in Kleinbuchstaben
+    if (!activeButton) return ''; // No active button found, returns an empty string
+    let priorityText = activeButton.innerText; // Extracts the text of the button
+    priorityText = priorityText.trim().toLowerCase(); // Removes spaces and converts to lower case letters
     return priorityText;
 }
 
 /**
- * Extrahiert Formulardaten aus dem Bearbeitungsmodal.
- * @returns Ein Objekt mit den extrahierten Daten aus dem Formular: Titel, Beschreibung, Fälligkeitsdatum, Kategorie, Priorität, zugewiesene Personen (Assignees) und Subtasks.
+ * Extracts form data from the editing modal
+ * @returns An object with the data extracted from the form: Title, description, due date, category, priority, assigned persons (assignees) and subtasks.
  */
 function extractFormData() {
     return {
@@ -115,8 +109,8 @@ function extractFormData() {
 }
 
 /**
- * Extrahiert die zugewiesenen Personen (Assignees) aus dem Bearbeitungsmodal.
- * @returns Ein Array von Objekten, jedes repräsentiert eine zugewiesene Person mit Namen, Initialen und Farbe.
+ * Extracts the assigned persons (assignees) from the editing modal.
+ * @returns An array of objects, each representing an assigned person with name, initials and colour
  */
 function extractAssignees() {
     return Array.from(document.querySelectorAll('.dropdown-content-container.user-checked')).map(assigneeContainer => {
@@ -128,8 +122,8 @@ function extractAssignees() {
 }
 
 /**
- * Extrahiert Subtasks aus dem Bearbeitungsmodal.
- * @returns Ein Array von Objekten, jedes repräsentiert einen Subtask mit Text, ID und Abschlussstatus.
+ * Extracts subtasks from the editing modal
+ * @returns An array of objects, each representing a subtask with text, ID and completion status.
  */
 function extractSubtasks() {
     return Array.from(document.querySelectorAll('#subtasks-list-container ul li')).map(subtaskItem => {
@@ -141,8 +135,8 @@ function extractSubtasks() {
 }
 
 /**
- * Speichert die bearbeiteten Aufgabendetails und aktualisiert das UI entsprechend.
- * @param {number} taskId Die ID der Aufgabe, die bearbeitet wird.
+ * Saves the edited task details and updates the UI accordingly.
+ * @param {number} taskId The ID of the task being processed.
  */
 async function saveTaskEdit(taskId) {
     setTimeout(async () => {
@@ -152,11 +146,9 @@ async function saveTaskEdit(taskId) {
             console.error('Aufgabe nicht gefunden.');
             return;
         }
-        // Aktualisiere den Task im Array
-        updateTask(taskIndex, formData);
+        updateTask(taskIndex, formData); // Update the task in the array
         try {
-            // Speichern der Aufgaben und UI aktualisieren
-            await saveTasksAndReloadUI(taskIndex);
+            await saveTasksAndReloadUI(taskIndex); // Saving the tasks and updating the UI
         } catch (error) {
             console.error('Fehler beim Speichern der Aufgaben:', error);
         }
@@ -164,21 +156,21 @@ async function saveTaskEdit(taskId) {
 }
 
 /**
- * Aktualisiert eine Aufgabe im tasks Array basierend auf den übergebenen Formulardaten. 
- * Stellt sicher, dass Priorität, Assignees und Subtasks nur aktualisiert werden, wenn Änderungen vorgenommen wurden.
+ * Updates a task in the tasks array based on the transferred form data. 
+ * Ensures that priority, assignees and subtasks are only updated if changes have been made.
  * 
- * @param {number} taskIndex - Der Index der Aufgabe im tasks Array.
- * @param {object} formData - Die Daten, die aus dem Formular extrahiert wurden und mit denen der Task aktualisiert wird.
+ * @param {number} taskIndex - The index of the task in the tasks array.
+ * @param {object} formData - The data extracted from the form and used to update the task
  */
 function updateTask(taskIndex, formData) {
-    let updatedTask = { ...tasks[taskIndex] }; // Bereitet das zu aktualisierende Task-Objekt vor
-    if ('prio' in formData && formData.prio !== '') { // Überprüft und aktualisiert die Priorität des Tasks, wenn im formData vorhanden
+    let updatedTask = { ...tasks[taskIndex] }; // Prepares the task object to be updated
+    if ('prio' in formData && formData.prio !== '') { // Checks and updates the priority of the task, if available in the formData
         updatedTask.prio = formData.prio;
-    }    
-    if ('assignTo' in formData && formData.assignTo.length > 0) { // Wenn assignTo nicht im formData ist oder kein Assignee ausgewählt wurde, überschreiben Sie nicht
+    }
+    if ('assignTo' in formData && formData.assignTo.length > 0) { // If assignTo is not in the formData or no assignee has been selected, do not overwrite
         updatedTask.assignTo = formData.assignTo;
     }
-    if ('subtask' in formData) { // Spezielle Behandlung für Subtasks, um sicherzustellen, dass 'completed' Zustände erhalten bleiben
+    if ('subtask' in formData) { // Special handling for subtasks to ensure that 'completed' states are retained
         updatedTask.subtask = formData.subtask.map(formDataSubtask => {
             let existingSubtask = updatedTask.subtask.find(subtask => subtask.id === formDataSubtask.id);
             if (existingSubtask) {
@@ -191,24 +183,24 @@ function updateTask(taskIndex, formData) {
             }
         });
     }
-    Object.keys(formData).forEach(key => { // Andere Felder des Tasks aktualisieren, unter Ausschluss der bereits behandelten Felder
+    Object.keys(formData).forEach(key => { // Update other fields of the task, excluding the fields already processed
         if (!['prio', 'assignTo', 'subtask'].includes(key)) {
             updatedTask[key] = formData[key];
         }
-    });   
-    tasks[taskIndex] = updatedTask; // Aktualisiert das Task im tasks Array
+    });
+    tasks[taskIndex] = updatedTask; // Updates the task in the tasks array
 }
 
 
 /**
- * Speichert das aktualisierte tasks Array im Speicher und aktualisiert das UI.
- * Ruft Funktionen auf, um das Bearbeitungsmodal zu schließen, Event-Listener neu zu initialisieren, die Detailansicht des aktualisierten Tasks zu öffnen und die Board-Karten zu aktualisieren.
- * @param {number} taskIndex Der Index der aktualisierten Aufgabe im tasks Array.
+* Saves the updated tasks array in memory and updates the UI.
+ * Calls functions to close the edit modal, reinitialise event listeners, open the detail view of the updated task and update the board cards.
+ * @param {number} taskIndex The index of the updated task in the tasks array
  */
 async function saveTasksAndReloadUI(taskIndex) {
     await setItem('tasks', tasks);
     clearEditModalContent();
     reinitializeEventListenersForEditModal();
-    openTaskDetailModal(tasks[taskIndex]); // Öffnet die Detailansicht mit den aktualisierten Daten
-    await initializeBoardCard(); // Aktualisieren der Board-Karten
+    openTaskDetailModal(tasks[taskIndex]); // Opens the detailed view with the updated data
+    await initializeBoardCard(); // Updating the board cards
 }
