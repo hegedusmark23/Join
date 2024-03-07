@@ -57,7 +57,7 @@ function hideNoTaskDiv(id) {
     if (backgroundToHide && boardSectionToSet) {
         setTimeout(() => {
             document.getElementById(backgroundToHide).style.display = 'none';
-            document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.3)';
+            document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.2)';
         }, 0)
     } else { }
 }
