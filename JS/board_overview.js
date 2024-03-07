@@ -1,4 +1,3 @@
-
 /**
  * Updates the display of the number of to-do tasks.
  */

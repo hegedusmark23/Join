@@ -2,6 +2,8 @@ let backgroundToHide;
 let boardSectionToSet;
 let backgroundToReset;
 let boardSectionToHide;
+let isDraggingOver = false;
+// let isDragging = false;
 /**
  * Starts the drag process for a task element.
  * @param {number} id - The ID of the task to be moved.
@@ -32,10 +34,12 @@ function startDragging(id, state, i) {
  * Moves the currently dragged task to a new state and updates the view.
  * @param {string} state - The target state of the task.
 */
-async function moveTo(state) {
+async function moveTo(state, event) {
+    event.preventDefault();
     tasks[currentDraggedElement]['state'] = state;
     await setItem('tasks', JSON.stringify(tasks));
     await initializeBoardCard();
+
 }
 
 
@@ -55,11 +59,9 @@ function hideNoTaskDiv(id) {
         hideDivAndSetBorder4();
     }
     if (backgroundToHide && boardSectionToSet) {
-        setTimeout(() => {
-            document.getElementById(backgroundToHide).style.display = 'none';
-            document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.2)';
-        }, 0)
-    } else { }
+        document.getElementById(backgroundToHide).style.display = 'none';
+        document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.2)';
+    } else { };
 }
 
 function hideDivAndSetBorder1() {
@@ -88,6 +90,7 @@ function hideDivAndSetBorder4() {
  * @param {string} id - The ID of the column for which the note is to be reset.
  */
 function resetNoTaskDiv(id) {
+    isDraggingOver = true;
     if (id == 'toDo' && todos.length == 0) {
         resetDivAndHideBorder1();
     } else if (id == 'in-progress' && inProgress.length == 0) {
@@ -97,10 +100,11 @@ function resetNoTaskDiv(id) {
     } else if (id == 'done' && done.length == 0) {
         resetDivAndHideBorder4()
     }
-    if (backgroundToReset) {
-        setTimeout(addStyle, 0) // I added a delay to avoid overlap between the hideNoTaskDiv() and resetNoTaskDiv() functions;
+    if (backgroundToReset && boardSectionToHide) {
+        addStyle(); // I added a delay to avoid overlap between the hideNoTaskDiv() and resetNoTaskDiv() functions;
     } else { }
 }
+
 
 function addStyle() {
     document.getElementById(backgroundToReset).style.display = 'flex';
@@ -132,4 +136,4 @@ document.addEventListener('dragend', () => {
     document.getElementById('board-section-2').style.border = 'none';
     document.getElementById('board-section-3').style.border = 'none';
     document.getElementById('board-section-4').style.border = 'none';
-})
+});

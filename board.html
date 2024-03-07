@@ -19,8 +19,8 @@
             <menu id="popup-menu" class="menu-popup">
                 <div class="popup-links-div"><a class="popup-links"
                         onclick="generatePrivacyPolicyContent(); closeMenu();">Legal Notice</a></div>
-                <div class="popup-links-div"><a class="popup-links"
-                        onclick="closeMenu();" href="/privacy-policy.html">Privacy Policy</a></div>
+                <div class="popup-links-div"><a class="popup-links" onclick="closeMenu();"
+                        href="/privacy-policy.html">Privacy Policy</a></div>
                 <div onclick="logOut()" class="popup-links-div"><a class="popup-links">Log
                         out</a></div>
             </menu>
@@ -115,8 +115,9 @@
                         <div class="board-section-cards">
                             <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
                         </div>
-                        <div id="toDo" class="toDo-container" ondrop="moveTo('toDo')" ;
-                            ondragover="allowDrop(event); hideNoTaskDiv('toDo')"; ondragleave="resetNoTaskDiv('toDo')">
+                        <div id="toDo" class="toDo-container" ondrop="moveTo('toDo', event)" ;
+                            ondragover="allowDrop(event)""; ondragenter=" hideNoTaskDiv('toDo')";
+                            ondragleave="resetNoTaskDiv('toDo')">
                         </div>
                     </div>
 
@@ -124,8 +125,8 @@
                         <div class="board-section-cards">
                             <div id="board-card-background-2" class="board-card-bg">No tasks In progress</div>
                         </div>
-                        <div id="in-progress" class="in-progress-container" ondrop="moveTo('in-progress')";
-                            ondragover="allowDrop(event); hideNoTaskDiv('in-progress')" ;
+                        <div id="in-progress" class="in-progress-container" ondrop="moveTo('in-progress',event)" ;
+                            ondragover="allowDrop(event)" ; ondragenter="hideNoTaskDiv('in-progress')" ;
                             ondragleave="resetNoTaskDiv('in-progress')">
                         </div>
 
@@ -134,8 +135,9 @@
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
                         </div>
-                        <div id="await-feedback" class="await-feedback-container" ondrop="moveTo('await-feedback')" ;
-                            ondragover="allowDrop(event); hideNoTaskDiv('await-feedback')" ;
+                        <div id="await-feedback" class="await-feedback-container"
+                            ondrop="moveTo('await-feedback', event)" ; ondragover="allowDrop(event)" ;
+                            ondragenter="hideNoTaskDiv('await-feedback')" ;
                             ondragleave="resetNoTaskDiv('await-feedback')">
 
                         </div>
@@ -145,9 +147,8 @@
                         <div class="board-section-cards">
                             <div id="board-card-background-4" class="board-card-bg">No tasks Done</div>
                         </div>
-                        <div id="done" class="done-container" ondrop="moveTo('done')" ;
-                            ondragover="allowDrop(event); hideNoTaskDiv('done')" ;
-                            ondragleave="resetNoTaskDiv('done');">
+                        <div id="done" class="done-container" ondrop="moveTo('done', event)" ; ondragover="allowDrop(event)" ;
+                            ondragenter="hideNoTaskDiv('done')" ; ondragleave="resetNoTaskDiv('done');">
 
                         </div>
                     </div>
