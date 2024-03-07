@@ -499,6 +499,11 @@ h1.contact-view-title {
   align-items: center;
 }
 
+.person-icon {
+  height: 64px;
+  width: 64px;
+}
+
 .inputs-container {
   display: flex;
   flex-direction: column;
@@ -798,6 +803,10 @@ input[type=number]::-webkit-outer-spin-button {
     height: 90px;
   }
 
+  .initialsLetters {
+    font-size: 38px;
+  }
+
   .input-name,
   .input-email,
   .input-phone {
@@ -814,10 +823,11 @@ input[type=number]::-webkit-outer-spin-button {
     display: none;
   }
 
-  
+
   .three-vertical-dots-container {
     display: none;
   }
+
   .desktop-d-none {
     display: none;
   }
@@ -910,7 +920,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   .contact-dialog {
     width: 80%;
-    height: 95%;
+    height: 75%;
     flex-direction: column;
     position: relative;
   }
@@ -941,12 +951,12 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -90px;
+    margin-top: -84px;
   }
 
   .person-icon-container {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border: 3px solid #fff;
   }
 
@@ -1008,8 +1018,9 @@ input[type=number]::-webkit-outer-spin-button {
   }
 
   .edit-contact-badge-container {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    border: 3px solid #fff;
   }
 
   .successfulButtonContainer {
@@ -1045,6 +1056,11 @@ input[type=number]::-webkit-outer-spin-button {
     height: auto;
   }
 
+  .person-icon {
+    height: 48px;
+    width: 48px;
+  }
+
   .contacts-left-container {
     padding: 31px 24px;
   }
@@ -1054,7 +1070,8 @@ input[type=number]::-webkit-outer-spin-button {
   }
 
   .cross-icon-container {
-    top: 24px;
+    top: 13px;
+    right: 12px;
   }
 
   .contact-right-container {
@@ -1075,7 +1092,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
 
   .edit-contact-title {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   .contact-btn-container {
@@ -1093,6 +1110,10 @@ input[type=number]::-webkit-outer-spin-button {
 
   .mobile-badge-container {
     margin-top: -73px;
+  }
+
+  .initialsLetters {
+    font-size: 24px;
   }
 
   .edit-contact-badge-container {
