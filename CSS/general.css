@@ -58,6 +58,7 @@ body {
   height: 100%;
   margin: 0;
   background-color: #fcfcfc;
+  user-select: none;
 }
 
 h3 {
@@ -507,6 +508,7 @@ a {
   border-radius: 20px;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .in-progress-container {
@@ -515,6 +517,7 @@ a {
   border-radius: 20px;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .await-feedback-container {
@@ -523,6 +526,7 @@ a {
   border-radius: 20px;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .done-container {
@@ -531,6 +535,7 @@ a {
   border-radius: 20px;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .highlight {

@@ -153,7 +153,6 @@ h1.contact-view-title {
 }
 
 .contact-view-edit-delete-container {
-  height: 88px;
   display: flex;
   flex-direction: column;
   justify-content: center;
