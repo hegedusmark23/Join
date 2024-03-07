@@ -61,7 +61,7 @@ function setupAssigneeGlobalClickListener() {
         return; // Beendet die Funktion frühzeitig, wenn die Elemente nicht existieren
     }
 
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         let isClickInsideDropdown = dropdownButton.contains(event.target) || dropdownContent.contains(event.target);
 
         if (!isClickInsideDropdown && dropdownContent.style.display === 'block') {
@@ -148,11 +148,11 @@ function renderAssignees() {
             userContainer.className = 'dropdown-content-container' + (contact.added ? ' user-checked' : '');
 
             // Erstellung des Checkbox SVG basierend auf dem 'added' Zustand
-            const checkboxSVG = contact.added ? 
+            const checkboxSVG = contact.added ?
                 `<svg id="checkbox-checked-active" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#fff" stroke-width="2" stroke-linecap="round"></path>
                     <path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>` : 
+                </svg>` :
                 `<svg id="checkbox-unchecked-normal" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2"></rect>
                 </svg>`;
@@ -170,7 +170,7 @@ function renderAssignees() {
             `;
 
             // Event-Listener für den Klick hinzufügen
-            userContainer.addEventListener('click', function() {
+            userContainer.addEventListener('click', function () {
                 toggleAssigneeStatus(letter, index, contact);
             });
 
@@ -231,7 +231,7 @@ function initCategoryDropdown() {
         let link = document.createElement('a');
         link.href = '#';
         link.textContent = category;
-        link.addEventListener('click', function(event) {
+        link.addEventListener('click', function (event) {
             event.preventDefault();
             selectCategoryItem(this.textContent);
         });
@@ -254,7 +254,7 @@ function selectCategoryItem(categoryName) {
 /**
  * Toggles the category dropdown menu and controls the display of arrow icons.
  */
-function toggleCategoryDropdown() {
+function toggleCategoryDropdown(event) {
     let dropdownContent = document.getElementById('category');
     let isOpen = dropdownContent.style.display === 'block';
     dropdownContent.style.display = isOpen ? 'none' : 'block';
@@ -274,6 +274,16 @@ function setupCategoryDropdownEventListeners() {
         return;
     }
     dropdownCategoriesButton.addEventListener('click', toggleCategoryDropdown);
+    const addTaskContent = document.getElementById('addtask-content'); // Add event listener to 'addtask-content'
+    if (addTaskContent) {
+        addTaskContent.addEventListener('click', function (event) {  // Check if the click is inside the 'addtask-content' area
+            if (!dropdownCategoriesButton.contains(event.target)) {  // If the 'dropdown-categories' button was not clicked, then close the dropdown menu
+                document.getElementById('category').style.display = 'none';
+                toggleCategoryDropdownArrows(false);
+            }
+        });
+    }
+
     document.querySelectorAll('.arrowDown, .arrowUp').forEach(arrow => {
         if (arrow) {
             arrow.addEventListener('click', toggleCategoryDropdown);

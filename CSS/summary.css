@@ -297,7 +297,7 @@
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1120px) {
   .welcome-section {
     padding: 20px;
   }
@@ -345,9 +345,14 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 950px){
   .welcome-section {
     display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .welcome-section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
