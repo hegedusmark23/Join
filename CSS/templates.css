@@ -246,7 +246,7 @@ select:focus {
 
 section#board-content,
 section#addtask-content {
-  padding: 10px 30px 10px 80px;
+  padding: 10px 30px 10px 30px;
   background-color: #f0f0f0;
   flex: 1;
 }
@@ -1293,7 +1293,7 @@ input#subtask-edit-input {
   margin-right: 10px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 930px) {
   .addtask-action-btns {
     display: flex;
     justify-content: space-between;
@@ -1399,7 +1399,7 @@ input#subtask-edit-input {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 930px) {
   .index-contents {
     display: flex;
     flex-direction: column;
