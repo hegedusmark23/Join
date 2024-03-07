@@ -472,6 +472,14 @@ a {
   padding: 0px 50px;
 }
 
+.linkToAddTaskMobile{
+  display: none;
+}
+
+.board-sectors-mobile{
+  display: none;
+}
+
 
 @keyframes floathingMessage {
   0% {
@@ -561,6 +569,14 @@ a {
 }
 
 @media (max-width: 1060px) {
+
+  .board-sector{
+    display: none;
+  }
+
+  .board-sectors-mobile{
+    display: flex;
+  }
 
   .prx_expandableWrapper{
     width: 500px;
@@ -655,9 +671,19 @@ a {
   .board-section-4::-webkit-scrollbar {
     display: none;
   }
+
+  
+  .board-sections>div{
+    border-radius: 0px;
+  }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 930px) {
+
+
+  .linkToAddTaskMobile{
+    display: flex;
+  }
   
   .prx_expandableWrapper{
     width: 400px;
@@ -778,7 +804,7 @@ a {
   }
 
   .board-search-input input {
-    width: 240px;
+    width: 235px;
   }
 
   .board-search-input input {
