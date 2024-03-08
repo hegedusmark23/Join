@@ -644,6 +644,7 @@ a {
     width: 100%;
     justify-content: space-between;
     padding: 0px 0px 10px 0px;
+    font-weight: 800;
   }
 
   section#board-content {
@@ -767,10 +768,6 @@ a {
 }
 
 @media (max-width: 485px) {
-  .board-header {
-    padding: 100px 30px 15px 40px;
-  }
-
   .prx_expandableWrapper {
     width: 300px;
   }
@@ -797,10 +794,6 @@ a {
     width: 250px;
   }
 
-  .board-header {
-    padding: 100px 30px 15px 20px;
-  }
-
   section#board-content {
     padding: 10px 30px 10px 20px;
   }
@@ -818,14 +811,11 @@ a {
 
   .modal-content-tasks {
     max-width: 299px;
+    height: 650px
   }
 }
 
 @media (max-width: 375px) {
-  .board-header {
-    padding: 100px 30px 15px 20px;
-  }
-
   .legal-text-container-noUser {
     padding: 120px 20px 52px 9px;
   }
@@ -860,6 +850,7 @@ a {
   .modal-content-tasks {
     max-width: 245px;
     padding: 10px 34px;
+    height: 500px;
   }
 
   .task-detail-headline {
@@ -918,7 +909,8 @@ a {
   /* Anpassungen für Tablets in Portrait-Ausrichtung */
 
   .board-header-wrapper {
-    padding: 10px 15px 10px 15px;
+    padding: 10px 20px 10px 20px;
+    width: 100%;
   }
 
   .board-header-right {
@@ -926,7 +918,15 @@ a {
   }
 
   #board-content {
-    padding: 10px 15px 10px 15px !important;
+    padding: 10px 20px 10px 20px !important;
+  }
+
+  .board-sections > div {
+    margin-right: 0px !important;
+  }
+
+  .board-header {
+    padding-right: 40px;
   }
 }
 

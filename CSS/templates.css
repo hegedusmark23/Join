@@ -756,7 +756,7 @@ input#subtask-edit-input {
 .divider-img {
   position: absolute;
   top: 8px;
-  right: 16x;
+  right: 64px;
   height: 31px;
   pointer-events: none;
 }
@@ -932,7 +932,7 @@ input#subtask-edit-input {
   height: 24px;
   width: 24px;
   border-radius: 50px;
-  padding:4px;
+  padding: 4px;
 }
 
 .move-icon-container:hover {
@@ -946,7 +946,6 @@ input#subtask-edit-input {
 
 .move-icon path {
   fill: #29abe2 !important;
-  ;
   stroke: #29abe2 !important;
 }
 
