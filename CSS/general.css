@@ -654,7 +654,47 @@ a {
     overflow-x: hidden;
   }
 
-  .board-sections > div {
+  .dialog-container-card-to-move {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popUp-choice {
+    height: 50%;
+    width: 50%;
+    padding: 16px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+
+  }
+
+  .popUp-choice-title {
+    font-size: 27px;
+    text-align: center;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
+  .choice {
+    border: 2px solid #29abe2;
+    padding: 16px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .board-sections>div {
     flex: 1;
     max-width: 600px;
     overflow-x: scroll;
@@ -676,7 +716,7 @@ a {
     display: none;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     border-radius: 0px;
   }
 }
@@ -876,6 +916,7 @@ a {
     padding: 10px 20px 10px 20px;
     width: 100%;
   }
+
   .board-header-right {
     margin-bottom: 0px !important;
   }
@@ -900,6 +941,7 @@ a {
 
 /* Desktops — 1280px */
 @media (max-width: 1280px) {
+
   /* Anpassungen für Desktop-Ansichten */
   .board-header {
     flex-direction: column;
@@ -956,6 +998,7 @@ a {
 }
 
 @media (max-width: 700px) {
+
   #board-content h1,
   #addtask-content h1 {
     font-weight: 700;
@@ -1207,4 +1250,8 @@ a {
     gap: 10px;
     justify-content: center;
   }
+}
+
+.d-none {
+  display: none;
 }
