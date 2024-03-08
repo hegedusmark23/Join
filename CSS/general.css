@@ -572,6 +572,16 @@ a {
   width: 100%;
 }
 
+@media (min-width: 1024px) {
+  .dialog-container-card-to-move{
+    display: none;
+  }
+
+  .move-icon-container{
+    display:none;
+  }
+}
+
 @media (max-width: 1024px) {
   .board-sector {
     display: none;
@@ -675,13 +685,17 @@ a {
     min-width: 300px;
     padding: 16px;
     border-radius: 20px;
-    border:2px solid #29abe2;
     background: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 8px;
     box-sizing: border-box;
+    transition: all 0.5s cubic-bezier(.215, .61, .355, 1);
+  }
+
+  .translatePopUpChoice {
+    transform: translateY(200%);
   }
 
   .cross-icon-choice-container {
@@ -693,11 +707,12 @@ a {
 
   .popUp-choice-title {
     font-size: 21px;
+    font-weight: 900;
     text-align: center;
     color: #2a3647;
     margin-block-start: 0;
     margin-block-end: 0;
-    margin-top: 32px;
+    margin: 32px 0 8px 0;
   }
 
   .choice {
@@ -709,7 +724,7 @@ a {
     color: #2a3647;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     flex: 1;
     max-width: 750px;
     overflow-x: scroll;
@@ -731,7 +746,7 @@ a {
     display: none;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     border-radius: 0px;
   }
 }
@@ -829,7 +844,7 @@ a {
     height: 650px;
   }
 
-  .task-detail-headline{
+  .task-detail-headline {
     font-size: 30px;
   }
 }
@@ -951,6 +966,7 @@ a {
 
 /* Tablets (Landscape) / Kleinere Desktops — 1024px */
 @media (max-width: 1024px) {
+
   /* Anpassungen für Tablets in Landscape und kleinere Desktops */
   .board-search-input input {
     width: 320px;
@@ -959,6 +975,7 @@ a {
 
 /* Desktops — 1280px */
 @media (max-width: 1280px) {
+
   /* Anpassungen für Desktop-Ansichten */
   .board-header {
     flex-direction: column;
