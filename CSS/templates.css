@@ -800,7 +800,7 @@ input#subtask-edit-input {
 
 .board-sections > div {
   flex: 1;
-  max-width: 252px;
+  min-width: 252px;
   box-sizing: border-box;
   border-radius: 20px;
   display: flex;
@@ -844,6 +844,7 @@ input#subtask-edit-input {
   height: 48px;
   box-shadow: 0px 0px 4px 0px #00000029;
   text-align: center;
+  min-width: 252px;
 }
 
 .board-card {
