@@ -467,7 +467,7 @@ textarea {
 }
 
 .wrapper-flex-container {
-  min-height: 240px;
+  min-height: 205px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -1042,8 +1042,8 @@ input#subtask-edit-input {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 10% auto;
-  padding: 20px;
+  margin: 50px;
+  padding: 10px;
   border: 1px solid #888;
   width: 90%;
   border-radius: 30px;
@@ -1091,7 +1091,7 @@ input#subtask-edit-input {
 .addtask-modal-tpl {
   background-color: #fff !important;
   padding: 0px 50px 40px 50px !important;
-  margin-top: 60px !important;
+  margin-top: 10px !important;
 }
 
 .addtask-modal-header {

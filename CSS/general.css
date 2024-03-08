@@ -812,6 +812,10 @@ a {
     max-width: 299px;
     height: 650px;
   }
+
+  .task-detail-headline{
+    font-size: 30px;
+  }
 }
 
 @media (max-width: 375px) {
@@ -853,7 +857,7 @@ a {
   }
 
   .task-detail-headline {
-    font-size: 35px;
+    font-size: 26px;
   }
 }
 
@@ -884,7 +888,7 @@ a {
   }
 
   .task-detail-headline {
-    font-size: 30px;
+    font-size: 25px;
   }
 
   .detail-subtask-name {
