@@ -145,12 +145,17 @@ function showPopUpMoveTaskMobile(id, event) {
     let mobileDialog = document.getElementById('dialog-container-card-to-move');
     mobileDialog.classList.remove('d-none');
     mobileDialog.innerHTML = /*html*/ `
-       <div class="popUp-choice" style="background: #fff;">
+       <div onclick="doNotClose(event)" class="popUp-choice">
+        <span onclick="closePopUpMoveTaskMobile(event)" class="cross-icon-choice-container">
+        <svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
            <h2 class="popUp-choice-title">Wohin möchten Sie dies Task verschieben?</h2>
-          <p class="choice" onclick="moveTo('toDo')">To Do</p>
-          <p class="choice" onclick="moveTo('in-progress')">In Progress</p>
-          <p class="choice" onclick="moveTo('await-feedback')">Await Feedback</p>
-          <p class="choice" onclick="moveTo('done')">Done</p>
+          <p id="toDo" class="choice" onclick="moveTo('toDo')">To Do</p>
+          <p id="in-progress" class="choice" onclick="moveTo('in-progress')">In Progress</p>
+          <p id="await-feedback" class="choice" onclick="moveTo('await-feedback')">Await Feedback</p>
+          <p id="done" class="choice" onclick="moveTo('done')">Done</p>
       </div>
     `
 }
@@ -160,4 +165,10 @@ async function moveTo(state) {
     await setItem('tasks', JSON.stringify(tasks));
     await initializeBoardCard();
     document.getElementById('dialog-container-card-to-move').classList.add('d-none')
+
+}
+
+function closePopUpMoveTaskMobile(event) {
+    document.getElementById('dialog-container-card-to-move').classList.add('d-none');
+    event.stopPropagation();
 }
