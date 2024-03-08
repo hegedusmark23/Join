@@ -2,8 +2,6 @@ let backgroundToHide;
 let boardSectionToSet;
 let backgroundToReset;
 let boardSectionToHide;
-let isDraggingOver = false;
-// let isDragging = false;
 /**
  * Starts the drag process for a task element.
  * @param {number} id - The ID of the task to be moved.
@@ -140,3 +138,26 @@ document.addEventListener('dragend', () => {
     document.getElementById('board-section-3').style.border = 'none';
     document.getElementById('board-section-4').style.border = 'none';
 });
+
+function showPopUpMoveTaskMobile(id, event) {
+    event.stopPropagation();
+    currentDraggedElement = id;
+    let mobileDialog = document.getElementById('dialog-container-card-to-move');
+    mobileDialog.classList.remove('d-none');
+    mobileDialog.innerHTML = /*html*/ `
+       <div class="popUp-choice" style="background: #fff;">
+           <h2 class="popUp-choice-title">Wohin möchten Sie dies Task verschieben?</h2>
+          <p class="choice" onclick="moveTo('toDo')">To Do</p>
+          <p class="choice" onclick="moveTo('in-progress')">In Progress</p>
+          <p class="choice" onclick="moveTo('await-feedback')">Await Feedback</p>
+          <p class="choice" onclick="moveTo('done')">Done</p>
+      </div>
+    `
+}
+
+async function moveTo(state) {
+    tasks[currentDraggedElement]['state'] = state;
+    await setItem('tasks', JSON.stringify(tasks));
+    await initializeBoardCard();
+    document.getElementById('dialog-container-card-to-move').classList.add('d-none')
+}
