@@ -155,8 +155,9 @@ function renderCardContent(i, task, completionDetails) {
     let description = task.description ? task.description : "";
     let subtaskContent = createSubtaskContent(task, completionDetails);
     return /*html*/ `
-    <div id="${task.state}-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier}, '${task.state}', ${i})">
+    <div id="${task.state}-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier}, '${task.state}', ${i})";>
         <div class="board-card" data-task-id="${task.id}">
+            <span id="${task.state}-move-icon-container${i}" class="move-icon-container"><svg xmlns="http://www.w3.org/2000/svg" class="move-icon" viewBox="0 0 512 512"><path fill="" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M176 112l80-80 80 80M255.98 32l.02 448M176 400l80 80 80-80M400 176l80 80-80 80M112 176l-80 80 80 80M32 256h448"/></svg></span>
             <div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}</div>
             <div class="board-card-title">${task.title}</div>
             <div class="board-card-description">${description}</div>

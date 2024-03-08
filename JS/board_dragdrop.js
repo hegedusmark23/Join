@@ -18,6 +18,8 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
+
+
 /**
  * this function is activated when the task begins to be dragged
  * @param {*} id - identifier of each task that is dragged
@@ -27,6 +29,7 @@ function allowDrop(event) {
 function startDragging(id, state, i) {
     currentDraggedElement = id;
     document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg';
+    console.log('mobile touch');
 }
 
 
