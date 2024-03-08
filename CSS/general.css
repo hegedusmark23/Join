@@ -771,6 +771,7 @@ a {
 
   .modal-content-tasks {
     max-width: 299px;
+    height: 650px
   }
 }
 
@@ -809,6 +810,7 @@ a {
   .modal-content-tasks {
     max-width: 245px;
     padding: 10px 34px;
+    height: 500px;
   }
 
   .task-detail-headline {
