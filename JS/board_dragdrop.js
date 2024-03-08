@@ -139,30 +139,30 @@ document.addEventListener('dragend', () => {
     document.getElementById('board-section-4').style.border = 'none';
 });
 
+/**
+ * shows the pop up containing the titles of the four sections, into which you want to move the selected task
+ * @param {string} id - the id of the paragraph width the containers's destination
+ * @param {object} event - the event for the stopPropagation 
+ */
 function showPopUpMoveTaskMobile(id, event) {
     event.stopPropagation();
     currentDraggedElement = id;
     let mobileDialog = document.getElementById('dialog-container-card-to-move');
     mobileDialog.classList.remove('d-none');
-    mobileDialog.innerHTML = /*html*/ `
-       <div onclick="doNotClose(event)" id="popUp-choice" class="popUp-choice translatePopUpChoice">
-        <span onclick="closePopUpMoveTaskMobile(event)" class="cross-icon-choice-container">
-        <svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-           <h2 class="popUp-choice-title">Wohin möchten Sie dies Task verschieben?</h2>
-          <p id="toDoM" class="choice" onclick="moveTo('toDo',event)">To Do</p>
-          <p id="in-progressM" class="choice" onclick="moveTo('in-progress',event)">In Progress</p>
-          <p id="await-feedbackM" class="choice" onclick="moveTo('await-feedback',event)">Await Feedback</p>
-          <p id="doneM" class="choice" onclick="moveTo('done',event)">Done</p>
-      </div>
-    `
+    mobileDialog.innerHTML = showPopUpMoveTaskMobileHTML(event)
     setTimeout(() => {
         document.getElementById('popUp-choice').classList.remove('translatePopUpChoice');
     }, 100)
 }
 
+/**
+ * This function takes as parameter the state string in which we want to overwrite the selected task. 
+ * It then overwrites the task, adds a light blue background and white text color to the selected title, 
+ * saves the data to Remote Storage refreshes the page with the new state 
+ * of the task that will be in the selected container
+ * @param {string} state the state we want to override the selected task
+ * @param {object} event - the event for the stopPropagation
+ */
 async function moveTo(state, event) {
     let stateForId = state + 'M'
     tasks[currentDraggedElement]['state'] = state;
@@ -173,6 +173,10 @@ async function moveTo(state, event) {
     closePopUpMoveTaskMobile(event);
 }
 
+/**
+ * This function closes the pop-up moving tasks
+ * @param {object} event - the event for the stopPropagation
+ */
 function closePopUpMoveTaskMobile(event) {
     document.getElementById('popUp-choice').classList.add('translatePopUpChoice');
     setTimeout(() => {
