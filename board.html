@@ -44,7 +44,8 @@
                 <div class="board-header">
                     <div class="board-header-left">
                         <h1>Board</h1>
-                        <a class="linkToAddTaskMobile" href="./addtask.html"><img src="./assets/img/plus-add-task-mobile.png" alt=""></a>
+                        <a class="linkToAddTaskMobile" href="./addtask.html"><img
+                                src="./assets/img/plus-add-task-mobile.png" alt=""></a>
                     </div>
                     <div class="board-header-right">
                         <div class="board-search-input">
@@ -112,40 +113,41 @@
             </div>
             <section id="board-content">
                 <div class="board-sections">
-                    <div id="board-section-1" class="board-section-1">
 
-                        <div class="board-sectors-mobile">
-                            <div class="board-section-title-mobile">To do</div>
-                            <a href="./addtask.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    <div class="board-sectors-mobile">
+                        <div class="board-section-title-mobile">To do</div>
+                        <a href="./addtask.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                                 <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                                 <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
                                     stroke-linecap="round" />
                             </svg></a>
-                        </div>
+                    </div>
+
+                    <div id="board-section-1" class="board-section-1">
 
                         <div class="board-section-cards">
                             <div id="board-card-background-1" class="board-card-bg">No tasks To do</div>
                         </div>
                         <div id="toDo" class="toDo-container" ondrop="moveTo('toDo', event)" ;
-                            ondragover="allowDrop(event)"; ondragenter=" hideNoTaskDiv('toDo')";
+                            ondragover="allowDrop(event)" ; ondragenter=" hideNoTaskDiv('toDo')" ;
                             ondragleave="resetNoTaskDiv('toDo')">
                         </div>
                     </div>
 
-                    <div id="board-section-2" class="board-section-2">
-
-                        <div class="board-sectors-mobile">
-                            <div class="board-section-title-mobile">In Progress</div>
-                            <a href="./addtask.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    <div class="board-sectors-mobile">
+                        <div class="board-section-title-mobile">In Progress</div>
+                        <a href="./addtask.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                                 <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                                 <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
                                     stroke-linecap="round" />
                             </svg></a>
-                        </div>
+                    </div>
+
+                    <div id="board-section-2" class="board-section-2">
 
                         <div class="board-section-cards">
                             <div id="board-card-background-2" class="board-card-bg">No tasks In progress</div>
@@ -156,18 +158,19 @@
                         </div>
 
                     </div>
-                    <div id="board-section-3" class="board-section-3">
 
-                        <div class="board-sectors-mobile">
-                            <div class="board-section-title-mobile">Await Feedback</div>
-                            <a href="./addtask.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    <div class="board-sectors-mobile">
+                        <div class="board-section-title-mobile">Await Feedback</div>
+                        <a href="./addtask.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                                 <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                                 <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2"
                                     stroke-linecap="round" />
                             </svg></a>
-                        </div>
+                    </div>
+
+                    <div id="board-section-3" class="board-section-3">
 
                         <div class="board-section-cards">
                             <div id="board-card-background-3" class="board-card-bg">No tasks Await feedback</div>
@@ -180,17 +183,19 @@
                         </div>
 
                     </div>
-                    <div id="board-section-4" class="board-section-4">
 
-                        <div class="board-sectors-mobile">
-                            <div class="board-section-title-mobile">Done</div>
-                        </div>
+                    <div class="board-sectors-mobile">
+                        <div class="board-section-title-mobile">Done</div>
+                    </div>
+
+                    <div id="board-section-4" class="board-section-4">
 
                         <div class="board-section-cards">
                             <div id="board-card-background-4" class="board-card-bg">No tasks Done</div>
                         </div>
-                        <div id="done" class="done-container" ondrop="moveTo('done', event)" ; ondragover="allowDrop(event)" ;
-                            ondragenter="hideNoTaskDiv('done')" ; ondragleave="resetNoTaskDiv('done');">
+                        <div id="done" class="done-container" ondrop="moveTo('done', event)" ;
+                            ondragover="allowDrop(event)" ; ondragenter="hideNoTaskDiv('done')" ;
+                            ondragleave="resetNoTaskDiv('done');">
 
                         </div>
                     </div>

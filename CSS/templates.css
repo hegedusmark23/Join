@@ -60,6 +60,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  padding: 10px 30px 10px 80px;
 }
 
 .navbar-links {
@@ -732,7 +733,6 @@ input#subtask-edit-input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px 15px 80px;
   background-color: #f0f0f0;
 }
 
@@ -750,12 +750,13 @@ input#subtask-edit-input {
 .board-search-input {
   display: flex;
   position: relative;
+  padding-left: 24px;
 }
 
 .divider-img {
   position: absolute;
   top: 8px;
-  right: 64px;
+  right: 16x;
   height: 31px;
   pointer-events: none;
 }
@@ -774,7 +775,7 @@ input#subtask-edit-input {
 }
 
 .board-add-task button {
-  width: auto;
+  width: 180px;
   display: flex;
   align-items: center;
   margin-left: 8px;
@@ -784,7 +785,6 @@ input#subtask-edit-input {
 .board-sections {
   display: flex;
   justify-content: flex-start;
-  gap: 32px;
   height: auto;
   min-height: 100%;
   overflow-y: visible;
@@ -793,18 +793,18 @@ input#subtask-edit-input {
 .board-sector {
   display: flex;
   justify-content: flex-start;
-  gap: 32px;
   height: auto;
   overflow-y: visible;
-  padding: 10px 30px 10px 80px;
   background-color: #f0f0f0;
 }
 
-.board-sections>div {
+.board-sections > div {
   flex: 1;
   max-width: 252px;
   box-sizing: border-box;
   border-radius: 20px;
+  display: flex;
+  margin-right: 32px;
 }
 
 .board-section-column {
@@ -814,6 +814,8 @@ input#subtask-edit-input {
   padding-bottom: 14px;
   max-width: 252px;
   width: 100%;
+  margin-right: 32px;
+  flex-shrink: 0;
 }
 
 .board-section-title {
@@ -824,7 +826,7 @@ input#subtask-edit-input {
 }
 
 .board-section-title-mobile {
-  font-size: 20px;
+  font-size: 27px;
   font-weight: 600;
   line-height: 24px;
   color: #42526e;
@@ -852,6 +854,7 @@ input#subtask-edit-input {
   box-shadow: 0px 0px 10px 3px #00000014;
   padding: 16px;
   z-index: 2;
+  min-width: 218px;
   max-width: 250px;
 }
 
@@ -1299,279 +1302,4 @@ input#subtask-edit-input {
   display: flex;
   justify-content: flex-end;
   margin-right: 10px;
-}
-
-@media (max-width: 930px) {
-  .addtask-action-btns {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 16px 10px 16px;
-    background-color: #f0f0f0;
-    margin: 81px 0px;
-  }
-
-  .addtask-actions {
-    position: fixed;
-    width: 100%;
-    z-index: 0;
-  }
-
-  section#addtask-content {
-    padding: 80px 16px 10px 16px;
-  }
-}
-
-@media (max-width: 700px) {
-
-  #board-content h1,
-  #addtask-content h1 {
-    font-weight: 700;
-    font-size: 56px;
-  }
-
-  section#addtask-content {
-    padding: 100px 16px 10px 16px;
-  }
-
-  .addtask-form {
-    flex-direction: column;
-  }
-
-  .divider {
-    display: none;
-  }
-
-  .right-section {
-    margin-top: 24px;
-  }
-
-  #addtask-content label {
-    font-size: 18px;
-    font-weight: 500;
-  }
-
-  #addtask-content input,
-  textarea,
-  button,
-  select,
-  input {
-    font-size: 18px;
-  }
-
-  .addtask-info.info {
-    display: none;
-  }
-
-  .addtask-info-mobile {
-    display: flex;
-    align-items: center;
-  }
-
-  #clear-button {
-    display: none;
-  }
-
-  .addtask-actions {
-    position: fixed;
-    width: 100%;
-    z-index: 0;
-  }
-
-  .addtask-action-btns {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 16px 10px 16px;
-    background-color: #f0f0f0;
-    margin: 81px 0px;
-  }
-
-  .wrapper-flex-container {
-    min-height: 100px;
-  }
-
-  .subtasks-container {
-    min-height: 250px;
-  }
-
-  .subtasks-container::-webkit-scrollbar {
-    display: none;
-  }
-
-  .scrollable-area {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .scrollable-area::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-@media (max-width: 930px) {
-  .index-contents {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .blue-join-logo {
-    display: flex;
-    height: 60px;
-    padding: 10px;
-  }
-
-  .nav-text {
-    margin-left: 0px;
-  }
-
-  .legal-headline {
-    font-size: 47px;
-  }
-
-  .navbar-nouser {
-    display: none;
-  }
-
-  .navbar-links {
-    padding: 0px 10px;
-    border-radius: 16px;
-  }
-
-  .navbar {
-    width: 100%;
-    height: 80px;
-    background-color: #2a3647;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    position: fixed;
-    bottom: 0;
-    z-index: 1;
-    transform: translate3d(0, 0, 0);
-    margin-top: auto;
-  }
-
-  .content-container {
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
-
-  .join-logo-small {
-    display: none;
-  }
-
-  .legal-section {
-    display: none;
-  }
-
-  .nav-links-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    width: 100%;
-    gap: 20px;
-    justify-content: space-around;
-  }
-
-  .nav-link-div {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 4px;
-    padding: 8px 0;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 16px;
-  }
-
-  .board-text {
-    padding-right: 0px;
-  }
-
-  .nav-links-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    gap: 20px;
-    align-items: center;
-    height: 100%;
-  }
-
-  .header-headline {
-    display: none;
-  }
-
-  .join-logo-mobile {
-    display: flex;
-    height: 70px;
-    padding: 20px;
-  }
-
-  .user-name-capitalized {
-    font-size: 20px !important;
-  }
-}
-
-@media (max-width: 430px) {
-  .join-logo-mobile {
-    display: flex;
-    height: 45px;
-    padding: 20px;
-  }
-
-  .task-details-main-content {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .legal-headline {
-    font-size: 37px;
-  }
-
-  .blue-join-logo {
-    display: flex;
-    height: 39px;
-    padding: 20px;
-  }
-
-  .user-name-capitalized {
-    font-size: 15px !important;
-  }
-
-  .nav-links-container {
-    gap: 20px;
-    justify-content: center;
-  }
-
-  .nav-link-div {
-    width: 65px;
-  }
-
-  .navbar-links {
-    padding: 2px;
-    border-radius: 16px;
-  }
-
-  .user-icon {
-    height: 40px;
-    width: 40px;
-  }
-
-  .navbar-icon {
-    height: 22px;
-  }
-
-  .nav-text {
-    font-size: 14px;
-    margin-left: 0px;
-  }
-}
-
-@media (max-width: 350px) {
-  .nav-links-container {
-    gap: 10px;
-    justify-content: center;
-  }
 }
