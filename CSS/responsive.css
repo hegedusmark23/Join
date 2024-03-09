@@ -532,9 +532,18 @@
 
   .addtask-actions {
     position: fixed;
-    bottom: 100px;
-    right: 16px;
+    bottom: 75px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
+
+  .addtask-action-btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background: #F0F0F0;
+    padding: 15px;
 
   .toDo-container {
     display: flex;
