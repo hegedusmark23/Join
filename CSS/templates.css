@@ -392,8 +392,8 @@ textarea {
 }
 
 .addtask-actions {
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  bottom: 100px;
   right: 0;
 }
 
