@@ -535,6 +535,10 @@ a {
   display: none;
 }
 
+.text-center{
+  text-align:center;
+}
+
 @keyframes floathingMessage {
   0% {
     bottom: 0;

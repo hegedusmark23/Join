@@ -209,15 +209,6 @@
       margin: 32px 0 8px 0;
     }
   
-    .choice {
-      border: 2px solid #29abe2;
-      padding: 16px;
-      border-radius: 20px;
-      text-align: center;
-      font-size: 18px;
-      color: #2a3647;
-    }
-  
     .board-sections>div {
       flex: 1;
       max-width: 750px;

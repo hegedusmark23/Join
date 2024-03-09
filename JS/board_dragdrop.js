@@ -167,11 +167,13 @@ function showPopUpMoveTaskMobile(id, event) {
 async function moveToMobile(state, event) {
     let stateForId = state + 'M'
     tasks[currentDraggedElement]['state'] = state;
-    document.getElementById(stateForId).classList.add('blue-btn');
+    document.getElementById(stateForId).style.background = '#091931';
     document.getElementById(stateForId).style.color = '#fff';
     await setItem('tasks', JSON.stringify(tasks));
     await initializeBoardCard();
-    closePopUpMoveTaskMobile(event);
+    setTimeout(() => {
+        closePopUpMoveTaskMobile(event);
+    }, 200)
 }
 
 /**

@@ -307,11 +307,11 @@ function showPopUpMoveTaskMobileHTML(){
        <path d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
        </svg>
      </span>
-        <h2 class="popUp-choice-title">Wohin möchten Sie dies Task verschieben?</h2>
-       <p id="toDoM" class="choice" onclick="moveToMobile('toDo',event)">To Do</p>
-       <p id="in-progressM" class="choice" onclick="moveToMobile('in-progress',event)">In Progress</p>
-       <p id="await-feedbackM" class="choice" onclick="moveToMobile('await-feedback',event)">Await Feedback</p>
-       <p id="doneM" class="choice" onclick="moveToMobile('done',event)">Done</p>
+        <h2 class="popUp-choice-title">Where would you like to move this task?</h2>
+       <p id="toDoM" class="blue-btn text-center" onclick="moveToMobile('toDo',event)">To Do</p>
+       <p id="in-progressM" class="blue-btn text-center" onclick="moveToMobile('in-progress',event)">In Progress</p>
+       <p id="await-feedbackM" class="blue-btn text-center" onclick="moveToMobile('await-feedback',event)">Await Feedback</p>
+       <p id="doneM" class="blue-btn text-center" onclick="moveToMobile('done',event)">Done</p>
    </div>
  `
 }
