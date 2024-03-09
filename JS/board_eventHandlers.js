@@ -51,16 +51,16 @@ function setupCloseAddTaskModalListener() {
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-      modal.style.display = 'block'; // Ensures that the modal is visible
-      setTimeout(() => {
-        modal.classList.add('modal-open'); // Adds the class to gently fade in the modal
-        const modalContent = modal.querySelector('.modal-content');
-        if (modalContent) {
-          modalContent.classList.add('addtask-modal-content'); // Specific class for animation
-        }
-      }, 10);
+        modal.style.display = 'block'; // Ensures that the modal is visible
+        setTimeout(() => {
+            modal.classList.add('modal-open'); // Adds the class to gently fade in the modal
+            const modalContent = modal.querySelector('.modal-content');
+            if (modalContent) {
+                modalContent.classList.add('addtask-modal-content'); // Specific class for animation
+            }
+        }, 10);
     }
-  }
+}
 
 /**
  * Closes a modal based on the transferred ID and ensures that the content is gently faded out
@@ -117,14 +117,14 @@ function openCreateTaskModalWithState(taskState) {
 function setupModalEventListeners(taskState) { // Event listener for the close button
     const closeModalButton = document.getElementById('close-modal-button-addtask-board');
     if (closeModalButton) {
-        closeModalButton.addEventListener('click', function() {
+        closeModalButton.addEventListener('click', function () {
             clearModalContent();
             reinitializeEventListenersForEditModal();
         });
     }
     const createTaskButton = document.getElementById('create-task-board'); // Event listener for the create button
     if (createTaskButton) {
-        createTaskButton.addEventListener('click', function() {
+        createTaskButton.addEventListener('click', function () {
             createTaskModal(taskState)
         });
     } else {
@@ -163,7 +163,7 @@ function setupCloseTaskDetailModalListener() {
  */
 function setupModalCloseDelegation() {
     const modal = document.getElementById('task-detail-modal');
-    modal.addEventListener('click', function(event) {
+    modal.addEventListener('click', function (event) {
         if (event.target.closest('#close-modal-button-detail')) { // Check whether the clicked element is the close button or an element within the close button
             closeModal('task-detail-modal');
         }
@@ -210,8 +210,8 @@ function setupDeleteTaskListener() {
 function setupModalCloseDelegationAddAtskBoard() {
     const modalAddTaskBtn = document.getElementById('close-modal-button-addtask-board');
     if (modalAddTaskBtn) { // Überprüfung, ob das Element existiert
-        modalAddTaskBtn.addEventListener('click', function(event) {
-        closeModalAddTaskBoard();
+        modalAddTaskBtn.addEventListener('click', function (event) {
+            closeModalAddTaskBoard();
         });
     } else {
         return;
@@ -222,10 +222,10 @@ function setupModalCloseDelegationAddAtskBoard() {
  * Event listener for editing tasks.
  */
 function setupEditTaskListener() {
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         const editButton = event.target.closest('#edit-task');
         if (editButton) {  // Extrahieren der Task-ID
-                        const taskHeaderElement = document.querySelector('.task-details-header');
+            const taskHeaderElement = document.querySelector('.task-details-header');
             if (taskHeaderElement && taskHeaderElement.id) {
                 const taskId = taskHeaderElement.id.replace('task-', '');
                 console.log('Task ID gefunden:', taskId);
@@ -247,7 +247,7 @@ function setupEditTaskListener() {
 function setupSaveTaskEditListener() {
     const saveButton = document.getElementById('save-task-edit');
     if (saveButton) {
-        saveButton.addEventListener('click', async function() { // The ID of the task to be processed is saved as the data attribute of the Save button.
+        saveButton.addEventListener('click', async function () { // The ID of the task to be processed is saved as the data attribute of the Save button.
             const taskId = this.getAttribute('data-task-id');
             if (!taskId) {
                 console.error('Task ID fehlt.');
@@ -271,7 +271,7 @@ function setupSaveTaskEditListener() {
 function setupModalCloseDelegationEdit() {
     const closeModalButton = document.getElementById('close-modal-button-edittask');
     if (closeModalButton) {
-        closeModalButton.addEventListener('click', function() { // Ensures that the dropdown is closed
+        closeModalButton.addEventListener('click', function () { // Ensures that the dropdown is closed
             toggleAssigneeDropdown(false);
             clearEditModalContent();
             reinitializeEventListenersForEditModal();

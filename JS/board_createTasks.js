@@ -308,10 +308,10 @@ function showPopUpMoveTaskMobileHTML(){
        </svg>
      </span>
         <h2 class="popUp-choice-title">Where would you like to move this task?</h2>
-       <p id="toDoM" class="blue-btn text-center" onclick="moveToMobile('toDo',event)">To Do</p>
-       <p id="in-progressM" class="blue-btn text-center" onclick="moveToMobile('in-progress',event)">In Progress</p>
-       <p id="await-feedbackM" class="blue-btn text-center" onclick="moveToMobile('await-feedback',event)">Await Feedback</p>
-       <p id="doneM" class="blue-btn text-center" onclick="moveToMobile('done',event)">Done</p>
+       <p id="toDoM" class="choice-btn text-center" onclick="moveToMobile('toDo',event)">To Do</p>
+       <p id="in-progressM" class="choice-btn text-center" onclick="moveToMobile('in-progress',event)">In Progress</p>
+       <p id="await-feedbackM" class="choice-btn text-center" onclick="moveToMobile('await-feedback',event)">Await Feedback</p>
+       <p id="doneM" class="choice-btn text-center" onclick="moveToMobile('done',event)">Done</p>
    </div>
  `
 }
