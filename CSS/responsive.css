@@ -14,6 +14,10 @@
     .dialog-container-card-to-move {
       display: none;
     }
+
+    .board-sectors-mobile{
+        flex-direction: row !important;
+    }
   
     /* --- MAX WIDHT: Anpassungen --- */
   
@@ -84,6 +88,7 @@
   
     .board-sectors-mobile {
       display: flex !important;
+      flex-direction: row !important;
     }
   
     .prx_expandableWrapper {
@@ -250,6 +255,11 @@
       display: flex;
       flex-direction: column;
     }
+    
+    .board-sectors-mobile{
+        flex-direction: row !important;
+    }
+    
   
     .blue-join-logo {
       display: flex;
@@ -531,7 +541,7 @@
   
     .toDo-container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       border-radius: 20px;
       width: 100%;
       height: 100%;
@@ -540,7 +550,7 @@
   
     .in-progress-container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       border-radius: 20px;
       width: 100%;
       height: 100%;
@@ -549,7 +559,7 @@
   
     .await-feedback-container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       border-radius: 20px;
       width: 100%;
       height: 100%;
@@ -558,7 +568,7 @@
   
     .done-container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       border-radius: 20px;
       width: 100%;
       height: 100%;
@@ -570,10 +580,6 @@
     }
   
     .add-task-mobile {
-      display: none;
-    }
-  
-    .board-section-title-mobile {
       display: none;
     }
   

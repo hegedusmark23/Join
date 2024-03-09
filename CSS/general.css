@@ -524,6 +524,7 @@ a {
 
 .board-sectors-mobile {
   display: none !important;
+  flex-direction: row;
 }
 
 .board-sectors-mobile svg {
