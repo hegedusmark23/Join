@@ -392,8 +392,8 @@ textarea {
 }
 
 .addtask-actions {
-  position: fixed;
-  bottom: 100px;
+  position: absolute;
+  bottom: 16px;
   right: 0;
 }
 
@@ -489,7 +489,7 @@ textarea {
 
 .addtask-info {
   position: absolute;
-  bottom: 0;
+  bottom: 16px;
   width: 100%;
 }
 
