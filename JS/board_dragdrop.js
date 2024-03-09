@@ -27,7 +27,6 @@ function allowDrop(event) {
 function startDragging(id, state, i) {
     currentDraggedElement = id;
     document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg';
-    console.log('mobile touch');
 }
 
 
@@ -147,9 +146,11 @@ document.addEventListener('dragend', () => {
 function showPopUpMoveTaskMobile(id, event) {
     event.stopPropagation();
     currentDraggedElement = id;
+    let selectedTask = tasks[currentDraggedElement]['state'] + 'M';
     let mobileDialog = document.getElementById('dialog-container-card-to-move');
     mobileDialog.classList.remove('d-none');
-    mobileDialog.innerHTML = showPopUpMoveTaskMobileHTML(event)
+    mobileDialog.innerHTML = showPopUpMoveTaskMobileHTML(event);
+    document.getElementById(selectedTask).classList.add('d-none'); // remove the choice button that have the same name of the state of the selected Task
     setTimeout(() => {
         document.getElementById('popUp-choice').classList.remove('translatePopUpChoice');
     }, 100)
@@ -163,7 +164,7 @@ function showPopUpMoveTaskMobile(id, event) {
  * @param {string} state the state we want to override the selected task
  * @param {object} event - the event for the stopPropagation
  */
-async function moveTo(state, event) {
+async function moveToMobile(state, event) {
     let stateForId = state + 'M'
     tasks[currentDraggedElement]['state'] = state;
     document.getElementById(stateForId).classList.add('blue-btn');

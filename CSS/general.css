@@ -84,6 +84,52 @@ a {
   cursor: pointer;
 }
 
+.board-sections>div {
+  flex: 1;
+  max-width: 252px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 32px;
+}
+
+.toDo-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.in-progress-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.await-feedback-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.done-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
 .no-margin {
   margin-block-start: 0em;
   margin-block-end: 0em;
@@ -213,7 +259,7 @@ a {
   z-index: 1000;
 }
 
-ó .menu-popup {
+.menu-popup {
   flex-direction: column;
   justify-content: center;
   background-color: #2a3647;
@@ -522,6 +568,7 @@ a {
 
   /* Desktops — 1280px */
   @media (max-width: 1280px) {
+
     /* Anpassungen für Desktop-Ansichten */
     .board-header {
       flex-direction: column;
@@ -574,6 +621,7 @@ a {
 
 /* Tablets (Landscape) / Kleinere Desktops — 1024px */
 @media (max-width: 1024px) {
+
   /* Anpassungen für Tablets in Landscape und kleinere Desktops */
   .board-search-input input {
     width: 320px;
@@ -719,7 +767,7 @@ a {
     color: #2a3647;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     flex: 1;
     max-width: 750px;
     overflow-x: scroll;
@@ -741,7 +789,7 @@ a {
     display: none;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     border-radius: 0px;
   }
 }
@@ -923,7 +971,7 @@ a {
     padding: 10px 20px 10px 20px !important;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     margin-right: 0px !important;
   }
 
@@ -1243,6 +1291,7 @@ a {
     justify-content: center;
   }
 }
+
 /* Sehr kleine Smartphones — 320px */
 /* Anpassungen speziell für sehr kleine Smartphone-Bildschirme */
 @media (max-width: 330px) {
@@ -1279,4 +1328,8 @@ a {
     margin-left: 12px;
     font-size: 12px;
   }
+}
+
+.d-none {
+  display: none;
 }
