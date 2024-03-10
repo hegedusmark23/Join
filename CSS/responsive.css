@@ -23,6 +23,7 @@
 
   /* Desktops — 1280px */
   @media (max-width: 1280px) {
+
     /* Anpassungen für Desktop-Ansichten */
     .board-header {
       flex-direction: column;
@@ -75,6 +76,7 @@
 
 /* Tablets (Landscape) / Kleinere Desktops — 1024px */
 @media (max-width: 1024px) {
+
   /* Anpassungen für Tablets in Landscape und kleinere Desktops */
   .board-search-input input {
     width: 320px;
@@ -216,7 +218,7 @@
     margin: 32px 0 8px 0;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     flex: 1;
     max-width: 750px;
     overflow-x: scroll;
@@ -238,7 +240,7 @@
     display: none;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     border-radius: 0px;
   }
 }
@@ -424,7 +426,7 @@
     padding: 10px 20px 10px 20px !important;
   }
 
-  .board-sections > div {
+  .board-sections>div {
     margin-right: 0px !important;
   }
 
@@ -604,6 +606,7 @@
 
 /* Kleinere Smartphones (Landscape) — 480px */
 @media (max-width: 699px) {
+
   /* Anpassungen für kleinere Smartphones */
   .info-mobile {
     display: block;
@@ -979,7 +982,7 @@
     cursor: pointer;
   }
 
-  .add-contact-subtitle{
+  .add-contact-subtitle {
     font-size: 20px;
   }
 
@@ -1135,6 +1138,10 @@
     font-size: 18px;
   }
 
+  .edit-contact-title {
+    font-size: 56px;
+  }
+
   .edit-contact-badge-container {
     width: 100px;
     height: 100px;
@@ -1172,6 +1179,7 @@
 @media (max-width: 430px) {
   .contact-dialog {
     height: auto;
+    min-width: 300px;
   }
 
   .person-icon {
