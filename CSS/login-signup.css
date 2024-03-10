@@ -5,24 +5,6 @@ header {
   padding: 20px;
 }
 
-@media (max-width: 930px){
-  header {
-    padding: 0px;
-  }
-
-  .animated-logo{
-    padding: 20px;
-  }
-
-  .sign-up-btn{
-    padding: 20px;
-  }
-
-  .join-logo{
-    padding: 20px;
-  }
-}
-
 .notUser-text {
   font-size: 20px;
   font-weight: 400;
@@ -93,7 +75,7 @@ main {
   height: 48px;
   font-size: 20px;
   border-radius: 10px;
-  padding: 0 2px;
+  padding: 0 8px;
   border-width: 1px;
   border-style: solid;
   border-color: #d1d1d1;
@@ -227,6 +209,24 @@ form {
 
 .o0 {
   opacity: 0;
+}
+
+@media (max-width: 930px){
+  header {
+    padding: 0px;
+  }
+
+  .animated-logo{
+    padding: 20px;
+  }
+
+  .sign-up-btn{
+    padding: 20px;
+  }
+
+  .join-logo{
+    padding: 20px;
+  }
 }
 
 @keyframes invisVis {
