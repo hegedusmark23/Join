@@ -534,22 +534,6 @@
     z-index: 1000;
   }
 
-  .addtask-actions {
-    position: fixed;
-    bottom: 75px;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .addtask-action-btns {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    background: #f0f0f0;
-    padding: 15px;
-  }
-
   .toDo-container {
     display: flex;
     flex-direction: row;

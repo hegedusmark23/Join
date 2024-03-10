@@ -266,7 +266,6 @@ section#addtask-content {
 }
 
 #addtask-content input,
-textarea,
 button,
 select,
 input {
@@ -288,10 +287,20 @@ input {
   border: 1px solid #29abe2;
 }
 
-textarea {
-  height: 156px;
+#addtask-content textarea {
+  -webkit-font-smoothing: antialiased; /* Für Chrome/Safari */
+  -moz-osx-font-smoothing: grayscale; /* Für Firefox */
+  height: 220px;
   resize: both;
-  overflow: auto;
+  overflow: hidden;
+  font-family: "Inter";
+  border: #d1d1d1 1px solid;
+  border-radius: 10px;
+  padding: 12px 21px 12px 21px;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 .board-header h1,
@@ -1301,7 +1310,7 @@ input#subtask-edit-input {
   background: #fff;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   padding-right: 10px;
   padding-top: 15px;
   padding-bottom: 15px;
