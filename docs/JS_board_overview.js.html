@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/register.js</title>
+    <title>JSDoc: Source: JS/board_overview.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/register.js</h1>
+    <h1 class="page-title">Source: JS/board_overview.js</h1>
 
     
 
@@ -27,222 +27,199 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @global
- * @desc Array that stores all user objects. Each user object contains name, email and password.
- * @type {Array&lt;Object>}
+ * Updates the display of the number of to-do tasks.
  */
-let users = [];
-
-/**
- * @global
- * @desc Stores information about the currently logged in user.
- * @type {Array}
- */
-let currentUser = [];
-
-/**
- * @global
- * @desc Used to reference the name input field of the registration form.
- * @type {HTMLInputElement}
- */
-let Name = [];
-
-/**
- * Loads the user list from memory and updates the global variable `users`.
- *
- * This asynchronous function attempts to load a saved list of users by
- * accesses a storage mechanism. The invited ones
- * Data is then used to update the global variable `users`. in case of a
- * If there is an error loading the data, an error message is displayed in the console.
- * 
- * @async
- * @function loadUsers
- * @returns {Promise&lt;void>} A promise that will be fulfilled when the users load and the
- * global variable `users` has been updated. Returns nothing, but catches possible errors
- * and displays this in the console.
- */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading error:', e);
-  }
+function numberOfTodos() {
+    let toDos = document.getElementById('numberOfToDos');
+    toDos.innerHTML = `&lt;h1 class="tasks-number no-margin">${toDo.length}&lt;/h1>`;
 }
 
 /**
- * Initializes the application's registration function.
- * Loads existing user data when starting the registration page.
+ * Updates the display of the number of completed tasks.
  */
-async function initRegister() {
-  await loadUsers(); // Loads existing users from storage
+function numberOfDone() {
+    let dones = document.getElementById('numberOfDone');
+    dones.innerHTML = `&lt;h1 class="tasks-number no-margin">${done.length}&lt;/h1>`;
 }
 
 /**
- * Performs user registration by collecting the form data and saving the user data.
- * After successful registration, the form will be reset and the user will be redirected to the login page.
- * 
- * @async
- * @function register
- * @description Registers a new user with the data entered from the registration form.
- * Disables the registration button during the registration process to avoid multiple registrations.
+ * Filters tasks based on their status.
+ * @param {Array} filteredTasks - Array of filtered tasks.
+ * @param {string} status - The status to be filtered by
+ * @returns {Promise&lt;Array>} - A Promise that returns an array of filtered tasks.
  */
-async function register() {
-  let Name = document.getElementById('name');
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let register_button = document.getElementById('register_button');
-  register_button.disabled = true;
-  users.push({
-    name: Name.value,
-    email: email.value,
-    password: password.value,
-  });
-  await setItem('users', JSON.stringify(users));
-  resetForm();
-  signUpMessage();
-  redirectToLogin();
+async function fetchAndFilterTasks(filteredTasks, status) {
+    let tasks = filteredTasks ? filteredTasks : await fetchTasks();
+    return tasks.filter(task => task['state'] === status);
 }
 
 /**
- * Resets the registration form after registration.
+ * Controls the display of the "No tasks" div
+ * @param {HTMLElement} noTasksDiv - The div element that is displayed if there are no tasks.
+ * @param {Array} tasks - Array of Tasks
  */
-function resetForm() {     
-  let Name = document.getElementById('name');
-  Name.value = '';
-  email.value = '';
-  password.value = '';
-  confirm_password.value = '';
-  register_button.disabled = false;
+function displayNoTasksDiv(noTasksDiv, tasks) {
+    noTasksDiv.style.display = tasks.length > 0 ? 'none' : 'flex';
 }
 
 /**
- * Checks whether the passwords match during registration.
+ * Fills the task container with task cards
+ * @param {HTMLElement} container - The container for the task cards
+ * @param {Array} tasks - Array of Tasks
  */
-function match() {      
-  var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
+function populateTaskContainer(container, tasks) {
+    if (container) {
+        container.innerHTML = '';
+        tasks.forEach((task, i) => {
+            let completionDetails = updateSubtaskProgress(task);
+            container.innerHTML += renderCardContent(i, task, completionDetails);
+        });
     } else {
-      confirm_password.setCustomValidity('');
+        console.info('Container not found!.');
     }
-  }
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
 }
 
 /**
- * Performs the login process.
+ * Processes tasks for a specific status and updates the display accordingly
+ * @param {Array} filteredTasks - Array of filtered tasks
+ * @param {string} status - The status to be filtered by
+ * @param {string} noTasksDivId - The ID of the "No tasks" div
+ * @param {string} containerId - The ID of the container for the task cards
  */
-async function login() {
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
-  if (user) {
-    await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
-  } else {
-    loginError();
-  }
+async function processTasksForStatus(filteredTasks, status, noTasksDivId, containerId) {
+    let tasks = await fetchAndFilterTasks(filteredTasks, status);
+    let noTasksDiv = document.getElementById(noTasksDivId);
+    let container = document.getElementById(containerId);
+    displayNoTasksDiv(noTasksDiv, tasks);
+    populateTaskContainer(container, tasks);
 }
 
 /**
- * Empties the arrays related to the current user and redirects to the login page
+ * Updates the progress of the subtasks for a given task
+ * @param {Object} task - The task whose subtask progress is to be updated
+ * @returns {Object} Ein Objekt mit dem Prozentsatz des Fortschritts und einem Text, der den Fortschritt angibt
  */
-function logOut() {  
-  Name = [];
-  currentUser = [];
-  window.location.href = '/index.html';
+function updateSubtaskProgress(task) {
+    let totalSubtasks = task.subtask ? task.subtask.length : 0; // First check whether the task has subtasks. If so, determine the total number of subtasks
+    let completedSubtasks = task.subtask ? task.subtask.filter(subtask => subtask.completed === 'done').length : 0; // Determine the number of completed subtasks
+    let completionPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0; // Calculate the percentage of completed subtasks.
+    return {
+        completionPercentage,
+        subtaskText: totalSubtasks > 0 ? `${completedSubtasks}/${totalSubtasks} Subtasks` : 'No Subtasks'
+    }; // The function returns an object that contains two properties:
 }
 
 /**
- * Sets the current user after login.
+ * Determines the screen based on the priority of the task.
+ * @param {Object} task - The task object for which the image is determined.
+ * @returns {string|null} The file name of the image or zero if no priority is set.
  */
-async function setCurrentUser() {   
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    message.innerHTML = currentUser[0]['name'];
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
-
-/**
- * Sets the name of the current user.
- */
-async function setCurrentUserName() { 
-  const userData = await getItem('user');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
-
-/**
- * Filters out the user's name.
- */
-function getNamefromArray() {
-  let message = document.getElementById('welcome-message');
-  message.innerHTML = currentUser[0]['name'];
-}
-
-/**
- * Capitalizes the first letter of the logged in user and displays it on the user button.
- */
-function capitalisedName() {    
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  Name.push(currentUser[0]['name']);
-  parts = Name[0].split(" ");
-  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
-  capitalisedName.innerHTML = neededStr
-}
-
-/**
- * Displays an error message if username or password is incorrect.
- */
-function loginError() {       
-  let message = document.getElementById('login-error-message');
-  message.classList.remove('d-none');
-  message.classList.add('d-flex');
-
-}
-
-/**
- * Function behind the “Stay logged in” checkbox.
- */
-function rememberMe() {   
-  var rememberMeCheckbox = document.getElementById('remember');
-  var usernameInput = document.getElementById('email');
-  var passwordInput = document.getElementById('password');
-  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
-    rememberMeCheckbox.checked = true;
-    usernameInput.value = localStorage.usrname;
-    passwordInput.value = localStorage.pass;
-  } else {
-    rememberMeCheckbox.checked = false;
-    usernameInput.value = '';
-    passwordInput.value = '';
-  }
-  rememberMeCheckbox.addEventListener('click', function () {
-    if (rememberMeCheckbox.checked) {
-      localStorage.usrname = usernameInput.value;
-      localStorage.pass = passwordInput.value;
-      localStorage.chkbx = rememberMeCheckbox.checked;
+function taskImage(task) {
+    if (task.prio === 'low') {
+        return 'prio_low.svg';
+    } else if (task.prio === 'medium') {
+        return 'prio_medium.svg';
+    } else if (task.prio === 'urgent') {
+        return 'prio_high.svg';
     } else {
-      localStorage.usrname = '';
-      localStorage.pass = '';
-      localStorage.chkbx = '';
+        return null; // No image for 'N/A' or zero values
     }
-  });
-};</code></pre>
+}
+
+/**
+ * Generates the HTML string for the footer of the assignments (assignees) in the board map.
+ * @param {Object} task - The task object whose assignees are to be rendered.
+ * @returns {string} HTML string for the footer of the assignees
+ */
+function createAssigneesFooter(task) {
+    let assigneesFooter = '';
+    if (task.assignTo &amp;&amp; task.assignTo.length > 0) {
+        task.assignTo.forEach(assignee => {
+            assigneesFooter += `&lt;div class="board-content-circle" style="background-color: ${assignee.color};">${assignee.initials}&lt;/div>`;
+        });
+    }
+    return assigneesFooter;
+}
+
+/**
+ * Determines the colour of the category label based on the category of the task.
+ * @param {string} category - The category of Tasks
+ * @returns {string} Colour code for the category label.
+ */
+function getLabelColor(category) {
+    const labelCol1 = '#0038ff';
+    const labelCol2 = '#1FD7C1';
+
+    return category === 'Technical Task' ? labelCol1 : labelCol2;
+}
+
+/**
+ * Generates the HTML string for the subtask display in the board map.
+ * @param {Object} task - The task object whose subtasks are to be rendered.
+ * @param {Object} completionDetails - Details on the progress of the subtasks.
+ * @returns {string} HTML string for the subtask display.
+ */
+function createSubtaskContent(task, completionDetails) {
+    return (task.subtask &amp;&amp; task.subtask.length > 0) ?
+        /*html*/ `&lt;div class="board-card-progress">
+            &lt;div id="progress-bar-container" style="background-color: #F4F4F4; width: 120px; height: 8px; border-radius: 4px;">
+                &lt;div id="progress-bar" style="height: 8px; border-radius: 4px; background-color: #4589FF; width: ${completionDetails.completionPercentage}%;">&lt;/div>
+            &lt;/div>
+            &lt;div class="board-card-progress-text">${completionDetails.subtaskText}&lt;/div>
+        &lt;/div>` : '';
+}
+
+/**
+ * Creates the HTML content for a board map based on a task.
+ * @param {number} i - Index of the task in the array, serves as part of the ID.
+ * @param {Object} task - The task object for which the content is created.
+ * @param {Object} completionDetails - Details on the progress of the subtasks.
+ * @returns {string} HTML string for the board card.
+ */
+function renderCardContent(i, task, completionDetails) {
+    let tasksImg = taskImage(task);
+    let imgHtml = tasksImg ? `&lt;div class="board-card-footer-prio">&lt;img src="./assets/icons/${tasksImg}" alt="Prio Symbol">&lt;/div>` : '';
+    let assigneesFooter = createAssigneesFooter(task);
+    let description = task.description ? task.description : "";
+    let subtaskContent = createSubtaskContent(task, completionDetails);
+    return /*html*/ `
+    &lt;div id="${task.state}-card-content${i}" draggable="true" class="board-card-content" ondragstart="startDragging(${task.identifier}, '${task.state}', ${i})">
+        &lt;div class="board-card" data-task-id="${task.id}">
+            &lt;span onclick="showPopUpMoveTaskMobile(${task.identifier}, event)" id="${task.state}-move-icon-container${i}" class="move-icon-container">&lt;svg xmlns="http://www.w3.org/2000/svg" class="move-icon" viewBox="0 0 512 512">&lt;path fill="" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M176 112l80-80 80 80M255.98 32l.02 448M176 400l80 80 80-80M400 176l80 80-80 80M112 176l-80 80 80 80M32 256h448"/>&lt;/svg>&lt;/span>
+            &lt;div class="board-card-label" style="background-color: ${getLabelColor(task.category)}">${task.category}&lt;/div>
+            &lt;div class="board-card-title">${task.title}&lt;/div>
+            &lt;div class="board-card-description">${description}&lt;/div>
+            ${subtaskContent}
+            &lt;div class="board-card-footer">
+                &lt;div class="board-card-footer-assignees">${assigneesFooter}&lt;/div>
+                ${imgHtml}
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>`;
+}
+
+/**
+ * Changes the completion status of a subtask.
+ * @param {number} taskId - The ID of the parent task.
+ * @param {number} subtaskId - The ID of the subtask.
+ * @returns {Object|null} - The updated task object or null if not found.
+ */
+async function toggleSubtaskCompleted(taskId, subtaskId) {
+    let task = tasks.find(task => task.id === taskId);
+    if (task) {
+        let subtask = task.subtask.find(subtask => subtask.id === subtaskId);
+        if (subtask) {
+            // Status umschalten
+            subtask.completed = subtask.completed === 'done' ? '' : 'done';
+            await setItem('tasks', JSON.stringify(tasks));
+            initializeBoardCard();
+            openTaskDetailModal(task);
+
+            return task;
+        }
+    }
+    return null;
+}</code></pre>
         </article>
     </section>
 
@@ -258,7 +235,7 @@ function rememberMe() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:04 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:05 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

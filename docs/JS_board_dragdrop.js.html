@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/register.js</title>
+    <title>JSDoc: Source: JS/board_dragdrop.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/register.js</h1>
+    <h1 class="page-title">Source: JS/board_dragdrop.js</h1>
 
     
 
@@ -26,223 +26,202 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @global
- * @desc Array that stores all user objects. Each user object contains name, email and password.
- * @type {Array&lt;Object>}
- */
-let users = [];
-
+            <pre class="prettyprint source linenums"><code>let backgroundToHide;
+let boardSectionToSet;
+let backgroundToReset;
+let boardSectionToHide;
 /**
- * @global
- * @desc Stores information about the currently logged in user.
- * @type {Array}
- */
-let currentUser = [];
-
+ * Starts the drag process for a task element.
+ * @param {number} id - The ID of the task to be moved.
+ * @param {string} state - The current status of the task.
+ * @param {number} i - The index of the task in its current state.
+*/
 /**
- * @global
- * @desc Used to reference the name input field of the registration form.
- * @type {HTMLInputElement}
+ * Enables drag elements to be dropped.
+ * @param {Event} ev - The Drag-Event.
  */
-let Name = [];
-
-/**
- * Loads the user list from memory and updates the global variable `users`.
- *
- * This asynchronous function attempts to load a saved list of users by
- * accesses a storage mechanism. The invited ones
- * Data is then used to update the global variable `users`. in case of a
- * If there is an error loading the data, an error message is displayed in the console.
- * 
- * @async
- * @function loadUsers
- * @returns {Promise&lt;void>} A promise that will be fulfilled when the users load and the
- * global variable `users` has been updated. Returns nothing, but catches possible errors
- * and displays this in the console.
- */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading error:', e);
-  }
+function allowDrop(event) {
+    event.preventDefault();
 }
 
 /**
- * Initializes the application's registration function.
- * Loads existing user data when starting the registration page.
+ * this function is activated when the task begins to be dragged
+ * @param {*} id - identifier of each task that is dragged
+ * @param {*} state - indicates the state of the current dragged task
+ * @param {*} i - index indicating the current position of the task within the current container
  */
-async function initRegister() {
-  await loadUsers(); // Loads existing users from storage
+function startDragging(id, state, i) {
+    currentDraggedElement = id;
+    document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg';
 }
 
 /**
- * Performs user registration by collecting the form data and saving the user data.
- * After successful registration, the form will be reset and the user will be redirected to the login page.
- * 
- * @async
- * @function register
- * @description Registers a new user with the data entered from the registration form.
- * Disables the registration button during the registration process to avoid multiple registrations.
- */
-async function register() {
-  let Name = document.getElementById('name');
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let register_button = document.getElementById('register_button');
-  register_button.disabled = true;
-  users.push({
-    name: Name.value,
-    email: email.value,
-    password: password.value,
-  });
-  await setItem('users', JSON.stringify(users));
-  resetForm();
-  signUpMessage();
-  redirectToLogin();
+ * Moves the currently dragged task to a new state and updates the view.
+ * @param {string} state - The target state of the task.
+*/
+async function moveTo(state, event) {
+    event.preventDefault();
+    tasks[currentDraggedElement]['state'] = state;
+    await setItem('tasks', JSON.stringify(tasks));
+    await initializeBoardCard();
+
 }
 
 /**
- * Resets the registration form after registration.
+ * Hides the "No tasks" hint for a specific column when a task is added.
+ * @param {string} id - The ID of the column in which the note is to be hidden.
  */
-function resetForm() {     
-  let Name = document.getElementById('name');
-  Name.value = '';
-  email.value = '';
-  password.value = '';
-  confirm_password.value = '';
-  register_button.disabled = false;
-}
 
-/**
- * Checks whether the passwords match during registration.
- */
-function match() {      
-  var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity('');
+function hideNoTaskDiv(id) {
+    if (id == 'toDo') {
+        hideDivAndSetBorder1();
+    } else if (id == 'in-progress') {
+        hideDivAndSetBorder2();
+    } else if (id == 'await-feedback') {
+        hideDivAndSetBorder3();
+    } else if (id == 'done') {
+        hideDivAndSetBorder4();
     }
-  }
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
+    if (backgroundToHide &amp;&amp; boardSectionToSet) {
+        document.getElementById(backgroundToHide).style.display = 'none';
+        document.getElementById(boardSectionToSet).style.border = '2px dashed rgba(0,0,0,0.2)';
+    } else { };
 }
 
 /**
- * Performs the login process.
+ * Sets variables to hide the background and set the border for the "To Do" section.
  */
-async function login() {
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
-  if (user) {
-    await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
-  } else {
-    loginError();
-  }
+function hideDivAndSetBorder1() {
+    backgroundToHide = 'board-card-background-1'
+    boardSectionToSet = 'board-section-1'
 }
 
 /**
- * Empties the arrays related to the current user and redirects to the login page
+ * Sets variables to hide the background and set the border for the "In Progress" section.
  */
-function logOut() {  
-  Name = [];
-  currentUser = [];
-  window.location.href = '/index.html';
+function hideDivAndSetBorder2() {
+    backgroundToHide = 'board-card-background-2'
+    boardSectionToSet = 'board-section-2'
 }
 
 /**
- * Sets the current user after login.
+ * Sets variables to hide the background and set the border for the "Await Feedback" section.
  */
-async function setCurrentUser() {   
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    message.innerHTML = currentUser[0]['name'];
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
+function hideDivAndSetBorder3() {
+    backgroundToHide = 'board-card-background-3'
+    boardSectionToSet = 'board-section-3'
 }
 
 /**
- * Sets the name of the current user.
+ * Sets variables to hide the background and set the border for the "Done" section.
  */
-async function setCurrentUserName() { 
-  const userData = await getItem('user');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
+function hideDivAndSetBorder4() {
+    backgroundToHide = 'board-card-background-4'
+    boardSectionToSet = 'board-section-4'
 }
 
 /**
- * Filters out the user's name.
+ * Resets the "No tasks" hint for a specific column when the last task is removed from it.
+ * @param {string} id - The ID of the column for which the note is to be reset.
  */
-function getNamefromArray() {
-  let message = document.getElementById('welcome-message');
-  message.innerHTML = currentUser[0]['name'];
-}
-
-/**
- * Capitalizes the first letter of the logged in user and displays it on the user button.
- */
-function capitalisedName() {    
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  Name.push(currentUser[0]['name']);
-  parts = Name[0].split(" ");
-  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
-  capitalisedName.innerHTML = neededStr
-}
-
-/**
- * Displays an error message if username or password is incorrect.
- */
-function loginError() {       
-  let message = document.getElementById('login-error-message');
-  message.classList.remove('d-none');
-  message.classList.add('d-flex');
-
-}
-
-/**
- * Function behind the “Stay logged in” checkbox.
- */
-function rememberMe() {   
-  var rememberMeCheckbox = document.getElementById('remember');
-  var usernameInput = document.getElementById('email');
-  var passwordInput = document.getElementById('password');
-  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
-    rememberMeCheckbox.checked = true;
-    usernameInput.value = localStorage.usrname;
-    passwordInput.value = localStorage.pass;
-  } else {
-    rememberMeCheckbox.checked = false;
-    usernameInput.value = '';
-    passwordInput.value = '';
-  }
-  rememberMeCheckbox.addEventListener('click', function () {
-    if (rememberMeCheckbox.checked) {
-      localStorage.usrname = usernameInput.value;
-      localStorage.pass = passwordInput.value;
-      localStorage.chkbx = rememberMeCheckbox.checked;
-    } else {
-      localStorage.usrname = '';
-      localStorage.pass = '';
-      localStorage.chkbx = '';
+function resetNoTaskDiv(id) {
+    isDraggingOver = true;
+    if (id == 'toDo' &amp;&amp; todos.length == 0) {
+        resetDivAndHideBorder1();
+    } else if (id == 'in-progress' &amp;&amp; inProgress.length == 0) {
+        resetDivAndHideBorder2()
+    } else if (id == 'await-feedback' &amp;&amp; awaitFeedback.length == 0) {
+        resetDivAndHideBorder3()
+    } else if (id == 'done' &amp;&amp; done.length == 0) {
+        resetDivAndHideBorder4()
     }
-  });
-};</code></pre>
+    if (backgroundToReset &amp;&amp; boardSectionToHide) {
+        addStyle(); // I added a delay to avoid overlap between the hideNoTaskDiv() and resetNoTaskDiv() functions;
+    } else { }
+}
+
+
+function addStyle() {
+    document.getElementById(backgroundToReset).style.display = 'flex';
+    document.getElementById(boardSectionToHide).style.border = 'none'
+}
+
+function resetDivAndHideBorder1() {
+    backgroundToReset = 'board-card-background-1';
+    boardSectionToHide = 'board-section-1'
+}
+
+function resetDivAndHideBorder2() {
+    backgroundToReset = 'board-card-background-2';
+    boardSectionToHide = 'board-section-2'
+}
+
+function resetDivAndHideBorder3() {
+    backgroundToReset = 'board-card-background-3';
+    boardSectionToHide = 'board-section-3'
+}
+
+function resetDivAndHideBorder4() {
+    backgroundToReset = 'board-card-background-4';
+    boardSectionToHide = 'board-section-4'
+}
+
+document.addEventListener('dragend', () => {
+    document.getElementById('board-section-1').style.border = 'none';
+    document.getElementById('board-section-2').style.border = 'none';
+    document.getElementById('board-section-3').style.border = 'none';
+    document.getElementById('board-section-4').style.border = 'none';
+});
+
+/**
+ * shows the pop up containing the titles of the four sections, into which you want to move the selected task
+ * @param {string} id - the id of the paragraph width the containers's destination
+ * @param {object} event - the event for the stopPropagation 
+ */
+function showPopUpMoveTaskMobile(id, event) {
+    event.stopPropagation();
+    currentDraggedElement = id;
+    let selectedTask = tasks[currentDraggedElement]['state'] + 'M';
+    let mobileDialog = document.getElementById('dialog-container-card-to-move');
+    mobileDialog.classList.remove('d-none');
+    mobileDialog.innerHTML = showPopUpMoveTaskMobileHTML(event);
+    document.getElementById(selectedTask).classList.add('d-none'); // remove the choice button that have the same name of the state of the selected Task
+    setTimeout(() => {
+        document.getElementById('popUp-choice').classList.remove('translatePopUpChoice');
+    }, 100)
+}
+
+/**
+ * This function takes as parameter the state string in which we want to overwrite the selected task. 
+ * It then overwrites the task, adds a light blue background and white text color to the selected title, 
+ * saves the data to Remote Storage refreshes the page with the new state 
+ * of the task that will be in the selected container
+ * @param {string} state the state we want to override the selected task
+ * @param {object} event - the event for the stopPropagation
+ */
+async function moveToMobile(state, event) {
+    let stateForId = state + 'M'
+    tasks[currentDraggedElement]['state'] = state;
+    document.getElementById(stateForId).style.background = '#091931';
+    document.getElementById(stateForId).style.color = '#fff';
+    await setItem('tasks', JSON.stringify(tasks));
+    await initializeBoardCard();
+    setTimeout(() => {
+        closePopUpMoveTaskMobile(event);
+    }, 200)
+}
+
+/**
+ * This function closes the pop-up moving tasks
+ * @param {object} event - the event for the stopPropagation
+ */
+function closePopUpMoveTaskMobile(event) {
+    document.getElementById('popUp-choice').classList.add('translatePopUpChoice');
+    setTimeout(() => {
+        document.getElementById('dialog-container-card-to-move').classList.add('d-none');
+    }, 200)
+    event.stopPropagation();
+}</code></pre>
         </article>
     </section>
 

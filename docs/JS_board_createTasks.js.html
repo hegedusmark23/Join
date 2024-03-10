@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/register.js</title>
+    <title>JSDoc: Source: JS/board_createTasks.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/register.js</h1>
+    <h1 class="page-title">Source: JS/board_createTasks.js</h1>
 
     
 
@@ -27,222 +27,326 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @global
- * @desc Array that stores all user objects. Each user object contains name, email and password.
- * @type {Array&lt;Object>}
+ * Creates the header area of the modal form
+ * @returns {string} HTML string of the header area
  */
-let users = [];
-
-/**
- * @global
- * @desc Stores information about the currently logged in user.
- * @type {Array}
- */
-let currentUser = [];
-
-/**
- * @global
- * @desc Used to reference the name input field of the registration form.
- * @type {HTMLInputElement}
- */
-let Name = [];
-
-/**
- * Loads the user list from memory and updates the global variable `users`.
- *
- * This asynchronous function attempts to load a saved list of users by
- * accesses a storage mechanism. The invited ones
- * Data is then used to update the global variable `users`. in case of a
- * If there is an error loading the data, an error message is displayed in the console.
- * 
- * @async
- * @function loadUsers
- * @returns {Promise&lt;void>} A promise that will be fulfilled when the users load and the
- * global variable `users` has been updated. Returns nothing, but catches possible errors
- * and displays this in the console.
- */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading error:', e);
-  }
+function createHeaderSection() {
+    return /*html*/`
+        &lt;div class="addtask-modal-header">
+            &lt;div class="addtask-modal-headline">
+                Add Task
+            &lt;/div>
+            &lt;div id="close-modal-button-addtask-board" class="add-tasks-modal-close">
+                &lt;div class="first-img-container modal-x-tpl">
+                    &lt;svg class="first-img" xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
+                        fill="none">
+                        &lt;line x1="7" y1="6" x2="18" y2="17" stroke="#2A3647" stroke-width="2" stroke-linecap="round">&lt;/line>
+                        &lt;line x1="7" y1="17" x2="18" y2="6" stroke="#2A3647" stroke-width="2" stroke-linecap="round">&lt;/line>
+                    &lt;/svg>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+`;
 }
 
 /**
- * Initializes the application's registration function.
- * Loads existing user data when starting the registration page.
+ * Creates the left section of the form, including dynamic state assignment
+ * @param {string} taskState - The state of the task that is transferred to the modal
+ * @returns {string} HTML string of the left form section
  */
-async function initRegister() {
-  await loadUsers(); // Loads existing users from storage
+function createFormSectionLeft(taskState) {
+    return /*html*/`
+    &lt;input type="hidden" id="taskState" value="${taskState}">
+    &lt;div class="form-section left-section">
+        &lt;div class="addtask-selection addtask-custom-label">
+            &lt;label>
+                &lt;span class="label-text required">Title&lt;/span>
+                &lt;/span>
+                &lt;input id="addtask-title" type="text" class="input-addtask-title addtask-title-input"
+                    placeholder="Enter a title">
+                &lt;p id="title-error-msg" style="visibility: hidden;">This field is required&lt;/p>
+            &lt;/label>
+        &lt;/div>
+
+        &lt;div class="addtask-selection">
+            &lt;label>
+                &lt;span>Description&lt;/span>
+                &lt;textarea class="textarea-description textarea" placeholder="Enter a description" name="decription"
+                    id="description">&lt;/textarea>
+            &lt;/label>
+        &lt;/div>
+        &lt;div class="addtask-selection">
+            &lt;label>
+                &lt;span>Assigned to&lt;/span>
+                &lt;div class="dropdown">
+                    &lt;button id="dropdown-assignees" class="dropbtn">Select contacts to
+                        assign&lt;/button>
+                    &lt;div class="dropdown-ctrl">
+                        &lt;div class="icon-background-down arrowDown" style="display: block;">
+                        &lt;/div>
+                        &lt;div class="arrow-dropdown-down arrowDown" style="display: block;">
+                        &lt;/div>
+                        &lt;div class="icon-background-up arrowUp" style="display:none;">&lt;/div>
+                        &lt;div class="arrow-dropdown-up arrowUp" style="display:none;">&lt;/div>
+                    &lt;/div>
+                    &lt;div class="dropdown-content-assign" id="assign-to" style="display: none;">
+
+                    &lt;/div>
+                &lt;/div>
+                &lt;div id="selected-assignees">
+
+                &lt;/div>
+            &lt;/label>
+        &lt;/div>
+        &lt;div class="addtask-info info">This field is required&lt;/div>
+        &lt;/div>
+        `;
 }
 
 /**
- * Performs user registration by collecting the form data and saving the user data.
- * After successful registration, the form will be reset and the user will be redirected to the login page.
- * 
- * @async
- * @function register
- * @description Registers a new user with the data entered from the registration form.
- * Disables the registration button during the registration process to avoid multiple registrations.
+ * Creates the right section of the form
+ * @returns {string} HTML string of the right-hand section of the form
  */
-async function register() {
-  let Name = document.getElementById('name');
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let register_button = document.getElementById('register_button');
-  register_button.disabled = true;
-  users.push({
-    name: Name.value,
-    email: email.value,
-    password: password.value,
-  });
-  await setItem('users', JSON.stringify(users));
-  resetForm();
-  signUpMessage();
-  redirectToLogin();
+function createFormSectionRight() {
+    return /*html*/`
+    &lt;div class="form-section right-section">
+                &lt;div class="addtask-selection addtask-custom-label">
+                    &lt;label>
+                        &lt;span class="required">Due date&lt;/span>
+                        &lt;input type="date" id="dueDate" name="due-date" class="input-date">
+                        &lt;p id="duedate-error-msg" style="visibility: hidden;">This field is required&lt;/p>
+                    &lt;/label>
+                &lt;/div>
+
+                &lt;label class="addtask-custom-label">Prio&lt;/label>
+                &lt;div class="addtask-selection">
+                    &lt;div class="addtask-prio-btn">
+                        &lt;button class="addtask-buttons" id="addtask-prio-urgent">Urgent
+                            &lt;img class="icon" src="./assets/img/addtask_prio-urgent-icon.svg" alt="Prio Urgent">
+                        &lt;/button>
+                        &lt;button class="addtask-buttons is-active" style="background-color: rgb(255, 168, 0);" id="addtask-prio-medium">Medium
+                            &lt;img class="icon" src="./assets/img/addtask_prio-medium-icon.svg" alt="Prio Medium">
+                        &lt;/button>
+                        &lt;button class="addtask-buttons" id="addtask-prio-low">Low
+                            &lt;img class="icon" src="./assets/img/addtask_prio-low-icon.svg" alt="Prio Low">
+                        &lt;/button>
+                    &lt;/div>
+                &lt;/div>
+
+                &lt;div class="addtask-selection">
+                    &lt;label>
+                        &lt;span class="required">Category&lt;/span>
+                        &lt;div class="dropdown">
+                            &lt;button id="dropdown-categories" class="dropbtn">Select task
+                                category&lt;/button>
+                            &lt;div id="dropdown-container" class="dropdown-ctrl">
+                                &lt;div class="icon-background-down arrowDown" style="display: block;">
+                                &lt;/div>
+                                &lt;div class="arrow-dropdown-down arrowDown" style="display: block;">
+                                &lt;/div>
+                                &lt;div class="icon-background-up arrowUp" style="display:none;">&lt;/div>
+                                &lt;div class="arrow-dropdown-up arrowUp" style="display:none;">&lt;/div>
+                            &lt;/div>
+
+                            &lt;div class="dropdown-content" id="category" style="display:none;">
+                            &lt;/div>
+                        &lt;/div>
+                        &lt;p id="dropdown-categories-error-msg" style="visibility: hidden;">This field is
+                            required
+                        &lt;/p>
+                    &lt;/label>
+                &lt;/div>
+
+                &lt;div class="addtask-selection">
+                    &lt;label>
+                        &lt;span>Subtask&lt;/span>
+                        &lt;div class="input-area-custom">
+                            &lt;input class="custom-input" type="text" id="subtask" name="subtask"
+                                placeholder="Add new subtask">
+                            &lt;div class="subtask-ctrl">
+                                &lt;div class="subtask-icons-before" style="display: block;">
+                                    &lt;div class="icon-background-down">&lt;/div>
+                                    &lt;div class="cross-dropdown-down">&lt;/div>
+                                &lt;/div>
+                                &lt;div class="subtask-icons-after" style="display: none;">
+
+                                    &lt;div class="first-img-container">
+                                        &lt;svg class="first-img" xmlns="http://www.w3.org/2000/svg" width="25" height="24"
+                                            viewBox="0 0 25 24" fill="none">
+                                            &lt;line x1="7" y1="6" x2="18" y2="17" stroke="#2A3647" stroke-width="2"
+                                                stroke-linecap="round" />
+                                            &lt;line x1="7" y1="17" x2="18" y2="6" stroke="#2A3647" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        &lt;/svg>
+                                    &lt;/div>
+                                    &lt;div class="divider-container">
+                                        &lt;svg width="2" height="100%" viewBox="0 0 2 25" xmlns="http://www.w3.org/2000/svg">
+                                            &lt;defs>
+                                                &lt;linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    &lt;stop offset="0%" style="stop-color: #cdcecf; stop-opacity: 0" />
+                                                    &lt;stop offset="50%" style="stop-color: #cdcecf; stop-opacity: 1" />
+                                                    &lt;stop offset="100%" style="stop-color: #cdcecf; stop-opacity: 0" />
+                                                &lt;/linearGradient>
+                                            &lt;/defs>
+                                            &lt;rect width="2" height="100%" fill="url(#grad1)" />
+                                        &lt;/svg>
+                                    &lt;/div>
+                                    &lt;div class="second-img-container">
+                                        &lt;svg class="second-img" xmlns="http://www.w3.org/2000/svg" width="25" height="24"
+                                            viewBox="0 0 25 24" fill="none">
+                                            &lt;path
+                                                d="M9.69474 15.15L18.1697 6.675C18.3697 6.475 18.6072 6.375 18.8822 6.375C19.1572 6.375 19.3947 6.475 19.5947 6.675C19.7947 6.875 19.8947 7.1125 19.8947 7.3875C19.8947 7.6625 19.7947 7.9 19.5947 8.1L10.3947 17.3C10.1947 17.5 9.96141 17.6 9.69474 17.6C9.42807 17.6 9.19474 17.5 8.99474 17.3L4.69474 13C4.49474 12.8 4.3989 12.5625 4.40724 12.2875C4.41557 12.0125 4.51974 11.775 4.71974 11.575C4.91974 11.375 5.15724 11.275 5.43224 11.275C5.70724 11.275 5.94474 11.375 6.14474 11.575L9.69474 15.15Z"
+                                                fill="#2A3647">&lt;/path>
+                                        &lt;/svg>
+
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/label>
+
+                    &lt;div class="wrapper-flex-container">
+                        &lt;div class="subtasks-container">
+                            &lt;div id="subtasks-list-container">
+                                &lt;ul>
+
+                                &lt;/ul>
+                            &lt;/div>
+                        &lt;/div>
+                        &lt;div class="addtask-actions">
+
+                            &lt;div class="addtask-action-btns">
+                                &lt;button id="clear-button" onclick="clearAllInputs()" class="transparent-btn">Clear
+                                    &lt;svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        &lt;path
+                                            d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z"
+                                            stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    &lt;/svg>
+
+                                &lt;/button>
+                                &lt;div class="addtask-info-mobile info-mobile">This field is required
+                                &lt;/div>
+                                &lt;button id="create-task-board" class="blue-btn">Create Task
+                                    &lt;img src="./assets/icons/check.svg" alt="Create Task">&lt;/button>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+
+            &lt;/div>
+    `;
 }
 
 /**
- * Resets the registration form after registration.
+ * Creates a separator between the form sections
+ * @returns {string} HTML string of the separator
  */
-function resetForm() {     
-  let Name = document.getElementById('name');
-  Name.value = '';
-  email.value = '';
-  password.value = '';
-  confirm_password.value = '';
-  register_button.disabled = false;
+function createDivider() {
+    return `&lt;div class="divider divider-modal-tpl">&lt;/div>`;
 }
 
 /**
- * Checks whether the passwords match during registration.
+ * Inserts dynamic content into the AddTask modal, including state management for task creation
+ * @param {string} taskState - The status of the task to be created
  */
-function match() {      
-  var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity('');
+function insertDynamicContentIntoModal(taskState) {
+    const modalContent = document.querySelector('#addtask-modal .modal-content');
+    if (!modalContent) return;
+
+    const headerSection = createHeaderSection();
+    const formSectionLeft = createFormSectionLeft(taskState);
+    const divider = createDivider();
+    const formSectionRight = createFormSectionRight();
+
+    const dynamicContent = /*html*/`
+        &lt;section id="addtask-content" class="addtask-modal-tpl">
+            ${headerSection}
+            &lt;form onsubmit="return false;" class="addtask-form addtask-form-tpl">
+                ${formSectionLeft}
+                ${divider}
+                ${formSectionRight}
+            &lt;/form>
+        &lt;/section>`;
+    
+    modalContent.innerHTML = dynamicContent;
+    reinitializeEventListenersForEditModal();
+}
+
+/**
+ * Creates and saves a new task based on the form entries and the selected status
+ */
+async function createTaskModal() {
+    if (!validateTaskForm()) {     // Validate the form
+        console.info('Validation failed. No Task created.');
+        return;
     }
-  }
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
-}
-
-/**
- * Performs the login process.
- */
-async function login() {
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
-  if (user) {
-    await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
-  } else {
-    loginError();
-  }
-}
-
-/**
- * Empties the arrays related to the current user and redirects to the login page
- */
-function logOut() {  
-  Name = [];
-  currentUser = [];
-  window.location.href = '/index.html';
-}
-
-/**
- * Sets the current user after login.
- */
-async function setCurrentUser() {   
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    message.innerHTML = currentUser[0]['name'];
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
-
-/**
- * Sets the name of the current user.
- */
-async function setCurrentUserName() { 
-  const userData = await getItem('user');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
-
-/**
- * Filters out the user's name.
- */
-function getNamefromArray() {
-  let message = document.getElementById('welcome-message');
-  message.innerHTML = currentUser[0]['name'];
-}
-
-/**
- * Capitalizes the first letter of the logged in user and displays it on the user button.
- */
-function capitalisedName() {    
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  Name.push(currentUser[0]['name']);
-  parts = Name[0].split(" ");
-  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
-  capitalisedName.innerHTML = neededStr
-}
-
-/**
- * Displays an error message if username or password is incorrect.
- */
-function loginError() {       
-  let message = document.getElementById('login-error-message');
-  message.classList.remove('d-none');
-  message.classList.add('d-flex');
-
-}
-
-/**
- * Function behind the “Stay logged in” checkbox.
- */
-function rememberMe() {   
-  var rememberMeCheckbox = document.getElementById('remember');
-  var usernameInput = document.getElementById('email');
-  var passwordInput = document.getElementById('password');
-  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
-    rememberMeCheckbox.checked = true;
-    usernameInput.value = localStorage.usrname;
-    passwordInput.value = localStorage.pass;
-  } else {
-    rememberMeCheckbox.checked = false;
-    usernameInput.value = '';
-    passwordInput.value = '';
-  }
-  rememberMeCheckbox.addEventListener('click', function () {
-    if (rememberMeCheckbox.checked) {
-      localStorage.usrname = usernameInput.value;
-      localStorage.pass = passwordInput.value;
-      localStorage.chkbx = rememberMeCheckbox.checked;
-    } else {
-      localStorage.usrname = '';
-      localStorage.pass = '';
-      localStorage.chkbx = '';
+    const taskState = document.getElementById('taskState').value;
+    let newTask = new Task(
+        Date.now(), // Unique ID
+        title,
+        description,
+        assignedTo,
+        dueDate,
+        prio,
+        new Date().toISOString(), // Date of creation
+        STORAGE_TOKEN,
+        identifier
+    );
+    newTask.category = category; // Add category and subtasks
+    newTask.subtask = subtasks;
+    newTask.state = taskState || 'toDo'; // Set the task state
+    try {
+        tasks.push(newTask); // Add the new task to the array and save
+        await setItem('tasks', JSON.stringify(tasks));
+        console.info('Task saved successfully');
+        showTaskAddedMessage();
+        clearAllInputs();
+    } catch (error) {
+        console.error('Error saving task:', error);
     }
-  });
-};</code></pre>
+    identifier++;
+    clearModalContent();
+    reinitializeEventListenersForEditModal();
+}
+
+/**
+ * Clears the content of the modal form and resets it to its original state
+ */
+function clearModalContent() {
+    const modalContent = document.querySelector('#addtask-modal .modal-content');
+    if (modalContent) {
+        modalContent.innerHTML = ''; // Removes the content of the .modal-content container
+        modalContent.className = 'modal-content'; // Restores the original classes of the container
+    }
+    const modal = document.getElementById('addtask-modal');
+    if (modal) {
+        modal.classList.remove('modal-open'); 
+        modal.style.display = '';
+    }
+}
+
+/**
+ * Generates the HTML for the pop-up menu on mobile devices that allows users to move a task to a different state.
+ * @returns {string} HTML string for the pop-up menu.
+ */
+function showPopUpMoveTaskMobileHTML(){
+    return /*html*/ `
+    &lt;div onclick="doNotClose(event)" id="popUp-choice" class="popUp-choice translatePopUpChoice">
+     &lt;span onclick="closePopUpMoveTaskMobile(event)" class="cross-icon-choice-container">
+     &lt;svg class="cross-icon-btn1" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+       &lt;path d="M12.001 12.5001L17.244 17.7431M6.758 17.7431L12.001 12.5001L6.758 17.7431ZM17.244 7.25708L12 12.5001L17.244 7.25708ZM12 12.5001L6.758 7.25708L12 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+       &lt;/svg>
+     &lt;/span>
+        &lt;h2 class="popUp-choice-title">Where would you like to move this task?&lt;/h2>
+       &lt;p id="toDoM" class="choice-btn text-center" onclick="moveToMobile('toDo',event)">To Do&lt;/p>
+       &lt;p id="in-progressM" class="choice-btn text-center" onclick="moveToMobile('in-progress',event)">In Progress&lt;/p>
+       &lt;p id="await-feedbackM" class="choice-btn text-center" onclick="moveToMobile('await-feedback',event)">Await Feedback&lt;/p>
+       &lt;p id="doneM" class="choice-btn text-center" onclick="moveToMobile('done',event)">Done&lt;/p>
+   &lt;/div>
+ `
+}</code></pre>
         </article>
     </section>
 
@@ -258,7 +362,7 @@ function rememberMe() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:04 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:05 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

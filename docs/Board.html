@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/register.js</title>
+    <title>JSDoc: Class: Board</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,234 +17,403 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/register.js</h1>
+    <h1 class="page-title">Class: Board</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @global
- * @desc Array that stores all user objects. Each user object contains name, email and password.
- * @type {Array&lt;Object>}
- */
-let users = [];
+        <h2><span class="attribs"><span class="type-signature"></span></span>Board<span class="signature">(id, title)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">Represents a board in a task management system.</div>
+        
+    
+</header>
 
-/**
- * @global
- * @desc Stores information about the currently logged in user.
- * @type {Array}
- */
-let currentUser = [];
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * @global
- * @desc Used to reference the name input field of the registration form.
- * @type {HTMLInputElement}
- */
-let Name = [];
+    
+    <h2>Constructor</h2>
+    
 
-/**
- * Loads the user list from memory and updates the global variable `users`.
- *
- * This asynchronous function attempts to load a saved list of users by
- * accesses a storage mechanism. The invited ones
- * Data is then used to update the global variable `users`. in case of a
- * If there is an error loading the data, an error message is displayed in the console.
- * 
- * @async
- * @function loadUsers
- * @returns {Promise&lt;void>} A promise that will be fulfilled when the users load and the
- * global variable `users` has been updated. Returns nothing, but catches possible errors
- * and displays this in the console.
- */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading error:', e);
-  }
-}
+    
+    <h4 class="name" id="Board"><span class="type-signature"></span>new Board<span class="signature">(id, title)</span><span class="type-signature"></span></h4>
+    
 
-/**
- * Initializes the application's registration function.
- * Loads existing user data when starting the registration page.
- */
-async function initRegister() {
-  await loadUsers(); // Loads existing users from storage
-}
+    
 
-/**
- * Performs user registration by collecting the form data and saving the user data.
- * After successful registration, the form will be reset and the user will be redirected to the login page.
- * 
- * @async
- * @function register
- * @description Registers a new user with the data entered from the registration form.
- * Disables the registration button during the registration process to avoid multiple registrations.
- */
-async function register() {
-  let Name = document.getElementById('name');
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let register_button = document.getElementById('register_button');
-  register_button.disabled = true;
-  users.push({
-    name: Name.value,
-    email: email.value,
-    password: password.value,
-  });
-  await setItem('users', JSON.stringify(users));
-  resetForm();
-  signUpMessage();
-  redirectToLogin();
-}
 
-/**
- * Resets the registration form after registration.
- */
-function resetForm() {     
-  let Name = document.getElementById('name');
-  Name.value = '';
-  email.value = '';
-  password.value = '';
-  confirm_password.value = '';
-  register_button.disabled = false;
-}
 
-/**
- * Checks whether the passwords match during registration.
- */
-function match() {      
-  var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity('');
-    }
-  }
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
-}
+<div class="description">
+    Constructs a new Board instance.
+</div>
 
-/**
- * Performs the login process.
- */
-async function login() {
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
-  if (user) {
-    await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
-  } else {
-    loginError();
-  }
-}
 
-/**
- * Empties the arrays related to the current user and redirects to the login page
- */
-function logOut() {  
-  Name = [];
-  currentUser = [];
-  window.location.href = '/index.html';
-}
 
-/**
- * Sets the current user after login.
- */
-async function setCurrentUser() {   
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    message.innerHTML = currentUser[0]['name'];
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
 
-/**
- * Sets the name of the current user.
- */
-async function setCurrentUserName() { 
-  const userData = await getItem('user');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
 
-/**
- * Filters out the user's name.
- */
-function getNamefromArray() {
-  let message = document.getElementById('welcome-message');
-  message.innerHTML = currentUser[0]['name'];
-}
 
-/**
- * Capitalizes the first letter of the logged in user and displays it on the user button.
- */
-function capitalisedName() {    
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  Name.push(currentUser[0]['name']);
-  parts = Name[0].split(" ");
-  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
-  capitalisedName.innerHTML = neededStr
-}
 
-/**
- * Displays an error message if username or password is incorrect.
- */
-function loginError() {       
-  let message = document.getElementById('login-error-message');
-  message.classList.remove('d-none');
-  message.classList.add('d-flex');
 
-}
 
-/**
- * Function behind the “Stay logged in” checkbox.
- */
-function rememberMe() {   
-  var rememberMeCheckbox = document.getElementById('remember');
-  var usernameInput = document.getElementById('email');
-  var passwordInput = document.getElementById('password');
-  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
-    rememberMeCheckbox.checked = true;
-    usernameInput.value = localStorage.usrname;
-    passwordInput.value = localStorage.pass;
-  } else {
-    rememberMeCheckbox.checked = false;
-    usernameInput.value = '';
-    passwordInput.value = '';
-  }
-  rememberMeCheckbox.addEventListener('click', function () {
-    if (rememberMeCheckbox.checked) {
-      localStorage.usrname = usernameInput.value;
-      localStorage.pass = passwordInput.value;
-      localStorage.chkbx = rememberMeCheckbox.checked;
-    } else {
-      localStorage.usrname = '';
-      localStorage.pass = '';
-      localStorage.chkbx = '';
-    }
-  });
-};</code></pre>
-        </article>
-    </section>
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A unique identifier for the board.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the board, useful for identification especially when there are multiple boards.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_board.class.js.html">models/board.class.js</a>, <a href="models_board.class.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="edit"><span class="type-signature"></span>edit<span class="signature">(type, id, newDetails)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Edits details of a task or a user on the board.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">'task'</span>
+|
+
+<span class="param-type">'user'</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Specifies whether to edit a task or a user.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the task or user to be edited.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>newDetails</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The new details to be applied to the task or user.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_board.class.js.html">models/board.class.js</a>, <a href="models_board.class.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
@@ -258,7 +427,7 @@ function rememberMe() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:04 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:05 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

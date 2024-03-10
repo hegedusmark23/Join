@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/register.js</title>
+    <title>JSDoc: Source: JS/board_showTaskDetails.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/register.js</h1>
+    <h1 class="page-title">Source: JS/board_showTaskDetails.js</h1>
 
     
 
@@ -27,222 +27,225 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @global
- * @desc Array that stores all user objects. Each user object contains name, email and password.
- * @type {Array&lt;Object>}
+ * Opens the modal to display the task details.
+ * @param {Object} task - The task object whose details to display.
  */
-let users = [];
+function openTaskDetailModal(task) {
+    const modal = document.getElementById('task-detail-modal');
+    const detailsContainer = document.getElementById('task-details');
+    detailsContainer.innerHTML = detailModalContent(task);
+    modal.style.display = 'flex'; // Show modal first
+    setTimeout(() => { // Short delay before class is added to allow transition
+        modal.classList.add('modal-open');
+    }, 10);
+    setupDeleteTaskListener();
+}
 
 /**
- * @global
- * @desc Stores information about the currently logged in user.
- * @type {Array}
+ * Updates the task details in the modal and binds the event listener for subtasks.
+ * @param {Object} task - The task object displayed in the details modal.
  */
-let currentUser = [];
+function updateTaskDetailsAndBindListener(task) {
+    const detailsContainer = document.getElementById('task-details');
+    detailsContainer.innerHTML = detailModalContent(task);
+    addSubtaskEventListener(); // Bind the event listener after the content is inserted
+}
 
 /**
- * @global
- * @desc Used to reference the name input field of the registration form.
- * @type {HTMLInputElement}
+ * Generates HTML for the description display of a task.
+ * @param {Object} task - The task object.
+ * @returns {string} HTML string for description display.
  */
-let Name = [];
+function generateDescriptionHtml(task) {
+    return `&lt;div class="task-detail-description">${task.description || 'Description: N/A'}&lt;/div>`;
+}
 
 /**
- * Loads the user list from memory and updates the global variable `users`.
+ * Generates HTML for displaying a task's due date.
+ * @param {Object} task - The task object.
+ * @returns {string} HTML string for due date display.
+ */
+function generateDueDateHtml(task) {
+    return `
+        &lt;div class="task-detail">
+            &lt;span class="detail-label">Due date:&lt;/span>
+            &lt;span class="detail-value">${task.dueDate}&lt;/span>
+        &lt;/div>`;
+}
+
+/**
+ * Generates HTML for the priority display of a task.
+ * @param {Object} task - The task object.
+ * @returns {string} HTML string for priority display.
+ */
+function generatePriorityHtml(task) {
+    const imageFileName = taskImage(task);
+    let imgHtml = imageFileName ? `&lt;img style="margin-left: 4px;" src="./assets/icons/${imageFileName}" alt="Priority">` : '';
+    return `
+        &lt;div class="task-detail">
+            &lt;span class="detail-label">Priority:&lt;/span>
+            &lt;span class="detail-value">${task.prio ? task.prio.charAt(0).toUpperCase() + task.prio.slice(1) : 'N/A'}&lt;/span>
+        ${imgHtml}
+        &lt;/div>`;
+}
+
+/**
+ * Generates the HTML for displaying assignees.
+ * If there are no assignees, a placeholder is displayed.
  *
- * This asynchronous function attempts to load a saved list of users by
- * accesses a storage mechanism. The invited ones
- * Data is then used to update the global variable `users`. in case of a
- * If there is an error loading the data, an error message is displayed in the console.
- * 
- * @async
- * @function loadUsers
- * @returns {Promise&lt;void>} A promise that will be fulfilled when the users load and the
- * global variable `users` has been updated. Returns nothing, but catches possible errors
- * and displays this in the console.
+ * @param {Object[]} assignees - Array of assignee objects with color and initials.
+ * @returns {string} HTML string with the representations of the assignees or a placeholder.
  */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading error:', e);
-  }
+function generateAssigneesHtml(assignees) {
+    if (!assignees || assignees.length === 0) { // Checks whether the array is empty or undefined and returns a placeholder
+        return '&lt;div class="detail-assignee-na">N/A&lt;/div>';
+    } // Creates an HTML string for each assignee and puts them together
+    return assignees.map(assignee => `
+        &lt;div class="dropdown-content-binding">
+            &lt;div class="dropdown-content-circle" style="background-color:${assignee.color};">
+                &lt;p id="user-initials">${assignee.initials}&lt;/p>
+            &lt;/div>
+            &lt;div class="dropdown-content-name">
+                ${assignee.name}
+            &lt;/div>
+        &lt;/div>
+    `).join('');
 }
 
 /**
- * Initializes the application's registration function.
- * Loads existing user data when starting the registration page.
+ * Creates the header area of ​​the detailed view of a task.
+ *
+ * @param {Object} task - Task object with information such as ID and category.
+ * @returns {string} HTML string for the header area of ​​the detailed view.
  */
-async function initRegister() {
-  await loadUsers(); // Loads existing users from storage
+function generateDetailHeader(task) {
+    return `
+    &lt;div class="task-details-header" id="task-${task.id}">
+        &lt;div id="board-detail-title" class="board-card-label" style="background-color:${getLabelColor(task.category)};">${task.category}&lt;/div>
+        &lt;div id="close-modal-button-detail" class="add-tasks-modal-close">
+            &lt;div class="first-img-container modal-x-tpl">
+                &lt;svg class="first-img" xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                    &lt;line x1="7" y1="6" x2="18" y2="17" stroke="#2A3647" stroke-width="2" stroke-linecap="round">&lt;/line>
+                    &lt;line x1="7" y1="17" x2="18" y2="6" stroke="#2A3647" stroke-width="2" stroke-linecap="round">&lt;/line>
+                &lt;/svg>
+            &lt;/div>
+        &lt;/div>
+        &lt;/div>
+    `;
 }
 
 /**
- * Performs user registration by collecting the form data and saving the user data.
- * After successful registration, the form will be reset and the user will be redirected to the login page.
- * 
- * @async
- * @function register
- * @description Registers a new user with the data entered from the registration form.
- * Disables the registration button during the registration process to avoid multiple registrations.
+ * Generates the footer area of ​​the detailed view of a task.
+ *
+ * @returns {string} HTML string for the footer area of ​​the detailed view.
  */
-async function register() {
-  let Name = document.getElementById('name');
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let register_button = document.getElementById('register_button');
-  register_button.disabled = true;
-  users.push({
-    name: Name.value,
-    email: email.value,
-    password: password.value,
-  });
-  await setItem('users', JSON.stringify(users));
-  resetForm();
-  signUpMessage();
-  redirectToLogin();
+function generateDetailFooter() {
+    return `
+        &lt;div class="detail-footer">
+            &lt;div class="subtask-icons-details">
+                &lt;div id="delete-task-button" class="details-footer-hover">
+                    &lt;svg class="custom-svg" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        &lt;mask id="mask0_75601_14777" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
+                            &lt;rect x="0.144531" width="24" height="24" fill="#D9D9D9">&lt;/rect>
+                        &lt;/mask>
+                        &lt;g mask="url(#mask0_75601_14777)">
+                            &lt;path d="M7.14453 21C6.59453 21 6.1237 20.8042 5.73203 20.4125C5.34036 20.0208 5.14453 19.55 5.14453 19V6C4.8612 6 4.6237 5.90417 4.43203 5.7125C4.24036 5.52083 4.14453 5.28333 4.14453 5C4.14453 4.71667 4.24036 4.47917 4.43203 4.2875C4.6237 4.09583 4.8612 4 5.14453 4H9.14453C9.14453 3.71667 9.24036 3.47917 9.43203 3.2875C9.6237 3.09583 9.8612 3 10.1445 3H14.1445C14.4279 3 14.6654 3.09583 14.857 3.2875C15.0487 3.47917 15.1445 3.71667 15.1445 4H19.1445C19.4279 4 19.6654 4.09583 19.857 4.2875C20.0487 4.47917 20.1445 4.71667 20.1445 5C20.1445 5.28333 20.0487 5.52083 19.857 5.7125C19.6654 5.90417 19.4279 6 19.1445 6V19C19.1445 19.55 18.9487 20.0208 18.557 20.4125C18.1654 20.8042 17.6945 21 17.1445 21H7.14453ZM7.14453 6V19H17.1445V6H7.14453ZM9.14453 16C9.14453 16.2833 9.24036 16.5208 9.43203 16.7125C9.6237 16.9042 9.8612 17 10.1445 17C10.4279 17 10.6654 16.9042 10.857 16.7125C11.0487 16.5208 11.1445 16.2833 11.1445 16V9C11.1445 8.71667 11.0487 8.47917 10.857 8.2875C10.6654 8.09583 10.4279 8 10.1445 8C9.8612 8 9.6237 8.09583 9.43203 8.2875C9.24036 8.47917 9.14453 8.71667 9.14453 9V16ZM13.1445 16C13.1445 16.2833 13.2404 16.5208 13.432 16.7125C13.6237 16.9042 13.8612 17 14.1445 17C14.4279 17 14.6654 16.9042 14.857 16.7125C15.0487 16.5208 15.1445 16.2833 15.1445 16V9C15.1445 8.71667 15.0487 8.47917 14.857 8.2875C14.6654 8.09583 14.4279 8 14.1445 8C13.8612 8 13.6237 8.09583 13.432 8.2875C13.2404 8.47917 13.1445 8.71667 13.1445 9V16Z">&lt;/path>
+                        &lt;/g>
+                    &lt;/svg>
+                    &lt;span class="detail-footer-text">Delete&lt;/span>
+                &lt;/div>
+                &lt;div class="details-footer-hover">&lt;img class="divider-subtask" src="./assets/img/divider_small.png">&lt;/div>
+                &lt;div id="edit-task" class="details-footer-hover">
+                    &lt;svg class="custom-svg" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        &lt;mask id="mask0_135789_4203" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
+                            &lt;rect x="0.682129" y="0.396729" width="24" height="24" fill="#D9D9D9">&lt;/rect>
+                        &lt;/mask>
+                        &lt;g mask="url(#mask0_135789_4203)">
+                            &lt;path d="M5.68213 19.3967H7.08213L15.7071 10.7717L14.3071 9.37173L5.68213 17.9967V19.3967ZM19.9821 9.32173L15.7321 5.12173L17.1321 3.72173C17.5155 3.3384 17.9863 3.14673 18.5446 3.14673C19.103 3.14673 19.5738 3.3384 19.9571 3.72173L21.3571 5.12173C21.7405 5.50506 21.9405 5.96756 21.9571 6.50923C21.9738 7.0509 21.7905 7.5134 21.4071 7.89673L19.9821 9.32173ZM18.5321 10.7967L7.93213 21.3967H3.68213V17.1467L14.2821 6.54673L18.5321 10.7967Z">&lt;/path>
+                        &lt;/g>
+                    &lt;/svg>
+                    &lt;span class="detail-footer-text">Edit&lt;/span>
+                &lt;/div>
+            &lt;/div>
+     &lt;/div>
+    `;
 }
 
 /**
- * Resets the registration form after registration.
+ * Generates HTML strings for subtasks.
+ * @param {Object} task - The task object to which the subtasks belong.
+ * @param {Array} subtasks - The subtasks of the task.
+ * @returns {string} The generated HTML string for the subtasks.
  */
-function resetForm() {     
-  let Name = document.getElementById('name');
-  Name.value = '';
-  email.value = '';
-  password.value = '';
-  confirm_password.value = '';
-  register_button.disabled = false;
-}
-
-/**
- * Checks whether the passwords match during registration.
- */
-function match() {      
-  var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity('');
+function generateSubtasksHtml(task, subtasks) {
+    if (!subtasks || subtasks.length === 0) {
+        return ''; // No HTML if there are no subtasks
     }
-  }
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
+    return subtasks.map(subtask => `
+        &lt;div id="subtask-container" class="dropdown-content-container details-subtasks">    
+            &lt;div onclick="toggleSubtaskCompleted(${task.id}, ${subtask.id})" class="dropdown-content-binding details-subtasks-content" data-task-id="${task.id}" data-subtask-id="${subtask.id}">
+                &lt;div class="dropdown-content-checkbox">
+                    ${subtask.completed === 'done' ? `
+                        &lt;svg class="checkbox-checked-active" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            &lt;path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#2A3647" stroke-width="2" stroke-linecap="round">&lt;/path>
+                            &lt;path d="M8.38818 12L12.3882 16L20.3882 4.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">&lt;/path>
+                        &lt;/svg>` : `
+                        &lt;svg class="checkbox-unchecked-normal" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            &lt;rect x="4.38818" y="4" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2">&lt;/rect>
+                        &lt;/svg>
+                    `}
+                &lt;/div>
+                &lt;div class="detail-subtask-name">${subtask.text}&lt;/div>
+            &lt;/div>
+        &lt;/div>
+    `).join('');
 }
 
 /**
- * Performs the login process.
+ * Renders the contents of the detail view for a specific task.
+ * @param {Object} task - The task object with all relevant data.
+ * @returns {string} - HTML string representing the detailed content of the task.
  */
-async function login() {
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
-  if (user) {
-    await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
-  } else {
-    loginError();
-  }
+function detailModalContent(task) {
+    let assigneesHtml = generateAssigneesHtml(task.assignTo);  // Prepares HTML for assignees, shows "N/A" if none exist
+    let subtasksHtml = generateSubtasksHtml(task, task.subtask);  // Prepares HTML for subtasks, shows nothing if none exist
+    return `
+    ${generateDetailHeader(task)}
+        &lt;div class="task-details-main-content">
+            &lt;div class="task-detail-headline">${task.title}&lt;/div>
+            ${generateDescriptionHtml(task)}
+            ${generateDueDateHtml(task)}
+            ${generatePriorityHtml(task)}
+              &lt;div class="detail-assignees">Assigned To:&lt;/div>
+            &lt;div class="detail-assignee">${assigneesHtml}&lt;/div>
+            ${subtasksHtml}
+            ${generateDetailFooter()}
+        &lt;/div>
+    `;
 }
 
 /**
- * Empties the arrays related to the current user and redirects to the login page
+ * Deletes the current task and refreshes the view.
  */
-function logOut() {  
-  Name = [];
-  currentUser = [];
-  window.location.href = '/index.html';
-}
-
-/**
- * Sets the current user after login.
- */
-async function setCurrentUser() {   
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    message.innerHTML = currentUser[0]['name'];
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
-
-/**
- * Sets the name of the current user.
- */
-async function setCurrentUserName() { 
-  const userData = await getItem('user');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
-
-/**
- * Filters out the user's name.
- */
-function getNamefromArray() {
-  let message = document.getElementById('welcome-message');
-  message.innerHTML = currentUser[0]['name'];
-}
-
-/**
- * Capitalizes the first letter of the logged in user and displays it on the user button.
- */
-function capitalisedName() {    
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  Name.push(currentUser[0]['name']);
-  parts = Name[0].split(" ");
-  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
-  capitalisedName.innerHTML = neededStr
-}
-
-/**
- * Displays an error message if username or password is incorrect.
- */
-function loginError() {       
-  let message = document.getElementById('login-error-message');
-  message.classList.remove('d-none');
-  message.classList.add('d-flex');
-
-}
-
-/**
- * Function behind the “Stay logged in” checkbox.
- */
-function rememberMe() {   
-  var rememberMeCheckbox = document.getElementById('remember');
-  var usernameInput = document.getElementById('email');
-  var passwordInput = document.getElementById('password');
-  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
-    rememberMeCheckbox.checked = true;
-    usernameInput.value = localStorage.usrname;
-    passwordInput.value = localStorage.pass;
-  } else {
-    rememberMeCheckbox.checked = false;
-    usernameInput.value = '';
-    passwordInput.value = '';
-  }
-  rememberMeCheckbox.addEventListener('click', function () {
-    if (rememberMeCheckbox.checked) {
-      localStorage.usrname = usernameInput.value;
-      localStorage.pass = passwordInput.value;
-      localStorage.chkbx = rememberMeCheckbox.checked;
-    } else {
-      localStorage.usrname = '';
-      localStorage.pass = '';
-      localStorage.chkbx = '';
+async function deleteCurrentTask() {
+    const taskHeaderElement = document.querySelector('.task-details-header');
+    if (taskHeaderElement &amp;&amp; taskHeaderElement.id) {
+        const taskId = taskHeaderElement.id.replace('task-', '');
+        if (taskId) {
+            deleteTasks([parseInt(taskId)])
+                .then(() => {
+                    console.info('Task was deleted successfully');
+                    closeModal('task-detail-modal');
+                    identifier--;
+                    setItem('identifier', JSON.stringify(identifier))
+                    initializeBoardCard();
+                })
+                .catch(error => {
+                    console.error('Error deleting task:', error);
+                });
+        }
     }
-  });
-};</code></pre>
+}</code></pre>
         </article>
     </section>
 
@@ -258,7 +261,7 @@ function rememberMe() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:04 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:05 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

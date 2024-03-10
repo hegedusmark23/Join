@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/register.js</title>
+    <title>JSDoc: Source: JS/board_editTasks.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/register.js</h1>
+    <h1 class="page-title">Source: JS/board_editTasks.js</h1>
 
     
 
@@ -27,222 +27,211 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @global
- * @desc Array that stores all user objects. Each user object contains name, email and password.
- * @type {Array&lt;Object>}
+ * Empties the content of the modal for processing a task
  */
-let users = [];
+function clearEditModalContent() {
+    const modal = document.getElementById('task-detail-modal');
+    const taskDetailsContainer = modal.querySelector('#task-details-container');
+    if (taskDetailsContainer) { // Ensures that the container exists
+        // Resets the content of #task-details-container to the initial state
+        taskDetailsContainer.innerHTML = ` 
+            &lt;div id="task-details">
+                
+            &lt;/div>
+        `;
+    }
+    modal.classList.remove('modal-open'); // Removes the opening class
+    modal.style.display = 'none'; // Hides the modal
+}
 
 /**
- * @global
- * @desc Stores information about the currently logged in user.
- * @type {Array}
+ * Closes the modal for adding a task
  */
-let currentUser = [];
+function closeModalAddTaskBoard() {
+    const modalClose = document.getElementById('addtask-modal');
+    if (modalClose) {
+        modalClose.classList.remove('modal-open'); // Starts the closing animation for the content
+        setTimeout(() => {
+            modalClose.style.display = 'none'; // Hides the background after the animation
+        }, 200); // Waiting time corresponds to the duration of the animation
+    }
+}
 
 /**
- * @global
- * @desc Used to reference the name input field of the registration form.
- * @type {HTMLInputElement}
+ * Closes the modal for editing a task
  */
-let Name = [];
+function closeModalTaskEdit() {
+    const modalEdit = document.getElementById('task-detail-modal');
+    if (modalEdit) {
+        modalEdit.classList.remove('modal-open'); // Starts the closing animation for the content
+        setTimeout(() => {
+            modalEdit.style.display = 'none'; // Hides the background after the animation
+        }, 500); // Waiting time corresponds to the duration of the animation
+    }
+}
 
 /**
- * Loads the user list from memory and updates the global variable `users`.
+ * Generates initials from the full name
+ * @param {string} completeName - Full name from which the initials are to be generated
+ * @return {string} The generated initials
+ */
+function generateInitials(completeName) {
+    return completeName.split(' ').map(part => part[0]).join('').toUpperCase();
+}
+
+/**
+ * Extracts the letter and the local index from a global index
+ * This is used to localise a specific contact in the nested structure of `letterContainer`
  *
- * This asynchronous function attempts to load a saved list of users by
- * accesses a storage mechanism. The invited ones
- * Data is then used to update the global variable `users`. in case of a
- * If there is an error loading the data, an error message is displayed in the console.
- * 
- * @async
- * @function loadUsers
- * @returns {Promise&lt;void>} A promise that will be fulfilled when the users load and the
- * global variable `users` has been updated. Returns nothing, but catches possible errors
- * and displays this in the console.
+ * @param {number} globalIndex - The global index of the contact across all letters
+ * @returns {object} An object with the letter and the local index of the contact. Returns `{ letter: null, index: -1 }` if no contact was found
  */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading error:', e);
-  }
-}
-
-/**
- * Initializes the application's registration function.
- * Loads existing user data when starting the registration page.
- */
-async function initRegister() {
-  await loadUsers(); // Loads existing users from storage
-}
-
-/**
- * Performs user registration by collecting the form data and saving the user data.
- * After successful registration, the form will be reset and the user will be redirected to the login page.
- * 
- * @async
- * @function register
- * @description Registers a new user with the data entered from the registration form.
- * Disables the registration button during the registration process to avoid multiple registrations.
- */
-async function register() {
-  let Name = document.getElementById('name');
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let register_button = document.getElementById('register_button');
-  register_button.disabled = true;
-  users.push({
-    name: Name.value,
-    email: email.value,
-    password: password.value,
-  });
-  await setItem('users', JSON.stringify(users));
-  resetForm();
-  signUpMessage();
-  redirectToLogin();
-}
-
-/**
- * Resets the registration form after registration.
- */
-function resetForm() {     
-  let Name = document.getElementById('name');
-  Name.value = '';
-  email.value = '';
-  password.value = '';
-  confirm_password.value = '';
-  register_button.disabled = false;
-}
-
-/**
- * Checks whether the passwords match during registration.
- */
-function match() {      
-  var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity('');
+function extractLetterFromIndex(globalIndex) {
+    let runningIndex = 0; // Running index for scrolling through the contacts
+    for (let letter in letterContainer) { // Runs through every letter in `letterContainer`
+        if (letterContainer.hasOwnProperty(letter)) { // Ensure that the current ownership is a direct ownership of `letterContainer`
+            if (globalIndex &lt; runningIndex + letterContainer[letter].length) {   // Check whether the global index is within the length of the current letter group
+                return { letter: letter, index: globalIndex - runningIndex }; // Returns the letter and the local index within the letter group
+            }
+            runningIndex += letterContainer[letter].length; // Updates the current index by the length of the current letter group
+        }
     }
-  }
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
+    return { letter: null, index: -1 }; // Gibt `{ letter: null, index: -1 }` zurück, falls kein Kontakt gefunden wurde
 }
 
 /**
- * Performs the login process.
+ * Extracts the priority from the active priority button
+ * 
+ * This function searches for the active priority button in the
+ * AddTask modal view and extracts the text content of the button,
+ * to determine the selected priority. If no active button
+ * button is found, the function returns an empty string.
+ * The extracted text is cleaned up (spaces removed and converted to
+ * lower case) to ensure a consistent priority specification.
+ *
+ * @returns {string} The extracted priority in lower case letters or
+ *                   an empty string if no priority is selected
  */
-async function login() {
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
-  if (user) {
-    await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
-  } else {
-    loginError();
-  }
+function extractPriority() {
+    const activeButton = document.querySelector('.addtask-prio-btn .is-active');
+    if (!activeButton) return ''; // No active button found, returns an empty string
+    let priorityText = activeButton.innerText; // Extracts the text of the button
+    priorityText = priorityText.trim().toLowerCase(); // Removes spaces and converts to lower case letters
+    return priorityText;
 }
 
 /**
- * Empties the arrays related to the current user and redirects to the login page
+ * Extracts form data from the editing modal
+ * @returns An object with the data extracted from the form: Title, description, due date, category, priority, assigned persons (assignees) and subtasks.
  */
-function logOut() {  
-  Name = [];
-  currentUser = [];
-  window.location.href = '/index.html';
+function extractFormData() {
+    return {
+        title: document.getElementById('addtask-title') ? document.getElementById('addtask-title').value : '',
+        description: document.getElementById('description') ? document.getElementById('description').value : '',
+        dueDate: document.getElementById('dueDate') ? document.getElementById('dueDate').value : '',
+        category: document.getElementById('dropdown-categories') ? document.getElementById('dropdown-categories').textContent : '',
+        prio: extractPriority(), // Implementieren Sie diese Funktion entsprechend Ihrer Logik
+        assignTo: extractAssignees(),
+        subtask: extractSubtasks()
+    };
 }
 
 /**
- * Sets the current user after login.
+ * Extracts the assigned persons (assignees) from the editing modal.
+ * @returns An array of objects, each representing an assigned person with name, initials and colour
  */
-async function setCurrentUser() {   
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    message.innerHTML = currentUser[0]['name'];
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
+function extractAssignees() {
+    return Array.from(document.querySelectorAll('.dropdown-content-container.user-checked')).map(assigneeContainer => {
+        const name = assigneeContainer.querySelector('.dropdown-content-name').textContent;
+        const color = assigneeContainer.querySelector('.dropdown-content-circle').style.backgroundColor;
+        const initials = assigneeContainer.querySelector('#user-initials').textContent;
+        return { name, initials, color };
+    });
 }
 
 /**
- * Sets the name of the current user.
+ * Extracts subtasks from the editing modal
+ * @returns An array of objects, each representing a subtask with text, ID and completion status.
  */
-async function setCurrentUserName() { 
-  const userData = await getItem('user');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
+function extractSubtasks() {
+    return Array.from(document.querySelectorAll('#subtasks-list-container ul li')).map(subtaskItem => {
+        const text = subtaskItem.querySelector('p').textContent;
+        const id = subtaskItem.dataset.subtaskId ? parseInt(subtaskItem.dataset.subtaskId) : Date.now();
+        const completed = subtaskItem.classList.contains('subtask-completed') ? 'done' : '';
+        return { id, text, completed };
+    });
 }
 
 /**
- * Filters out the user's name.
+ * Saves the edited task details and updates the UI accordingly.
+ * @param {number} taskId The ID of the task being processed.
  */
-function getNamefromArray() {
-  let message = document.getElementById('welcome-message');
-  message.innerHTML = currentUser[0]['name'];
+async function saveTaskEdit(taskId) {
+    setTimeout(async () => {
+        const formData = extractFormData();
+        const taskIndex = tasks.findIndex(task => task.id === parseInt(taskId));
+        if (taskIndex === -1) {
+            console.error('Task not found.');
+            return;
+        }
+        updateTask(taskIndex, formData); // Update the task in the array
+        try {
+            await saveTasksAndReloadUI(taskIndex); // Saving the tasks and updating the UI
+        } catch (error) {
+            console.error('Error saving tasks:', error);
+        }
+    }, 100);
 }
 
 /**
- * Capitalizes the first letter of the logged in user and displays it on the user button.
+ * Updates a task in the tasks array based on the transferred form data. 
+ * Ensures that priority, assignees and subtasks are only updated if changes have been made.
+ * 
+ * @param {number} taskIndex - The index of the task in the tasks array.
+ * @param {object} formData - The data extracted from the form and used to update the task
  */
-function capitalisedName() {    
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  Name.push(currentUser[0]['name']);
-  parts = Name[0].split(" ");
-  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
-  capitalisedName.innerHTML = neededStr
-}
-
-/**
- * Displays an error message if username or password is incorrect.
- */
-function loginError() {       
-  let message = document.getElementById('login-error-message');
-  message.classList.remove('d-none');
-  message.classList.add('d-flex');
-
-}
-
-/**
- * Function behind the “Stay logged in” checkbox.
- */
-function rememberMe() {   
-  var rememberMeCheckbox = document.getElementById('remember');
-  var usernameInput = document.getElementById('email');
-  var passwordInput = document.getElementById('password');
-  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
-    rememberMeCheckbox.checked = true;
-    usernameInput.value = localStorage.usrname;
-    passwordInput.value = localStorage.pass;
-  } else {
-    rememberMeCheckbox.checked = false;
-    usernameInput.value = '';
-    passwordInput.value = '';
-  }
-  rememberMeCheckbox.addEventListener('click', function () {
-    if (rememberMeCheckbox.checked) {
-      localStorage.usrname = usernameInput.value;
-      localStorage.pass = passwordInput.value;
-      localStorage.chkbx = rememberMeCheckbox.checked;
-    } else {
-      localStorage.usrname = '';
-      localStorage.pass = '';
-      localStorage.chkbx = '';
+function updateTask(taskIndex, formData) {
+    let updatedTask = { ...tasks[taskIndex] }; // Prepares the task object to be updated
+    if ('prio' in formData &amp;&amp; formData.prio !== '') { // Checks and updates the priority of the task, if available in the formData
+        updatedTask.prio = formData.prio;
     }
-  });
-};</code></pre>
+    if ('assignTo' in formData &amp;&amp; formData.assignTo.length > 0) { // If assignTo is not in the formData or no assignee has been selected, do not overwrite
+        updatedTask.assignTo = formData.assignTo;
+    }
+    if ('subtask' in formData) { // Special handling for subtasks to ensure that 'completed' states are retained
+        updatedTask.subtask = formData.subtask.map(formDataSubtask => {
+            let existingSubtask = updatedTask.subtask.find(subtask => subtask.id === formDataSubtask.id);
+            if (existingSubtask) {
+                return {
+                    ...existingSubtask,
+                    text: formDataSubtask.text,
+                };
+            } else {
+                return formDataSubtask;
+            }
+        });
+    }
+    Object.keys(formData).forEach(key => { // Update other fields of the task, excluding the fields already processed
+        if (!['prio', 'assignTo', 'subtask'].includes(key)) {
+            updatedTask[key] = formData[key];
+        }
+    });
+    tasks[taskIndex] = updatedTask; // Updates the task in the tasks array
+}
+
+
+/**
+* Saves the updated tasks array in memory and updates the UI.
+ * Calls functions to close the edit modal, reinitialise event listeners, open the detail view of the updated task and update the board cards.
+ * @param {number} taskIndex The index of the updated task in the tasks array
+ */
+async function saveTasksAndReloadUI(taskIndex) {
+    await setItem('tasks', tasks);
+    clearEditModalContent();
+    reinitializeEventListenersForEditModal();
+    openTaskDetailModal(tasks[taskIndex]); // Opens the detailed view with the updated data
+    await initializeBoardCard(); // Updating the board cards
+}</code></pre>
         </article>
     </section>
 

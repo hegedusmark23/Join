@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/register.js</title>
+    <title>JSDoc: Source: JS/board.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/register.js</h1>
+    <h1 class="page-title">Source: JS/board.js</h1>
 
     
 
@@ -26,223 +26,164 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @global
- * @desc Array that stores all user objects. Each user object contains name, email and password.
- * @type {Array&lt;Object>}
- */
-let users = [];
+            <pre class="prettyprint source linenums"><code>let todos;
+let inProgress;
+let awaitFeedback;
+let done;
+let currentDraggedElement;
+let noTasksDiv;
+let noTaskDiv2;
+let noTaskDiv3;
+let noTaskDiv4;
+let toDoCardsContainer;
+let inProgressCardContainer;
+let awaitFeedBackCardContainer;
+let doneCardContainer;
+
 
 /**
- * @global
- * @desc Stores information about the currently logged in user.
- * @type {Array}
+ * Retrieve the saved tasks from remote storage.
+ * @returns {Promise&lt;Array>} A Promise that returns an array of tasks.
  */
-let currentUser = [];
-
-/**
- * @global
- * @desc Used to reference the name input field of the registration form.
- * @type {HTMLInputElement}
- */
-let Name = [];
-
-/**
- * Loads the user list from memory and updates the global variable `users`.
- *
- * This asynchronous function attempts to load a saved list of users by
- * accesses a storage mechanism. The invited ones
- * Data is then used to update the global variable `users`. in case of a
- * If there is an error loading the data, an error message is displayed in the console.
- * 
- * @async
- * @function loadUsers
- * @returns {Promise&lt;void>} A promise that will be fulfilled when the users load and the
- * global variable `users` has been updated. Returns nothing, but catches possible errors
- * and displays this in the console.
- */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading error:', e);
-  }
-}
-
-/**
- * Initializes the application's registration function.
- * Loads existing user data when starting the registration page.
- */
-async function initRegister() {
-  await loadUsers(); // Loads existing users from storage
-}
-
-/**
- * Performs user registration by collecting the form data and saving the user data.
- * After successful registration, the form will be reset and the user will be redirected to the login page.
- * 
- * @async
- * @function register
- * @description Registers a new user with the data entered from the registration form.
- * Disables the registration button during the registration process to avoid multiple registrations.
- */
-async function register() {
-  let Name = document.getElementById('name');
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let register_button = document.getElementById('register_button');
-  register_button.disabled = true;
-  users.push({
-    name: Name.value,
-    email: email.value,
-    password: password.value,
-  });
-  await setItem('users', JSON.stringify(users));
-  resetForm();
-  signUpMessage();
-  redirectToLogin();
-}
-
-/**
- * Resets the registration form after registration.
- */
-function resetForm() {     
-  let Name = document.getElementById('name');
-  Name.value = '';
-  email.value = '';
-  password.value = '';
-  confirm_password.value = '';
-  register_button.disabled = false;
-}
-
-/**
- * Checks whether the passwords match during registration.
- */
-function match() {      
-  var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity('');
+async function fetchTasks() {
+    try {
+        let tasks = await getItem('tasks');// Retrieve the tasks as a string
+        try {
+            tasks = JSON.parse(tasks); // Trying to parse the string to get a JavaScript array
+        } catch (error) {
+            console.error('Error parsing the tasks:', error);
+            return []; // Return an empty array on error
+        }
+        if (!Array.isArray(tasks)) {
+            console.error('The data retrieved is not an array.');
+            return []; // Make sure the result is an array
+        }
+        return tasks;
+    } catch (error) {
+        console.error('Error retrieving tasks:', error);
+        return []; // Return an empty array on error
     }
-  }
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
 }
 
 /**
- * Performs the login process.
+ * Initializes the board by reloading all cards.
  */
-async function login() {
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
-  if (user) {
-    await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
-  } else {
-    loginError();
-  }
+async function initializeBoard() {
+    await initializeBoardCard()
 }
 
 /**
- * Empties the arrays related to the current user and redirects to the login page
+ * Reinitializes the board by re-rendering all task cards based on filter state.
+ * @param {Array} [filteredTasks=null] - Optional. Array of filtered tasks.
  */
-function logOut() {  
-  Name = [];
-  currentUser = [];
-  window.location.href = '/index.html';
+
+async function initializeBoardCard(filteredTasks = null) {
+    let tasks = filteredTasks ? filteredTasks : await fetchTasks();
+    getNoTaskDivs();
+    getCardContainers();
+    await filterTodos(tasks);
+    await filterInProgress(tasks)
+    await filterAwaitFeedback(tasks);
+    await filterDone(tasks);
+    setupTaskClickListeners();
 }
 
 /**
- * Sets the current user after login.
+ * This function takes all banners with the message 'No Tasks Div' and saves them to a global variable;
  */
-async function setCurrentUser() {   
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    message.innerHTML = currentUser[0]['name'];
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
+function getNoTaskDivs() {
+    noTasksDiv = document.getElementById('board-card-background-1');
+    noTaskDiv2 = document.getElementById('board-card-background-2');
+    noTaskDiv3 = document.getElementById('board-card-background-3');
+    noTaskDiv4 = document.getElementById('board-card-background-4');
 }
 
 /**
- * Sets the name of the current user.
+ * This function takes all Tasks Cards containers and saves them to a global variable;
  */
-async function setCurrentUserName() { 
-  const userData = await getItem('user');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
+function getCardContainers() {
+    toDoCardsContainer = document.getElementById('toDo');
+    inProgressCardContainer = document.getElementById('in-progress');
+    awaitFeedBackCardContainer = document.getElementById('await-feedback');
+    doneCardContainer = document.getElementById('done');
 }
 
 /**
- * Filters out the user's name.
+ * This function filters the elements of the Tasks array and retrieves only the elements with the status 'toDo'.
+ * Then it inserts the tasks into the container with ID "toDo".
  */
-function getNamefromArray() {
-  let message = document.getElementById('welcome-message');
-  message.innerHTML = currentUser[0]['name'];
-}
-
-/**
- * Capitalizes the first letter of the logged in user and displays it on the user button.
- */
-function capitalisedName() {    
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  Name.push(currentUser[0]['name']);
-  parts = Name[0].split(" ");
-  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
-  capitalisedName.innerHTML = neededStr
-}
-
-/**
- * Displays an error message if username or password is incorrect.
- */
-function loginError() {       
-  let message = document.getElementById('login-error-message');
-  message.classList.remove('d-none');
-  message.classList.add('d-flex');
-
-}
-
-/**
- * Function behind the “Stay logged in” checkbox.
- */
-function rememberMe() {   
-  var rememberMeCheckbox = document.getElementById('remember');
-  var usernameInput = document.getElementById('email');
-  var passwordInput = document.getElementById('password');
-  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
-    rememberMeCheckbox.checked = true;
-    usernameInput.value = localStorage.usrname;
-    passwordInput.value = localStorage.pass;
-  } else {
-    rememberMeCheckbox.checked = false;
-    usernameInput.value = '';
-    passwordInput.value = '';
-  }
-  rememberMeCheckbox.addEventListener('click', function () {
-    if (rememberMeCheckbox.checked) {
-      localStorage.usrname = usernameInput.value;
-      localStorage.pass = passwordInput.value;
-      localStorage.chkbx = rememberMeCheckbox.checked;
+async function filterTodos(tasks) {
+    todos = tasks.filter(t => t['state'] == 'toDo');
+    if (todos.length > 0) {
+        noTasksDiv.style.display = 'none';
     } else {
-      localStorage.usrname = '';
-      localStorage.pass = '';
-      localStorage.chkbx = '';
+        noTasksDiv.style.display = 'flex';
     }
-  });
-};</code></pre>
+    toDoCardsContainer.innerHTML = '';
+    for (let i = 0; i &lt; todos.length; i++) {
+        let task = todos[i]
+        let completionDetails = updateSubtaskProgress(task);
+        toDoCardsContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+}
+
+/**
+ * This function filters the elements of the Tasks array and retrieves only the elements with the status 'in-progress'.
+ * Then it inserts the tasks into the container with ID "in-progress".
+ */
+async function filterInProgress(tasks) {
+    inProgress = tasks.filter(inPr => inPr['state'] == 'in-progress');
+    if (inProgress.length > 0) {
+        noTaskDiv2.style.display = 'none';
+    } else {
+        noTaskDiv2.style.display = 'flex';
+    }
+    inProgressCardContainer.innerHTML = '';
+    for (let i = 0; i &lt; inProgress.length; i++) {
+        let task = inProgress[i];
+        let completionDetails = updateSubtaskProgress(task);
+        inProgressCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+}
+
+/**
+ * This function filters the elements of the Tasks array and retrieves only the elements with the await-feedback status.
+ * Then it puts the tasks in the container with ID "await-feedback".
+ */
+async function filterAwaitFeedback(tasks) {
+    awaitFeedback = tasks.filter(awFe => awFe['state'] == 'await-feedback');
+    if (awaitFeedback.length > 0) {
+        noTaskDiv3.style.display = 'none';
+    } else {
+        noTaskDiv3.style.display = 'flex';
+    }
+    awaitFeedBackCardContainer.innerHTML = '';
+    for (let i = 0; i &lt; awaitFeedback.length; i++) {
+        let task = awaitFeedback[i];
+        let completionDetails = updateSubtaskProgress(task);
+        awaitFeedBackCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+}
+
+/**
+ * This function filters the elements of the Tasks array and retrieves only the elements with the status 'done'.
+ * Then it inserts the tasks into the container with the ID "done".
+ */
+
+async function filterDone(tasks) {
+    done = tasks.filter(d => d['state'] == 'done');
+    if (done.length > 0) {
+        noTaskDiv4.style.display = 'none';
+    } else {
+        noTaskDiv4.style.display = 'flex';
+    }
+    doneCardContainer.innerHTML = '';
+    for (let i = 0; i &lt; done.length; i++) {
+        let task = done[i];
+        let completionDetails = updateSubtaskProgress(task);
+        doneCardContainer.innerHTML += renderCardContent(i, task, completionDetails);
+    }
+}</code></pre>
         </article>
     </section>
 
@@ -258,7 +199,7 @@ function rememberMe() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:04 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 10 2024 11:53:05 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

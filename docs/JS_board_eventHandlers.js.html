@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: JS/register.js</title>
+    <title>JSDoc: Source: JS/board_eventHandlers.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: JS/register.js</h1>
+    <h1 class="page-title">Source: JS/board_eventHandlers.js</h1>
 
     
 
@@ -26,223 +26,310 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @global
- * @desc Array that stores all user objects. Each user object contains name, email and password.
- * @type {Array&lt;Object>}
- */
-let users = [];
+            <pre class="prettyprint source linenums"><code>//! Allgemeine Eventlistner
 
 /**
- * @global
- * @desc Stores information about the currently logged in user.
- * @type {Array}
+ * Adds an event listener that reacts to clicks on subtask checkboxes.
  */
-let currentUser = [];
-
-/**
- * @global
- * @desc Used to reference the name input field of the registration form.
- * @type {HTMLInputElement}
- */
-let Name = [];
-
-/**
- * Loads the user list from memory and updates the global variable `users`.
- *
- * This asynchronous function attempts to load a saved list of users by
- * accesses a storage mechanism. The invited ones
- * Data is then used to update the global variable `users`. in case of a
- * If there is an error loading the data, an error message is displayed in the console.
- * 
- * @async
- * @function loadUsers
- * @returns {Promise&lt;void>} A promise that will be fulfilled when the users load and the
- * global variable `users` has been updated. Returns nothing, but catches possible errors
- * and displays this in the console.
- */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading error:', e);
-  }
+function addSubtaskEventListener() {
+    document.body.addEventListener('click', async (event) => {
+        const checkboxContainer = event.target.closest('.dropdown-content-checkbox');
+        if (checkboxContainer) {
+            const taskId = checkboxContainer.getAttribute('data-task-id');
+            const subtaskId = checkboxContainer.getAttribute('data-subtask-id');
+            if (taskId &amp;&amp; subtaskId) {
+                const updatedTask = await toggleSubtaskCompleted(parseInt(taskId), parseInt(subtaskId));
+                if (updatedTask) {
+                }
+            }
+        }
+    });
 }
 
-/**
- * Initializes the application's registration function.
- * Loads existing user data when starting the registration page.
- */
-async function initRegister() {
-  await loadUsers(); // Loads existing users from storage
-}
+//! Create Tasks Eventlistner (board_createTasks.js)
 
 /**
- * Performs user registration by collecting the form data and saving the user data.
- * After successful registration, the form will be reset and the user will be redirected to the login page.
- * 
- * @async
- * @function register
- * @description Registers a new user with the data entered from the registration form.
- * Disables the registration button during the registration process to avoid multiple registrations.
+ * Initialises the EventListener to open the AddTask modal
  */
-async function register() {
-  let Name = document.getElementById('name');
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let register_button = document.getElementById('register_button');
-  register_button.disabled = true;
-  users.push({
-    name: Name.value,
-    email: email.value,
-    password: password.value,
-  });
-  await setItem('users', JSON.stringify(users));
-  resetForm();
-  signUpMessage();
-  redirectToLogin();
-}
-
-/**
- * Resets the registration form after registration.
- */
-function resetForm() {     
-  let Name = document.getElementById('name');
-  Name.value = '';
-  email.value = '';
-  password.value = '';
-  confirm_password.value = '';
-  register_button.disabled = false;
-}
-
-/**
- * Checks whether the passwords match during registration.
- */
-function match() {      
-  var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity('');
+function setupOpenAddTaskModalListener() {
+    const openAddTaskButton = document.getElementById('open-modal-button');
+    if (openAddTaskButton) {
+        openAddTaskButton.addEventListener('click', () => {
+            insertDynamicContentIntoModal();
+            openModal('addtask-modal');
+            setupModalEventListeners();
+        });
     }
-  }
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
 }
 
 /**
- * Performs the login process.
+ * Initialises the EventListener to close the AddTask modal
  */
-async function login() {
-  let email = document.getElementById('email');
-  let password = document.getElementById('password');
-  let user = users.find(u => u.email == email.value &amp;&amp; u.password == password.value);
-  if (user) {
-    await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
-  } else {
-    loginError();
-  }
-}
-
-/**
- * Empties the arrays related to the current user and redirects to the login page
- */
-function logOut() {  
-  Name = [];
-  currentUser = [];
-  window.location.href = '/index.html';
-}
-
-/**
- * Sets the current user after login.
- */
-async function setCurrentUser() {   
-  const userData = await getItem('user');
-  let message = document.getElementById('welcome-message');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    message.innerHTML = currentUser[0]['name'];
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
-
-/**
- * Sets the name of the current user.
- */
-async function setCurrentUserName() { 
-  const userData = await getItem('user');
-  try {
-    const jsonUserData = JSON.parse(userData);
-    currentUser.push(jsonUserData);
-    capitalisedName();
-  } catch (error) {
-    console.error("An error has occurred.", error);
-  }
-}
-
-/**
- * Filters out the user's name.
- */
-function getNamefromArray() {
-  let message = document.getElementById('welcome-message');
-  message.innerHTML = currentUser[0]['name'];
-}
-
-/**
- * Capitalizes the first letter of the logged in user and displays it on the user button.
- */
-function capitalisedName() {    
-  let capitalisedName = document.getElementById('user-name-capitalized');
-  Name.push(currentUser[0]['name']);
-  parts = Name[0].split(" ");
-  neededStr = parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
-  capitalisedName.innerHTML = neededStr
-}
-
-/**
- * Displays an error message if username or password is incorrect.
- */
-function loginError() {       
-  let message = document.getElementById('login-error-message');
-  message.classList.remove('d-none');
-  message.classList.add('d-flex');
-
-}
-
-/**
- * Function behind the “Stay logged in” checkbox.
- */
-function rememberMe() {   
-  var rememberMeCheckbox = document.getElementById('remember');
-  var usernameInput = document.getElementById('email');
-  var passwordInput = document.getElementById('password');
-  if (localStorage.chkbx &amp;&amp; localStorage.chkbx !== '') {
-    rememberMeCheckbox.checked = true;
-    usernameInput.value = localStorage.usrname;
-    passwordInput.value = localStorage.pass;
-  } else {
-    rememberMeCheckbox.checked = false;
-    usernameInput.value = '';
-    passwordInput.value = '';
-  }
-  rememberMeCheckbox.addEventListener('click', function () {
-    if (rememberMeCheckbox.checked) {
-      localStorage.usrname = usernameInput.value;
-      localStorage.pass = passwordInput.value;
-      localStorage.chkbx = rememberMeCheckbox.checked;
-    } else {
-      localStorage.usrname = '';
-      localStorage.pass = '';
-      localStorage.chkbx = '';
+function setupCloseAddTaskModalListener() {
+    const closeAddTaskButton = document.getElementById('close-modal-button-addtask');
+    if (closeAddTaskButton) {
+        closeAddTaskButton.addEventListener('click', () => closeModal('addtask-modal'));
     }
-  });
-};</code></pre>
+}
+
+/**
+ * Opens a modal based on the transferred ID
+ * @param {string} modalId - The ID of the modal to be opened
+ */
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block'; // Ensures that the modal is visible
+        setTimeout(() => {
+            modal.classList.add('modal-open'); // Adds the class to gently fade in the modal
+            const modalContent = modal.querySelector('.modal-content');
+            if (modalContent) {
+                modalContent.classList.add('addtask-modal-content'); // Specific class for animation
+            }
+        }, 10);
+    }
+}
+
+/**
+ * Closes a modal based on the transferred ID and ensures that the content is gently faded out
+ * @param {string} modalId - The ID of the modal that is to be closed
+ */
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    const modalContent = modal.querySelector('.modal-content-tasks'); // Access to the content of the modal
+    if (modal &amp;&amp; modalContent) {
+        modal.classList.remove('modal-open'); // Removes the class that displays the modal
+        modalContent.classList.add('modal-close'); // Adds the class that extends the content
+
+        setTimeout(() => {
+            modal.style.display = 'none'; // Hides the background after the animation
+            modalContent.classList.remove('modal-close'); // Prepares the contents for the next opening
+        }, 700); // Waiting time corresponds to the duration of the animation
+    }
+}
+
+/**
+ * Adds EventListeners to specific buttons that open the AddTask modal with a predefined status.
+ */
+function setupTaskStateListeners() {
+    const stateMappings = [     // Array with the IDs of the buttons and the corresponding states
+        { buttonId: 'addtask-todo', taskState: 'toDo' },
+        { buttonId: 'addtask-in-progress', taskState: 'in-progress' },
+        { buttonId: 'addtask-await-feedback', taskState: 'await-feedback' }
+    ];
+    stateMappings.forEach(mapping => {     // Add an EventListener for each mapping
+        const button = document.getElementById(mapping.buttonId);
+        if (button) {
+            button.addEventListener('click', () => {
+                openCreateTaskModalWithState(mapping.taskState);
+            });
+        }
+    });
+}
+
+/**
+ * Adds EventListeners to specific buttons that open the AddTask.html with a predefined status.
+ */
+function setupTaskStateListenersMobile() {
+    const stateMappings = [
+        { buttonId: 'addtask-todo-mobile', taskState: 'toDo' },
+        { buttonId: 'addtask-in-progress-mobile', taskState: 'in-progress' },
+        { buttonId: 'addtask-await-feedback-mobile', taskState: 'await-feedback' }
+    ];
+
+    stateMappings.forEach(mapping => {
+        const button = document.getElementById(mapping.buttonId);
+        if (button) {
+            button.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevents standard navigation
+                const targetUrl = `./addtask.html?state=${mapping.taskState}`;
+                window.location.href = targetUrl;
+            });
+        }
+    });
+}
+
+/**
+ * Opens the AddTask modal and sets the status of the new task based on the transferred parameter
+ * @param {string} taskState - The status to be assigned to the new task
+ */
+function openCreateTaskModalWithState(taskState) {
+    insertDynamicContentIntoModal(taskState);
+    openModal('addtask-modal');
+    setupModalEventListeners(taskState);
+    initializeBoard();
+}
+
+/**
+ * Sets up event listeners for closing and creating a task. Uses the transferred task state.
+ * @param {string} taskState - The status of the task to be created
+ */
+function setupModalEventListeners(taskState) { // Event listener for the close button
+    const closeModalButton = document.getElementById('close-modal-button-addtask-board');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', function () {
+            clearModalContent();
+            reinitializeEventListenersForEditModal();
+        });
+    }
+    const createTaskButton = document.getElementById('create-task-board'); // Event listener for the create button
+    if (createTaskButton) {
+        createTaskButton.addEventListener('click', function () {
+            createTaskModal(taskState)
+        });
+    } else {
+        console.info('Create Task button not found');
+    }
+}
+
+//! Detailmodal Eventlistners (board_showTaskDetails.js)
+/**
+ * Initialises EventListener for each board card to open the detail modal when clicked
+ */
+function setupTaskClickListeners() {
+    document.querySelectorAll('.board-card').forEach(card => {
+        card.addEventListener('click', function () {
+            const taskId = this.getAttribute('data-task-id');
+            const task = tasks.find(task => task.id.toString() === taskId); // `tasks` should be your array of task objects
+            if (task) {
+                openTaskDetailModal(task);
+            }
+        });
+    });
+}
+
+/**
+ * Initialises the EventListener for the close button of the task detail modal
+ */
+function setupCloseTaskDetailModalListener() {
+    const closeTaskDetailButton = document.getElementById('close-modal-button-detail');
+    if (closeTaskDetailButton) {
+        closeTaskDetailButton.addEventListener('click', () => closeModal('task-detail-modal'));
+    }
+}
+
+/**
+ * Sets up an event delegation for the close button in the detail modal.
+ */
+function setupModalCloseDelegation() {
+    const modal = document.getElementById('task-detail-modal');
+    modal.addEventListener('click', function (event) {
+        if (event.target.closest('#close-modal-button-detail')) { // Check whether the clicked element is the close button or an element within the close button
+            closeModal('task-detail-modal');
+        }
+    });
+}
+
+/**
+ * Sets up an EventListener that reacts to clicks within the modal to update subtask statuses.
+ */
+function setupSubtaskCompletionListener() {
+    document.addEventListener('click', async function (event) {// Identifizieren ob das Task-Element im Bearbeitungsmodus ist.
+        let taskIdElement = document.querySelector('.addTask-content[data-task-id]'); // Überprüfen, ob das geklickte Element oder eines seiner übergeordneten Elemente ein Subtask-Element ist.
+        let subtaskElement = event.target.closest('[data-subtask-id]'); // Wenn sowohl ein Task-Element als auch ein Subtask-Element vorhanden ist
+        if (taskIdElement &amp;&amp; subtaskElement) {
+            const taskId = taskIdElement.dataset.taskId;
+            const subtaskId = subtaskElement.dataset.subtaskId;
+            if (event.target.matches('.subtask-checkbox')) { // Überprüfen, ob der Klick auf eine Checkbox innerhalb des Subtask-Elements erfolgt ist
+                const updatedTask = await toggleSubtaskCompleted(parseInt(taskId), parseInt(subtaskId));
+                if (updatedTask) {
+                    openTaskDetailModal(updatedTask); // Öffne das Modal mit dem aktualisierten Task
+                }
+            }
+        }
+    });
+}
+
+/**
+ * Initialises the EventListener for the "Delete" button to delete the current task.
+ */
+function setupDeleteTaskListener() {
+    const deleteButton = document.getElementById('delete-task-button');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', deleteCurrentTask);
+    } else {
+        console.info('Delete button was not found.');
+    }
+}
+
+//! Create Tasks Eventlistner (board_editTasks.js)
+
+/**
+ * Sets up the event delegation for the close button in the modal for editing tasks.
+ */
+function setupModalCloseDelegationAddAtskBoard() {
+    const modalAddTaskBtn = document.getElementById('close-modal-button-addtask-board');
+    if (modalAddTaskBtn) { // Überprüfung, ob das Element existiert
+        modalAddTaskBtn.addEventListener('click', function (event) {
+            closeModalAddTaskBoard();
+        });
+    } else {
+        return;
+    }
+}
+
+/**
+ * Event listener for editing tasks.
+ */
+function setupEditTaskListener() {
+    document.addEventListener('click', function (event) {
+        const editButton = event.target.closest('#edit-task');
+        if (editButton) {  // Extrahieren der Task-ID
+            const taskHeaderElement = document.querySelector('.task-details-header');
+            if (taskHeaderElement &amp;&amp; taskHeaderElement.id) {
+                const taskId = taskHeaderElement.id.replace('task-', '');
+                if (taskId) {
+                    renderEditTask(taskId);
+                    const saveButton = document.getElementById('save-task-edit');
+                    if (saveButton) {
+                        saveButton.setAttribute('data-task-id', taskId);
+                    }
+                }
+            }
+        }
+    });
+}
+
+/**
+ * Sets up the event listener for the save button in the editing modal.
+ */
+function setupSaveTaskEditListener() {
+    const saveButton = document.getElementById('save-task-edit');
+    if (saveButton) {
+        saveButton.addEventListener('click', async function () { // The ID of the task to be processed is saved as the data attribute of the Save button.
+            const taskId = this.getAttribute('data-task-id');
+            if (!taskId) {
+                console.error('Task ID missing.');
+                return;
+            }
+            try {
+                await saveTaskEdit(taskId);
+                console.info('Task saved successfully.');
+            } catch (error) {
+                console.error('Error saving task:', error);
+            }
+        });
+    } else {
+        console.info('The save button is not yet there.');
+    }
+}
+
+/**
+ * Sets up the event listener for the close button in the editing modal.
+ */
+function setupModalCloseDelegationEdit() {
+    const closeModalButton = document.getElementById('close-modal-button-edittask');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', function () { // Ensures that the dropdown is closed
+            toggleAssigneeDropdown(false);
+            clearEditModalContent();
+            reinitializeEventListenersForEditModal();
+        });
+    }
+    else {
+        return;
+    }
+}</code></pre>
         </article>
     </section>
 
