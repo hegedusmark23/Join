@@ -608,7 +608,6 @@
   .task-details-main-content {
     display: flex;
     flex-direction: column;
-    gap: 5px;
   }
 
   .legal-headline {
@@ -677,7 +676,7 @@
   }
 
   .board-search-input input {
-    width: 290px;
+    width: 100%;
   }
 
   .modal-content-tasks {
@@ -711,7 +710,7 @@
   }
 
   .board-search-input input {
-    width: 235px;
+    width: 100%;
   }
 
   .board-search-input input {
@@ -748,7 +747,7 @@
 /* Anpassungen speziell für sehr kleine Smartphone-Bildschirme */
 @media (max-width: 330px) {
   .board-search-input input {
-    width: 187px;
+    width: 100%;
   }
 
   .privacy-container {

@@ -1160,10 +1160,14 @@ input#subtask-edit-input {
   font-weight: 800;
   letter-spacing: 0em;
   text-align: left;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .task-detail-description {
   color: #000 !important;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .task-detail-description,
