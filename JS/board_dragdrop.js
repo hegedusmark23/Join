@@ -16,8 +16,6 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-
-
 /**
  * this function is activated when the task begins to be dragged
  * @param {*} id - identifier of each task that is dragged
@@ -28,7 +26,6 @@ function startDragging(id, state, i) {
     currentDraggedElement = id;
     document.getElementById(`${state}-card-content${i}`).style.rotate = '10deg';
 }
-
 
 /**
  * Moves the currently dragged task to a new state and updates the view.
@@ -41,7 +38,6 @@ async function moveTo(state, event) {
     await initializeBoardCard();
 
 }
-
 
 /**
  * Hides the "No tasks" hint for a specific column when a task is added.
@@ -64,26 +60,37 @@ function hideNoTaskDiv(id) {
     } else { };
 }
 
+/**
+ * Sets variables to hide the background and set the border for the "To Do" section.
+ */
 function hideDivAndSetBorder1() {
     backgroundToHide = 'board-card-background-1'
     boardSectionToSet = 'board-section-1'
 }
+
+/**
+ * Sets variables to hide the background and set the border for the "In Progress" section.
+ */
 function hideDivAndSetBorder2() {
     backgroundToHide = 'board-card-background-2'
     boardSectionToSet = 'board-section-2'
 }
+
+/**
+ * Sets variables to hide the background and set the border for the "Await Feedback" section.
+ */
 function hideDivAndSetBorder3() {
     backgroundToHide = 'board-card-background-3'
     boardSectionToSet = 'board-section-3'
 }
+
+/**
+ * Sets variables to hide the background and set the border for the "Done" section.
+ */
 function hideDivAndSetBorder4() {
     backgroundToHide = 'board-card-background-4'
     boardSectionToSet = 'board-section-4'
 }
-
-
-
-
 
 /**
  * Resets the "No tasks" hint for a specific column when the last task is removed from it.

@@ -102,16 +102,12 @@ function createSubtasksHtml(subtasks) {
 }
 
 function checkAndSetPriority(prioButtons) {
-    console.log("checkAndSetPriority wird ausgeführt");
     const isActiveButtonPresent = Array.from(prioButtons).some(button => button.classList.contains('is-active'));
-    console.log("Ist ein aktiver Button vorhanden?", isActiveButtonPresent);
     if (!isActiveButtonPresent) {
-        console.log("Kein Button ist aktiv. Priorität wird auf null gesetzt.");
         return null;
     }
     const activeButton = Array.from(prioButtons).find(button => button.classList.contains('is-active'));
     const priority = activeButton.id.replace('addtask-prio-', '');
-    console.log("Aktive Priorität:", priority);
     return priority;
 }
 
@@ -122,7 +118,7 @@ function checkAndSetPriority(prioButtons) {
 function renderEditTask(taskId) {
     const task = tasks.find(t => t.id === parseInt(taskId));
     if (!task) {
-        console.error("Task nicht gefunden.");
+        console.error("Task not found.");
         return;
     }
     
@@ -287,9 +283,7 @@ function renderEditTask(taskId) {
         setTimeout(() => {
             const assignToContainer = document.getElementById('assign-to');
             const prioButtons = document.querySelectorAll('.addtask-buttons');
-            console.log("Prio-Buttons nach dem Rendering:", prioButtons.length);
             const currentPriority = checkAndSetPriority(prioButtons);
-            console.log("Ermittelte Priorität:", currentPriority);
             if (assignToContainer) {
                 assignToContainer.innerHTML = assigneesMarkup;
                 document.querySelectorAll('.dropdown-content-container').forEach((container) => { // Bind the event listeners to all containers and check the clicked element
@@ -305,10 +299,9 @@ function renderEditTask(taskId) {
                     });
                 });
             } else {
-                console.error('#assign-to wurde nach dem Einfügen des Modals nicht gefunden.');
+                console.error('#assign-to was not found after inserting the modal.');
             }
         }, 0);// Delay to ensure that the DOM has been fully updated
         reinitializeEventListenersForEditModal()
     }
 }
-

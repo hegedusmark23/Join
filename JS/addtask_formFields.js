@@ -108,7 +108,7 @@ function inputSubtask() {
             }, 10); // Small delay of 10 milliseconds
         });
     } else {
-        console.info('Eines oder mehrere Subtask-bezogene Elemente wurden nicht im DOM gefunden.');
+        console.info('One or more subtask-related elements were not found in the DOM.');
     }
 }
 
@@ -131,7 +131,7 @@ function addSubTask() {
             }
         });
     } else {
-        console.info('Eines oder mehrere Elemente für das Hinzufügen von Subtasks wurden nicht im DOM gefunden.');
+        console.info('One or more subtask-related elements were not found in the DOM.');
     }
 }
 
@@ -262,12 +262,12 @@ function setupEventListenersSubtasks() {
 function getSubtaskListContainer() {
     let listContainerElement = document.getElementById('subtasks-list-container');
     if (!listContainerElement) {
-        console.info('Container für Subtasks wurde nicht im DOM gefunden.');
+        console.info('Container for subtasks was not found in the DOM.');
         return null;
     }
     let listContainer = listContainerElement.querySelector('ul');
     if (!listContainer) {
-        console.info('UL-Element für Subtasks wurde nicht im DOM gefunden.');
+        console.info('UL element for subtasks not found in DOM.');
         return null;
     }
     return listContainer;
@@ -299,8 +299,8 @@ function setupEditSubtaskListener(listContainer) {
 }
 
 /**
- * Fügt einen Event-Listener für das Bearbeiten von Subtasks hinzu.
- * @param {HTMLElement} listContainer - Der Container, der die Subtask-Listenelemente enthält.
+ * Adds an event listener for editing subtasks.
+ * @param {HTMLElement} listContainer - The container that contains the subtask list elements.
  */
 function setupSaveSubtaskListener(listContainer) {
     listContainer.addEventListener('click', function(event) {
@@ -312,8 +312,8 @@ function setupSaveSubtaskListener(listContainer) {
 }
 
 /**
- * Fügt einen Event-Listener für das Bearbeiten von Subtasks hinzu.
- * @param {HTMLElement} listContainer - Der Container, der die Subtask-Listenelemente enthält.
+ * Adds an event listener for editing by double click for subtasks.
+ * @param {HTMLElement} listContainer - The container that contains the subtask list elements.
  */
 function setupDoubleClickToEditListener(listContainer) {
     listContainer.addEventListener('dblclick', function(event) {
@@ -326,8 +326,7 @@ function setupDoubleClickToEditListener(listContainer) {
 
 /**
  * Handles deleting a subtask.
- * Fügt einen Event-Listener für das Bearbeiten von Subtasks hinzu.
- * @param {HTMLElement} listContainer - Der Container, der die Subtask-Listenelemente enthält.
+ * @param {HTMLElement} listContainer - The container that contains the subtask list elements.
  */
 function deleteSubtask(event, listContainer) {
     let liToDelete = event.target.closest('li');

@@ -16,7 +16,6 @@ function setLetterContainersHTML(key) {
 
 }
 
-
 /**
  * This function displays the values (contacts) that are in the individual keys. Fill the list of containers with contacts
  * @param {number} i - Index of each contact contained in the main container
@@ -99,11 +98,10 @@ function showAlreadyCreatedContactInTheViewHTML(i, key, capitalizedLetters, name
        </span>
     </div>
       `
-
 }
 
 /**
- * Diese Funktion zeigt in der Kontakt-Ansicht einen aus der Kontaktliste ausgewählten Kontakt an
+ * This function displays a contact selected from the contact list in the contact view
  * @param {string} key - parameter corresponding to the main container in which the contact is contained 
  * @param {number} i - Index of each contact contained in the main container
  * @param {string} name - Contact's name

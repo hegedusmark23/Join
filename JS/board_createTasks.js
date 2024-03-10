@@ -272,11 +272,11 @@ async function createTaskModal() {
     try {
         tasks.push(newTask); // Add the new task to the array and save
         await setItem('tasks', JSON.stringify(tasks));
-        console.info('Task erfolgreich gespeichert');
+        console.info('Task saved successfully');
         showTaskAddedMessage();
         clearAllInputs();
     } catch (error) {
-        console.error('Fehler beim Speichern des Tasks:', error);
+        console.error('Error saving task:', error);
     }
     identifier++;
     clearModalContent();
@@ -299,6 +299,10 @@ function clearModalContent() {
     }
 }
 
+/**
+ * Generates the HTML for the pop-up menu on mobile devices that allows users to move a task to a different state.
+ * @returns {string} HTML string for the pop-up menu.
+ */
 function showPopUpMoveTaskMobileHTML(){
     return /*html*/ `
     <div onclick="doNotClose(event)" id="popUp-choice" class="popUp-choice translatePopUpChoice">
@@ -315,5 +319,3 @@ function showPopUpMoveTaskMobileHTML(){
    </div>
  `
 }
-
-

@@ -122,7 +122,7 @@ function validateInputElements() {
         document.getElementById('duedate-error-msg')
     ];
     if (elements.some(element => element === null)) {
-        console.info('Eines oder mehrere benötigte Elemente für checkInputFields() fehlen im DOM.');
+        console.info('One or more required elements for checkInputFields() are missing from the DOM.');
         return false;
     }
     return true;
@@ -154,7 +154,7 @@ function saveInputFields() {
             title = titleInput.value;
         });
     } else {
-        console.info('Titel-Inputfeld nicht gefunden.');
+        console.info('Title input field not found.');
     }
     // Event listener for description
     const descriptionInput = document.getElementById('description');
@@ -163,7 +163,7 @@ function saveInputFields() {
             description = descriptionInput.value;
         });
     } else {
-        console.info('Beschreibungs-Inputfeld nicht gefunden.');
+        console.info('Description input field not found.');
     }
     // Event listener for the due date
     const dueDateInput = document.getElementById('dueDate');
@@ -172,7 +172,7 @@ function saveInputFields() {
             dueDate = dueDateInput.value;
         });
     } else {
-        console.info('Fälligkeitsdatum-Inputfeld nicht gefunden.');
+        console.info('Due date input field not found.');
     }
 }
 
@@ -198,7 +198,7 @@ async function loadTasks() {
         showTasks();
     } catch (error) {
         // Output an error message in the event of an error loading the tasks
-        console.error('Fehler beim Laden der Tasks:', error);
+        console.error('Error loading tasks:', error);
     }
 }
 
@@ -225,7 +225,7 @@ async function createTask() {
             showTaskAddedMessage();
             clearAllInputs();
         } catch (error) {
-            console.error('Fehler beim Speichern des Tasks:', error);
+            console.error('Error saving task:', error);
         }
     });
 }
@@ -236,6 +236,8 @@ async function createTask() {
  * @returns {Task} The created task instance.
  */
 function createNewTaskInstance() {
+    const taskStateFromUrl = getTaskStateFromUrl();
+
     let newTask = new Task(
         Date.now(), // Unique ID
         title,
@@ -250,6 +252,7 @@ function createNewTaskInstance() {
     // Adding category and subtasks
     newTask.category = category;
     newTask.subtask = subtasks;
+    newTask.state = taskStateFromUrl || 'toDo';
     return newTask; // Returns the created Task object
 }
 
@@ -276,7 +279,7 @@ function validateTaskForm() {
         document.getElementById('duedate-error-msg').style.visibility = 'hidden';
     }
     // Validate category
-    if (!category) { // Assume that 'category' is set globally or somewhere
+    if (!category) { 
         document.getElementById('dropdown-categories-error-msg').style.visibility = 'visible';
         isValid = false;
     } else {
@@ -308,7 +311,7 @@ function showTaskAddedMessage(fromModal = false) {
             messageElement.style.display = 'none';
         }, 2000);
     } else {
-        console.error('Element für Task-Hinzugefügt-Nachricht wurde nicht gefunden.');
+        console.error('Item for task added message not found.');
     }
 }
 
@@ -353,6 +356,26 @@ function initializeBoardIfNeeded() {
         initializeBoard();
     } else {
         // Log a message if not the board page.
-        console.info('Nicht auf der Board-Seite, Initialisierung übersprungen.');
+        console.info('Not on the board side, initialization skipped.');
+    }
+}
+
+/**
+ * Retrieves the task state from the URL query parameters.
+ * @returns {string|null} The state of the task as specified in the URL, or null if not specified.
+ */
+function getTaskStateFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('state');
+}
+
+/**
+ * Sets up the page based on the task state retrieved from the URL.
+ * If a state is specified in the URL, it logs the predefined status and sets the current task state accordingly.
+ */
+function setupPageBasedOnTaskState() {
+    const taskState = getTaskStateFromUrl();
+    if (taskState) {
+        currentTaskState = taskState;
     }
 }

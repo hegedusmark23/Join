@@ -206,14 +206,14 @@ async function deleteCurrentTask() {
         if (taskId) {
             deleteTasks([parseInt(taskId)])
                 .then(() => {
-                    console.info('Task wurde erfolgreich gelöscht');
+                    console.info('Task was deleted successfully');
                     closeModal('task-detail-modal');
                     identifier--;
                     setItem('identifier', JSON.stringify(identifier))
                     initializeBoardCard();
                 })
                 .catch(error => {
-                    console.error('Fehler beim Löschen des Tasks:', error);
+                    console.error('Error deleting task:', error);
                 });
         }
     }

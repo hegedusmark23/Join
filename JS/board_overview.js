@@ -47,7 +47,7 @@ function populateTaskContainer(container, tasks) {
             container.innerHTML += renderCardContent(i, task, completionDetails);
         });
     } else {
-        console.info('Der Container wurde nicht gefunden.');
+        console.info('Container not found!.');
     }
 }
 

@@ -18,15 +18,14 @@ let dropdownClicked = false;
 function toggleAssigneeDropdown(shouldOpen) {
     let dropdownContent = document.getElementById('assign-to');
     if (!dropdownContent) {
-        console.error('Element #assign-to wurde nicht gefunden.');
-        return; // Frühzeitige Rückkehr, wenn das Element nicht existiert
+        console.error('Element #assign-to was not found.');
+        return; 
     }
-
-    // Entscheidet basierend auf dem übergebenen Parameter, ob das Dropdown geöffnet oder geschlossen werden soll
+    // Decides whether to open or close the dropdown based on the parameter passed
     if (shouldOpen === false) {
         dropdownContent.style.display = 'none';
     } else {
-        // Wenn kein Parameter übergeben wurde, toggle den aktuellen Zustand
+        // If no parameter was passed, toggle the current state
         let isDropdownOpen = dropdownContent.style.display === 'block';
         dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
     }
@@ -52,20 +51,19 @@ function updateAssignee(user) {
  * Closes the dropdown menu when clicked outside the dropdown area.
  */
 function setupAssigneeGlobalClickListener() {
-    // Prüfen, ob die Dropdown-Elemente existieren
     const dropdownContent = document.getElementById('assign-to');
     const dropdownButton = document.getElementById('dropdown-assignees');
 
     if (!dropdownContent || !dropdownButton) {
-        console.info('Dropdown-Elemente wurden nicht im DOM gefunden.');
-        return; // Beendet die Funktion frühzeitig, wenn die Elemente nicht existieren
+        console.info('Dropdown elements were not found in the DOM.');
+        return;
     }
 
     document.addEventListener('click', function (event) {
         let isClickInsideDropdown = dropdownButton.contains(event.target) || dropdownContent.contains(event.target);
 
         if (!isClickInsideDropdown && dropdownContent.style.display === 'block') {
-            toggleAssigneeDropdown(); // Schließt das Dropdown, wenn außerhalb geklickt wird
+            toggleAssigneeDropdown();
         }
     });
 }
@@ -130,24 +128,23 @@ function generateInitials(completeName) {
 }
 
 /**
- * Rendert die Benutzerliste im Dropdown-Menü basierend auf dem `letterContainer`.
+ * Renders the user list in the dropdown menu based on the `letterContainer`.
  */
 function renderAssignees() {
     let dropdownContent = document.getElementById('assign-to');
     if (!dropdownContent) {
-        console.info('Dropdown-Container für Assignees wurde nicht im DOM gefunden.');
-        return; // Beendet die Funktion frühzeitig, wenn das Element nicht existiert
+        console.info('Dropdown-Container for assignees were not found in the DOM.');
+        return; // Terminates the function early if the element does not exist
     }
 
-    dropdownContent.innerHTML = ''; // Löscht den aktuellen Inhalt
+    dropdownContent.innerHTML = ''; 
 
     Object.keys(letterContainer).forEach(letter => {
         letterContainer[letter].forEach((contact, index) => {
-            const initials = generateInitials(contact.completeName); // Initialen generieren
+            const initials = generateInitials(contact.completeName); // Generate initials
             let userContainer = document.createElement('div');
             userContainer.className = 'dropdown-content-container' + (contact.added ? ' user-checked' : '');
-
-            // Erstellung des Checkbox SVG basierend auf dem 'added' Zustand
+            // Creation of the checkbox SVG based on the 'added' state
             const checkboxSVG = contact.added ?
                 `<svg id="checkbox-checked-active" style="display:block" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20.3882 11V17C20.3882 18.6569 19.045 20 17.3882 20H7.38818C5.73133 20 4.38818 18.6569 4.38818 17V7C4.38818 5.34315 5.73133 4 7.38818 4H15.3882" stroke="#fff" stroke-width="2" stroke-linecap="round"></path>
@@ -168,12 +165,9 @@ function renderAssignees() {
                 </div>
                 <div class="dropdown-content-checkbox">${checkboxSVG}</div>
             `;
-
-            // Event-Listener für den Klick hinzufügen
             userContainer.addEventListener('click', function () {
                 toggleAssigneeStatus(letter, index, contact);
             });
-
             dropdownContent.appendChild(userContainer);
         });
     });
@@ -185,7 +179,7 @@ function renderAssignees() {
 function setupAssigneeDropdownToggleListener() {
     let dropdownButton = document.getElementById('dropdown-assignees');
     if (!dropdownButton) {
-        console.info('Dropdown-Button für Assignees wurde nicht im DOM gefunden.');
+        console.info('Dropdown-Button for assignees were not found in the DOM.');
         return; // Terminates the function early if the element does not exist
     }
     dropdownButton.addEventListener('click', (event) => {
@@ -223,7 +217,7 @@ function updateSelectedAssigneesDisplay() {
 function initCategoryDropdown() {
     let dropdownContent = document.getElementById('category');
     if (!dropdownContent) {
-        console.info('Dropdown-Container für Kategorien wurde nicht im DOM gefunden.');
+        console.info('Dropdown-Container for categories were not found in the DOM.');
         return; // Terminates the function early if the element does not exist
     }
     let categories = ['Technical Task', 'User Story'];
@@ -270,7 +264,7 @@ function toggleCategoryDropdown(event) {
 function setupCategoryDropdownEventListeners() {
     const dropdownCategoriesButton = document.getElementById('dropdown-categories');
     if (!dropdownCategoriesButton) {
-        console.info('Dropdown-Button für Kategorien wurde nicht im DOM gefunden.');
+        console.info('Dropdown-Button for categories were not found in the DOM.');
         return;
     }
     dropdownCategoriesButton.addEventListener('click', toggleCategoryDropdown);

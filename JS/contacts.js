@@ -19,7 +19,6 @@ alphabet.forEach((letter) => {
     letterContainer[letter] = [];
 })
 
-
 /**
  * This asynchronous function includes the header and the sidebar in the addcontacts.html page. With the function loadItems, all contacts previously saved in the remote storage are then transferred and inserted back into the json "lettersContainer" after reversing text to code. Finally, the setLettersContainers() function iterates the keys of the lettersContainer array into the "contact-list" container to display the letters A to Z in the contact list;
  */
@@ -37,12 +36,11 @@ async function loadItems() {
         const response = await getItem('contacts');
         if (response) {
             letterContainer = JSON.parse(response);
-            console.log('Kontakte geladen:', letterContainer);
         } else {
-            console.log('Keine Kontakte gefunden.');
+            console.info('No contacts found.');
         }
     } catch (e) {
-        console.error('Fehler beim Laden der Kontakte:', e);
+        console.error('Error loading contacts:', e);
     }
 }
 
@@ -368,7 +366,6 @@ async function deleteContactFromPopUp(key, i, event) {
     backToContactList();
     event.stopPropagation();
 }
-
 
 /**
  * If the contact container is in focus, the background is black and the text is white.

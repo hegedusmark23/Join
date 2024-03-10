@@ -39,11 +39,11 @@ async function deleteTasks(taskIds = []) {
         try {
             tasks = JSON.parse(tasks); // Converting the string back to an array
         } catch (error) {
-            console.error('Fehler beim Parsen der Tasks:', error);
+            console.error('Error parsing the tasks:', error);
             return; // Terminates the function early if parsing fails
         }
         if (!Array.isArray(tasks)) {
-            console.error('Nach dem Parsen sind die Tasks kein Array:', tasks);
+            console.error('After parsing, the tasks are not an array:', tasks);
             return; // Make sure the tasks are an array
         }
         if (taskIds && taskIds.length > 0) {
@@ -54,9 +54,9 @@ async function deleteTasks(taskIds = []) {
             tasks = [];
         }
         await setItem('tasks', JSON.stringify(tasks)); // Refresh memory with remaining/empty tasks
-        console.log('Task(s) erfolgreich gelöscht');
+        console.info('Task(s) deleted successfully');
     } catch (error) {
-        console.error('Fehler beim Löschen des/der Task(s):', error);
+        console.error('Error deleting task(s):', error);
     }
 }
 
@@ -68,7 +68,7 @@ async function addStateToExistingTasks() {
       let tasks = await getItem('tasks'); // Retrieve the existing tasks
       tasks = JSON.parse(tasks); // Trying to parse the string
       if (!Array.isArray(tasks)) {
-          console.error('Die abgerufenen Daten sind kein Array:', tasks);
+          console.error('The data retrieved is not an array:', tasks);
           return; // Exits the function if there is no array data
       }
       tasks = tasks.map(task => {
@@ -79,9 +79,8 @@ async function addStateToExistingTasks() {
       });
 
       await setItem('tasks', JSON.stringify(tasks)); // Save the updated tasks
-      console.log('Alle vorhandenen Tasks wurden erfolgreich aktualisiert.');
-  } catch (error) {
-      console.error('Fehler beim Aktualisieren der vorhandenen Tasks:', error);
+      } catch (error) {
+      console.error('Failed to update existing tasks:', error);
   }
 }
 
@@ -96,7 +95,7 @@ async function changeAddStateTasks() {
         }
 
         if (!Array.isArray(tasks)) {
-            console.error('Die abgerufenen Daten sind kein Array:', tasks);
+            console.error('The data retrieved is not an array:', tasks);
             tasks = []; // Initializes tasks as an empty array if the data is not in array format
         }
   
@@ -108,9 +107,8 @@ async function changeAddStateTasks() {
         });
   
         await setItem('tasks', JSON.stringify(updatedTasks)); // Save the updated tasks
-        console.log('Alle vorhandenen Tasks wurden erfolgreich aktualisiert.');
     } catch (error) {
-        console.error('Fehler beim Aktualisieren der vorhandenen Tasks:', error);
+        console.error('Failed to update existing tasks:', error);
     }
 }
 
@@ -133,13 +131,12 @@ async function addCompletedToExistingSubtasks() {
                     }
                 });
                 await setItem('tasks', JSON.stringify(tasks)); // Save the updated tasks
-                console.log('Die Subtasks aller vorhandenen Tasks wurden erfolgreich aktualisiert.');
             } else {
-                console.error('Die abgerufenen Daten sind kein Array:', tasks);
+                console.error('The data retrieved is not an array:', tasks);
             }
         }
     } catch (error) {
-        console.error('Fehler beim Aktualisieren der Subtasks:', error);
+        console.error('Failed to update existing tasks:', error);
     }
 }
 
@@ -162,16 +159,15 @@ async function updateSubtaskCompletion(taskId, subtaskId, completionStatus) {
                     subtaskToUpdate.completed = completionStatus; // 'done' or null
                     // Save the updated tasks back to the server
                     await setItem('tasks', JSON.stringify(tasks));
-                    console.log('Subtask erfolgreich aktualisiert.');
-                } else {
-                    console.error('Subtask nicht gefunden.');
+                    } else {
+                    console.error('Subtask not found.');
                 }
             } else {
-                console.error('Task nicht gefunden.');
+                console.error('Task not found.');
             }
         }
     } catch (error) {
-        console.error('Fehler beim Aktualisieren der Subtask:', error);
+        console.error('Failed to update subtask:', error);
     }
 }
 
@@ -184,10 +180,10 @@ async function loadUser() {
         if (response) {
             user = JSON.parse(response);
         } else {
-            console.log('Keine User gefunden.');
+            console.info('No user found.');
         }
     } catch (e) {
-        console.error('Fehler beim Laden der User:', e);
+        console.error('Error loading users:', e);
     }
 }
 

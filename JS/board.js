@@ -23,16 +23,16 @@ async function fetchTasks() {
         try {
             tasks = JSON.parse(tasks); // Trying to parse the string to get a JavaScript array
         } catch (error) {
-            console.error('Fehler beim Parsen der Tasks:', error);
+            console.error('Error parsing the tasks:', error);
             return []; // Return an empty array on error
         }
         if (!Array.isArray(tasks)) {
-            console.error('Die abgerufenen Daten sind kein Array.');
+            console.error('The data retrieved is not an array.');
             return []; // Make sure the result is an array
         }
         return tasks;
     } catch (error) {
-        console.error('Fehler beim Abrufen der Tasks:', error);
+        console.error('Error retrieving tasks:', error);
         return []; // Return an empty array on error
     }
 }

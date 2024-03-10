@@ -100,6 +100,28 @@ function setupTaskStateListeners() {
 }
 
 /**
+ * Adds EventListeners to specific buttons that open the AddTask.html with a predefined status.
+ */
+function setupTaskStateListenersMobile() {
+    const stateMappings = [
+        { buttonId: 'addtask-todo-mobile', taskState: 'toDo' },
+        { buttonId: 'addtask-in-progress-mobile', taskState: 'in-progress' },
+        { buttonId: 'addtask-await-feedback-mobile', taskState: 'await-feedback' }
+    ];
+
+    stateMappings.forEach(mapping => {
+        const button = document.getElementById(mapping.buttonId);
+        if (button) {
+            button.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevents standard navigation
+                const targetUrl = `./addtask.html?state=${mapping.taskState}`;
+                window.location.href = targetUrl;
+            });
+        }
+    });
+}
+
+/**
  * Opens the AddTask modal and sets the status of the new task based on the transferred parameter
  * @param {string} taskState - The status to be assigned to the new task
  */
@@ -198,7 +220,7 @@ function setupDeleteTaskListener() {
     if (deleteButton) {
         deleteButton.addEventListener('click', deleteCurrentTask);
     } else {
-        console.info('Delete-Button wurde nicht gefunden.');
+        console.info('Delete button was not found.');
     }
 }
 
@@ -228,7 +250,6 @@ function setupEditTaskListener() {
             const taskHeaderElement = document.querySelector('.task-details-header');
             if (taskHeaderElement && taskHeaderElement.id) {
                 const taskId = taskHeaderElement.id.replace('task-', '');
-                console.log('Task ID gefunden:', taskId);
                 if (taskId) {
                     renderEditTask(taskId);
                     const saveButton = document.getElementById('save-task-edit');
@@ -250,18 +271,18 @@ function setupSaveTaskEditListener() {
         saveButton.addEventListener('click', async function () { // The ID of the task to be processed is saved as the data attribute of the Save button.
             const taskId = this.getAttribute('data-task-id');
             if (!taskId) {
-                console.error('Task ID fehlt.');
+                console.error('Task ID missing.');
                 return;
             }
             try {
                 await saveTaskEdit(taskId);
-                console.info('Task erfolgreich gespeichert.');
+                console.info('Task saved successfully.');
             } catch (error) {
-                console.error('Fehler beim Speichern des Tasks:', error);
+                console.error('Error saving task:', error);
             }
         });
     } else {
-        console.info('Der Speichern-Button noch nicht vorhanden.');
+        console.info('The save button is not yet there.');
     }
 }
 
@@ -281,4 +302,3 @@ function setupModalCloseDelegationEdit() {
         return;
     }
 }
-

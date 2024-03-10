@@ -208,7 +208,3 @@ function helpHTML() {
 </div>
     `;
 }
-
-
-
-

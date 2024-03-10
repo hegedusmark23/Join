@@ -107,7 +107,6 @@ function timeDynamicWelcome() {
   }
 }
 
-
 /**
  * Shows the password on the login page.
  */
@@ -123,7 +122,6 @@ function revealPassword(inputField) {
   inputField.style.backgroundPosition = "center";
   inputField.style.backgroundPositionX = "calc(100% - 12px)";
 }
-
 
 /**
  * Performs guest login.
@@ -245,5 +243,3 @@ function mobileWelcomeAnimation() {
     }, 900);
   }
 }
-
-

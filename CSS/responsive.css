@@ -23,7 +23,6 @@
 
   /* Desktops — 1280px */
   @media (max-width: 1280px) {
-
     /* Anpassungen für Desktop-Ansichten */
     .board-header {
       flex-direction: column;
@@ -76,10 +75,13 @@
 
 /* Tablets (Landscape) / Kleinere Desktops — 1024px */
 @media (max-width: 1024px) {
-
   /* Anpassungen für Tablets in Landscape und kleinere Desktops */
   .board-search-input input {
     width: 320px;
+  }
+
+  .board-search-input {
+    padding-left: 0px;
   }
 
   .board-sector {
@@ -214,7 +216,7 @@
     margin: 32px 0 8px 0;
   }
 
-  .board-sections>div {
+  .board-sections > div {
     flex: 1;
     max-width: 750px;
     overflow-x: scroll;
@@ -236,7 +238,7 @@
     display: none;
   }
 
-  .board-sections>div {
+  .board-sections > div {
     border-radius: 0px;
   }
 }
@@ -250,7 +252,6 @@
   .board-sectors-mobile {
     flex-direction: row !important;
   }
-
 
   .blue-join-logo {
     display: flex;
@@ -423,7 +424,7 @@
     padding: 10px 20px 10px 20px !important;
   }
 
-  .board-sections>div {
+  .board-sections > div {
     margin-right: 0px !important;
   }
 
@@ -433,6 +434,12 @@
 }
 
 @media (max-width: 700px) {
+  .board-search-input {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
   .board-search-input input {
     width: 100%;
     box-sizing: border-box;
@@ -442,12 +449,9 @@
     flex-grow: 1;
   }
 
-  .board-search-input {
-    width: 100%;
-  }
-
   .board-header-right {
     gap: 0px;
+    width: 100%;
   }
 
   #board-content h1,
@@ -542,7 +546,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    background: #F0F0F0;
+    background: #f0f0f0;
     padding: 15px;
   }
 
@@ -1255,13 +1259,7 @@
   transform: translateX(1000px);
 }
 
-
 @media (max-width: 1000px) {
-  .blue-btn {
-    padding: 10px;
-    font-size: 17px;
-  }
-
   .white-btn {
     padding: 10px;
     font-size: 17px;

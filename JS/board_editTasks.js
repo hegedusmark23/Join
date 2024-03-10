@@ -143,14 +143,14 @@ async function saveTaskEdit(taskId) {
         const formData = extractFormData();
         const taskIndex = tasks.findIndex(task => task.id === parseInt(taskId));
         if (taskIndex === -1) {
-            console.error('Aufgabe nicht gefunden.');
+            console.error('Task not found.');
             return;
         }
         updateTask(taskIndex, formData); // Update the task in the array
         try {
             await saveTasksAndReloadUI(taskIndex); // Saving the tasks and updating the UI
         } catch (error) {
-            console.error('Fehler beim Speichern der Aufgaben:', error);
+            console.error('Error saving tasks:', error);
         }
     }, 100);
 }

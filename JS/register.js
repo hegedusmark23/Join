@@ -139,9 +139,8 @@ async function setCurrentUser() {
     currentUser.push(jsonUserData);
     message.innerHTML = currentUser[0]['name'];
     capitalisedName();
-    console.log(getItem('user'));
   } catch (error) {
-    console.error("Es ist ein fehler aufgetreten.", error);
+    console.error("An error has occurred.", error);
   }
 }
 
@@ -155,7 +154,7 @@ async function setCurrentUserName() {
     currentUser.push(jsonUserData);
     capitalisedName();
   } catch (error) {
-    console.error("Es ist ein fehler aufgetreten.", error);
+    console.error("An error has occurred.", error);
   }
 }
 

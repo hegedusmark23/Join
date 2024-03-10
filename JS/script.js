@@ -91,10 +91,8 @@ async function init() {
  * Initializes the application's registration function.
  * Loads existing user data when starting the registration page.
  */
-
-
 async function showTasks() {
-    console.log('Das sind die Tasks in meinem Array: ', tasks);
+    // console.log('These are the tasks in tasks array: ', tasks);
 }
 
 function reinitializeEventListenersForEditModal() {
@@ -118,23 +116,26 @@ function reinitializeEventListenersForEditModal() {
     setupEditTaskListener();
     setupModalCloseDelegationAddAtskBoard();
     setupSaveTaskEditListener();
+    setupPageBasedOnTaskState();
+    setupTaskStateListenersMobile();
 
 }
 
+/**
+ * Initializes the page once the DOM is fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     // Initializations that should be performed on all pages
-    if ((window.location.href === "http://127.0.0.1:5500/addtask.html") || (window.location.href === "http://127.0.0.1:5500/board.html")){
-        checkInputFields();
-        saveInputFields();
-        }
         loadTasks();
         createTask();
         
     //Functions needed on both the "Add Task" page and the "Board" page
-    if ((window.location.href === "http://127.0.0.1:5500/addtask.html") || (window.location.href === "http://127.0.0.1:5500/board.html")) {
+    if (window.location.pathname.endsWith('/addtask.html') || window.location.pathname.endsWith('/board.html')) {
         loadItems().then(() => {
             renderAssignees();
         });
+        checkInputFields();
+        saveInputFields();
         handlePrioButtons();
         inputSubtask();
         addSubTask();
@@ -145,6 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
         setupCategoryDropdownEventListeners();
         setupAssigneeGlobalClickListener();
     }
+
+    if (window.location.pathname.endsWith('/addtask.html')) {
+        setupPageBasedOnTaskState();
+    }
+
     // Auxiliary function to check "Board" page active
     function isBoardPage() {
         return document.getElementById('board-card-background-1') !== null;
@@ -165,12 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
         setupSaveTaskEditListener();
         setupModalEventListeners();
         setupTaskStateListeners();
+        setupTaskStateListenersMobile();
     }
 
     // Conditional initialization based on the current page
     if (isBoardPage()) {
         initializeBoardPage();
     } else {
-        console.log('Nicht auf der Board-Seite, spezifische Board-Initialisierungen werden übersprungen.');
+        console.info('Not on the board side, specific board initializations are skipped.');
     }
 });
