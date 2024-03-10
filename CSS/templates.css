@@ -391,7 +391,7 @@ input {
 
 .divider {
   width: 1px;
-  max-height: 440px;
+  max-height: 500px;
   background-color: #d1d1d1;
   margin: 0 20px;
 }
@@ -415,6 +415,7 @@ input {
   display: flex;
   align-items: center;
   margin-left: 8px;
+  justify-content: space-between;
 }
 
 .addtask-action-btns button:hover {
@@ -1027,6 +1028,7 @@ input#subtask-edit-input {
   overflow: hidden;
   transition: transform 0.5s ease-out, opacity 0.7s ease;
   opacity: 1;
+  height: 90vh;
 }
 
 .modal-open .modal-content-tasks {

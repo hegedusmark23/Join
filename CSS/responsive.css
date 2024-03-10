@@ -244,6 +244,14 @@
 }
 
 @media (max-width: 930px) {
+  .addtask-actions {
+    bottom: 80px;
+  }
+
+  #clear-button {
+    display: none;
+  }
+
   .index-contents {
     display: flex;
     flex-direction: column;
@@ -390,14 +398,6 @@
     padding: 120px 85px 52px 85px;
   }
 
-  /* .addtask-action-btns {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 16px 10px 16px;
-      background-color: #f0f0f0;
-      margin: 81px 0px;
-    } */
-
   section#addtask-content {
     padding: 80px 16px 10px 16px;
   }
@@ -438,6 +438,10 @@
     display: flex;
     width: 100%;
     align-items: center;
+  }
+
+  .info {
+    display: none;
   }
 
   .board-search-input input {
@@ -492,6 +496,11 @@
   .addtask-info-mobile {
     display: flex;
     align-items: center;
+    margin-right: 20px;
+  }
+
+  .addtask-actions {
+    bottom: 90px;
   }
 
   #clear-button {
@@ -587,6 +596,33 @@
     max-width: 1300px;
     width: 100%;
   }
+
+  .info-mobile {
+    display: none;
+  }
+}
+
+/* Kleinere Smartphones (Landscape) — 480px */
+@media (max-width: 699px) {
+  /* Anpassungen für kleinere Smartphones */
+  .info-mobile {
+    display: block;
+  }
+
+  .addtask-actions {
+    position: fixed;
+    background-color: #f0f0f0;
+    width: 100%;
+  }
+
+  .addtask-action-btns {
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    box-shadow: 0 10px 0 0 #f0f0f0;
+  }
 }
 
 /* Kleinere Smartphones (Landscape) — 480px */
@@ -681,7 +717,6 @@
 
   .modal-content-tasks {
     max-width: 299px;
-    height: auto;
   }
 
   .addTask-content {
@@ -727,8 +762,6 @@
 
   .modal-content-tasks {
     max-width: 300px;
-
-    height: auto;
   }
 
   .task-detail-headline {
@@ -1312,6 +1345,11 @@
   .blue-btn {
     padding: 8px;
     font-size: 14px;
+  }
+
+  #create-task {
+    font-size: 21px;
+    padding: 12px 16px 12px 16px;
   }
 
   .white-btn {
