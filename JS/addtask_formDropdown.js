@@ -19,7 +19,7 @@ function toggleAssigneeDropdown(shouldOpen) {
     let dropdownContent = document.getElementById('assign-to');
     if (!dropdownContent) {
         console.error('Element #assign-to was not found.');
-        return; 
+        return;
     }
     // Decides whether to open or close the dropdown based on the parameter passed
     if (shouldOpen === false) {
@@ -137,7 +137,7 @@ function renderAssignees() {
         return; // Terminates the function early if the element does not exist
     }
 
-    dropdownContent.innerHTML = ''; 
+    dropdownContent.innerHTML = '';
 
     Object.keys(letterContainer).forEach(letter => {
         letterContainer[letter].forEach((contact, index) => {
@@ -270,12 +270,14 @@ function setupCategoryDropdownEventListeners() {
     dropdownCategoriesButton.addEventListener('click', toggleCategoryDropdown);
     const addTaskContent = document.getElementById('addtask-content'); // Add event listener to 'addtask-content'
     if (addTaskContent) {
-        addTaskContent.addEventListener('click', function (event) {  // Check if the click is inside the 'addtask-content' area
-            if (!dropdownCategoriesButton.contains(event.target)) {  // If the 'dropdown-categories' button was not clicked, then close the dropdown menu
-                document.getElementById('category').style.display = 'none';
-                toggleCategoryDropdownArrows(false);
-            }
-        });
+        if (window.location.pathname.endsWith('/addtask.html') || document.getElementById('addtask-modal').style.display === 'block;') {
+            addTaskContent.addEventListener('click', function (event) {  // Check if the click is inside the 'addtask-content' area
+                if (!dropdownCategoriesButton.contains(event.target)) {  // If the 'dropdown-categories' button was not clicked, then close the dropdown menu
+                    document.getElementById('category').style.display = 'none';
+                    toggleCategoryDropdownArrows(false);
+                }
+            });
+        }
     }
 
     document.querySelectorAll('.arrowDown, .arrowUp').forEach(arrow => {
