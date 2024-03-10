@@ -334,8 +334,8 @@ h1.contact-view-title {
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.under-container:hover {
-  background-color: #00000031;
+.grey-container{
+  background: #00000031;
 }
 
 .black-container {
@@ -701,4 +701,3 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-block-start: 0;
   margin-block-end: 0;
 }
-

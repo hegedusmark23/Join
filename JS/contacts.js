@@ -389,6 +389,25 @@ function backgroundAndTextOriginal(key, i) {
     document.getElementById(`contact-list-email${key}${i}`).style.color = '#29ABE2'
 }
 
+function backgroundGreyOnOver(key, i){
+    document.getElementById(`under-container${key}${i}`).classList.add('grey-container')
+}
+
+/**
+ * When the mouse is over the container of the individual contact this function adds a adds a class containing a gray background color
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container 
+ */
+
+/**
+ * When the mouse is no longer over the contact ontainer, this function removes the gray backgound class
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container 
+ */
+function backgroundOriginalOnOverFinish(key, i){
+    document.getElementById(`under-container${key}${i}`).classList.remove('grey-container')
+}
+
 /**
  * This function displays the pop-up window with the form for creating a new contact
  */
