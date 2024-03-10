@@ -96,7 +96,7 @@ function createFormSectionRight() {
                         <button class="addtask-buttons" id="addtask-prio-urgent">Urgent
                             <img class="icon" src="./assets/img/addtask_prio-urgent-icon.svg" alt="Prio Urgent">
                         </button>
-                        <button class="addtask-buttons" id="addtask-prio-medium">Medium
+                        <button class="addtask-buttons is-active" style="background-color: rgb(255, 168, 0);" id="addtask-prio-medium">Medium
                             <img class="icon" src="./assets/img/addtask_prio-medium-icon.svg" alt="Prio Medium">
                         </button>
                         <button class="addtask-buttons" id="addtask-prio-low">Low
