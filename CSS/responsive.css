@@ -64,10 +64,6 @@
     width: 300px;
   }
 
-  .legal-text-container-noUser {
-    padding: 120px 20px 52px 20px;
-  }
-
   section#board-content {
     padding: 10px 30px 10px 40px;
   }
@@ -395,7 +391,7 @@
   }
 
   .legal-text-container-noUser {
-    padding: 120px 85px 52px 85px;
+    padding: 120px 20px 52px 20px !important;
   }
 
   section#addtask-content {
@@ -594,7 +590,7 @@
   .legal-text-container-noUser {
     padding: 120px 85px 52px 266px;
     max-width: 1300px;
-    width: 100%;
+    width: 90%;
   }
 
   .info-mobile {
@@ -648,7 +644,7 @@
   }
 
   .legal-headline {
-    font-size: 37px;
+    font-size: 30px;
   }
 
   .blue-join-logo {
@@ -731,7 +727,7 @@
 
 @media (max-width: 375px) {
   .legal-text-container-noUser {
-    padding: 120px 20px 52px 9px;
+    padding: 120px 20px 52px 9px !important;
   }
 
   section#board-content {
@@ -1475,7 +1471,7 @@
   }
 
   .signup-container {
-    width: 320px;
+    width: 310px;
   }
 
   .legal-links {
@@ -1653,7 +1649,7 @@
   }
 
   .legal-headline {
-    font-size: 49px;
+    font-size: 35px;
   }
 
   .summary-text {

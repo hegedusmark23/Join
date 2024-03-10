@@ -72,7 +72,7 @@ async function init() {
     await includeHTML(); // Loads dynamic HTML components
     buttonFocus(); // Sets the focus on the main button of the page
     // Delays the execution of the sorting functions to wait for the data to load
-    if (window.location.href === "http://127.0.0.1:5500/summary.html") {
+    if (window.location.href === "https://gruppe-870.developerakademie.net/summary.html") {
         mobileWelcomeAnimation();
         timeDynamicWelcome(); // Displays a welcoming message based on the time of day
     setTimeout(() => {
