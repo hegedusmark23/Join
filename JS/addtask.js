@@ -208,7 +208,7 @@ async function loadTasks() {
 async function createTask() {
     const createTaskButton = document.getElementById('create-task');
     if (!createTaskButton) {
-        console.info('Create-Task-Button wurde nicht im DOM gefunden.');
+        console.info('Create task button not found in DOM.');
         return; //Terminates the function early if the button element does not exist
     }
     createTaskButton.addEventListener('click', async () => {
