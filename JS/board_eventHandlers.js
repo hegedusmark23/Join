@@ -78,6 +78,7 @@ function closeModal(modalId) {
             modalContent.classList.remove('modal-close'); // Prepares the contents for the next opening
         }, 700); // Waiting time corresponds to the duration of the animation
     }
+    clearEditModalContent();
 }
 
 /**
@@ -231,7 +232,7 @@ function setupDeleteTaskListener() {
  */
 function setupModalCloseDelegationAddAtskBoard() {
     const modalAddTaskBtn = document.getElementById('close-modal-button-addtask-board');
-    if (modalAddTaskBtn) { // Überprüfung, ob das Element existiert
+    if (modalAddTaskBtn) { 
         modalAddTaskBtn.addEventListener('click', function (event) {
             closeModalAddTaskBoard();
         });
@@ -246,11 +247,14 @@ function setupModalCloseDelegationAddAtskBoard() {
 function setupEditTaskListener() {
     document.addEventListener('click', function (event) {
         const editButton = event.target.closest('#edit-task');
-        if (editButton) {  // Extrahieren der Task-ID
+        if (editButton) {
             const taskHeaderElement = document.querySelector('.task-details-header');
             if (taskHeaderElement && taskHeaderElement.id) {
                 const taskId = taskHeaderElement.id.replace('task-', '');
                 if (taskId) {
+                    const detailFooter = document.querySelector('.detail-footer');
+                    if (detailFooter) detailFooter.style.display = 'none';
+                    
                     renderEditTask(taskId);
                     const saveButton = document.getElementById('save-task-edit');
                     if (saveButton) {
@@ -292,13 +296,12 @@ function setupSaveTaskEditListener() {
 function setupModalCloseDelegationEdit() {
     const closeModalButton = document.getElementById('close-modal-button-edittask');
     if (closeModalButton) {
-        closeModalButton.addEventListener('click', function () { // Ensures that the dropdown is closed
+        closeModalButton.addEventListener('click', function () {
             toggleAssigneeDropdown(false);
             clearEditModalContent();
             reinitializeEventListenersForEditModal();
+            const detailFooter = document.querySelector('.detail-footer');
+            if (detailFooter) detailFooter.style.display = 'block';
         });
-    }
-    else {
-        return;
     }
 }

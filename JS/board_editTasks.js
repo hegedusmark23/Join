@@ -35,10 +35,13 @@ function closeModalAddTaskBoard() {
 function closeModalTaskEdit() {
     const modalEdit = document.getElementById('task-detail-modal');
     if (modalEdit) {
-        modalEdit.classList.remove('modal-open'); // Starts the closing animation for the content
+        modalEdit.classList.remove('modal-open');
         setTimeout(() => {
-            modalEdit.style.display = 'none'; // Hides the background after the animation
-        }, 500); // Waiting time corresponds to the duration of the animation
+            modalEdit.style.display = 'none'; 
+            const detailFooter = document.querySelector('.detail-footer');
+            if (detailFooter) detailFooter.style.display = 'block';
+            
+        }, 500);
     }
 }
 
@@ -190,7 +193,6 @@ function updateTask(taskIndex, formData) {
     });
     tasks[taskIndex] = updatedTask; // Updates the task in the tasks array
 }
-
 
 /**
 * Saves the updated tasks array in memory and updates the UI.

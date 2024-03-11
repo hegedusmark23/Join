@@ -120,8 +120,7 @@ function renderEditTask(taskId) {
     if (!task) {
         console.error("Task not found.");
         return;
-    }
-    
+    }  
     const assignedUsersHtml = generateAssignedUsersHtml(task.assignTo);
     const assigneesMarkup = generateAssigneesMarkup(task, letterContainer);
     const subtasksHtml = createSubtasksHtml(task.subtask);
@@ -262,9 +261,9 @@ function renderEditTask(taskId) {
                             </div>
                         </div>
                     </div>
-                    <div class="addtask-actions addtask-actions-edit">
-                        <div class="addtask-info info addtask-info-edit">This field is required</div>
-                        <div class="addtask-action-btns">
+                    <div class="addtask-actions-edit">
+                        <div class="addtask-info info-edit addtask-info-edit">This field is required</div>
+                        <div class="addtask-action-btns-edit">
                             <button id="save-task-edit" class="blue-btn">Ok
                                 <img src="./assets/icons/check.svg" alt="Create Task">
                             </button>

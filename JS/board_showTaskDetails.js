@@ -5,7 +5,7 @@
 function openTaskDetailModal(task) {
     const modal = document.getElementById('task-detail-modal');
     const detailsContainer = document.getElementById('task-details');
-    detailsContainer.innerHTML = detailModalContent(task);
+    detailsContainer.innerHTML = renderDetailModal(task);
     modal.style.display = 'flex'; // Show modal first
     setTimeout(() => { // Short delay before class is added to allow transition
         modal.classList.add('modal-open');
@@ -19,9 +19,11 @@ function openTaskDetailModal(task) {
  */
 function updateTaskDetailsAndBindListener(task) {
     const detailsContainer = document.getElementById('task-details');
-    detailsContainer.innerHTML = detailModalContent(task);
+    detailsContainer.innerHTML = renderDetailModal(task);
     addSubtaskEventListener(); // Bind the event listener after the content is inserted
 }
+
+//! Gernerating Task Details
 
 /**
  * Generates HTML for the description display of a task.
@@ -174,26 +176,63 @@ function generateSubtasksHtml(task, subtasks) {
 }
 
 /**
- * Renders the contents of the detail view for a specific task.
- * @param {Object} task - The task object with all relevant data.
- * @returns {string} - HTML string representing the detailed content of the task.
+ * Generates the HTML content for the detail view of a task.
+ * This function consolidates several parts of the detail view including the header,
+ * main content (title, description, due date, priority), assignments, and subtasks.
+ *
+ * @param {Object} task - The task object containing all necessary information 
+ * to generate the detail view. The task object is expected to have the following properties:
+ *   - title: The title of the task.
+ *   - assignTo: An array of assignees. Each element in `assignTo` should contain necessary
+ *     information about the assignee that will then be processed by `generateAssigneesHtml`.
+ *   - subtask: An array of subtasks. Each subtask should be in a format that can be processed
+ *     by `generateSubtasksHtml`.
+ *   - description: The description of the task.
+ *   - dueDate: The due date of the task.
+ *   - prio: The priority of the task.
+ * 
+ * @returns {string} A string of HTML code that comprises the entire content for the task's detail view.
  */
 function detailModalContent(task) {
-    let assigneesHtml = generateAssigneesHtml(task.assignTo);  // Prepares HTML for assignees, shows "N/A" if none exist
-    let subtasksHtml = generateSubtasksHtml(task, task.subtask);  // Prepares HTML for subtasks, shows nothing if none exist
+    let assigneesHtml = generateAssigneesHtml(task.assignTo);
+    let subtasksHtml = generateSubtasksHtml(task, task.subtask);
     return `
-    ${generateDetailHeader(task)}
+        ${generateDetailHeader(task)}
         <div class="task-details-main-content">
             <div class="task-detail-headline">${task.title}</div>
             ${generateDescriptionHtml(task)}
             ${generateDueDateHtml(task)}
             ${generatePriorityHtml(task)}
-              <div class="detail-assignees">Assigned To:</div>
+            <div class="detail-assignees">Assigned To:</div>
             <div class="detail-assignee">${assigneesHtml}</div>
             ${subtasksHtml}
-            ${generateDetailFooter()}
         </div>
     `;
+}
+
+/**
+ * Renders the contents of the detail view for a specific task.
+ * @param {Object} task - The task object with all relevant data.
+ * @returns {string} - HTML string representing the detailed content of the task.
+ */
+function renderDetailModal(task) {
+    const taskDetailModal = document.getElementById('task-detail-modal');
+    // Empty the contents of taskDetailModal to start from a clean state
+    taskDetailModal.innerHTML = '';
+    taskDetailModal.innerHTML = `
+        <div class="modal-content-tasks">
+            <div id="task-details-container">
+                <div id="task-details">
+                </div>
+            </div>
+        </div>
+    `;
+    const taskDetails = document.getElementById('task-details'); // Add the generated content and footer within the correct container
+    taskDetails.innerHTML = detailModalContent(task); //Generate the content based on the task
+    // Generate and insert the footer directly into task-detail-modal
+    const detailFooterHtml = generateDetailFooter();
+    const modalContentTasks = taskDetailModal.querySelector('.modal-content-tasks');
+    modalContentTasks.insertAdjacentHTML('beforeend', detailFooterHtml);
 }
 
 /**

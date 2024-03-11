@@ -218,9 +218,27 @@
   color: #ff8190;
 }
 
+.info-edit:before {
+  content: "* ";
+  color: #ff8190;
+}
+
 .info-mobile:before {
   content: "* ";
   color: #ff8190;
+}
+
+.addtask-action-btns-edit {
+  display: flex;
+}
+
+#save-task-edit {
+  align-items: center;
+  display: flex;
+  width: 90px;
+  height: 50px;
+  justify-content: space-around;
+  padding: 12px 16px 12px 16px;
 }
 
 .addtask-title-input:focus,
@@ -1164,6 +1182,7 @@ input#subtask-edit-input {
   text-align: left;
   word-wrap: break-word;
   hyphens: auto;
+  margin-top: 20px;
 }
 
 .task-detail-description {
@@ -1205,6 +1224,8 @@ input#subtask-edit-input {
   justify-content: flex-end;
   align-items: center;
   gap: 9px;
+  padding-bottom: 10px;
+  padding-right: 20px;
 }
 
 .detail-assignees,
