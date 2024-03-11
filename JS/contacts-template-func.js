@@ -26,7 +26,8 @@ function setLetterContainersHTML(key) {
  */
 function getShowContactInTheListHTML(i, key, name, email) {
   return /*html*/ `
-      <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContact('${key}', ${i})" id="under-container${key}${i}" class="under-container">
+      <div tabindex="0" onblur="backgroundAndTextOriginal('${key}',${i})" onfocus="backgroundBlackAndWhiteText('${key}',${i});" onclick="showContact('${key}', ${i})" onmouseover="backgroundGreyOnOver('${key}', ${i})";
+      onmouseout="backgroundOriginalOnOverFinish('${key}', ${i})" id="under-container${key}${i}" class="under-container">
           <div class="contact-badge-bg-container"><div id="contact-badge${key}${i}" class="contact-badge" style="background:${badgeColor}"><span class="firstLetters">${capitalizedLetters}</span></div></div>
            <div id="name-and-email-container${i}" class="contact-list-name-and-email-container">
              <span id="contact-list-name${key}${i}" class="contact-list-name">${name}</span>

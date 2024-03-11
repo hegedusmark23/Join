@@ -1,8 +1,8 @@
 header {
   display: flex;
   justify-content: space-between;
-  padding: 30px 30px 0px;
   height: 15%;
+  padding: 20px;
 }
 
 .notUser-text {
@@ -69,12 +69,13 @@ main {
   font-weight: 800;
 }
 
+
 .login-input {
   width: 410px;
   height: 48px;
   font-size: 20px;
   border-radius: 10px;
-  padding: 0 12px;
+  padding: 0 8px;
   border-width: 1px;
   border-style: solid;
   border-color: #d1d1d1;
@@ -210,6 +211,24 @@ form {
   opacity: 0;
 }
 
+@media (max-width: 930px){
+  header {
+    padding: 0px;
+  }
+
+  .animated-logo{
+    padding: 20px;
+  }
+
+  .sign-up-btn{
+    padding: 20px;
+  }
+
+  .join-logo{
+    padding: 20px;
+  }
+}
+
 @keyframes invisVis {
   0% {
     opacity: 0;
@@ -321,3 +340,11 @@ form {
   cursor: pointer;
 }
 
+.legal-text-container-noUser {
+  padding: 110px 20px 30px 284px;
+}
+
+.prx_wrapper{
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}

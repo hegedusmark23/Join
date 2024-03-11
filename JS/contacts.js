@@ -245,7 +245,6 @@ function successfulContactAddedButton() {
 /**
  * this function moves the banner with the message that the contact has been successfully created out of the viewport again
  */
-
 function hideSuccessfulContactAddedButton() {
     let successButton = document.getElementById('successfulButton');
     successButton.classList.add('translateSuccButton');
@@ -271,6 +270,11 @@ function showEditContactOverlay(key, i) {
     translateContactDialogPopUpInside(`${key}`, `${i}`)
 }
 
+/**
+ * This function dynamically creates the Pop-up Edit Contact
+ * @param {*} key - letter of the container in which the selected contact is located. 
+ * @param {*} i - index of the positione of the selected contact within its container
+ */
 function createEditDialogContainer(key, i) {
     let mainContainer = document.getElementById('add-contacts-contents');
     mainContainer.innerHTML += /*html*/ `
@@ -290,6 +294,13 @@ function getTheInputs(key, i) {
     badge = document.getElementById(`edit-contact-badge-container${key}${i}`)
 }
 
+/**
+ * This function display the complete name, the email, the phone number and the badge color of the selected contact, in the Pop-up Edit Contact
+ * @param {string} name - complete name of the Contact
+ * @param {string} email - E-Mail address of the Contact
+ * @param {string} phone - phone number of the Contact
+ * @param {string} badgeColor - badge color of the Contact
+ */
 function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
     inputName.value = name;
     inputEmail.value = email;
@@ -302,7 +313,6 @@ function displayTheContactDataInTheInputs(name, email, phone, badgeColor) {
  * @param {string} key - parameter corresponding to the main container in which the contact is contained
  * @param {number} i - Index of each contact contained in the main letter container
  */
-
 function translateContactDialogPopUpInside(key, i) {
     setTimeout(() => {
         document.getElementById(`contact-dialog${key}${i}`).classList.remove('translateContactDialogPopUp');
@@ -314,7 +324,6 @@ function translateContactDialogPopUpInside(key, i) {
  * @param {string} key - parameter corresponding to the main container in which the contact is contained
  * @param {number} i - Index of each contact contained in the main letter container
  */
-
 function hideEditContactOverlay(key, i, event) {
     document.getElementById(`contact-dialog${key}${i}`).classList.add('translateContactDialogPopUp');
     setTimeout(() => {
@@ -357,6 +366,13 @@ async function deleteContact(key, i, event) {
     event.stopPropagation();
 }
 
+
+/**
+ * This function allows you to delete a contact from the Edit Contact pop up
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container
+ * @param {object} event - event parameter for the stopPropagation()
+ */
 async function deleteContactFromPopUp(key, i, event) {
     letterContainer[key].splice(i, 1);
     document.getElementById(`contact-view-container`).innerHTML = '';
@@ -387,6 +403,24 @@ function backgroundAndTextOriginal(key, i) {
     document.getElementById(`under-container${key}${i}`).classList.remove('black-container');
     document.getElementById(`contact-list-name${key}${i}`).style.color = '#000';
     document.getElementById(`contact-list-email${key}${i}`).style.color = '#29ABE2'
+}
+
+/**
+ * When the mouse is over the container of the individual contact this function adds a adds a class containing a gray background color
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container 
+ */
+function backgroundGreyOnOver(key, i) {
+    document.getElementById(`under-container${key}${i}`).classList.add('grey-container')
+}
+
+/**
+ * When the mouse is no longer over the contact ontainer, this function removes the gray backgound class
+ * @param {string} key - parameter corresponding to the main container in which the contact is contained
+ * @param {number} i - Index of each contact contained in the main letter container 
+ */
+function backgroundOriginalOnOverFinish(key, i) {
+    document.getElementById(`under-container${key}${i}`).classList.remove('grey-container')
 }
 
 /**
