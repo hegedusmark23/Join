@@ -247,7 +247,9 @@ async function deleteCurrentTask() {
                 .then(() => {
                     console.info('Task was deleted successfully');
                     closeModal('task-detail-modal');
-                    identifier--;
+                    if (identifier > 0) {
+                        identifier--;
+                    }
                     setItem('identifier', JSON.stringify(identifier))
                     initializeBoardCard();
                 })

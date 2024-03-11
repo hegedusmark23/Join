@@ -185,20 +185,15 @@ function saveInputFields() {
  */
 async function loadTasks() {
     try {
-        // Attempting to retrieve the saved tasks
-        const storedTasks = await getItem('tasks');
+        const storedTasks = await getItem('tasks'); // Attempting to retrieve the saved tasks
         const storedIdentifier = await getItem('identifier')
-        // Check whether saved tasks exist
-        if (storedTasks) {
-            // Deserialization of the stored tasks and assignment to the global variable `tasks`
-            tasks = JSON.parse(storedTasks);
-            identifier = JSON.parse(storedIdentifier)
+        if (storedTasks) {  // Check whether saved tasks exist
+            tasks = JSON.parse(storedTasks);  // Deserialization of the stored tasks and assignment to the global variable `tasks`
+            identifier = JSON.parse(storedIdentifier);
         }
-        // Call the function to display the loaded tasks
-        showTasks();
+        showTasks(); // Call the function to display the loaded tasks
     } catch (error) {
-        // Output an error message in the event of an error loading the tasks
-        console.error('Error loading tasks:', error);
+        console.error('Error loading tasks:', error); // Output an error message in the event of an error loading the tasks
     }
 }
 
@@ -279,7 +274,7 @@ function validateTaskForm() {
         document.getElementById('duedate-error-msg').style.visibility = 'hidden';
     }
     // Validate category
-    if (!category) { 
+    if (!category) {
         document.getElementById('dropdown-categories-error-msg').style.visibility = 'visible';
         isValid = false;
     } else {
@@ -301,7 +296,7 @@ function validateTaskForm() {
 function showTaskAddedMessage(fromModal = false) {
     const messageElement = document.getElementById('create-task-message');
     if (messageElement) {
-        messageElement.style.display = 'flex'; 
+        messageElement.style.display = 'flex';
         if (fromModal) {
             messageElement.classList.add('no-background');
         } else {

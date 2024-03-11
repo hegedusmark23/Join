@@ -946,6 +946,7 @@ input#subtask-edit-input {
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  overflow-x:hidden
 }
 
 .board-card-content {

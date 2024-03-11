@@ -241,7 +241,7 @@ function insertDynamicContentIntoModal(taskState) {
                 ${formSectionRight}
             </form>
         </section>`;
-    
+
     modalContent.innerHTML = dynamicContent;
     reinitializeEventListenersForEditModal();
 }
@@ -294,7 +294,7 @@ function clearModalContent() {
     }
     const modal = document.getElementById('addtask-modal');
     if (modal) {
-        modal.classList.remove('modal-open'); 
+        modal.classList.remove('modal-open');
         modal.style.display = '';
     }
 }
@@ -303,7 +303,7 @@ function clearModalContent() {
  * Generates the HTML for the pop-up menu on mobile devices that allows users to move a task to a different state.
  * @returns {string} HTML string for the pop-up menu.
  */
-function showPopUpMoveTaskMobileHTML(){
+function showPopUpMoveTaskMobileHTML() {
     return /*html*/ `
     <div onclick="doNotClose(event)" id="popUp-choice" class="popUp-choice translatePopUpChoice">
      <span onclick="closePopUpMoveTaskMobile(event)" class="cross-icon-choice-container">
