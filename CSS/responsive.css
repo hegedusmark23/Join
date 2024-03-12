@@ -717,6 +717,7 @@
 
   .modal-content-tasks {
     max-width: 299px;
+    height: 70vh;
   }
 
   .addTask-content {

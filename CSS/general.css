@@ -512,8 +512,8 @@ a {
 }
 
 .prx_wrapper {
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 .privacy-container {
