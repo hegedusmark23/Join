@@ -113,7 +113,7 @@ async function login() {
   let user = users.find(u => u.email == email.value && u.password == password.value);
   if (user) {
     await setItem('user', JSON.stringify(user));
-    window.location.href = '/summary.html';
+    window.location.href = './summary.html';
   } else {
     loginError();
   }
